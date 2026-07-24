@@ -1,3 +1,3 @@
 # m20-website
 
-Access check: this README was created by Claude to confirm read/write access to this repository.
+This site was built using Claude Code. Doc coming soon on how to use it. -- keri
