@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  ::selection{background:#E12B1C;color:#fff}
+  input,textarea,select{font-family:'DM Sans',sans-serif}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:#E12B1C !important}
+  input::placeholder,textarea::placeholder{color:#A9A79F}
+</style>
+</helmet>
+<div style="background:#F5F4F1;color:#16161A;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column">
+
+  <dc-import name="Nav" active="contact" hint-size="100%,74px"></dc-import>
+
+  <section style="flex:1;padding:80px max(24px,calc((100% - 1240px)/2)) 96px">
+    <div style="display:grid;grid-template-columns:0.95fr 1.05fr;gap:64px;align-items:start">
+
+      <!-- LEFT -->
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.16em;color:#E12B1C;margin-bottom:22px">CONTACT US</div>
+        <h1 style="font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(40px,5.4vw,72px);line-height:0.98;letter-spacing:-0.045em;margin:0 0 24px">Let's build something<br>worth using.</h1>
+        <p style="font-size:18px;line-height:1.6;color:#55534D;max-width:440px;margin:0 0 44px">Tell us about your team and your tools. We'll help you get more out of Atlassian — and bring your people along with you.</p>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <a href="mailto:sales@m20tech.com" style="display:flex;align-items:center;gap:18px;text-decoration:none;background:#fff;border:1px solid #E4E2DD;border-radius:16px;padding:20px 24px;transition:transform .18s" style-hover="transform:translateX(4px)">
+            <span style="width:46px;height:46px;border-radius:12px;background:#FBE9E7;display:flex;align-items:center;justify-content:center;font-size:20px">✉</span>
+            <span><span style="display:block;font-size:13px;color:#8A887F">Email us</span><span style="display:block;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#16161A">sales@m20tech.com</span></span>
+          </a>
+          <a href="https://www.linkedin.com/company/m20-technology" style="display:flex;align-items:center;gap:18px;text-decoration:none;background:#fff;border:1px solid #E4E2DD;border-radius:16px;padding:20px 24px;transition:transform .18s" style-hover="transform:translateX(4px)">
+            <span style="width:46px;height:46px;border-radius:12px;background:#FBE9E7;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;color:#E12B1C;font-size:18px">in</span>
+            <span><span style="display:block;font-size:13px;color:#8A887F">Follow along</span><span style="display:block;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#16161A">M20 Technology on LinkedIn</span></span>
+          </a>
+        </div>
+
+        <div style="display:inline-flex;align-items:center;gap:9px;margin-top:36px;padding:9px 16px;border:1px solid #DAD7D0;border-radius:100px;font-size:12.5px;font-weight:600;letter-spacing:0.05em;color:#55534D"><span style="width:7px;height:7px;border-radius:50%;background:#E12B1C"></span>ATLASSIAN GOLD SOLUTION PARTNER</div>
+      </div>
+
+      <!-- FORM -->
+      <div style="background:#fff;border:1px solid #E4E2DD;border-radius:24px;padding:clamp(28px,3vw,44px)">
+        <form onsubmit="{{ onSubmit }}">
+          <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:40px 12px">
+              <div style="width:64px;height:64px;border-radius:50%;background:#FBE9E7;color:#E12B1C;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 22px">✓</div>
+              <h3 style="font-family:'Sora',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;margin:0 0 10px">Thanks — message sent.</h3>
+              <p style="font-size:16px;color:#6B6B70;margin:0">We'll be in touch shortly at the email you provided.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+              <label style="display:block"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">First name</span><input type="text" placeholder="Jane" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
+              <label style="display:block"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Last name</span><input type="text" placeholder="Doe" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
+            </div>
+            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Work email</span><input type="email" placeholder="jane@company.com" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
+            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Company</span><input type="text" placeholder="Company name" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
+            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">How can we help?</span><select style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8;color:#16161A"><option>Atlassian Services</option><option>Atlassian Rovo &amp; AI</option><option>Migration to Cloud</option><option>Training &amp; support</option><option>Something else</option></select></label>
+            <label style="display:block;margin-bottom:24px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Message</span><textarea rows="4" placeholder="Tell us a little about your team and goals…" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8;resize:vertical"></textarea></label>
+            <button type="submit" style="width:100%;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:#fff;background:#E12B1C;border:none;padding:16px;border-radius:100px;cursor:pointer;transition:background .18s" style-hover="background:#BE2114">Send message</button>
+            <p style="font-size:12.5px;color:#A9A79F;text-align:center;margin:14px 0 0">By submitting you agree to our privacy policy.</p>
+          </div>
+          </sc-if>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { submitted: false };
+  renderVals() {
+    return {
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
