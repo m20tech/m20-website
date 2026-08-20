@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</helmet>
+<header style="position:sticky;top:0;z-index:50;background:rgba(250,247,244,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E4DCD3;">
+  <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:flex;align-items:center;gap:28px;min-height:76px;">
+    <a href="index.dc.html" aria-label="M20 Technology — home" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
+      <img src="assets/logo.png" alt="M20 Technology logo" style="width:42px;height:auto;display:block;">
+      <span style="display:flex;flex-direction:column;line-height:1.05;">
+        <span style="font:700 22px Inter, sans-serif;letter-spacing:.01em;color:#14171C;">M20</span>
+        <span style="font:500 11px Inter, sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#5A6270;">Technology</span>
+      </span>
+    </a>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Primary" style="margin-left:auto;">
+        <ul style="display:flex;gap:30px;list-style:none;margin:0;padding:0;">
+          <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
+            <a href="index.dc.html" style="font:600 15px Inter, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Home</a>
+            <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
+          </li>
+          <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
+            <a href="ai.dc.html" style="font:600 15px Inter, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">AI</a>
+            <sc-if value="{{ isAi }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
+          </li>
+          <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
+            <a href="services.dc.html" style="font:600 15px Inter, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Services</a>
+            <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
+          </li>
+          <li style="position:relative;" onMouseEnter="{{ hoverResources }}" onMouseLeave="{{ unhoverResources }}">
+            <button onclick="{{ toggleResources }}" aria-haspopup="true" aria-expanded="{{ resourcesOpen }}" style="display:inline-flex;align-items:center;gap:7px;font:600 15px Inter, sans-serif;color:#14171C;background:none;border:0;cursor:pointer;padding:8px 2px;">
+              Resources
+              <svg viewBox="0 0 10 6" width="10" height="6" style="{{ chevronStyle }}"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+            </button>
+            <sc-if value="{{ resourcesOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:12px;z-index:60;">
+                <ul style="min-width:200px;margin:0;padding:8px;list-style:none;background:#FAF7F4;border:1px solid #E4DCD3;border-radius:12px;box-shadow:0 18px 44px rgba(20,23,28,.16);">
+                  <li style="margin:0;">
+                    <a href="case-studies.dc.html" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px Inter, sans-serif;color:#14171C;text-decoration:none;" style-hover="background:#F9E9E4;color:#96271C;">Case Studies</a>
+                  </li>
+                </ul>
+              </div>
+            </sc-if>
+          </li>
+          <li style="position:relative;" onMouseEnter="{{ hoverAbout }}" onMouseLeave="{{ unhoverAbout }}">
+            <button onclick="{{ toggleAbout }}" aria-haspopup="true" aria-expanded="{{ aboutOpen }}" style="display:inline-flex;align-items:center;gap:7px;font:600 15px Inter, sans-serif;color:#14171C;background:none;border:0;cursor:pointer;padding:8px 2px;">
+              About Us
+              <svg viewBox="0 0 10 6" width="10" height="6" style="{{ aboutChevronStyle }}"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+            </button>
+            <sc-if value="{{ aboutOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:12px;z-index:60;">
+                <ul style="min-width:200px;margin:0;padding:8px;list-style:none;background:#FAF7F4;border:1px solid #E4DCD3;border-radius:12px;box-shadow:0 18px 44px rgba(20,23,28,.16);">
+                  <li style="margin:0;">
+                    <a href="partners.dc.html" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px Inter, sans-serif;color:#14171C;text-decoration:none;" style-hover="background:#F9E9E4;color:#96271C;">Partners</a>
+                  </li>
+                </ul>
+              </div>
+            </sc-if>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="contact.dc.html" style="min-height:34px;padding:7px 20px;font:600 15px Inter, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
+    </sc-if>
+
+    <sc-if value="{{ !isDesktop }}" hint-placeholder-val="{{ false }}">
+      <button onclick="{{ toggleMobile }}" aria-label="Menu" style="margin-left:auto;width:48px;height:48px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
+        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
+        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
+      </button>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showMobileNav }}" hint-placeholder-val="{{ false }}">
+    <nav aria-label="Mobile" style="display:flex;flex-direction:column;gap:4px;padding:12px clamp(20px,4vw,48px) 24px;background:#FAF7F4;border-bottom:1px solid #E4DCD3;">
+      <a href="index.dc.html" style="padding:12px 4px;font:600 17px Inter, sans-serif;color:#14171C;text-decoration:none;">Home</a>
+      <a href="ai.dc.html" style="padding:12px 4px;font:600 17px Inter, sans-serif;color:#14171C;text-decoration:none;">AI</a>
+      <a href="services.dc.html" style="padding:12px 4px;font:600 17px Inter, sans-serif;color:#14171C;text-decoration:none;">Services</a>
+      <a href="case-studies.dc.html" style="padding:12px 4px;font:600 17px Inter, sans-serif;color:#14171C;text-decoration:none;">Case Studies</a>
+      <a href="partners.dc.html" style="padding:12px 4px;font:600 17px Inter, sans-serif;color:#14171C;text-decoration:none;">Partners</a>
+      <a href="contact.dc.html" style="margin-top:10px;align-self:flex-start;display:inline-flex;min-height:34px;padding:7px 20px;font:600 15px Inter, sans-serif;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;align-items:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
+    </nav>
+  </sc-if>
+</header>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;activePage&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;home&quot;, &quot;options&quot;: [&quot;home&quot;, &quot;ai&quot;, &quot;services&quot;, &quot;case-studies&quot;, &quot;partners&quot;, &quot;privacy&quot;, &quot;contact&quot;], &quot;tsType&quot;: &quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { mobileOpen: false, resHover: false, resLocked: false, aboutHover: false, aboutLocked: false, isDesktop: typeof window !== "undefined" ? window.innerWidth > 760 : true };
+  componentDidMount() {
+    this._onResize = () => this.setState({ isDesktop: window.innerWidth > 760 });
+    window.addEventListener("resize", this._onResize);
+    this._onDocDown = (e) => {
+      if (!this.state.resLocked && !this.state.aboutLocked) return;
+      if (e.target.closest && e.target.closest("nav[aria-label='Primary']")) return;
+      this.setState({ resLocked: false, aboutLocked: false });
+    };
+    this._onKey = (e) => { if (e.key === "Escape") this.setState({ resLocked: false, aboutLocked: false, resHover: false, aboutHover: false }); };
+    document.addEventListener("pointerdown", this._onDocDown);
+    document.addEventListener("keydown", this._onKey);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this._onResize);
+    document.removeEventListener("pointerdown", this._onDocDown);
+    document.removeEventListener("keydown", this._onKey);
+    clearTimeout(this._resT);
+    clearTimeout(this._aboutT);
+  }
+  renderVals() {
+    const p = this.props.activePage || "home";
+    const s = this.state;
+    const resOpen = s.resLocked || s.resHover;
+    const aboutOpen = s.aboutLocked || s.aboutHover;
+    return {
+      isHome: p === "home",
+      isAi: p === "ai",
+      isServices: p === "services",
+      isDesktop: this.state.isDesktop,
+      showMobileNav: this.state.mobileOpen && !this.state.isDesktop,
+      resourcesOpen: resOpen,
+      chevronStyle: resOpen ? "transform:rotate(180deg);transition:transform .18s ease" : "transition:transform .18s ease",
+      toggleMobile: () => this.setState(s => ({ mobileOpen: !s.mobileOpen })),
+      toggleResources: () => this.setState(s => ({ resLocked: !s.resLocked, aboutLocked: false })),
+      hoverResources: () => { clearTimeout(this._resT); this.setState({ resHover: true, aboutHover: false }); },
+      unhoverResources: () => { clearTimeout(this._resT); this._resT = setTimeout(() => this.setState({ resHover: false }), 220); },
+      aboutOpen: aboutOpen,
+      aboutChevronStyle: aboutOpen ? "transform:rotate(180deg);transition:transform .18s ease" : "transition:transform .18s ease",
+      toggleAbout: () => this.setState(s => ({ aboutLocked: !s.aboutLocked, resLocked: false })),
+      hoverAbout: () => { clearTimeout(this._aboutT); this.setState({ aboutHover: true, resHover: false }); },
+      unhoverAbout: () => { clearTimeout(this._aboutT); this._aboutT = setTimeout(() => this.setState({ aboutHover: false }), 220); }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

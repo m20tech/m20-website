@@ -8,88 +8,109 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  ::selection{background:#E12B1C;color:#fff}
-  input,textarea,select{font-family:'DM Sans',sans-serif}
-  input:focus,textarea:focus,select:focus{outline:none;border-color:#E12B1C !important}
-  input::placeholder,textarea::placeholder{color:#A9A79F}
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style id="reset">
+    body { margin: 0; }
+    a { text-decoration: none; }
+  </style>
 </helmet>
-<div style="background:#F5F4F1;color:#16161A;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column">
 
-  <dc-import name="Nav" active="contact" hint-size="100%,74px"></dc-import>
+<div style="background:#FAF7F4;color:#14171C;font-family:Inter, sans-serif;font-size:17px;line-height:1.65;">
 
-  <section style="flex:1;padding:80px max(24px,calc((100% - 1240px)/2)) 96px">
-    <div style="display:grid;grid-template-columns:0.95fr 1.05fr;gap:64px;align-items:start">
+  <dc-import name="Header" active-page="contact" hint-size="100%,76px"></dc-import>
 
-      <!-- LEFT -->
+  <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(56px,7vw,96px);">
+    <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(40px,6vw,88px);align-items:start;">
       <div>
-        <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.16em;color:#E12B1C;margin-bottom:22px">CONTACT US</div>
-        <h1 style="font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(40px,5.4vw,72px);line-height:0.98;letter-spacing:-0.045em;margin:0 0 24px">Let's build something<br>worth using.</h1>
-        <p style="font-size:18px;line-height:1.6;color:#55534D;max-width:440px;margin:0 0 44px">Tell us about your team and your tools. We'll help you get more out of Atlassian — and bring your people along with you.</p>
-
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <a href="mailto:sales@m20tech.com" style="display:flex;align-items:center;gap:18px;text-decoration:none;background:#fff;border:1px solid #E4E2DD;border-radius:16px;padding:20px 24px;transition:transform .18s" style-hover="transform:translateX(4px)">
-            <span style="width:46px;height:46px;border-radius:12px;background:#FBE9E7;display:flex;align-items:center;justify-content:center;font-size:20px">✉</span>
-            <span><span style="display:block;font-size:13px;color:#8A887F">Email us</span><span style="display:block;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#16161A">sales@m20tech.com</span></span>
-          </a>
-          <a href="https://www.linkedin.com/company/m20-technology" style="display:flex;align-items:center;gap:18px;text-decoration:none;background:#fff;border:1px solid #E4E2DD;border-radius:16px;padding:20px 24px;transition:transform .18s" style-hover="transform:translateX(4px)">
-            <span style="width:46px;height:46px;border-radius:12px;background:#FBE9E7;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;color:#E12B1C;font-size:18px">in</span>
-            <span><span style="display:block;font-size:13px;color:#8A887F">Follow along</span><span style="display:block;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#16161A">M20 Technology on LinkedIn</span></span>
-          </a>
-        </div>
-
-        <div style="display:inline-flex;align-items:center;gap:9px;margin-top:36px;padding:9px 16px;border:1px solid #DAD7D0;border-radius:100px;font-size:12.5px;font-weight:600;letter-spacing:0.05em;color:#55534D"><span style="width:7px;height:7px;border-radius:50%;background:#E12B1C"></span>ATLASSIAN GOLD SOLUTION PARTNER</div>
+        <p style="font:600 13px Inter, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
+          <span style="width:34px;height:2px;background:#E8A04C;"></span>Get in touch
+        </p>
+        <h2 style="font:500 clamp(34px,4.6vw,56px)/1.12 Fraunces, Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">Contact Us</h2>
+        <p style="color:#C9CDD6;margin:0 0 1em;">For a closer look at Rovo, the possibilities of AI with your team, or any of our services — drop us a line.</p>
+        <p style="margin:0;"><a href="mailto:sales@m20tech.com" style="color:#F5C98F;">Prefer email? sales@m20tech.com</a></p>
       </div>
 
-      <!-- FORM -->
-      <div style="background:#fff;border:1px solid #E4E2DD;border-radius:24px;padding:clamp(28px,3vw,44px)">
-        <form onsubmit="{{ onSubmit }}">
-          <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-            <div style="text-align:center;padding:40px 12px">
-              <div style="width:64px;height:64px;border-radius:50%;background:#FBE9E7;color:#E12B1C;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 22px">✓</div>
-              <h3 style="font-family:'Sora',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;margin:0 0 10px">Thanks — message sent.</h3>
-              <p style="font-size:16px;color:#6B6B70;margin:0">We'll be in touch shortly at the email you provided.</p>
-            </div>
-          </sc-if>
-          <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <form style="background:#fff;color:#14171C;border-radius:22px;padding:clamp(28px,4vw,44px);box-shadow:0 40px 90px rgba(0,0,0,.4);" onsubmit="{{ handleSubmit }}" novalidate="">
+        <div style="display:grid;gap:20px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:20px;">
           <div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-              <label style="display:block"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">First name</span><input type="text" placeholder="Jane" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
-              <label style="display:block"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Last name</span><input type="text" placeholder="Doe" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
-            </div>
-            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Work email</span><input type="email" placeholder="jane@company.com" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
-            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Company</span><input type="text" placeholder="Company name" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8"></label>
-            <label style="display:block;margin-bottom:16px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">How can we help?</span><select style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8;color:#16161A"><option>Atlassian Services</option><option>Atlassian Rovo &amp; AI</option><option>Migration to Cloud</option><option>Training &amp; support</option><option>Something else</option></select></label>
-            <label style="display:block;margin-bottom:24px"><span style="display:block;font-size:13px;font-weight:600;color:#55534D;margin-bottom:8px">Message</span><textarea rows="4" placeholder="Tell us a little about your team and goals…" style="width:100%;font-size:15px;padding:13px 15px;border:1px solid #DDDAD3;border-radius:11px;background:#FAFAF8;resize:vertical"></textarea></label>
-            <button type="submit" style="width:100%;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:#fff;background:#E12B1C;border:none;padding:16px;border-radius:100px;cursor:pointer;transition:background .18s" style-hover="background:#BE2114">Send message</button>
-            <p style="font-size:12.5px;color:#A9A79F;text-align:center;margin:14px 0 0">By submitting you agree to our privacy policy.</p>
+            <label for="firstName" style="display:block;font:600 13.5px Inter, sans-serif;margin-bottom:7px;color:#23282F;">First name <span style="color:#C0392B;">*</span></label>
+            <input type="text" id="firstName" name="firstName" required="" autocomplete="given-name" value="{{ firstName }}" onchange="{{ onField }}" style="width:100%;font:400 16px Inter, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ firstNameBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
           </div>
-          </sc-if>
-        </form>
-      </div>
+          <div>
+            <label for="lastName" style="display:block;font:600 13.5px Inter, sans-serif;margin-bottom:7px;color:#23282F;">Last name <span style="color:#C0392B;">*</span></label>
+            <input type="text" id="lastName" name="lastName" required="" autocomplete="family-name" value="{{ lastName }}" onchange="{{ onField }}" style="width:100%;font:400 16px Inter, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ lastNameBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
+          </div>
+        </div>
+        <div>
+          <label for="email" style="display:block;font:600 13.5px Inter, sans-serif;margin-bottom:7px;color:#23282F;">Email <span style="color:#C0392B;">*</span></label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" value="{{ email }}" onchange="{{ onField }}" style="width:100%;font:400 16px Inter, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ emailBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label for="subject" style="display:block;font:600 13.5px Inter, sans-serif;margin-bottom:7px;color:#23282F;">Subject <span style="color:#C0392B;">*</span></label>
+          <input type="text" id="subject" name="subject" required="" value="{{ subject }}" onchange="{{ onField }}" style="width:100%;font:400 16px Inter, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ subjectBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label for="message" style="display:block;font:600 13.5px Inter, sans-serif;margin-bottom:7px;color:#23282F;">Message <span style="color:#C0392B;">*</span></label>
+          <textarea id="message" name="message" rows="5" required="" onchange="{{ onField }}" style="width:100%;font:400 16px Inter, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
+        </div>
+        <button type="submit" style="margin-top:4px;width:100%;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px Inter, sans-serif;letter-spacing:.02em;border-radius:999px;border:0;background:#C0392B;color:#fff;cursor:pointer;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Submit</button>
+        <p role="status" style="margin:0;font-size:14.5px;min-height:22px;color:{{ statusColor }};">{{ statusText }}</p>
+        </div>
+      </form>
     </div>
   </section>
 
-  <dc-import name="Footer" hint-size="100%,420px"></dc-import>
+  <dc-import name="Footer" hint-size="100%,180px"></dc-import>
+
 </div>
+
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { submitted: false };
+  state = {
+    firstName: "", lastName: "", email: "", subject: "", message: "",
+    invalid: {}, statusText: "", statusOk: false
+  };
+  onField = (e) => {
+    const { name, value } = e.target;
+    this.setState(s => ({ [name]: value, invalid: { ...s.invalid, [name]: false } }));
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const required = ["firstName", "lastName", "email", "subject", "message"];
+    const invalid = {};
+    let valid = true;
+    required.forEach(f => {
+      const v = (this.state[f] || "").trim();
+      const ok = f === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : v !== "";
+      if (!ok) { invalid[f] = true; valid = false; }
+    });
+    if (!valid) {
+      this.setState({ invalid, statusText: "Please fill in the highlighted fields (valid email required).", statusOk: false });
+      return;
+    }
+    this.setState({
+      invalid: {}, statusText: "Thanks — your message is ready to send. Connect this form to your email service to go live.",
+      statusOk: true, firstName: "", lastName: "", email: "", subject: "", message: ""
+    });
+  };
   renderVals() {
+    const s = this.state;
+    const borderFor = (f) => s.invalid[f] ? "#96271C" : "#E4DCD3";
     return {
-      submitted: this.state.submitted,
-      notSubmitted: !this.state.submitted,
-      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+      year: new Date().getFullYear(),
+      firstName: s.firstName, lastName: s.lastName, email: s.email, subject: s.subject, message: s.message,
+      firstNameBorder: borderFor("firstName"), lastNameBorder: borderFor("lastName"),
+      emailBorder: borderFor("email"), subjectBorder: borderFor("subject"), messageBorder: borderFor("message"),
+      statusText: s.statusText, statusColor: s.statusOk ? "#1E7A46" : "#96271C",
+      onField: this.onField, handleSubmit: this.handleSubmit
     };
   }
 }
+
 </script>
 </body>
 </html>
