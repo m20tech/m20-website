@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Atlassian_Rovo__getJiraIssue",
+      "Bash(python3 -m http.server 8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/ai-value-proposition.dc.html)"
+    ]
+  }
+}
