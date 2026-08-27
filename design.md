@@ -32,19 +32,22 @@ Design logic: **paper/ink** for structure, **red** exclusively for calls to acti
 
 ## Typography
 
-- **Display serif:** [Fraunces](https://fonts.google.com/specimen/Fraunces) (optical size axis `9..144`, weights 400/500/600) — used for all headings (`h1`–`h3`) and any large display statement. Weight 500–600, tight letter-spacing (`-0.01em`), line-height 1.12–1.2.
-- **Body/UI sans:** Inter (weights 400/500/600/700) — used for body copy, nav, buttons, labels, eyebrows.
-- Loaded via Google Fonts: `family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700`.
+- **Display serif:** [Source Serif 4](https://fonts.google.com/specimen/Source+Serif+4) (optical size axis `8..60`, weights 400/600/700) — used for all headings, stat numerals, and pull quotes. Fallback: `Georgia, serif`. Weight 700 for page H1s, 600 for section H2s/card H3s/stat numerals, 400 for pull quotes. Tight letter-spacing (`-0.01em`) on headings, line-height 1.12–1.2.
+- **Body/UI sans:** [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3) (weights 400/500/600/700) — used for body copy, eyebrows, buttons, labels, nav, and form fields. Fallback: `system-ui, sans-serif`.
+- Loaded via Google Fonts: `family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700`.
+- Font-family values that contain a space must use single quotes (`'Source Serif 4'`), since every declaration lives inside a double-quoted `style="..."` HTML attribute.
 
 Type scale (fluid via `clamp()`):
-- H1 (hero): `clamp(44px,7vw,80px)` / 1.12, Fraunces 600
-- H1 (page header): `clamp(38px,5.4vw,60px)` / 1.15, Fraunces 600
-- H2 (section): `clamp(30px,4vw,48px)` / 1.15, Fraunces 500
-- H3 (card title): `20–26px` / 1.12–1.2, Fraunces 500
-- Body: `17px` base / 1.65 line-height, Inter 400
-- Lead paragraph: `18–22px`, Inter 400
-- Eyebrow/kicker label: `12–13px`, Inter 600, `letter-spacing: .14em–.2em`, uppercase, paired with a short 2px horizontal rule in the accent color
-- Nav/button label: `15px`, Inter 600, `letter-spacing: .02em`
+- H1 (hero): `clamp(44px,7vw,80px)` / 1.12, Source Serif 4 **700**
+- H1 (page header): `clamp(38px,5.4vw,60px)` / 1.15, Source Serif 4 **700**
+- H2 (section): `clamp(30px,4vw,48px)` / 1.15, Source Serif 4 **600**
+- H3 (card title): `20–26px` / 1.12–1.2, Source Serif 4 **600**
+- Stat numeral (case-study tiles): `clamp(30px,3.6vw,46px)` / 1, Source Serif 4 **600**
+- Pull quote (blockquote): `clamp(19px,2.2vw,24px)` / 1.55, Source Serif 4 **400**
+- Body: `17px` base / 1.65 line-height, Source Sans 3 400
+- Lead paragraph: `18–22px`, Source Sans 3 400
+- Eyebrow/kicker label: `12–13px`, Source Sans 3 600, `letter-spacing: .14em–.2em`, uppercase, paired with a short 2px horizontal rule in the accent color
+- Nav/button label: `15px`, Source Sans 3 600, `letter-spacing: .02em`
 
 ## Layout & spacing
 
@@ -110,4 +113,4 @@ Type scale (fluid via `clamp()`):
 
 ## Voice
 
-Short, confident, benefit-first headlines (Fraunces serif) paired with a calmer explanatory sentence (Inter). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
+Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
