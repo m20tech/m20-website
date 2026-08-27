@@ -53,15 +53,39 @@ Type scale (fluid via `clamp()`):
 
 - Content max-width: `1180px`, centered (`margin-inline:auto`)
 - Page gutter: `clamp(20px, 4vw, 48px)` horizontal padding
-- Section vertical rhythm: `clamp(48px,6vw,72px)` to `clamp(56px,7vw,96px)` block padding, larger for hero/lead sections
 - Card grid: `repeat(auto-fit, minmax(min(100%, 260–320px), 1fr))` with `gap: clamp(20px,3vw,36px)` — responsive without explicit breakpoints for most grids
 - Mobile breakpoint used explicitly in nav logic: `760px`
 - Border radius scale: `999px` (pills/buttons), `22px` (primary cards), `18px` (dark-surface cards, agent cards), `14px` (icon badges, small dark cards), `10px` (form inputs), `12px` (dropdown menus)
 
+### Section vertical rhythm
+
+Sections use one of four `padding-block` steps — pick the step, don't invent a new value.
+Keeping to the scale is what stops pages growing into needless scrolling.
+
+| Step | Value | Use |
+|---|---|---|
+| XL | `clamp(44px,5.5vw,72px)` | Page hero / lead section at the top of a page |
+| L | `clamp(40px,5vw,64px)` | Standard content section |
+| M | `clamp(36px,4.5vw,52px)` | Compact band, closing CTA strip |
+| S | `clamp(32px,4vw,44px)` | Tight filler band |
+
+Supporting spacing:
+- Two-column section gap: `clamp(28px,4vw,48px)`, up to `clamp(32px,4.5vw,64px)` for a wide split
+- Section heading → grid/content below: `32px` (never more)
+- Eyebrow → heading: `18px`; heading → lead paragraph: `20px`
+- Long-form prose (privacy policy): `1.4em` between blocks, `34px` above an `h2` (margins collapse, so the heading's top margin sets the section break)
+
+## Responsive layout
+
+Most grids are breakpoint-free (`auto-fit` + `minmax`). Add an explicit media query only when a
+count matters editorially — the Rovo agents grid on `ai.dc.html` is the one such case, pinned to
+3 + 3 via a `.agent-grid` rule in that page's `<style id="reset">` block (3 columns → 2 at
+`900px` → 1 at `600px`).
+
 ## Components
 
 **Buttons**
-- Primary: pill (`border-radius:999px`), `background:#C0392B`, white text, `min-height:38px`, `padding:8px 20px`, Inter 600 15px. Hover → `background:#96271C` + `box-shadow:0 8px 24px rgba(192,57,43,.28)`.
+- Primary: pill (`border-radius:999px`), `background:#C0392B`, white text, `min-height:38px`, `padding:8px 20px`, Source Sans 3 600 15px. Hover → `background:#96271C` + `box-shadow:0 8px 24px rgba(192,57,43,.28)`.
 - Secondary (on dark hero): pill, transparent/translucent fill (`rgba(20,23,28,.4)`), 2px white border. Hover fills white-tinted.
 - Outline (on light bg): pill, 2px solid `#14171C` border, dark text. Hover → fills `#14171C` with white text.
 
@@ -72,17 +96,18 @@ Type scale (fluid via `clamp()`):
 
 **Navigation (Header)**
 - Sticky header, `rgba(250,247,244,.94)` with `backdrop-filter: blur(10px)`, bottom border `#E4DCD3`.
-- Logo: 42px mark + stacked wordmark ("M20" bold 22px / "TECHNOLOGY" 11px letterspaced uppercase muted).
-- Desktop nav: horizontal links, 2px red underline under the active page; two hover/click dropdown menus (Resources → Case Studies; About Us → Partners).
-- Mobile (<760px): hamburger (3 bars) toggles a stacked full-width menu.
+- Logo: 42px mark + stacked wordmark ("M20" bold 22px / "TECHNOLOGY" 11px letterspaced uppercase muted). Both lines are set `line-height:1` with a `3px` gap between them, so the wordmark reads as one tight unit next to the mark — same treatment in the footer.
+- Desktop nav: `Home · AI · Services · Resources ▾ · Partners`, with a 2px red underline under the active page and a `Contact Us` pill at the right.
+- **Dropdowns are hover-only.** Resources (→ Case Studies, AI Value Proposition) opens on `mouseenter` and closes on `mouseleave` after a 220ms grace delay. Clicking a top-level nav label does nothing — there is no click-to-toggle and no latched-open state. Keyboard users get the same menu via `onFocus`/`onBlur` on the `<li>`, so the items stay reachable by Tab; `Escape` closes it.
+- Mobile (<760px): hamburger (3 bars) toggles a stacked full-width menu that lists every destination flat, including the ones behind the desktop dropdown.
 
 **Footer**
 - Dark (`#14171C`) bar, `1px` top border `rgba(255,255,255,.08)`, logo + Atlassian Gold Partner badge + link nav (LinkedIn, email, Contact, Privacy) + copyright line, all in a single wrapping flex row.
 
 **Forms (Contact page)**
 - White card on dark hero section, `22px` radius, heavy shadow (`0 40px 90px rgba(0,0,0,.4)`).
-- Inputs: `#FAF7F4` fill, `1.5px solid #E4DCD3` border (red on invalid), `10px` radius, `13px 15px` padding, 16px Inter.
-- Labels: 13.5px Inter 600, required asterisk in red.
+- Inputs: `#FAF7F4` fill, `1.5px solid #E4DCD3` border (red on invalid), `10px` radius, `13px 15px` padding, 16px Source Sans 3.
+- Labels: 13.5px Source Sans 3 600, required asterisk in red.
 - Full-width red pill submit button; inline status message (green success / red error).
 
 **Logo marquee** (home page "Trusted by" strip): auto-scrolling, pointer-draggable row of client logos, edge-masked with a fade gradient, pauses on `prefers-reduced-motion`.
@@ -107,7 +132,8 @@ Type scale (fluid via `clamp()`):
 
 - `index.html` — Home: hero, 3 service pillars, "Solutions" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
 - `services.dc.html` — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
-- `ai.dc.html` — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel), Teamwork Graph blurb, connector logos, CTA band.
+- `ai.dc.html` — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
+- `ai-value-proposition.dc.html` — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies.dc.html`, `case-study-intranet.dc.html`, `case-study-dashboard.dc.html` — case study index + detail pages.
 - `partners.dc.html`, `privacy.dc.html`, `contact.dc.html` — partners, privacy policy, and contact form.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`).
