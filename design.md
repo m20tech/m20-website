@@ -190,12 +190,17 @@ Generate PDFs from HTML/CSS — a headless-browser print (e.g. Puppeteer/Playwri
 - Margins: `1.25in` top (room for the running header), `1in` right/left, `1in` bottom (room for the footer).
 - Background: white (`#FFFFFF`) — the paper/off-white web background is a screen convention, not a print one.
 
-**Print type scale** (fixed pt, not `clamp()`)
-- Document title: Source Serif 4, 700, 28pt, `#14171C`, tight letter-spacing (`-0.01em`)
+**Links**
+- Preserve every source URL as a real, clickable `<a href="...">` in the HTML that gets rendered — a headless-browser print or an HTML-to-PDF library carries these through as live link annotations automatically. The failure mode is upstream: don't flatten Markdown links to plain text, strip `href`s, or rasterize content to an image before rendering, all of which silently drop the link.
+- Style links `#C0392B` (brand red) and **underlined** — on paper (or a static PDF viewer) there's no hover state to reveal an `<a>`, so unlike the web's no-underline default, the underline is the only affordance a reader gets. Keep the surrounding text's size/weight; don't bold a link just because it's a link.
+
+**Print type scale** — the same weights, letter-spacing, and color tokens as the web [Typography](#typography) scale, just fixed pt instead of `clamp()`:
+- Document title: Source Serif 4, 700, 28pt, `#14171C`, tight letter-spacing (`-0.01em`) — the print equivalent of the H1 (page header) token
 - Section heading: Source Sans 3, 700, 14pt, `#14171C` — **never Source Serif 4**; headings within the body shouldn't compete with the one display title on the page
 - Sub-heading: Source Sans 3, 600, 12pt, `#14171C`
 - Body: Source Sans 3, 400, 10.5pt / 1.5 line-height, `#14171C`; secondary/caption text `#5A6270`
-- Running header/footer text: Source Sans 3, 500, 9pt, `#5A6270`
+- Running header/footer text and stat/callout labels: Source Sans 3, 600, 9pt, uppercase, `letter-spacing:.12em`, `#5A6270` — the same eyebrow/kicker treatment as the web scale, just scaled down for print chrome
+- Stat numeral (newsletter "by the numbers" callouts): Source Serif 4, 600, 22pt, `#C0392B` — the print equivalent of the web stat-numeral token
 
 **Logo:** see [Logo & lockup](#logo--lockup) — embed as a base64 data URI in the rendered HTML. Running-header size: ~24px mark height plus wordmark, matching the site header lockup at reduced scale.
 
@@ -218,7 +223,25 @@ For general correspondence — the header and address are the whole template; th
 
 For reports, proposals, and other multi-page deliverables.
 
-- **Running header** (every page): logo lockup, small, top-left; document title, top-right, small and muted (Source Sans 3, 500, 9pt, `#5A6270`, uppercase, letter-spaced — an eyebrow-style label, not the display title). `1px` `#E4DCD3` rule beneath.
+- **Running header** (every page): logo lockup, small, top-left; document title, top-right, in the running-header eyebrow style (not the display title). `1px` `#E4DCD3` rule beneath.
 - **Title block** (page 1 only, first element in the body): the document title set in the large Source Serif 4 display style described above. This is the only text on the page that uses the display serif.
 - **Body content:** everything below the title — including every section and sub-section heading — uses Source Sans 3 only (see print type scale). Source Serif 4 is reserved for the single document title so it stays the visual anchor of the page.
-- **Running footer** (every page): page number, bottom-right, `"Page {n} of {total}"`, Source Sans 3, 500, 9pt, `#5A6270`.
+- **Running footer** (every page): page number, bottom-right, `"Page {n} of {total}"`, in the running-header/footer eyebrow style.
+
+### 3. Newsletter
+
+For a recurring, visually-driven multi-page send (product updates, team news, client digests) — more art-directed than the Document template, but built from the same panel, icon, and color vocabulary as the rest of the site rather than inventing new ones.
+
+- **Running header/footer:** same as Document — logo lockup top-left, issue title + date top-right in the running-header eyebrow style, page number bottom-right (`"Page {n} of {total}"`).
+- **Title block** (page 1 only): newsletter name in the Source Serif 4 display style, with the issue date beneath it as a body-weight subtitle — same "one display-serif moment per document" rule as the Document template.
+
+**Sections & callouts**
+- Break the body into distinct sections rather than one long scroll of paragraphs — alternate **full-width horizontal bands** (a lead story, a closing CTA) with a **2-up or 3-up card grid** (`repeat(auto-fit, minmax(...))`, same pattern as the site's card grids) for shorter items, so the page has visual rhythm instead of a single monotonous column.
+- Each section gets one icon badge as its entry point — reuse the Components icon badge exactly (44–56px square, `14px` radius, `#F9E9E4` tint, 24×24 stroke SVG in `#C0392B`, `stroke-width:1.9–2.2`) — not one icon per bullet. One icon per section/callout is a signpost; one per line item is noise and dilutes the site's "restrained set of line icons" identity.
+- Callout panels reuse the existing card/panel vocabulary rather than new colors or styles:
+  - **Tip / highlight:** white or `#F3EEE8` panel, `1px #E4DCD3` border, `18–22px` radius, `3px #E8A04C` top accent (same treatment as the dark-surface "gold top accent" card).
+  - **Action needed / deadline:** same panel, `3px #C0392B` top accent instead — red is reserved for things that need action, consistent with the site-wide rule that red always means "act on this."
+  - **Pull quote / testimonial:** `#14171C` dark panel, white text, Source Serif 4 400 pull-quote size, matching the web pull-quote token.
+  - **By the numbers:** a row of stat tiles — Source Serif 4 600 22pt numeral (see print type scale) over a Source Sans 3 label, matching the case-study stat-tile pattern.
+- **Emoji → icon translation:** never place literal emoji characters in the PDF — they render inconsistently (or not at all) across PDF viewers and fonts, and don't match the brand's hand-drawn-technical line style. Recreate the same idea as a custom inline SVG using the Icons spec (24×24 viewBox, stroke only, rounded caps/joins, brand red). A few common translations: 💡 idea → outlined lightbulb; ✅ done → checkmark-in-circle; 📈 growth → simple line/arrow chart; 🎉 celebration → a small burst/spark glyph; ⚠️ warning → outlined triangle with a line. When in doubt, design a new line icon in the same stroke style rather than reach for an emoji or a filled/colored icon set.
+- **Restraint:** two to four sections per issue is plenty — resist turning every paragraph into its own panel. Keep to the palette's existing logic (red = action, gold = kicker/highlight accent, paper-alt = neutral section break) instead of color-coding sections with new hues; a newsletter that uses five accent colors reads as a different product than the rest of M20's materials.
