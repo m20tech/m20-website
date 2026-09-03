@@ -6,6 +6,8 @@ Coding conventions for agents working in this repo. See [README.md](README.md) f
 
 **[design.md](design.md) is the golden source for this site's design system** — colors, typography, spacing, component patterns, imagery, and motion. Read it before styling or restyling anything. If a change introduces a new pattern, token, or component, update `design.md` to match.
 
+`design.md` also covers non-web deliverables: **Logo & lockup** (how to embed the M20 logo in a header for web, email, or PDF output) and dedicated **Email templates** / **PDF templates** sections. Read those before generating an email message or a PDF.
+
 ## Site structure
 
 - The site is static — no bundler, no build step. Pages are edited and served directly.

@@ -121,6 +121,18 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
 
+## Logo & lockup
+
+Reference for any deliverable that needs the M20 logo in a header — web, email, or PDF.
+
+- **File:** `assets/logo.png` — 300×300px PNG, transparent background, solid brand red (`#C0392B`) mark. It's opaque, so it reads cleanly on both light (paper) and dark (ink) backgrounds — there's no separate light/dark variant.
+- **Lockup:** mark + stacked wordmark — "M20" (Source Sans 3, bold, `line-height:1`) over "TECHNOLOGY" (Source Sans 3, smaller, uppercase, letter-spaced, muted color), `3px` gap between the two lines so they read as one tight unit next to the mark. See `Header.dc.html` / `Footer.dc.html` for the reference markup. Use the full lockup (mark + wordmark) whenever there's room; the mark alone is only for tight spaces (favicon-scale).
+- **Sizing:** ~42px mark height in the site header, ~36px in the footer. Scale down proportionally for compact placements (email header, PDF running header) — don't go below ~24px, where the mark starts to lose legibility.
+- **Embedding by output type:**
+  - **Web pages:** relative path, `assets/logo.png`.
+  - **Email:** an absolute, publicly reachable URL — `https://m20tech.github.io/m20-website/assets/logo.png`. Email clients (Gmail, Outlook, Apple Mail) fetch images over the network and commonly strip or block `data:` URIs, so base64-embedding the logo is not reliable here. Always set explicit `width`/`height` on the `<img>` and a plain-text `alt="M20 Technology"` fallback.
+  - **PDF:** embed as a base64 data URI in the HTML/CSS that gets rendered to PDF (or reference the local file path directly if the renderer runs inside this repo). That keeps the PDF self-contained and reproducible without a network fetch at render time.
+
 ## Motion
 
 - Hover transitions: `border-color`, `box-shadow`, `transform` at `.18s ease`.
@@ -141,3 +153,72 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 ## Voice
 
 Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
+
+## Email templates
+
+Emails are HTML, not the site's usual freeform layout — client support is inconsistent, so build defensively rather than porting web patterns directly.
+
+**Structure**
+- Single-column, table-based layout, `600px` max width, centered on a neutral surrounding background (`#F3EEE8` works well outside the 600px content table).
+- Style every element inline (`style="..."`) — the same convention used across `.dc.html` files, and doubly necessary in email since most clients strip `<style>` blocks.
+- No JavaScript, no CSS `:hover` or animation — none of it runs in an email client.
+
+**Fonts**
+- Don't rely on Source Serif 4 / Source Sans 3 loading — most email clients block external font requests or ignore `@font-face`/`<link>`. Use the fallback stacks as the primary declaration: `Georgia, 'Times New Roman', serif` for headline text, `Arial, Helvetica, sans-serif` for body/UI text. A `<link>` to the Google Fonts stylesheet can be added for progressive enhancement (Apple Mail and a few others honor it) but never depend on it for legibility.
+
+**Header**
+- Brand-red (`#C0392B`) or ink (`#14171C`) band, ~72px min-height.
+- Logo lockup (see [Logo & lockup](#logo--lockup)) left-aligned, using the hosted URL, sized ~32px tall with explicit `width`/`height` and `alt="M20 Technology"`.
+
+**Body**
+- Paper (`#FAF7F4`) or white background, `24–32px` padding.
+- Headline: serif fallback stack, ~22–26px, `#14171C`, bold.
+- Body copy: sans fallback stack, ~15–16px / 1.5 line-height, `#14171C` or `#5A6270` for secondary lines.
+
+**Buttons**
+- Use the "bulletproof" button pattern — a `<table>`-wrapped, padded, red (`#C0392B`) cell rather than a styled `<a>`/`<button>`. Border-radius on a table cell degrades gracefully (renders square) in Outlook instead of breaking. Text: white, bold, ~15px.
+
+**Footer**
+- Small muted text (`#9AA1AD` on dark / `#5A6270` on light): company name and address, plus an unsubscribe link for any marketing send. Match the address block used on the Letterhead PDF template below.
+
+## PDF templates
+
+Generate PDFs from HTML/CSS — a headless-browser print (e.g. Puppeteer/Playwright `page.pdf()`) or an HTML-to-PDF library (e.g. WeasyPrint) — using the same tokens as the site, translated to fixed print values. PDFs can't use `clamp()`/`vw`.
+
+**Page setup**
+- Size: US Letter (`8.5in × 11in`), portrait.
+- Margins: `1.25in` top (room for the running header), `1in` right/left, `1in` bottom (room for the footer).
+- Background: white (`#FFFFFF`) — the paper/off-white web background is a screen convention, not a print one.
+
+**Print type scale** (fixed pt, not `clamp()`)
+- Document title: Source Serif 4, 700, 28pt, `#14171C`, tight letter-spacing (`-0.01em`)
+- Section heading: Source Sans 3, 700, 14pt, `#14171C` — **never Source Serif 4**; headings within the body shouldn't compete with the one display title on the page
+- Sub-heading: Source Sans 3, 600, 12pt, `#14171C`
+- Body: Source Sans 3, 400, 10.5pt / 1.5 line-height, `#14171C`; secondary/caption text `#5A6270`
+- Running header/footer text: Source Sans 3, 500, 9pt, `#5A6270`
+
+**Logo:** see [Logo & lockup](#logo--lockup) — embed as a base64 data URI in the rendered HTML. Running-header size: ~24px mark height plus wordmark, matching the site header lockup at reduced scale.
+
+### 1. Letterhead
+
+For general correspondence — the header and address are the whole template; the rest of the page is blank canvas for the letter body.
+
+- **Header row** (inside the top margin): logo lockup, small, top-left. Company address, right-aligned, same row, top-right:
+  ```
+  M20 Technology LLC
+  75 South Broadway
+  4th Floor
+  White Plains, NY 10601
+  ```
+  Source Sans 3, 400, 9.5pt, `#5A6270`, 1.4 line-height, right-aligned.
+- A `1px` `#E4DCD3` rule under the header row, full width, `16px` below the address block.
+- No footer is required — letterhead is meant to be typed onto, not templated below the header.
+
+### 2. Document
+
+For reports, proposals, and other multi-page deliverables.
+
+- **Running header** (every page): logo lockup, small, top-left; document title, top-right, small and muted (Source Sans 3, 500, 9pt, `#5A6270`, uppercase, letter-spaced — an eyebrow-style label, not the display title). `1px` `#E4DCD3` rule beneath.
+- **Title block** (page 1 only, first element in the body): the document title set in the large Source Serif 4 display style described above. This is the only text on the page that uses the display serif.
+- **Body content:** everything below the title — including every section and sub-section heading — uses Source Sans 3 only (see print type scale). Source Serif 4 is reserved for the single document title so it stays the visual anchor of the page.
+- **Running footer** (every page): page number, bottom-right, `"Page {n} of {total}"`, Source Sans 3, 500, 9pt, `#5A6270`.
