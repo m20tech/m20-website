@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="/m20-website/support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -14,8 +14,8 @@
 </helmet>
 <header style="position:sticky;top:0;z-index:50;background:rgba(250,247,244,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E4DCD3;">
   <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:flex;align-items:center;gap:28px;min-height:76px;">
-    <a href="index.html" aria-label="M20 Technology — home" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
-      <img src="assets/logo.png" alt="M20 Technology logo" style="width:42px;height:auto;display:block;">
+    <a href="/m20-website/" aria-label="M20 Technology — home" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
+      <img src="/m20-website/assets/logo.png" alt="M20 Technology logo" style="width:42px;height:auto;display:block;">
       <span style="display:flex;flex-direction:column;line-height:1;">
         <span style="font:700 22px/1 'Source Sans 3', system-ui, sans-serif;letter-spacing:.01em;color:#14171C;">M20</span>
         <span style="font:500 11px/1 'Source Sans 3', system-ui, sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#5A6270;margin-top:3px;">Technology</span>
@@ -26,15 +26,15 @@
       <nav aria-label="Primary" style="margin-left:auto;">
         <ul style="display:flex;gap:30px;list-style:none;margin:0;padding:0;">
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="index.html" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Home</a>
+            <a href="/m20-website/" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Home</a>
             <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="ai.dc.html" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">AI</a>
+            <a href="/m20-website/ai" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">AI</a>
             <sc-if value="{{ isAi }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="services.dc.html" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Services</a>
+            <a href="/m20-website/services" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Services</a>
             <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;" onMouseEnter="{{ hoverResources }}" onMouseLeave="{{ unhoverResources }}" onFocus="{{ hoverResources }}" onBlur="{{ blurResources }}">
@@ -46,23 +46,23 @@
               <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:12px;z-index:60;">
                 <ul style="min-width:220px;margin:0;padding:8px;list-style:none;background:#FAF7F4;border:1px solid #E4DCD3;border-radius:12px;box-shadow:0 18px 44px rgba(20,23,28,.16);">
                   <li style="margin:0;">
-                    <a href="case-studies.dc.html" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;" style-hover="background:#F9E9E4;color:#96271C;">Case Studies</a>
+                    <a href="/m20-website/case-studies" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;" style-hover="background:#F9E9E4;color:#96271C;">Case Studies</a>
                   </li>
                   <li style="margin:0;">
-                    <a href="ai-value-proposition.dc.html" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;white-space:nowrap;" style-hover="background:#F9E9E4;color:#96271C;">AI Value Proposition</a>
+                    <a href="/m20-website/ai-value-proposition" style="display:block;padding:10px 14px;border-radius:8px;font:500 14.5px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;white-space:nowrap;" style-hover="background:#F9E9E4;color:#96271C;">AI Value Proposition</a>
                   </li>
                 </ul>
               </div>
             </sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="partners.dc.html" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Partners</a>
+            <a href="/m20-website/partners" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">Partners</a>
             <sc-if value="{{ isPartners }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
         </ul>
       </nav>
 
-      <a href="contact.dc.html" style="min-height:34px;padding:7px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
+      <a href="/m20-website/contact" style="min-height:34px;padding:7px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
     </sc-if>
 
     <sc-if value="{{ !isDesktop }}" hint-placeholder-val="{{ false }}">
@@ -76,13 +76,13 @@
 
   <sc-if value="{{ showMobileNav }}" hint-placeholder-val="{{ false }}">
     <nav aria-label="Mobile" style="display:flex;flex-direction:column;gap:4px;padding:12px clamp(20px,4vw,48px) 24px;background:#FAF7F4;border-bottom:1px solid #E4DCD3;">
-      <a href="index.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Home</a>
-      <a href="ai.dc.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">AI</a>
-      <a href="services.dc.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Services</a>
-      <a href="case-studies.dc.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Case Studies</a>
-      <a href="ai-value-proposition.dc.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">AI Value Proposition</a>
-      <a href="partners.dc.html" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Partners</a>
-      <a href="contact.dc.html" style="margin-top:10px;align-self:flex-start;display:inline-flex;min-height:34px;padding:7px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;align-items:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
+      <a href="/m20-website/" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Home</a>
+      <a href="/m20-website/ai" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">AI</a>
+      <a href="/m20-website/services" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Services</a>
+      <a href="/m20-website/case-studies" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Case Studies</a>
+      <a href="/m20-website/ai-value-proposition" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">AI Value Proposition</a>
+      <a href="/m20-website/partners" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">Partners</a>
+      <a href="/m20-website/contact" style="margin-top:10px;align-self:flex-start;display:inline-flex;min-height:34px;padding:7px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;border-radius:999px;background:#C0392B;color:#fff;text-decoration:none;align-items:center;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact Us</a>
     </nav>
   </sc-if>
 </header>

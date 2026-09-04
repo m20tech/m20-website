@@ -7,7 +7,8 @@ Source for [m20tech.com](https://m20tech.github.io/m20-website/), the marketing 
 The site is a static build with no bundler or build step — pages are edited and served directly.
 
 - `index.html` — homepage
-- `*.dc.html` — page and component "design canvas" files (e.g. `ai.dc.html`, `services.dc.html`, `partners.dc.html`, `contact.dc.html`, `case-studies.dc.html`, `case-study-*.dc.html`, `privacy.dc.html`, `Header.dc.html`, `Footer.dc.html`)
+- `<page>/index.html` — every other page, one folder per clean URL (e.g. `services/index.html` serves at `/services`): `ai/`, `ai-value-proposition/`, `services/`, `partners/`, `contact/`, `case-studies/`, `case-study-dashboard/`, `case-study-intranet/`, `privacy/`
+- `Header.dc.html`, `Footer.dc.html` — shared "design canvas" components, fetched at runtime by every page via `<dc-import>`; not pages themselves, so they stay flat at the repo root
 - `image-slot.js`, `support.js` — shared client-side scripts
 - `assets/` — site-owned images (logos, hero art, partner/client marks)
 - `uploads/` — additional media and documents referenced by pages

@@ -144,13 +144,36 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 
 ## Page inventory
 
-- `index.html` — Home: hero, 3 service pillars, "Solutions" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
-- `services.dc.html` — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
-- `ai.dc.html` — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
-- `ai-value-proposition.dc.html` — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
-- `case-studies.dc.html`, `case-study-intranet.dc.html`, `case-study-dashboard.dc.html` — case study index + detail pages.
-- `partners.dc.html`, `privacy.dc.html`, `contact.dc.html` — partners, privacy policy, and contact form.
-- `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`).
+- `index.html` (`/`) — Home: hero, 3 service pillars, "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
+- `services/index.html` (`/services`) — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
+- `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
+- `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
+- `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index + detail pages.
+- `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
+- `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
+
+## URL structure
+
+Every page is clean-slug, extension-free: each non-home page is a folder holding its own
+`index.html` (e.g. `services/index.html` serves at `/services`), so any static host serves it
+with no `.html` or `.dc.html` in the address bar. `index.html` stays at the repo root as the home
+page. `Header.dc.html` and `Footer.dc.html` are not pages — they're fetched at runtime by
+`<dc-import>` and never get a clean URL of their own.
+
+**Base path.** This repo is currently published at `https://m20tech.github.io/m20-website/` — a
+*subpath*, not domain root. Because `Header.dc.html`/`Footer.dc.html` are shared fragments
+reused at every page's depth, and because every page's own internal links/assets need to resolve
+correctly regardless of nesting, every internal `href`/`src` in the site (including the
+`dc-import` fetch itself) is written as an **absolute path prefixed with `/m20-website`** —
+e.g. `href="/m20-website/services"`, `src="/m20-website/assets/logo.png"` — rather than a
+relative one. The same prefix is hardcoded as `COMPONENT_DIR` near the top of `support.js`.
+
+**Cutover to `m20tech.com`.** Once the site is served from the domain root, that whole prefix
+becomes wrong (it should be empty). Fixing it is one mechanical step: a repo-wide search-and-replace
+of the literal string `/m20-website` → `` (empty), touching every page plus the `COMPONENT_DIR`
+line in `support.js`. Do this in the same commit as adding the `CNAME` file / pointing DNS —
+don't leave the two half-done, since neither works correctly alone. Nothing else about the page
+structure (folders, `index.html` files) needs to change at cutover.
 
 ## Voice
 
