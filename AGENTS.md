@@ -11,9 +11,9 @@ Coding conventions for agents working in this repo. See [README.md](README.md) f
 ## Site structure
 
 - The site is static — no bundler, no build step. Pages are edited and served directly.
-- Pages and shared components live in `*.dc.html` files (a "design canvas" format): `index.html` is the homepage, other pages/components are named e.g. `services.dc.html`, `Header.dc.html`, `Footer.dc.html`.
-- Every page wraps content in `<x-dc>...</x-dc>`, includes `./support.js` and `./image-slot.js`, and pulls in shared components via `<dc-import name="Header" ...>` / `<dc-import name="Footer" ...>` rather than duplicating markup.
-- `<dc-import>` resolves by fetching `./<Name>.dc.html` at runtime — it only works when the page is served over `http(s)://`. Preview pages with a local static server (e.g. `python3 -m http.server`), not by opening the file directly (`file://`).
+- Pages live in `.dc.html`/`.html` files (a "design canvas" format), each in its own folder as `index.html` for a clean URL: `index.html` at the repo root is the homepage, other pages are e.g. `services/index.html`, `contact/index.html`. Shared components (`Header.dc.html`, `Footer.dc.html`) stay flat at the repo root — see **URL structure** in `design.md` before adding, renaming, or moving a page.
+- Every page wraps content in `<x-dc>...</x-dc>`, includes `support.js` and `image-slot.js`, and pulls in shared components via `<dc-import name="Header" ...>` / `<dc-import name="Footer" ...>` rather than duplicating markup.
+- `<dc-import>` resolves by fetching `<Name>.dc.html` at runtime — it only works when the page is served over `http(s)://`. Preview pages with a local static server (e.g. `python3 -m http.server`), not by opening the file directly (`file://`). Every internal `href`/`src`, and the `dc-import` fetch itself, uses an absolute path prefixed with the site's current base path (see `design.md`) rather than a relative one — needed because shared components render at whatever depth the importing page sits at.
 - Styling is inline (`style="..."`) using the tokens and values documented in `design.md` — there is no external stylesheet to add classes to.
 - Hover states use the custom `style-hover="..."` attribute (inline styles applied on hover), not CSS `:hover` classes.
 
