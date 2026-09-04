@@ -110,7 +110,9 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Labels: 13.5px Source Sans 3 600, required asterisk in red.
 - Full-width red pill submit button; inline status message (green success / red error).
 
-**Logo marquee** (home page "Trusted by" strip): auto-scrolling, pointer-draggable row of client logos, edge-masked with a fade gradient, pauses on `prefers-reduced-motion`.
+**Logo marquee** (home page "Trusted by" strip): auto-scrolling, pointer-draggable row of client logos, edge-masked with a fade gradient, pauses on `prefers-reduced-motion`. Every logo is listed twice — the second run is what makes the loop seamless, so add or remove a logo in **both** halves. Logos are sized `height:96px;width:auto`, which suits the square-ish marks most clients supply; a wide horizontal wordmark (CL Life, ~4.5:1) must also carry `max-width:200px` so it doesn't dwarf the rest of the row.
+
+**Sticky footer** (short pages — `contact.dc.html`, `case-studies.dc.html`): when a page's content is shorter than the viewport, the footer would otherwise stop mid-screen and leave a bare white strip below it, since `body` has no background of its own. Those pages give the outer wrapper `min-height:100vh;display:flex;flex-direction:column;` and the main `<section>` `flex:1 0 auto;`, which pins the footer to the bottom and lets the section absorb the slack. Apply this to any new page that can render shorter than about 1000px.
 
 **Data viz motif**: a segmented ring/donut chart ("Optimization Cycle") built from 4 arc segments in the red→gold family (`#C0392B`, `#96271C`, `#E8A04C`, `#F0C9A8`) with a paper-colored center hole and serif label — used as the one illustrative-chart pattern on the site.
 
