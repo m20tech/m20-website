@@ -7,7 +7,7 @@ Source for [m20tech.com](https://m20tech.github.io/m20-website/), the marketing 
 The site is a static build with no bundler or build step — pages are edited and served directly.
 
 - `index.html` — homepage
-- `<page>/index.html` — every other page, one folder per clean URL (e.g. `services/index.html` serves at `/services`): `ai/`, `ai-value-proposition/`, `services/`, `partners/`, `contact/`, `case-studies/`, `case-study-dashboard/`, `case-study-intranet/`, `privacy/`
+- `<page>/index.html` — every other page, one folder per clean URL (e.g. `atlassian-services/index.html` serves at `/atlassian-services`): `ai/`, `ai-value-proposition/`, `atlassian-services/`, `partners/`, `contact/`, `case-studies/`, `case-study-dashboard/`, `case-study-intranet/`, `privacy/`
 - `Header.dc.html`, `Footer.dc.html` — shared "design canvas" components, fetched at runtime by every page via `<dc-import>`; not pages themselves, so they stay flat at the repo root
 - `image-slot.js`, `support.js` — shared client-side scripts
 - `assets/` — site-owned images (logos, hero art, partner/client marks)
