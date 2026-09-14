@@ -150,7 +150,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 ## Page inventory
 
 - `index.html` (`/`) — Home: hero, 3 service pillars, "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
-- `services/index.html` (`/services`) — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
+- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
 - `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index + detail pages.
@@ -170,7 +170,7 @@ page. `Header.dc.html` and `Footer.dc.html` are not pages — they're fetched at
 reused at every page's depth, and because every page's own internal links/assets need to resolve
 correctly regardless of nesting, every internal `href`/`src` in the site (including the
 `dc-import` fetch itself) is written as an **absolute path prefixed with `/m20-website`** —
-e.g. `href="/m20-website/services"`, `src="/m20-website/assets/logo.png"` — rather than a
+e.g. `href="/m20-website/atlassian-services"`, `src="/m20-website/assets/logo.png"` — rather than a
 relative one. The same prefix is hardcoded as `COMPONENT_DIR` near the top of `support.js`.
 
 **Cutover to `m20tech.com`.** Once the site is served from the domain root, that whole prefix
