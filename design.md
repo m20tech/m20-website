@@ -165,20 +165,30 @@ with no `.html` or `.dc.html` in the address bar. `index.html` stays at the repo
 page. `Header.dc.html` and `Footer.dc.html` are not pages — they're fetched at runtime by
 `<dc-import>` and never get a clean URL of their own.
 
-**Base path.** This repo is currently published at `https://m20tech.github.io/m20-website/` — a
-*subpath*, not domain root. Because `Header.dc.html`/`Footer.dc.html` are shared fragments
-reused at every page's depth, and because every page's own internal links/assets need to resolve
-correctly regardless of nesting, every internal `href`/`src` in the site (including the
-`dc-import` fetch itself) is written as an **absolute path prefixed with `/m20-website`** —
-e.g. `href="/m20-website/atlassian-services"`, `src="/m20-website/assets/logo.png"` — rather than a
-relative one. The same prefix is hardcoded as `COMPONENT_DIR` near the top of `support.js`.
+**Base path.** Because `Header.dc.html`/`Footer.dc.html` are shared fragments reused at every
+page's depth (root for home, one level down for everything else), and because every page's own
+internal links/assets need to resolve correctly regardless of nesting, every internal `href`/`src`
+in the site — including the `dc-import` fetch itself — is written as a **root-relative absolute
+path**: `href="/contact"`, `src="/assets/logo.png"`, `<script src="/support.js">`. `COMPONENT_DIR`
+near the top of `support.js` is the empty string for the same reason: `COMPONENT_DIR + "/" + name
++ ".dc.html"` needs to resolve to `/Header.dc.html` no matter which page fetched it.
 
-**Cutover to `m20tech.com`.** Once the site is served from the domain root, that whole prefix
-becomes wrong (it should be empty). Fixing it is one mechanical step: a repo-wide search-and-replace
-of the literal string `/m20-website` → `` (empty), touching every page plus the `COMPONENT_DIR`
-line in `support.js`. Do this in the same commit as adding the `CNAME` file / pointing DNS —
-don't leave the two half-done, since neither works correctly alone. Nothing else about the page
-structure (folders, `index.html` files) needs to change at cutover.
+**This requires the host to actually serve the site from domain root.** It works correctly on
+Cloudflare Pages (both the `*.pages.dev` preview subdomain and any custom domain attached to it —
+Cloudflare Pages always serves from the root of whatever domain fronts it) and on a GitHub Pages
+*user/org* site (`<user>.github.io`). It does **not** work on a GitHub Pages *project* site
+published under a subpath (`<user>.github.io/<repo>/`), since `/contact` would resolve above the
+repo's own subpath there. This repo previously carried an `/m20-website` prefix on every such path
+for exactly that reason, while it was still published at `m20tech.github.io/m20-website/`; that
+prefix was removed once the plan to move hosting to Cloudflare Pages was set, since Cloudflare
+Pages has no subpath equivalent — every project serves from root from its very first deploy,
+before a custom domain is even attached.
+
+If this site is ever hosted at a subpath again, restore that pattern rather than reinventing it:
+pick a prefix, apply it as a literal string to every `href`/`src` and to `COMPONENT_DIR`, and keep
+it out of external/documentation links (e.g. this file's own "Live reference" line above, or the
+absolute URL the **Logo & lockup** section below needs for email) since those describe where the
+site actually lives today, not an internal navigation path.
 
 ## Voice
 
