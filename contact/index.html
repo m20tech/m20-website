@@ -54,8 +54,8 @@
           <input type="text" id="subject" name="subject" required="" value="{{ subject }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ subjectBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
         </div>
         <div>
-          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Message <span style="color:#C0392B;">*</span></label>
-          <textarea id="message" name="message" rows="5" required="" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
+          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Message</label>
+          <textarea id="message" name="message" rows="5" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
         </div>
         <div class="h-captcha" data-captcha="true"></div>
         <button type="submit" disabled="{{ submitting }}" style="margin-top:4px;width:100%;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:0;background:#C0392B;color:#fff;cursor:pointer;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">{{ submitLabel }}</button>
@@ -108,7 +108,7 @@ class Component extends DCLogic {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const required = ["firstName", "lastName", "email", "subject", "message"];
+    const required = ["firstName", "lastName", "email", "subject"];
     const invalid = {};
     let valid = true;
     required.forEach(f => {
