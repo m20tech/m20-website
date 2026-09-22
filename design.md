@@ -119,7 +119,7 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 **Sticky footer** (short pages — `contact.dc.html`, `case-studies.dc.html`): when a page's content is shorter than the viewport, the footer would otherwise stop mid-screen and leave a bare white strip below it, since `body` has no background of its own. Those pages give the outer wrapper `min-height:100vh;display:flex;flex-direction:column;` and the main `<section>` `flex:1 0 auto;`, which pins the footer to the bottom and lets the section absorb the slack. Apply this to any new page that can render shorter than about 1000px.
 
-**Data viz motif**: a segmented ring/donut chart ("Optimization Cycle") built from 4 arc segments in the red→gold family (`#C0392B`, `#96271C`, `#E8A04C`, `#F0C9A8`) with a paper-colored center hole and serif label — used as the one illustrative-chart pattern on the site.
+**Optimization Cycle diagram** (`atlassian-services/index.html`): a static image (`assets/optimization-cycle.jpg`, 720×753, ~55KB) rather than an inline SVG — a segmented ring in the red→gold family with an icon and label baked into each of the four segments (optimize, train, develop, support) and "Optimization Cycle" centered in a paper-colored hole. Its background is a near-exact match for the site's `#FAF7F4` paper color, so it drops onto the page with no card/border wrapper needed. Displayed at `max-width:300px`, so the source is intentionally oversized (~2.4× at display size) for retina screens — resize proportionally if it's ever swapped again, don't ship it at display resolution.
 
 ## Imagery & iconography
 
