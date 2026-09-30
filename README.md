@@ -10,7 +10,7 @@ Page HTML files are templates; their copy and images live in `content/` and are 
 - `content/` — page and component content (JSON), edited via PagesCMS
 - `cms/schema.mjs` — what's editable in the CMS; generates `.pages.yml`. `cms/icons/` — icon library
 - `scripts/build.mjs` — build, CMS consistency checks, SEO files, and local dev server
-- `docs/website-guide.md` — user guide, published to Confluence by `.github/workflows/publish-docs.yml`
+- `docs/website-guide.md` — user guide, published to Confluence as part of each production release
 - `image-slot.js`, `support.js` — shared client-side scripts
 - `assets/` — site images (also the CMS media folder); `uploads/` — additional media
 - `design.md` — the design system reference (see below)
@@ -28,7 +28,7 @@ npm run cms:sync   # regenerate .pages.yml after editing cms/schema.mjs
 - Sign in at [app.pagescms.org](https://app.pagescms.org) with GitHub, open `m20tech/m20-website`, and switch to the `preview` branch before editing.
 - Every push to a non-`main` branch deploys a preview at `https://<branch>-m20-website.mike-124.workers.dev` — the shared one is **https://preview-m20-website.mike-124.workers.dev**.
 - Production deploys from `main` via a PR from `preview`. See the **Preview & release workflow** in [AGENTS.md](AGENTS.md).
-- The user guide ([docs/website-guide.md](docs/website-guide.md)) is republished to the [Website Confluence page](https://m20tech.atlassian.net/wiki/x/AoCIcwE) after every merge to `main`.
+- The user guide ([docs/website-guide.md](docs/website-guide.md)) is republished to the [Website Confluence page](https://m20tech.atlassian.net/wiki/x/AoCIcwE) by Claude Code as part of every production release.
 
 )
 

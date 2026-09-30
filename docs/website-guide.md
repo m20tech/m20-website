@@ -2,7 +2,7 @@
 
 How the M20 marketing site is built, how to edit its content, and how changes move from preview to production.
 
-> This page is published automatically from `docs/website-guide.md` in the [m20tech/m20-website](https://github.com/m20tech/m20-website) repo every time a change is merged to `main`. Edit that file, not this page — edits made here are overwritten on the next release.
+> This page is generated from `docs/website-guide.md` in the [m20tech/m20-website](https://github.com/m20tech/m20-website) repo and republished with every production release. Edit that file, not this page. Edits made here are overwritten on the next release.
 
 ## Quick links
 
@@ -108,8 +108,8 @@ Editors can change anything that's a field. Changing layout, design, or structur
 2. Cloudflare automatically builds and deploys the preview site.
 3. Someone reviews https://preview-m20-website.mike-124.workers.dev.
 4. When it's approved, a pull request from `preview` to `main` is opened.
-5. Merging that pull request automatically deploys production.
-6. Merging also automatically republishes this Confluence page.
+5. When the approver says to publish, Claude Code merges the pull request, and Cloudflare automatically deploys production.
+6. Claude Code confirms the production build, republishes this Confluence page, and resets `preview` for the next round.
 
 ### Manual steps (people)
 
@@ -119,9 +119,8 @@ Editors can change anything that's a field. Changing layout, design, or structur
 | Make content changes | Editor | PagesCMS on the `preview` branch. |
 | Make code or design changes | Developer / AI agent | Work on the `preview` branch, preview locally with `npm run dev`, commit, and push. |
 | Review the preview | Requester / approver | Check https://preview-m20-website.mike-124.workers.dev on desktop and mobile. |
-| Request publishing | Approver | Ask for a production PR (or open one on GitHub: base `main`, compare `preview`). |
-| Approve and merge | Approver | Review the PR on GitHub and click **Merge pull request** (use a merge commit; don't delete the `preview` branch). |
-| Re-sync preview | Developer / AI agent | After merging, fast-forward `preview` to `main` so the next round starts clean. |
+| Request publishing | Approver | Ask Claude Code for a production PR. |
+| Approve and publish | Approver | Review the PR on GitHub, then tell Claude Code to publish. Claude Code runs the release: it merges the PR, confirms the production build, republishes this page, and resets `preview`. Merge through Claude Code rather than GitHub's **Merge pull request** button so those release steps run together. |
 | Close the ticket | Requester | Move the Jira ticket to Done once the change is live. |
 
 ### Automated steps (systems)
@@ -131,7 +130,7 @@ Editors can change anything that's a field. Changing layout, design, or structur
 | Push to any branch other than `main` | Cloudflare Workers Builds runs the build and uploads a preview version at `https://<branch>-m20-website.mike-124.workers.dev`. | The "Workers Builds: m20-website" check on the GitHub commit or PR |
 | Push or merge to `main` | Cloudflare Workers Builds runs the build and deploys production. | Same check, and the Cloudflare dashboard |
 | Every build | Consistency checks: every template tag has a CMS field, every CMS field is used, content matches the schema, image files exist, and `.pages.yml` is current. A failing check stops the deploy, so the live site is never broken by bad content. | Build logs in Cloudflare |
-| Push or merge to `main` | GitHub Action **Publish website guide to Confluence** republishes this page from `docs/website-guide.md`. | GitHub → Actions |
+| Production release (run by Claude Code) | Republishes this page from `docs/website-guide.md` through the Atlassian connector. The footer names the commit it was published from. | This page's footer and page history |
 
 ### If a build fails
 
