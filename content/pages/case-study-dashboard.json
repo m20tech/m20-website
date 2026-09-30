@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Case Study: Jira Executive Dashboard | M20 Technology",
+    "description": "How M20 took a Jira visibility need from AI prototype to a secure, production-grade executive dashboard — with no data stored and no new budget.",
+    "noindex": false
+  },
   "hero": {
     "eyebrow": "Case Study",
     "title": "From Prototype to Production-Ready Executive Dashboard",

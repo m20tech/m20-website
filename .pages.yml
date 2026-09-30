@@ -14,6 +14,33 @@ content:
         path: content/pages/home.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -245,6 +272,33 @@ content:
         path: content/pages/ai.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -467,6 +521,33 @@ content:
         path: content/pages/atlassian-services.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -685,6 +766,33 @@ content:
         path: content/pages/partners.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -739,6 +847,33 @@ content:
         path: content/pages/case-studies.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: eyebrow
             label: Eyebrow
             type: string
@@ -780,6 +915,33 @@ content:
         path: content/pages/privacy.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -839,6 +1001,33 @@ content:
         path: content/pages/case-study-intranet.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -1023,6 +1212,33 @@ content:
         path: content/pages/case-study-dashboard.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -1327,6 +1543,33 @@ content:
         path: content/pages/ai-value-proposition.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: hero
             label: Hero
             type: object
@@ -1607,6 +1850,33 @@ content:
         path: content/pages/contact.json
         format: json
         fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
           - name: intro
             label: Intro
             type: object
@@ -1698,6 +1968,42 @@ content:
     label: Site-wide
     type: group
     items:
+      - name: site
+        label: SEO & site settings
+        type: file
+        path: content/components/site.json
+        format: json
+        fields:
+          - name: siteName
+            label: Site name
+            type: string
+            required: true
+          - name: siteUrl
+            label: Site URL
+            type: string
+            required: true
+            description: "Production address, no trailing slash. Used for canonical links, the sitemap, and share images."
+            pattern:
+              regex: "^https://[^/]+$"
+              message: "Use https://domain with no trailing slash."
+          - name: defaultImage
+            label: Default social share image
+            type: image
+            required: true
+            description: "Used when a page has no share image. Best at 1200×630."
+          - name: favicon
+            label: Favicon
+            type: image
+            required: true
+          - name: logo
+            label: Logo for search engines
+            type: image
+            required: true
+          - name: sameAs
+            label: Social profiles
+            type: string
+            list: true
+            description: Full URLs of official profiles (LinkedIn etc.).
       - name: header
         label: Site header
         type: file

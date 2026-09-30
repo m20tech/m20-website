@@ -15,19 +15,20 @@
 //   [[#if path]] … [[else]] … [[/if]]
 //   [[#block name]] … [[/block]]   inside an each over a block list: render
 //                                  only items whose `_block` is `name`
+//   [[> name]]                     include cms/partials/<name>.html (same scope)
 //
 // A line holding nothing but a block-level tag (#each, /each, #if, else, /if,
-// #block, /block) is dropped whole, so loops don't leave blank lines behind.
+// #block, /block, >) is dropped whole, so loops don't leave blank lines behind.
 
 import fs from "node:fs";
 import path from "node:path";
 
 const TAG = /\[\[\s*([\s\S]*?)\s*\]\]/g;
-const STANDALONE = new Set(["#each", "/each", "#if", "else", "/if", "#block", "/block"]);
+const STANDALONE = new Set(["#each", "/each", "#if", "else", "/if", "#block", "/block", ">"]);
 
-export function parse(src, file) {
+export function parse(src, file, opts = {}) {
   // Drop standalone block-tag lines before tokenizing.
-  src = src.replace(/^[ \t]*\[\[\s*([#/]?\w+)[^\]]*\]\][ \t]*\r?\n/gm, (line, kw) =>
+  src = src.replace(/^[ \t]*\[\[\s*(>|[#/]?\w+)[^\]]*\]\][ \t]*\r?\n/gm, (line, kw) =>
     STANDALONE.has(kw) ? line.trim() : line);
 
   const root = { type: "root", children: [] };
@@ -52,6 +53,12 @@ export function parse(src, file) {
     } else if (head.startsWith("/")) {
       if (top.node.type !== head.slice(1)) throw new Error(`${where}: unexpected [[${head}]] (open: ${top.node.type})`);
       stack.pop();
+    } else if (head === ">") {
+      const name = rest[0];
+      const file2 = opts.partialDir && path.join(opts.partialDir, `${name}.html`);
+      if (!name || !/^[\w-]+$/.test(name) || !file2 || !fs.existsSync(file2)) throw new Error(`${where}: unknown partial "${name}"`);
+      const sub = parse(fs.readFileSync(file2, "utf8"), `cms/partials/${name}.html`, opts);
+      top.into.push(...sub.children);
     } else if (head === "md" || head === "icon" || head === "json") {
       if (!rest[0]) throw new Error(`${where}: [[${head}]] needs a path`);
       top.into.push({ type: head, path: rest[0], attrs: parseAttrs(rest.slice(1), where), where });
@@ -137,7 +144,10 @@ function lookup(scopes, p, where, optional = false) {
     if (s && typeof s === "object" && first in s) {
       let v = s[first];
       for (const k of rest) {
-        if (v == null || typeof v !== "object" || !(k in v)) throw new Error(`${where}: missing ${p}`);
+        if (v == null || typeof v !== "object" || !(k in v)) {
+          if (optional) return undefined;
+          throw new Error(`${where}: missing ${p}`);
+        }
         v = v[k];
       }
       return v;
@@ -195,9 +205,9 @@ function renderIcon(name, attrs, ctx, where) {
 // Walks a template against a CMS field list. Returns the set of field paths
 // the template uses and throws if a tag points at a field that doesn't exist
 // or has the wrong shape for how it's used.
-export function checkTemplate(ast, fields) {
+export function checkTemplate(ast, fields, globals = []) {
   const used = new Set();
-  walk(ast.children, [{ fields, path: "" }], null);
+  walk(ast.children, [{ fields: globals, path: "" }, { fields, path: "" }], null);
   return used;
 
   function resolve(scopes, p, where) {

@@ -18,11 +18,12 @@ import { parse, render, checkTemplate } from "./template.mjs";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const ICONS = path.join(ROOT, "cms", "icons");
+const PARTIALS = path.join(ROOT, "cms", "partials");
 const PAGES_YML = path.join(ROOT, ".pages.yml");
 
 // Repo paths that are tooling or source-of-truth rather than site files.
 const EXCLUDE = new Set([
-  ".git", ".github", ".claude", ".vscode", ".wrangler", "node_modules", "dist",
+  ".git", ".github", ".claude", "docs", ".vscode", ".wrangler", "node_modules", "dist",
   "cms", "content", "scripts", ".pages.yml", ".gitignore", ".assetsignore",
   "package.json", "package-lock.json", "wrangler.jsonc",
 ]);
@@ -116,7 +117,11 @@ function validate(value, field, where, errors) {
   switch (field.type) {
     case "string":
     case "text":
-      if (typeof value !== "string") errors.push(`${at}: expected text`);
+      if (typeof value !== "string") { errors.push(`${at}: expected text`); break; }
+      if (field.options?.maxlength && value.length > field.options.maxlength)
+        errors.push(`${at}: ${value.length} characters, max ${field.options.maxlength}`);
+      if (field.pattern && !new RegExp(field.pattern.regex ?? field.pattern).test(value))
+        errors.push(`${at}: ${field.pattern.message ?? "doesn't match the required format"}`);
       break;
     case "select":
       if (!field.options.values.includes(value)) errors.push(`${at}: "${value}" is not one of the options`);
@@ -182,6 +187,30 @@ function walkFiles(dir, rel = "") {
   return out;
 }
 
+// Only `main` builds on Cloudflare are production; every other branch, and
+// local builds, are previews and get noindex.
+const BRANCH = process.env.WORKERS_CI_BRANCH || "";
+const PREVIEW = BRANCH !== "main";
+
+// Values the build computes for each page, available to templates as build.*.
+const BUILD_FIELDS = [
+  { name: "build", type: "object", fields: [
+    { name: "url", type: "string" },
+    { name: "path", type: "string" },
+    { name: "preview", type: "boolean" },
+    { name: "isHome", type: "boolean" },
+  ] },
+];
+
+// URL path a template serves at: index.html → "/", ai/index.html → "/ai/".
+const urlPath = (template) => "/" + template.replace(/index\.html$/, "");
+
+function readJson(file, errors) {
+  if (!fs.existsSync(path.join(ROOT, file))) { errors.push(`${file}: missing content file`); return null; }
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, file), "utf8")); }
+  catch (err) { errors.push(`${file}: invalid JSON — ${err.message}`); return null; }
+}
+
 export async function build({ write = true } = {}) {
   const schema = await loadSchema();
   const errors = [];
@@ -190,31 +219,52 @@ export async function build({ write = true } = {}) {
   const onDisk = fs.existsSync(PAGES_YML) ? fs.readFileSync(PAGES_YML, "utf8") : "";
   if (yml !== onDisk) errors.push(".pages.yml is out of date with cms/schema.mjs — run `npm run cms:sync`");
 
+  // Site-wide settings (SEO defaults etc.) are available to every template as site.*.
+  const siteEntry = schema.settings;
+  const site = readJson(siteEntry.path, errors);
+  if (site) validateObject(site, siteEntry.fields, siteEntry.path, errors);
+  const globals = [{ name: "site", type: "object", fields: siteEntry.fields }, ...BUILD_FIELDS];
+  const siteUsed = new Set();
+
   const rendered = new Map();
+  const sitemap = [];
   const names = new Set();
-  const templates = new Set(schema.entries.map((e) => e.template));
-  for (const e of schema.entries) {
+  const templates = new Set(schema.entries.map((e) => e.template).filter(Boolean));
+  const pageNames = new Set(schema.pages.map((e) => e.name));
+  for (const e of schema.entries.filter((x) => x !== siteEntry)) {
     if (names.has(e.name)) errors.push(`duplicate CMS entry name "${e.name}"`);
     names.add(e.name);
-    const contentFile = path.join(ROOT, e.path);
+    for (const f of e.fields) {
+      if (f.name === "site" || f.name === "build") errors.push(`${e.name}: field name "${f.name}" is reserved`);
+    }
+    if (pageNames.has(e.name) && !e.fields.some((f) => f.name === "seo")) {
+      errors.push(`${e.name}: pages need an seo() field and [[> head]] in the template's <head>`);
+    }
     const templateFile = path.join(ROOT, e.template);
-    if (!fs.existsSync(contentFile)) { errors.push(`${e.path}: missing content file`); continue; }
+    const data = readJson(e.path, errors);
+    if (!data) continue;
     if (!fs.existsSync(templateFile)) { errors.push(`${e.template}: missing template`); continue; }
-    let data;
-    try { data = JSON.parse(fs.readFileSync(contentFile, "utf8")); }
-    catch (err) { errors.push(`${e.path}: invalid JSON — ${err.message}`); continue; }
     validateObject(data, e.fields, e.path, errors);
 
     try {
-      const ast = parse(fs.readFileSync(templateFile, "utf8"), e.template);
-      const used = checkTemplate(ast, e.fields);
+      const ast = parse(fs.readFileSync(templateFile, "utf8"), e.template, { partialDir: PARTIALS });
+      const used = checkTemplate(ast, e.fields, globals);
+      for (const p of used) if (p.startsWith("site.")) siteUsed.add(p);
       for (const p of fieldPaths(e.fields)) {
         if (!used.has(p)) errors.push(`${e.template}: CMS field "${p}" is never used by the template`);
       }
-      if (!errors.length) rendered.set(e.template, render(ast, data, { iconDir: ICONS }));
+      if (!errors.length) {
+        const pathname = urlPath(e.template);
+        const buildVals = { url: site.siteUrl + pathname, path: pathname, preview: PREVIEW, isHome: pathname === "/" };
+        rendered.set(e.template, render(ast, { ...data, site, build: buildVals }, { iconDir: ICONS }));
+        if (pageNames.has(e.name) && !data.seo.noindex) sitemap.push(buildVals.url);
+      }
     } catch (err) {
       errors.push(err.message);
     }
+  }
+  for (const p of fieldPaths(siteEntry.fields)) {
+    if (!siteUsed.has(`site.${p}`)) errors.push(`${siteEntry.path}: CMS field "site.${p}" is never used by any template`);
   }
 
   const files = walkFiles(ROOT);
@@ -238,8 +288,25 @@ export async function build({ write = true } = {}) {
     if (rendered.has(f)) fs.writeFileSync(dest, rendered.get(f));
     else fs.copyFileSync(path.join(ROOT, f), dest);
   }
+  writeSeoFiles(site, sitemap);
   return { files: files.length, pages: rendered.size };
 }
+
+// robots.txt, sitemap.xml, and (previews only) a noindex header on every response.
+function writeSeoFiles(site, urls) {
+  if (PREVIEW) {
+    fs.writeFileSync(path.join(DIST, "robots.txt"), "User-agent: *\nDisallow: /\n");
+    fs.writeFileSync(path.join(DIST, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n");
+  } else {
+    fs.writeFileSync(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
+  }
+  const body = urls.map((u) => `  <url><loc>${escapeXml(u)}</loc></url>`).join("\n");
+  fs.writeFileSync(
+    path.join(DIST, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`,
+  );
+}
+const escapeXml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 // ------------------------------------------------------------- dev server
 

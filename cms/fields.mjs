@@ -62,3 +62,21 @@ export const eyebrow = (name = "eyebrow") => string(name, "Eyebrow", { descripti
 export const boolean = (name, label, o) => ({ name, label, type: "boolean", ...opt(o) });
 
 export const number = (name, label, o) => ({ name, label, type: "number", ...opt(o) });
+
+// Per-page search & social metadata, rendered into <head> by cms/partials/head.html.
+export const seo = () =>
+  object("seo", "SEO", [
+    string("title", "Page title", {
+      description: "Shown in search results and browser tabs. Aim for 50–60 characters.",
+      options: { maxlength: 70 },
+    }),
+    text("description", "Meta description", {
+      description: "Search result snippet. Aim for 120–160 characters.",
+      options: { maxlength: 170 },
+    }),
+    image("image", "Social share image", {
+      required: false,
+      description: "Optional — defaults to the site-wide share image. Best at 1200×630.",
+    }),
+    boolean("noindex", "Hide from search engines", { description: "Adds noindex and leaves the page out of sitemap.xml." }),
+  ]);

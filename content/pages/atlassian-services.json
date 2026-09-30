@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Atlassian Consulting & Services | M20 Technology",
+    "description": "Information architecture, AI optimization, and collaboration services for Jira, Confluence, and Jira Service Management from an Atlassian Gold Partner.",
+    "noindex": false
+  },
   "hero": {
     "eyebrow": "Atlassian Services",
     "title": "Get more out of your Atlassian tools.",

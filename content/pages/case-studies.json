@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Case Studies | M20 Technology",
+    "description": "See how M20 Technology helps teams transform Confluence intranets and turn Jira data into secure executive dashboards.",
+    "noindex": false
+  },
   "eyebrow": "Proof in practice",
   "title": "Case Studies",
   "studies": [

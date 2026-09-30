@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Atlassian Rovo AI Services | M20 Technology",
+    "description": "Unlock enterprise knowledge with Atlassian Rovo: AI search, chat, and agents across your apps. M20 helps you plan, extend, and roll out Rovo.",
+    "noindex": false
+  },
   "hero": {
     "eyebrow": "Atlassian Rovo AI",
     "title": "Unlock enterprise knowledge with Rovo.",

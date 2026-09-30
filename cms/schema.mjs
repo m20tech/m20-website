@@ -9,12 +9,32 @@
 
 import {
   string, text, markdown, image, icon, object, list, strings,
-  blocks, block, link, eyebrow, boolean, number,
+  blocks, block, link, eyebrow, boolean, number, seo,
 } from "./fields.mjs";
 
 export const media = {
   input: "assets",
   output: "/assets",
+};
+
+// Site-wide settings: available to every template as site.* (used by the
+// <head> partial for SEO defaults, favicon, and structured data).
+export const settings = {
+  name: "site",
+  label: "SEO & site settings",
+  template: null,
+  path: "content/components/site.json",
+  fields: [
+    string("siteName", "Site name"),
+    string("siteUrl", "Site URL", {
+      description: "Production address, no trailing slash. Used for canonical links, the sitemap, and share images.",
+      pattern: { regex: "^https://[^/]+$", message: "Use https://domain with no trailing slash." },
+    }),
+    image("defaultImage", "Default social share image", { description: "Used when a page has no share image. Best at 1200×630." }),
+    image("favicon", "Favicon"),
+    image("logo", "Logo for search engines"),
+    strings("sameAs", "Social profiles", { description: "Full URLs of official profiles (LinkedIn etc.)." }),
+  ],
 };
 
 const components = [
@@ -96,6 +116,7 @@ const pages = [
     template: "index.html",
     path: "content/pages/home.json",
     fields: [
+      seo(),
       object("hero", "Hero", [
         eyebrow(),
         image("image", "Background image", { description: "Decorative network art on the right of the hero." }),
@@ -145,6 +166,7 @@ const pages = [
     template: "ai/index.html",
     path: "content/pages/ai.json",
     fields: [
+      seo(),
       object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
       object("meet", "Meet Rovo", [
         eyebrow(),
@@ -174,6 +196,7 @@ const pages = [
     template: "atlassian-services/index.html",
     path: "content/pages/atlassian-services.json",
     fields: [
+      seo(),
       object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
       object("services", "What we do", [
         eyebrow(),
@@ -210,6 +233,7 @@ const pages = [
     template: "partners/index.html",
     path: "content/pages/partners.json",
     fields: [
+      seo(),
       object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
       list("partners", "Partners", [
         image("logo", "Logo", { options: { path: "assets/partners" } }),
@@ -227,6 +251,7 @@ const pages = [
     template: "case-studies/index.html",
     path: "content/pages/case-studies.json",
     fields: [
+      seo(),
       eyebrow(),
       string("title", "Heading"),
       list("studies", "Case study cards", [
@@ -244,6 +269,7 @@ const pages = [
     template: "privacy/index.html",
     path: "content/pages/privacy.json",
     fields: [
+      seo(),
       object("hero", "Hero", [eyebrow(), string("title", "Heading"), string("updated", "Last updated line")]),
       blocks("body", "Policy text", [
         block("heading", "Heading", [string("text", "Heading")]),
@@ -259,6 +285,7 @@ const pages = [
     template: "case-study-intranet/index.html",
     path: "content/pages/case-study-intranet.json",
     fields: [
+      seo(),
       caseStudyHero(),
       highlights(),
       overview(),
@@ -278,6 +305,7 @@ const pages = [
     template: "case-study-dashboard/index.html",
     path: "content/pages/case-study-dashboard.json",
     fields: [
+      seo(),
       caseStudyHero(),
       highlights(),
       overview(),
@@ -325,6 +353,7 @@ const pages = [
     template: "ai-value-proposition/index.html",
     path: "content/pages/ai-value-proposition.json",
     fields: [
+      seo(),
       object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
       object("inside", "What's inside", [
         eyebrow(),
@@ -382,6 +411,7 @@ const pages = [
     template: "contact/index.html",
     path: "content/pages/contact.json",
     fields: [
+      seo(),
       object("intro", "Intro", [
         eyebrow(),
         string("title", "Heading"),
@@ -411,7 +441,8 @@ const pages = [
 // Sidebar groups in the PagesCMS UI.
 export const groups = [
   { name: "pages", label: "Pages", entries: pages },
-  { name: "site", label: "Site-wide", entries: components },
+  { name: "site", label: "Site-wide", entries: [settings, ...components] },
 ];
 
-export const entries = [...pages, ...components];
+export { pages };
+export const entries = [...pages, settings, ...components];

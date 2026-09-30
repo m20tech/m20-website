@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Case Study: Confluence Intranet Redesign | M20 Technology",
+    "description": "How M20 turned a legacy intranet into a design-forward Confluence collaboration hub with Refined — with zero disruption to existing content.",
+    "noindex": false
+  },
   "hero": {
     "eyebrow": "Case Study",
     "title": "Outdated Intranet to Cutting-Edge Collaboration Hub",

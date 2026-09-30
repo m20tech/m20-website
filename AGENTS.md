@@ -40,6 +40,13 @@ Editors change content through [PagesCMS](https://app.pagescms.org), which edits
 - Icons: card icons are `icon()` select fields backed by `cms/icons/<name>.svg` (a bare `<svg viewBox="…">` whose inner markup is inlined; the template supplies size, stroke, and color). To offer a new icon, add the SVG file there and run `npm run cms:sync`.
 - Text with bold/links: use `markdown(...)` fields with `[[md …]]`, passing the inline styles for `a`/`strong` from the template.
 
+### SEO
+
+- Every page entry in `cms/schema.mjs` has an `seo()` field (title, meta description, optional share image, noindex), and every page template has `[[> head]]` right after the viewport `<meta>`. That partial (`cms/partials/head.html`) renders the title, description, canonical URL, Open Graph/Twitter tags, favicon, and (homepage only) Organization JSON-LD. The build enforces both.
+- Site-wide SEO settings (site name, production **Site URL**, default share image, favicon, logo, social profiles) live in `content/components/site.json` and are available to every template as `site.*`. Build-computed values are available as `build.*` (`url`, `path`, `preview`, `isHome`).
+- The build writes `sitemap.xml` (pages without noindex) and `robots.txt`. Builds for any branch other than `main` (and local builds) are previews: every page gets `noindex`, `robots.txt` disallows everything, and a `_headers` file adds `X-Robots-Tag: noindex`.
+- Keep titles ≤ 70 characters (aim 50–60) and descriptions ≤ 170 (aim 120–160); the build enforces the maximums. Give every page a unique title and description.
+
 ## Preview & release workflow
 
 Hosting is Cloudflare Workers (static assets) with Workers Builds connected to this GitHub repo; `wrangler.jsonc` holds the config. `main` deploys to production; **every other branch gets a preview URL** at `https://<branch>-m20-website.mike-124.workers.dev`.
@@ -47,7 +54,9 @@ Hosting is Cloudflare Workers (static assets) with Workers Builds connected to t
 1. **All changes go to the `preview` branch** unless the user names a different branch. Commit there and **push after every change** — don't leave work unpushed and don't commit to `main` directly.
 2. After pushing, wait for the "Workers Builds: m20-website" check on the commit (`gh api repos/m20tech/m20-website/commits/<sha>/check-runs`) and **give the user the preview URL**: `https://preview-m20-website.mike-124.workers.dev` (or `https://<branch>-m20-website.mike-124.workers.dev` for another branch). If the build failed, report it with the reason.
 3. **Only when the user asks**, open a PR from `preview` into `main` for production (`gh pr create --base main --head preview`), summarizing everything on `preview` that isn't on `main`. Merging it deploys production. Use a merge commit and don't delete the `preview` branch; afterwards fast-forward it with `git checkout preview && git merge --ff-only origin/main && git push`.
-4. CMS editors follow the same flow: in PagesCMS, switch the branch selector to `preview`, make edits (each save is a commit that rebuilds the preview), then ask for a production PR.
+4. **After a merge to `main`,** the GitHub Action `.github/workflows/publish-docs.yml` republishes `docs/website-guide.md` to the [Website Confluence page](https://m20tech.atlassian.net/wiki/x/AoCIcwE). Check that the run succeeded (`gh run list --workflow publish-docs.yml`) and report it. The action needs the `CONFLUENCE_EMAIL` and `CONFLUENCE_API_TOKEN` repo secrets; without them it skips with a warning — in that case tell the user, and if you have Confluence access (Rovo MCP), publish the guide's content to page `6233292802` yourself.
+5. **Keep the user guide current:** `docs/website-guide.md` is the user-facing documentation (architecture, CMS, process). Update it in the same change whenever any of those change. Never edit the Confluence page directly — it's overwritten on every release.
+6. CMS editors follow the same flow: in PagesCMS, switch the branch selector to `preview`, make edits (each save is a commit that rebuilds the preview), then ask for a production PR.
 
 ## HTML formatting guidelines
 

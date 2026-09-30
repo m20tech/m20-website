@@ -1,4 +1,9 @@
 {
+  "seo": {
+    "title": "Privacy Policy | M20 Technology",
+    "description": "How M20 Technology collects, uses, shares, and protects information submitted through its software and websites.",
+    "noindex": false
+  },
   "hero": {
     "eyebrow": "Legal",
     "title": "Privacy Policy",

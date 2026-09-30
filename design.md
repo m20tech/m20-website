@@ -1,6 +1,6 @@
 # M20 Technology — Website Design System
 
-Source of truth: this repo (`.dc.html` design-canvas files as templates; copy and images in `content/`, edited via PagesCMS — see AGENTS.md). Live reference: https://m20tech.github.io/m20-website/
+Source of truth: this repo (`.dc.html` design-canvas files as templates; copy and images in `content/`, edited via PagesCMS — see AGENTS.md). Live reference: https://m20-website.mike-124.workers.dev/
 
 ## Brand summary
 
@@ -137,7 +137,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - **Sizing:** ~42px mark height in the site header, ~36px in the footer. Scale down proportionally for compact placements (email header, PDF running header) — don't go below ~24px, where the mark starts to lose legibility.
 - **Embedding by output type:**
   - **Web pages:** relative path, `assets/logo.png`.
-  - **Email:** an absolute, publicly reachable URL — `https://m20tech.github.io/m20-website/assets/logo.png`. Email clients (Gmail, Outlook, Apple Mail) fetch images over the network and commonly strip or block `data:` URIs, so base64-embedding the logo is not reliable here. Always set explicit `width`/`height` on the `<img>` and a plain-text `alt="M20 Technology"` fallback.
+  - **Email:** an absolute, publicly reachable URL — `https://m20-website.mike-124.workers.dev/assets/logo.png`. Email clients (Gmail, Outlook, Apple Mail) fetch images over the network and commonly strip or block `data:` URIs, so base64-embedding the logo is not reliable here. Always set explicit `width`/`height` on the `<img>` and a plain-text `alt="M20 Technology"` fallback.
   - **PDF:** embed as a base64 data URI in the HTML/CSS that gets rendered to PDF (or reference the local file path directly if the renderer runs inside this repo). That keeps the PDF self-contained and reproducible without a network fetch at render time.
 
 ## Motion
