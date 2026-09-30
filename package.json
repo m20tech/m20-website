@@ -1,0 +1,14 @@
+{
+  "name": "m20-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "dev": "node scripts/build.mjs --serve",
+    "cms:sync": "node scripts/build.mjs --sync-cms"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

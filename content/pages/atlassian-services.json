@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "eyebrow": "Atlassian Services",
+    "title": "Get more out of your Atlassian tools.",
+    "intro": "Whether you're a software, service, or business team, there's a place for Atlassian to improve how you work together. We set your tools up so employees use them because they want to — not because they have to."
+  },
+  "services": {
+    "eyebrow": "What we do",
+    "title": "Three ways we make your tools work harder.",
+    "cards": [
+      {
+        "icon": "org-chart",
+        "title": "Information Architecture",
+        "text": "Organize your data — regardless of your unique tools, internal sites, or databases — into something everyone can navigate."
+      },
+      {
+        "icon": "cycle",
+        "title": "AI Optimization",
+        "text": "Build a company-wide strategy that inspires real shifts in digital culture — not just new tools, but new habits."
+      },
+      {
+        "icon": "team-flag",
+        "title": "Collaboration & Knowledge",
+        "text": "Empower your team to share everything that matters, so knowledge compounds instead of getting lost."
+      }
+    ]
+  },
+  "solutions": {
+    "eyebrow": "Optimized for your business",
+    "title": "Solutions shaped around your needs.",
+    "cards": [
+      {
+        "icon": "globe-nodes",
+        "title": "Work Management",
+        "text": "Unify your organization with tools that streamline project tracking and enhance information sharing across every team."
+      },
+      {
+        "icon": "document-clock",
+        "title": "Enterprise Service Management",
+        "text": "Formalize business processes with customer-friendly tools, leveraging automation and AI to adapt as your needs evolve."
+      },
+      {
+        "icon": "cloud-bolt",
+        "title": "Digital Transformation & Cloud",
+        "text": "Boost efficiency with cloud-first architecture: seamless integration, strategic automation, robust security, and smooth migration."
+      }
+    ]
+  },
+  "cycle": {
+    "image": "/assets/optimization-cycle.jpg",
+    "imageAlt": "M20 Optimization Cycle: optimize, train, develop, support",
+    "eyebrow": "The optimization cycle",
+    "title": "Empower & amplify.",
+    "text": "Our optimization cycle empowers your teams and amplifies their results — through customized software development, training, and support.",
+    "cta": {
+      "href": "/contact",
+      "label": "Get started →"
+    }
+  },
+  "stack": {
+    "title": "The Atlassian stack, dialed in.",
+    "products": [
+      {
+        "name": "Jira",
+        "title": "Plan, track, ship.",
+        "items": [
+          "Setup & configuration",
+          "Workflow design",
+          "Migration & training"
+        ]
+      },
+      {
+        "name": "Confluence",
+        "title": "Document, connect, know.",
+        "items": [
+          "Intranet & knowledge base build-out",
+          "Information architecture",
+          "Adoption training"
+        ]
+      },
+      {
+        "name": "Jira Service Management",
+        "title": "Formalize service, at any scale.",
+        "items": [
+          "Request & ticketing setup",
+          "Automation & AI",
+          "Ongoing support"
+        ]
+      }
+    ]
+  },
+  "partner": {
+    "eyebrow": "Gold Solution Partner",
+    "title": "Accredited services, training, custom solutions and support — to extend the power of your Atlassian products.",
+    "cta": {
+      "href": "/contact",
+      "label": "Talk to us →"
+    }
+  }
+}

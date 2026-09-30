@@ -1,6 +1,6 @@
 # M20 Technology — Website Design System
 
-Source of truth: this repo (`.dc.html` design-canvas files). Live reference: https://m20tech.github.io/m20-website/
+Source of truth: this repo (`.dc.html` design-canvas files as templates; copy and images in `content/`, edited via PagesCMS — see AGENTS.md). Live reference: https://m20tech.github.io/m20-website/
 
 ## Brand summary
 
@@ -123,7 +123,7 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 ## Imagery & iconography
 
-- Icons: custom inline SVGs, 24×24 viewBox, `stroke` only (no fill except small accent dots), `stroke-width` ~1.9–2.2, rounded linecap/linejoin — consistent hand-drawn-technical feel, always in brand red on light backgrounds.
+- Icons: custom inline SVGs from the icon library in `cms/icons/` (editors pick them per card in the CMS; add new ones there), 24×24 viewBox, `stroke` only (no fill except small accent dots), `stroke-width` ~1.9–2.2, rounded linecap/linejoin — consistent hand-drawn-technical feel, always in brand red on light backgrounds.
 - Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
 - Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
@@ -174,8 +174,8 @@ near the top of `support.js` is the empty string for the same reason: `COMPONENT
 + ".dc.html"` needs to resolve to `/Header.dc.html` no matter which page fetched it.
 
 **This requires the host to actually serve the site from domain root.** It works correctly on
-Cloudflare Pages (both the `*.pages.dev` preview subdomain and any custom domain attached to it —
-Cloudflare Pages always serves from the root of whatever domain fronts it) and on a GitHub Pages
+Cloudflare Workers static assets, where the site is hosted today (the `*.workers.dev` production
+and per-branch preview URLs and any custom domain attached — all serve from domain root) and on a GitHub Pages
 *user/org* site (`<user>.github.io`). It does **not** work on a GitHub Pages *project* site
 published under a subpath (`<user>.github.io/<repo>/`), since `/contact` would resolve above the
 repo's own subpath there. This repo previously carried an `/m20-website` prefix on every such path

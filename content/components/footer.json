@@ -1,0 +1,32 @@
+{
+  "logo": "/assets/logo.png",
+  "logoAlt": "M20 Technology logo",
+  "badge": {
+    "image": "/assets/atlassian-gold.png",
+    "alt": "Atlassian Gold Solution Partner",
+    "href": "https://partnerdirectory.atlassian.com/m20-technology-llc"
+  },
+  "links": [
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/m20-technology",
+      "newTab": true
+    },
+    {
+      "label": "sales@m20tech.com",
+      "href": "mailto:sales@m20tech.com",
+      "newTab": false
+    },
+    {
+      "label": "Contact Us",
+      "href": "/contact",
+      "newTab": false
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "/privacy",
+      "newTab": false
+    }
+  ],
+  "copyright": "M20 Technology. Empowering Teams. Amplifying Results."
+}

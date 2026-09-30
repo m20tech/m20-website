@@ -1,0 +1,197 @@
+{
+  "hero": {
+    "eyebrow": "Case Study",
+    "title": "From Prototype to Production-Ready Executive Dashboard",
+    "intro": "How M20 Technology turned a real-time Jira visibility need into a secure, production-grade executive dashboard — without adding a new system of record.",
+    "tags": [
+      "Jira Cloud",
+      "Git",
+      "Node",
+      "Cloud Native",
+      "AI"
+    ]
+  },
+  "highlights": {
+    "eyebrow": "Project Highlights",
+    "stats": [
+      {
+        "value": "Zero",
+        "label": "Data stored by design"
+      },
+      {
+        "value": "✓",
+        "label": "No new budget needed"
+      },
+      {
+        "value": "Day 1",
+        "label": "Demo-ready in Codespaces"
+      },
+      {
+        "value": "1",
+        "label": "System of record: Jira"
+      }
+    ]
+  },
+  "overview": {
+    "eyebrow": "Company Overview",
+    "title": "A Leading InsurTech Scaling Beyond Its Data Visibility",
+    "text": "The client is a leading insurance comparison platform. As the business scaled, their leadership team needed clearer visibility into project and team health — without adding another tool to their stack. Jira was already embedded across the organization. The opportunity was to surface that data in a way that actually served executives.",
+    "industryLabel": "Industry",
+    "industry": "Software",
+    "focusLabel": "Focus",
+    "focus": "Insurance Technology",
+    "challengeLabel": "Core Challenge",
+    "challenge": "Project health data existed. It just wasn't visible to the people who needed it most. Teams were manually building Google Sheets to fill the gap — a workaround that signaled how far Jira had drifted from leadership's day-to-day."
+  },
+  "challenge": {
+    "eyebrow": "The Challenge",
+    "title": "Executive Visibility Without a New System to Maintain",
+    "intro": "Leadership lacked a clear view into project and portfolio health. Teams had resorted to manually building Google Sheets to track status — because Jira's native views weren't built for a C-suite audience. The data lived in Jira; what was missing was a layer that could translate it into meaningful signals without creating a new system to maintain.",
+    "cards": [
+      {
+        "label": "The Business Challenge",
+        "title": "Limited visibility into project health",
+        "text": "Leadership needed reliable, up-to-date project visibility — and the workarounds teams had built to provide it weren't scaling. The goal was to surface what already lived in Jira in a way that actually served executives, without adding another tool to manage."
+      },
+      {
+        "label": "The Technical Challenge",
+        "title": "Pass security & IT review",
+        "text": "Jira had to remain the single system of record with nothing replicated or stored. The solution had to mirror existing user permissions exactly, pass IT and security review, and be portable enough to deploy anywhere without platform lock-in."
+      },
+      {
+        "label": "The Budget Challenge",
+        "title": "Deliver within existing budget",
+        "text": "There was no appetite for a new procurement cycle. The work had to be scoped and delivered entirely within an existing support contract — which meant moving fast, prototyping intelligently with AI, and shipping something production-credible without a heavyweight commitment."
+      }
+    ],
+    "outro": "An early AI prototyping phase proved the concept could be built quickly and securely — demonstrating a working Jira-connected dashboard within days. That proof answered the budget question before a line of production code was written. Phase 1 also made clear the prototyping environment wasn't production-ready, so the project moved into a Git repository with a proper deployment pipeline from the start."
+  },
+  "solution": {
+    "eyebrow": "The Solution",
+    "title": "A Secure, Host-Agnostic Architecture Built on Jira",
+    "intro": "M20 doesn't shy away from AI — we embrace it as a tool to build precisely to spec, faster. This project followed a deliberate three-phase evolution from prototype to production, each stage intentional.",
+    "phases": [
+      {
+        "label": "POC 1 · PROTOTYPE",
+        "title": "Concept validation",
+        "specs": [
+          {
+            "term": "AI",
+            "value": "Gemini"
+          },
+          {
+            "term": "Runtime",
+            "value": "AI Studio"
+          },
+          {
+            "term": "Data",
+            "value": "CSV Files"
+          }
+        ],
+        "result": "Days to demo"
+      },
+      {
+        "label": "POC 2 · PRE-PRODUCTION",
+        "title": "Ownable & reviewable",
+        "specs": [
+          {
+            "term": "AI",
+            "value": "Claude"
+          },
+          {
+            "term": "Runtime",
+            "value": "GitHub + Codespaces"
+          },
+          {
+            "term": "Data",
+            "value": "Jira Demo Site"
+          }
+        ],
+        "result": "Git-based delivery"
+      },
+      {
+        "label": "PRODUCTION · LIVE",
+        "title": "Scalable & secure",
+        "specs": [
+          {
+            "term": "AI",
+            "value": "Claude"
+          },
+          {
+            "term": "Runtime",
+            "value": "GitLab"
+          },
+          {
+            "term": "Data",
+            "value": "Jira Production"
+          }
+        ],
+        "result": "CI/CD pipeline"
+      }
+    ]
+  },
+  "architecture": {
+    "eyebrow": "Core Architecture",
+    "parts": [
+      {
+        "title": "Backend",
+        "text": "**Node.js with Express** — calls Jira Cloud on the user's behalf and returns only the fields the UI needs"
+      },
+      {
+        "title": "Frontend",
+        "text": "**Cloud-native** — executive-focused single-page application; compiles to portable static assets deployable anywhere"
+      },
+      {
+        "title": "Access",
+        "text": "**Flexible, permission-aware authentication** — the dashboard supported both OAuth and API key authentication, giving teams options based on their security posture. Either way, it surfaces only what users can already see in Jira — no new access rules to manage"
+      }
+    ]
+  },
+  "principles": {
+    "eyebrow": "Key Design Principles",
+    "items": [
+      "**Single source of truth** — Jira queried on demand, nothing replicated or stored",
+      "**Cloud-native development** — runs anywhere, configured via environment, no platform lock-in",
+      "**Minimal data transfer** — server returns only the fields the UI requires, nothing more",
+      "**AI-embracing** — use AI to build exactly to spec, faster, rather than reaching for off-the-shelf solutions"
+    ]
+  },
+  "value": {
+    "eyebrow": "Our Value",
+    "title": "Where Technical Depth Meets Enterprise Trust",
+    "intro": "M20's ability to move quickly comes from three things working together: deep relationships with the people in the room, a clear process for getting from brief to production, and the technical tools to execute without overhead.",
+    "cards": [
+      {
+        "icon": "team-partner",
+        "title": "A Partner Who Knows the Organization",
+        "text": "M20 has worked across the client's operations, software, and leadership teams over a long-standing engagement. That relationship means we understand internal governance, how decisions get made, and what security needs to approve — before the first line of code is written. Solutions are shaped around how the organization actually works, not how a new vendor assumes it does."
+      },
+      {
+        "icon": "layers",
+        "title": "Expertise Across the Stack",
+        "text": "The engagement drew on Atlassian platform knowledge, cloud-native development, and a working understanding of organizational governance requirements — all in one team. That combination lets M20 speak to both what leadership needs to see and what IT needs to approve, without translation."
+      },
+      {
+        "icon": "bolt",
+        "title": "Rapid Prototyping to Production",
+        "text": "M20 embraces AI as a delivery tool — not as a shortcut, but as a way to build precisely to spec, faster. The project moved through three deliberate phases: AI-assisted prototyping to validate the concept, a Git-based pre-production environment to make it ownable, and a full production pipeline to make it scalable. That's a way of working, not just a technical choice."
+      }
+    ]
+  },
+  "outcomes": {
+    "eyebrow": "Outcomes",
+    "title": "Credible for Leadership. Comfortable for Security. Ready to Scale.",
+    "intro": "The client now has an Executive Dashboard that passes Security & IT review, earns executive confidence, and provides engineering a clear, low-risk path from proof-of-concept to production deployment.",
+    "items": [
+      "Delivered a secure, Jira-connected Executive Dashboard with real-time portfolio visibility for leadership",
+      "Established a GitHub-based delivery model meeting enterprise standards for traceability and security review",
+      "Zero data stored — Jira remains the single source of truth with no residual footprint",
+      "Produced documentation covering data flow, configuration, and operations — written for developers and IT alike",
+      "Delivered a proof-of-concept that engineering, security, and leadership teams all have confidence in"
+    ],
+    "cta": {
+      "href": "/contact",
+      "label": "Contact Us →"
+    }
+  }
+}

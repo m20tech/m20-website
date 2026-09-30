@@ -1,0 +1,20 @@
+{
+  "eyebrow": "Proof in practice",
+  "title": "Case Studies",
+  "studies": [
+    {
+      "href": "/case-study-intranet",
+      "category": "Intranet",
+      "title": "Outdated Intranet to Cutting-Edge Collaboration Hub",
+      "summary": "How M20 transformed a legacy intranet into a design-forward collaboration platform — with zero disruption to existing Confluence content.",
+      "linkLabel": "Read the case study →"
+    },
+    {
+      "href": "/case-study-dashboard",
+      "category": "Dashboard",
+      "title": "From Prototype to Production-Ready Executive Dashboard",
+      "summary": "How M20 turned a real-time Jira visibility need into a secure, production-grade executive dashboard.",
+      "linkLabel": "Read the case study →"
+    }
+  ]
+}
