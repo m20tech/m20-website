@@ -16,6 +16,7 @@
   <style id="reset">
     body { margin: 0; }
     a { text-decoration: none; }
+    @media (max-width: 900px) { .case-cover { display: none; } }
   </style>
 </helmet>
 
@@ -23,13 +24,18 @@
 
   <dc-import name="Header" active-page="case-studies" hint-size="100%,76px"></dc-import>
 
-  <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(36px,4.5vw,52px);">
-    <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
+  <section style="position:relative;overflow:hidden;background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);">
+    [[#if hero.cover]]
+    <div class="case-cover" style="position:absolute;top:0;right:0;bottom:0;width:60%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);">
+      <img src="[[ hero.cover ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:right center;display:block;">
+    </div>
+    [[/if]]
+    <div style="position:relative;max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
       <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
         <span style="width:34px;height:2px;background:#E8A04C;"></span><a href="/case-studies" style="color:#E8A04C;">[[ hero.eyebrow ]]</a>
       </p>
-      <h1 style="font:700 clamp(34px,4.8vw,56px)/1.14 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 20px;letter-spacing:-0.01em;max-width:860px;">[[ hero.title ]]</h1>
-      <p style="color:#D5D9E1;margin:0 0 30px;max-width:700px;font-size:18px;">[[ hero.intro ]]</p>
+      <h1 style="font:700 clamp(34px,4.8vw,56px)/1.14 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 20px;letter-spacing:-0.01em;max-width:620px;">[[ hero.title ]]</h1>
+      <p style="color:#D5D9E1;margin:0 0 30px;max-width:540px;font-size:18px;">[[ hero.intro ]]</p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         [[#each hero.tags]]
         <span style="display:inline-flex;align-items:center;min-height:32px;padding:5px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);font:500 14px 'Source Sans 3', system-ui, sans-serif;color:#EDE7DE;">[[ . ]]</span>
@@ -57,10 +63,6 @@
   <section style="padding-block:clamp(36px,4.5vw,52px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:start;">
       <div>
-        [[#if overview.spot]]
-        <img src="[[ overview.spot ]]" alt="" width="240" height="240"
-          style="display:block;width:104px;height:104px;margin:0 0 14px -7px;">
-        [[/if]]
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
           <span style="width:34px;height:2px;background:#C0392B;"></span>[[ overview.eyebrow ]]
         </p>
@@ -108,15 +110,19 @@
 
   <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(36px,4.5vw,52px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
-      <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-        <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ solution.eyebrow ]]
-      </p>
-      <h2 style="font:600 clamp(26px,3.2vw,36px)/1.2 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 16px;letter-spacing:-0.01em;max-width:760px;">[[ solution.title ]]</h2>
-      <p style="color:#D5D9E1;margin:0 0 28px;max-width:820px;">[[ solution.intro ]]</p>
-      [[#if solution.illustration]]
-      <img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
-        style="display:block;width:100%;max-width:960px;height:auto;margin:0 auto 28px;border-radius:22px;border:1px solid rgba(255,255,255,.08);">
-      [[/if]]
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:center;margin-bottom:32px;">
+        <div>
+          <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
+            <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ solution.eyebrow ]]
+          </p>
+          <h2 style="font:600 clamp(26px,3.2vw,36px)/1.2 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 16px;letter-spacing:-0.01em;max-width:760px;">[[ solution.title ]]</h2>
+          <p style="color:#D5D9E1;margin:0;">[[ solution.intro ]]</p>
+        </div>
+        [[#if solution.illustration]]
+        <img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
+          style="display:block;width:100%;height:auto;border-radius:22px;border:1px solid rgba(255,255,255,.08);">
+        [[/if]]
+      </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(16px,2vw,24px);">
         [[#each solution.phases]]

@@ -976,18 +976,13 @@ content:
                 label: Link text
                 type: string
                 required: true
-              - name: cover
-                label: Cover image
+              - name: spot
+                label: Spot illustration
                 type: image
                 required: false
-                description: "Pick the cover's .svg."
+                description: "Shown at the top of the card (decorative). Pick the spot's .svg."
                 options:
-                  media: covers
-              - name: coverAlt
-                label: Cover alt text
-                type: string
-                required: false
-                description: Describe what the cover shows.
+                  media: spots
       - name: privacy
         label: Privacy Policy
         type: file
@@ -1142,6 +1137,13 @@ content:
                 label: Tags
                 type: string
                 list: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative). Pick the cover's .svg."
+                options:
+                  media: covers
           - name: highlights
             label: Project highlights
             type: object
@@ -1205,13 +1207,6 @@ content:
                 label: Core challenge
                 type: text
                 required: true
-              - name: spot
-                label: Spot illustration
-                type: image
-                required: false
-                description: "240×240 spot illustration, shown at about 104px. Decorative."
-                options:
-                  media: spots
           - name: quote
             label: Client quote paragraphs
             type: text
@@ -1379,6 +1374,13 @@ content:
                 label: Tags
                 type: string
                 list: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative). Pick the cover's .svg."
+                options:
+                  media: covers
           - name: highlights
             label: Project highlights
             type: object
@@ -1442,13 +1444,6 @@ content:
                 label: Core challenge
                 type: text
                 required: true
-              - name: spot
-                label: Spot illustration
-                type: image
-                required: false
-                description: "240×240 spot illustration, shown at about 104px. Decorative."
-                options:
-                  media: spots
           - name: challenge
             label: The challenge
             type: object

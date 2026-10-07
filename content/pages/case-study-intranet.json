@@ -14,7 +14,8 @@
       "Refined for Confluence",
       "Google Analytics",
       "Intranet"
-    ]
+    ],
+    "cover": "/assets/artwork/covers/intranet-transformation.svg"
   },
   "highlights": {
     "eyebrow": "Project Highlights",
@@ -46,8 +47,7 @@
     "focusLabel": "Focus",
     "focus": "Technology and Design",
     "challengeLabel": "Core Challenge",
-    "challenge": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar.",
-    "spot": "/assets/artwork/spots/intranet-events.svg"
+    "challenge": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar."
   },
   "quote": [
     "“Huge thanks to M20 for their incredible work on our Confluence/Refined intranet space. We came to them with a specific tool that wasn't exactly ‘intranet-ready,’ and they completely transformed it.",

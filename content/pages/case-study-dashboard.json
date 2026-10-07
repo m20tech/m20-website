@@ -15,7 +15,8 @@
       "Node",
       "Cloud Native",
       "AI"
-    ]
+    ],
+    "cover": "/assets/artwork/covers/jira-executive-dashboard.svg"
   },
   "highlights": {
     "eyebrow": "Project Highlights",
@@ -47,8 +48,7 @@
     "focusLabel": "Focus",
     "focus": "Insurance Technology",
     "challengeLabel": "Core Challenge",
-    "challenge": "Project health data existed. It just wasn't visible to the people who needed it most. Teams were manually building Google Sheets to fill the gap — a workaround that signaled how far Jira had drifted from leadership's day-to-day.",
-    "spot": "/assets/artwork/spots/dashboard-health.svg"
+    "challenge": "Project health data existed. It just wasn't visible to the people who needed it most. Teams were manually building Google Sheets to fill the gap — a workaround that signaled how far Jira had drifted from leadership's day-to-day."
   },
   "challenge": {
     "eyebrow": "The Challenge",

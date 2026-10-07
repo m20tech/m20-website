@@ -131,15 +131,15 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 ## Illustrations
 
-Flat, hand-built SVG artwork that shows the things M20's work produces: intranet pages, Jira dashboards, status tables, delivery pipelines. It shares the site's palette and radii, so it reads as part of the page rather than stock art. Live examples: `/case-studies` (covers), `/case-study-intranet` and `/case-study-dashboard` (illustration in **The Solution**, spot above **Company Overview**).
+Flat, hand-built SVG artwork that shows the things M20's work produces: intranet pages, Jira dashboards, status tables, delivery pipelines. It shares the site's palette and radii, so it reads as part of the page rather than stock art. Live examples: `/case-studies` (a spot on each card) and `/case-study-intranet`, `/case-study-dashboard` (cover in the hero, illustration in **The Solution**).
 
 ### Artwork types
 
 | Type | SVG canvas | PNG export | Ground | Where it goes |
 |---|---|---|---|---|
-| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Top of a card on an index page (full-bleed, `border-bottom:1px solid #E4DCD3`). The PNG is the page's **social share image**. |
-| **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Inside a section, explaining a solution or process. Displayed `width:100%;max-width:960px`, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). |
-| **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Shown at `104px` above a section eyebrow (`margin:0 0 14px -7px` so the circle lines up with the text edge). Always decorative: `alt=""`. |
+| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, the same treatment as the homepage hero image (no bottom curve). The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
+| **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
+| **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Top of a card on an index page, shown at `96px` in place of an icon badge (`margin:0 0 14px -7px` so the circle lines up with the card's text edge). Always decorative: `alt=""`. |
 
 Pages use the **SVG** (sharp at any size, 1–20 KB). The **PNG** is for places that can't take SVG: social share images, email (absolute URL, see **Logo & lockup**), slides, and PDFs.
 
@@ -147,7 +147,7 @@ Pages use the **SVG** (sharp at any size, 1–20 KB). The **PNG** is for places 
 
 - Files live in `assets/artwork/<type>/` — `covers/`, `illustrations/`, `spots/` — as `<subject>.svg` with its `<subject>.png` export beside it. Name files by **subject**, not by page (`jira-executive-dashboard`, not `case-study-2-cover`), so any page can reuse them.
 - `cms/artwork.mjs` defines the three types (label, canvas size, PNG scale). Each type is its own PagesCMS media folder, so the CMS media sidebar shows **Artwork: covers / illustrations / spots** and a field's picker opens only its type's folder.
-- In `cms/schema.mjs`, use `artwork("covers" | "illustrations" | "spots", name, label)` for any artwork field (optional by default), with a `string(<name>Alt, …)` alt-text field beside covers and illustrations. Every page's **Social share image** is an `artwork("covers", …)` field limited to PNG/JPG/WebP.
+- In `cms/schema.mjs`, use `artwork("covers" | "illustrations" | "spots", name, label)` for any artwork field (optional by default), with a `string(<name>Alt, …)` alt-text field beside illustrations (covers and spots are decorative). Every page's **Social share image** is an `artwork("covers", …)` field limited to PNG/JPG/WebP.
 - The build fails if an artwork value points outside its type's folder or uses a disallowed format, if an SVG's `viewBox` doesn't match its type's canvas, or if an SVG has no PNG export.
 
 ### Visual vocabulary
@@ -204,13 +204,27 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 3. **Check it against the rules:** only tables, meters, event lists, and RAG charts for data; RAG marks carry glyphs; red only for action or red status; no words; exact `viewBox`.
 4. **Export the PNG:** `npm run artwork:png` writes `<subject>.png` beside every new or changed SVG at its type's export size (`-- --all` re-exports everything). It needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found.
 5. **Run `npm run check`**, then commit the SVG and PNG together.
-6. **Use it in the CMS:** pick the `.svg` for a cover or illustration field and write its alt text (say what it shows, not "illustration of…"); pick the cover's `.png` for the page's **Social share image**. Spots need no alt text.
+6. **Use it in the CMS:** pick the `.svg` for the field; for an illustration, write its alt text (say what it shows, not "illustration of…"). Pick the cover's `.png` for the page's **Social share image**. Covers and spots need no alt text.
 7. **Embedding on a new template** (developers): add the `artwork()` field and alt field in `cms/schema.mjs`, wrap the image in `[[#if …]]` so the section still works without artwork, and set `width`/`height` attributes from the type's canvas so the layout doesn't jump while it loads:
 
 ```html
-[[#if solution.illustration]]
-<img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
-  style="display:block;width:100%;max-width:960px;height:auto;margin-inline:auto;border-radius:22px;border:1px solid #E4DCD3;">
+<!-- Illustration: second column of a two-column section -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:center;">
+  <div>…eyebrow, heading, text…</div>
+  [[#if solution.illustration]]
+  <img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
+    style="display:block;width:100%;height:auto;border-radius:22px;border:1px solid #E4DCD3;">
+  [[/if]]
+</div>
+
+<!-- Cover: first child of a dark hero <section style="position:relative;overflow:hidden;…">.
+     Hidden under 900px (.case-cover { display:none } in the page's <style id="reset">),
+     where it would sit behind the text. Give the hero's text position:relative and
+     keep the h1 to max-width:620px so it clears the art. -->
+[[#if hero.cover]]
+<div class="case-cover" style="position:absolute;top:0;right:0;bottom:0;width:60%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);">
+  <img src="[[ hero.cover ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:right center;display:block;">
+</div>
 [[/if]]
 ```
 
@@ -240,7 +254,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
 - `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
-- `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with cover art) + detail pages (spot above Company Overview, illustration in The Solution).
+- `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
 

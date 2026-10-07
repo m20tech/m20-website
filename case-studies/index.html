@@ -32,17 +32,15 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(20px,3vw,36px);margin-top:32px;">
 
         [[#each studies]]
-        <a href="[[ href ]]" style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;color:#14171C;" style-hover="transform:translateY(-6px);box-shadow:0 24px 48px rgba(20,23,28,.10);border-color:#C0392B;">
-          [[#if cover]]
-          <img src="[[ cover ]]" alt="[[ coverAlt ]]" width="1200" height="630"
-            style="display:block;width:100%;height:auto;border-bottom:1px solid #E4DCD3;">
+        <a href="[[ href ]]" style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:30px 32px;display:flex;flex-direction:column;color:#14171C;" style-hover="transform:translateY(-6px);box-shadow:0 24px 48px rgba(20,23,28,.10);border-color:#C0392B;">
+          [[#if spot]]
+          <img src="[[ spot ]]" alt="" width="240" height="240"
+            style="display:block;width:96px;height:96px;margin:0 0 14px -7px;">
           [[/if]]
-          <div style="padding:30px 32px;display:flex;flex-direction:column;flex:1;">
-            <p style="font:600 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C0392B;margin:0 0 12px;">[[ category ]]</p>
-            <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">[[ title ]]</h3>
-            <p style="color:#5A6270;margin:0 0 20px;">[[ summary ]]</p>
-            <span style="margin-top:auto;font:600 14.5px 'Source Sans 3', system-ui, sans-serif;color:#C0392B;">[[ linkLabel ]]</span>
-          </div>
+          <p style="font:600 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#C0392B;margin:0 0 12px;">[[ category ]]</p>
+          <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">[[ title ]]</h3>
+          <p style="color:#5A6270;margin:0 0 20px;">[[ summary ]]</p>
+          <span style="margin-top:auto;font:600 14.5px 'Source Sans 3', system-ui, sans-serif;color:#C0392B;">[[ linkLabel ]]</span>
         </a>
 
         [[/each]]

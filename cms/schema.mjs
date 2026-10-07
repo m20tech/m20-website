@@ -91,6 +91,7 @@ const caseStudyHero = () =>
     string("title", "Heading"),
     text("intro", "Intro"),
     strings("tags", "Tags"),
+    artwork("covers", "cover", "Cover image", { description: "Background art on the right of the hero (decorative). Pick the cover's .svg." }),
   ]);
 const highlights = () =>
   object("highlights", "Project highlights", [
@@ -108,7 +109,6 @@ const overview = () =>
     string("focus", "Focus"),
     string("challengeLabel", "Challenge label"),
     text("challenge", "Core challenge"),
-    artwork("spots", "spot", "Spot illustration"),
   ]);
 // Explanatory illustration with its alt text, placed in the solution section.
 const illustration = () => [
@@ -269,8 +269,7 @@ const pages = [
         string("title", "Title"),
         text("summary", "Summary"),
         string("linkLabel", "Link text"),
-        artwork("covers", "cover", "Cover image", { description: "Pick the cover's .svg." }),
-        string("coverAlt", "Cover alt text", { required: false, description: "Describe what the cover shows." }),
+        artwork("spots", "spot", "Spot illustration", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
       ]),
     ],
   },
