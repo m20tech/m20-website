@@ -57,6 +57,10 @@
   <section style="padding-block:clamp(36px,4.5vw,52px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:start;">
       <div>
+        [[#if overview.spot]]
+        <img src="[[ overview.spot ]]" alt="" width="240" height="240"
+          style="display:block;width:104px;height:104px;margin:0 0 14px -7px;">
+        [[/if]]
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
           <span style="width:34px;height:2px;background:#C0392B;"></span>[[ overview.eyebrow ]]
         </p>
@@ -126,6 +130,10 @@
         <h2 style="font:600 clamp(24px,2.8vw,32px)/1.2 'Source Serif 4', Georgia, serif;margin:0 0 14px;letter-spacing:-0.01em;">[[ design.title ]]</h2>
         <p style="color:#5A6270;margin:0;">[[ design.text ]]</p>
       </div>
+      [[#if solution.illustration]]
+      <img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
+        style="grid-column:1/-1;display:block;width:100%;max-width:960px;height:auto;margin-inline:auto;border-radius:22px;border:1px solid #E4DCD3;">
+      [[/if]]
     </div>
   </section>
 

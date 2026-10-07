@@ -2,6 +2,7 @@
   "seo": {
     "title": "Case Study: Confluence Intranet Redesign | M20 Technology",
     "description": "How M20 turned a legacy intranet into a design-forward Confluence collaboration hub with Refined — with zero disruption to existing content.",
+    "image": "/assets/artwork/covers/intranet-transformation.png",
     "noindex": false
   },
   "hero": {
@@ -45,7 +46,8 @@
     "focusLabel": "Focus",
     "focus": "Technology and Design",
     "challengeLabel": "Core Challenge",
-    "challenge": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar."
+    "challenge": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar.",
+    "spot": "/assets/artwork/spots/intranet-events.svg"
   },
   "quote": [
     "“Huge thanks to M20 for their incredible work on our Confluence/Refined intranet space. We came to them with a specific tool that wasn't exactly ‘intranet-ready,’ and they completely transformed it.",
@@ -66,7 +68,9 @@
   "solution": {
     "eyebrow": "The Solution",
     "title": "A Tailored Confluence Experience",
-    "text": "Rather than rebuilding from scratch, M20 built on Confluence's robust content management capabilities — layering on Refined for Confluence for theming, custom HTML components for functionality, and analytics for insight."
+    "text": "Rather than rebuilding from scratch, M20 built on Confluence's robust content management capabilities — layering on Refined for Confluence for theming, custom HTML components for functionality, and analytics for insight.",
+    "illustration": "/assets/artwork/illustrations/confluence-intranet-layers.svg",
+    "illustrationAlt": "Three stacked layers: existing Confluence pages at the base, a brand theme in the middle, and custom intranet components on top, with a search-terms panel alongside."
   },
   "design": {
     "eyebrow": "Design & Features",

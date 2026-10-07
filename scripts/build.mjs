@@ -14,6 +14,7 @@ import path from "node:path";
 import http from "node:http";
 import { fileURLToPath } from "node:url";
 import { parse, render, checkTemplate } from "./template.mjs";
+import { ARTWORK } from "../cms/artwork.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
@@ -99,6 +100,11 @@ function renderPagesYml(schema) {
 
 // ------------------------------------------------------ content validation
 
+// PagesCMS media folders by name; image fields with options.media must point
+// inside theirs. Set from the schema at the start of each build.
+let MEDIA = new Map();
+const extOf = (p) => p.split(".").pop().toLowerCase();
+
 function validate(value, field, where, errors) {
   const at = `${where}.${field.name}`;
   if (field.list) {
@@ -129,6 +135,13 @@ function validate(value, field, where, errors) {
     case "image":
       if (typeof value !== "string" || !value.startsWith("/")) errors.push(`${at}: expected a root-relative image path`);
       else if (!fs.existsSync(path.join(ROOT, decodeURI(value)))) errors.push(`${at}: image ${value} not found in repo`);
+      else if (field.options?.media) {
+        const m = MEDIA.get(field.options.media);
+        const exts = field.options.extensions ?? m?.extensions;
+        if (!m) errors.push(`${at}: unknown media folder "${field.options.media}"`);
+        else if (!value.startsWith(m.output + "/")) errors.push(`${at}: must be a file in ${m.output}/`);
+        else if (exts && !exts.includes(extOf(value))) errors.push(`${at}: ${extOf(value)} files aren't allowed here (use ${exts.join(", ")})`);
+      }
       break;
     case "boolean":
       if (typeof value !== "boolean") errors.push(`${at}: expected true/false`);
@@ -174,6 +187,21 @@ function fieldPaths(fields, prefix = "") {
   return out;
 }
 
+// Artwork library: every SVG has its type's canvas size and an up-to-date PNG.
+function checkArtwork(errors) {
+  for (const [type, a] of Object.entries(ARTWORK)) {
+    const dir = path.join(ROOT, "assets", "artwork", type);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".svg"))) {
+      const rel = `assets/artwork/${type}/${f}`;
+      const vb = fs.readFileSync(path.join(dir, f), "utf8").match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
+      if (!vb || +vb[1] !== a.width || +vb[2] !== a.height) errors.push(`${rel}: ${type} must use viewBox="0 0 ${a.width} ${a.height}"`);
+      const png = path.join(dir, f.replace(/\.svg$/, ".png"));
+      if (!fs.existsSync(png)) errors.push(`${rel}: no PNG export — run \`npm run artwork:png\``);
+    }
+  }
+}
+
 // ------------------------------------------------------------------ build
 
 function walkFiles(dir, rel = "") {
@@ -214,6 +242,8 @@ function readJson(file, errors) {
 export async function build({ write = true } = {}) {
   const schema = await loadSchema();
   const errors = [];
+  MEDIA = new Map([].concat(schema.media).map((m) => [m.name, m]));
+  checkArtwork(errors);
 
   const yml = renderPagesYml(schema);
   const onDisk = fs.existsSync(PAGES_YML) ? fs.readFileSync(PAGES_YML, "utf8") : "";

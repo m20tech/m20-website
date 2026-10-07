@@ -28,7 +28,7 @@ M20 Technology is an Atlassian Gold Solution Partner. The site's tone is editori
 | Error/invalid | `#96271C` | Form field invalid border/status text |
 | White | `#FFFFFF` | Cards on light sections, button text on red |
 
-Design logic: **paper/ink** for structure, **red** exclusively for calls to action and interactive emphasis, **gold** exclusively as an eyebrow/kicker accent on dark backgrounds. Never mix red-as-decoration and red-as-action — red always means "click here" or "this is active."
+Design logic: **paper/ink** for structure, **red** exclusively for calls to action and interactive emphasis, **gold** exclusively as an eyebrow/kicker accent on dark backgrounds (artwork has its own, slightly wider rules and a red/amber/green status set — see **Illustrations**). Never mix red-as-decoration and red-as-action — red always means "click here" or "this is active."
 
 ## Typography
 
@@ -127,6 +127,93 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
 - Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
+- Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
+
+## Illustrations
+
+Flat, hand-built SVG artwork that shows the things M20's work produces: intranet pages, Jira dashboards, status tables, delivery pipelines. It shares the site's palette and radii, so it reads as part of the page rather than stock art. Live examples: `/case-studies` (covers), `/case-study-intranet` and `/case-study-dashboard` (illustration in **The Solution**, spot above **Company Overview**).
+
+### Artwork types
+
+| Type | SVG canvas | PNG export | Ground | Where it goes |
+|---|---|---|---|---|
+| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Top of a card on an index page (full-bleed, `border-bottom:1px solid #E4DCD3`). The PNG is the page's **social share image**. |
+| **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Inside a section, explaining a solution or process. Displayed `width:100%;max-width:960px`, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). |
+| **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Shown at `104px` above a section eyebrow (`margin:0 0 14px -7px` so the circle lines up with the text edge). Always decorative: `alt=""`. |
+
+Pages use the **SVG** (sharp at any size, 1–20 KB). The **PNG** is for places that can't take SVG: social share images, email (absolute URL, see **Logo & lockup**), slides, and PDFs.
+
+### The artwork library
+
+- Files live in `assets/artwork/<type>/` — `covers/`, `illustrations/`, `spots/` — as `<subject>.svg` with its `<subject>.png` export beside it. Name files by **subject**, not by page (`jira-executive-dashboard`, not `case-study-2-cover`), so any page can reuse them.
+- `cms/artwork.mjs` defines the three types (label, canvas size, PNG scale). Each type is its own PagesCMS media folder, so the CMS media sidebar shows **Artwork: covers / illustrations / spots** and a field's picker opens only its type's folder.
+- In `cms/schema.mjs`, use `artwork("covers" | "illustrations" | "spots", name, label)` for any artwork field (optional by default), with a `string(<name>Alt, …)` alt-text field beside covers and illustrations. Every page's **Social share image** is an `artwork("covers", …)` field limited to PNG/JPG/WebP.
+- The build fails if an artwork value points outside its type's folder or uses a disallowed format, if an SVG's `viewBox` doesn't match its type's canvas, or if an SVG has no PNG export.
+
+### Visual vocabulary
+
+Data in artwork uses **only** these four forms — they're the visuals our clients actually work with:
+
+1. **Rich table** — a header row of short muted bars, `1px` row dividers, and mixed columns per row: key chip (`14×14`, `4px` radius), name bar, owner avatar (circle), **status pill**, **progress meter**, due-date bar.
+2. **Progress bars / meters** — `5–7px` rounded track with a rounded fill. Fill is neutral (`#D5D9E1` on dark, `#9AA1AD` on light); one meter per visual may be gold `#E8A04C` to mark the headline value. A single health reading can be a semi-circle **gauge** (spots).
+3. **Event list** — date chip (`30×30`, `7px` radius; gold month bar over a day bar), title + subtitle bars, status glyph at the right edge.
+4. **RAG chart** — a status matrix (glyph circles, e.g. teams × sprints), a stacked RAG bar (segments `3px` radius, `2px` gaps) with a glyph legend, or RAG pills inside a table.
+
+**Never** use line graphs, area charts, sparklines, or pie/donut charts. A trend becomes a meter or a table column; a share becomes a stacked RAG bar.
+
+Supporting motifs:
+
+- **UI window** — `20px` radius, title bar with three dots, optional address pill. The modern/after state is paper; legacy/before is dark, grey, dense, and tilted (`rotate(-4deg)`).
+- **Page parts** — dark hero band with a gold kicker rule, white cards with tinted icon chips, a red CTA pill, an outline pill.
+- **System of record** — a rounded diamond (`22px` radius, rotated 45°, `#C0392B → #7A1E15` gradient) with three paper bars. It stands for Jira or any source system. Use a real product logo only from the approved Atlassian set, with attribution.
+- **Security** — a shield with a check (permissions, review passed) or a lock (secured production).
+- **Nothing stored** — a dashed data-store cylinder struck through in gold.
+- **Pipeline** — a white chip with two circular arrows (CI/CD); a Git graph (ink trunk, red feature branch merging back).
+- **Progression** — dashed gold connector (`stroke-width:2.5`, `stroke-dasharray:2 8`, round caps) ending in an open chevron. Phases rise left to right on paper-alt step platforms, numbered with 1/2/3 red pips (not digits).
+- **Draft state** — dashed grey (`#9AA1AD`, `stroke-dasharray:4–8`) outlines for prototypes and wireframes.
+- **Layers** — isometric plates (`matrix(.866 .5 -.866 .5 0 0)`, `scale(.82)`) stacked about 195px apart, with dotted guides between corners.
+- **Sparkles** — gold four-point stars, at most two per image.
+
+### Status (RAG) colors
+
+Status colors mean status only; they are never used for decoration or for series identity. Every status mark carries its **glyph** as well as its color, so it never relies on color alone.
+
+| Status | Glyph | On light | On dark | Pill fill |
+|---|---|---|---|---|
+| Red / at risk | ✕ | `#C0392B` | `#E0533F` | status color at 14% (light) / 20% (dark) |
+| Amber / watch | ! | `#E8A04C` | `#E8A04C` | same |
+| Green / on track | ✓ | `#1E7A46` | `#2F9460` | same |
+
+The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separation checks against `#1A1A19`; amber on light is below 3:1 contrast, which the glyph covers. A pill is the status circle with a white glyph, then a short label bar.
+
+### Color and drawing rules
+
+- **Red** appears only where the depicted UI would be clickable or active (CTA pill, today's date, the merged branch, a selected item), as the red RAG status, and as the stroke of spot line art (same convention as the icon set).
+- **Gold** marks the one headline value in a visual (top meter, key KPI tile), connectors, and sparkles. Artwork may use gold on light grounds — an exception to the eyebrow-only rule for page UI.
+- **Words are bars.** No real text, numbers, or fonts in artwork: headings are ink bars (`#14171C` light / `#FAF7F4` dark), body copy is lighter bars (`#C9C2B8` light / `#5A6270`–`#9AA1AD` dark), all with fully rounded ends. All copy stays in the CMS.
+- **Radii:** windows `20px`, panels `12px`, cards `10–12px`, chips `7px`, pills fully rounded — the same scale as the site.
+- **Strokes:** spot line art `5px` red, round caps and joins; illustration outlines `2–3.5px`; connectors `2.5px`.
+- **Depth:** `feDropShadow` with `dy` 18–30 and blur 18–28 — ink at 12–22% on paper, black at 50% on ink.
+- **Dark grounds** (covers): `#14171C`, a 28px dot grid (`r=1.4`, white at 7%), and a radial glow `#96271C` at 55% fading to transparent behind the focal point. Put the glow on the opposite side from the previous cover so a row of cards alternates.
+- **Files:** hand-written SVG with the exact canvas `viewBox` and matching `width`/`height`; no embedded images, fonts, or external references; aim under 25 KB.
+
+### Making new artwork
+
+1. **Pick the type and the story.** From the page copy, list the three or four facts the image must show (e.g. "nothing stored", "passes security review", "three phases"). One story per image.
+2. **Start from the closest file** in `assets/artwork/<type>/`: copy it to `<subject>.svg` and rework it. Reuse the motifs and data forms above — don't invent new chart types.
+3. **Check it against the rules:** only tables, meters, event lists, and RAG charts for data; RAG marks carry glyphs; red only for action or red status; no words; exact `viewBox`.
+4. **Export the PNG:** `npm run artwork:png` writes `<subject>.png` beside every new or changed SVG at its type's export size (`-- --all` re-exports everything). It needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found.
+5. **Run `npm run check`**, then commit the SVG and PNG together.
+6. **Use it in the CMS:** pick the `.svg` for a cover or illustration field and write its alt text (say what it shows, not "illustration of…"); pick the cover's `.png` for the page's **Social share image**. Spots need no alt text.
+7. **Embedding on a new template** (developers): add the `artwork()` field and alt field in `cms/schema.mjs`, wrap the image in `[[#if …]]` so the section still works without artwork, and set `width`/`height` attributes from the type's canvas so the layout doesn't jump while it loads:
+
+```html
+[[#if solution.illustration]]
+<img src="[[ solution.illustration ]]" alt="[[ solution.illustrationAlt ]]" width="1200" height="800" loading="lazy"
+  style="display:block;width:100%;max-width:960px;height:auto;margin-inline:auto;border-radius:22px;border:1px solid #E4DCD3;">
+[[/if]]
+```
+
 
 ## Logo & lockup
 
@@ -153,7 +240,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
 - `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
-- `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index + detail pages.
+- `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with cover art) + detail pages (spot above Company Overview, illustration in The Solution).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
 

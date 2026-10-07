@@ -1,8 +1,40 @@
 # GENERATED from cms/schema.mjs by `npm run cms:sync` — do not edit by hand.
 # PagesCMS (https://pagescms.org) reads this file to build the editing UI.
 media:
-  input: assets
-  output: /assets
+  - name: images
+    label: Site images
+    input: assets
+    output: /assets
+  - name: covers
+    label: "Artwork: covers"
+    input: assets/artwork/covers
+    output: /assets/artwork/covers
+    extensions:
+      - svg
+      - png
+      - jpg
+      - jpeg
+      - webp
+  - name: illustrations
+    label: "Artwork: illustrations"
+    input: assets/artwork/illustrations
+    output: /assets/artwork/illustrations
+    extensions:
+      - svg
+      - png
+      - jpg
+      - jpeg
+      - webp
+  - name: spots
+    label: "Artwork: spots"
+    input: assets/artwork/spots
+    output: /assets/artwork/spots
+    extensions:
+      - svg
+      - png
+      - jpg
+      - jpeg
+      - webp
 content:
   - name: pages
     label: Pages
@@ -36,7 +68,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -294,7 +333,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -543,7 +589,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -788,7 +841,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -869,7 +929,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -909,6 +976,18 @@ content:
                 label: Link text
                 type: string
                 required: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Pick the cover's .svg."
+                options:
+                  media: covers
+              - name: coverAlt
+                label: Cover alt text
+                type: string
+                required: false
+                description: Describe what the cover shows.
       - name: privacy
         label: Privacy Policy
         type: file
@@ -937,7 +1016,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -1023,7 +1109,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -1112,6 +1205,13 @@ content:
                 label: Core challenge
                 type: text
                 required: true
+              - name: spot
+                label: Spot illustration
+                type: image
+                required: false
+                description: "240×240 spot illustration, shown at about 104px. Decorative."
+                options:
+                  media: spots
           - name: quote
             label: Client quote paragraphs
             type: text
@@ -1159,6 +1259,18 @@ content:
                 label: Text
                 type: text
                 required: true
+              - name: illustration
+                label: Illustration
+                type: image
+                required: false
+                description: "1200×800 explanatory illustration."
+                options:
+                  media: illustrations
+              - name: illustrationAlt
+                label: Illustration alt text
+                type: string
+                required: false
+                description: Describe what the illustration shows.
           - name: design
             label: Design & features
             type: object
@@ -1234,7 +1346,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -1323,6 +1442,13 @@ content:
                 label: Core challenge
                 type: text
                 required: true
+              - name: spot
+                label: Spot illustration
+                type: image
+                required: false
+                description: "240×240 spot illustration, shown at about 104px. Decorative."
+                options:
+                  media: spots
           - name: challenge
             label: The challenge
             type: object
@@ -1378,6 +1504,18 @@ content:
                 label: Intro
                 type: text
                 required: true
+              - name: illustration
+                label: Illustration
+                type: image
+                required: false
+                description: "1200×800 explanatory illustration."
+                options:
+                  media: illustrations
+              - name: illustrationAlt
+                label: Illustration alt text
+                type: string
+                required: false
+                description: Describe what the illustration shows.
               - name: phases
                 label: Phases
                 type: object
@@ -1565,7 +1703,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean
@@ -1872,7 +2017,14 @@ content:
                 label: Social share image
                 type: image
                 required: false
-                description: "Optional — defaults to the site-wide share image. Best at 1200×630."
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
               - name: noindex
                 label: Hide from search engines
                 type: boolean

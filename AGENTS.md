@@ -37,6 +37,7 @@ Editors change content through [PagesCMS](https://app.pagescms.org), which edits
 - New page: create `<slug>/index.html` as a template, add `content/pages/<slug>.json`, and add an entry to the `pages` list in `cms/schema.mjs`.
 - Repeating items (cards, logos, list items) are `list(...)` fields rendered with `[[#each]]`, so editors can add, remove, and reorder them. Keep one template body per list — no per-item markup.
 - Images: use `image(...)` fields. Values are root-relative paths under `/assets` (the CMS media folder); uploads from the CMS land in `assets/`. Keep alt text as its own field next to each image.
+- Artwork (covers, illustrations, spots): use `artwork("covers" | "illustrations" | "spots", …)` fields, which scope the CMS picker to the shared library in `assets/artwork/<type>/`. Make new artwork by the **Illustrations** rules in `design.md` (tables, meters, event lists, and RAG charts only; no line graphs; no words), then run `npm run artwork:png` and commit the SVG and PNG together.
 - Icons: card icons are `icon()` select fields backed by `cms/icons/<name>.svg` (a bare `<svg viewBox="…">` whose inner markup is inlined; the template supplies size, stroke, and color). To offer a new icon, add the SVG file there and run `npm run cms:sync`.
 - Text with bold/links: use `markdown(...)` fields with `[[md …]]`, passing the inline styles for `a`/`strong` from the template.
 

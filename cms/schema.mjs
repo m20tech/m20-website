@@ -9,13 +9,16 @@
 
 import {
   string, text, markdown, image, icon, object, list, strings,
-  blocks, block, link, eyebrow, boolean, number, seo,
+  blocks, block, link, eyebrow, boolean, number, seo, artwork,
 } from "./fields.mjs";
+import { artworkMedia } from "./artwork.mjs";
 
-export const media = {
-  input: "assets",
-  output: "/assets",
-};
+// The first folder is the default for image fields; the artwork folders are
+// used by artwork() fields so each picker only shows that type.
+export const media = [
+  { name: "images", label: "Site images", input: "assets", output: "/assets" },
+  ...artworkMedia,
+];
 
 // Site-wide settings: available to every template as site.* (used by the
 // <head> partial for SEO defaults, favicon, and structured data).
@@ -105,7 +108,13 @@ const overview = () =>
     string("focus", "Focus"),
     string("challengeLabel", "Challenge label"),
     text("challenge", "Core challenge"),
+    artwork("spots", "spot", "Spot illustration"),
   ]);
+// Explanatory illustration with its alt text, placed in the solution section.
+const illustration = () => [
+  artwork("illustrations", "illustration", "Illustration"),
+  string("illustrationAlt", "Illustration alt text", { required: false, description: "Describe what the illustration shows." }),
+];
 const section = (name, label, extra = []) =>
   object(name, label, [eyebrow(), string("title", "Heading"), text("text", "Text"), ...extra]);
 
@@ -260,6 +269,8 @@ const pages = [
         string("title", "Title"),
         text("summary", "Summary"),
         string("linkLabel", "Link text"),
+        artwork("covers", "cover", "Cover image", { description: "Pick the cover's .svg." }),
+        string("coverAlt", "Cover alt text", { required: false, description: "Describe what the cover shows." }),
       ]),
     ],
   },
@@ -294,7 +305,7 @@ const pages = [
         string("listTitle", "Requirements heading"),
         strings("requirements", "Requirements"),
       ]),
-      section("solution", "The solution"),
+      section("solution", "The solution", illustration()),
       section("design", "Design & features"),
       section("outcomes", "Outcomes", [link("cta", "Button")]),
     ],
@@ -320,6 +331,7 @@ const pages = [
         eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
+        ...illustration(),
         list("phases", "Phases", [
           string("label", "Label"),
           string("title", "Title"),

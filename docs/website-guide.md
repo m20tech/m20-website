@@ -29,6 +29,7 @@ The site is a small static website. There is no server-side application and no d
 | CMS schema | `cms/schema.mjs` (generates `.pages.yml`) | Defines exactly which fields editors see for each page. |
 | Icon library | `cms/icons/*.svg` | Icons editors can pick for cards. |
 | Images | `assets/` | Site images; also where images uploaded through the CMS are stored. |
+| Artwork library | `assets/artwork/covers/`, `illustrations/`, `spots/` | Shared cover, illustration, and spot artwork any page can reuse. Each has an SVG (used on pages) and a PNG export (social sharing, email, slides). Defined in `cms/artwork.mjs`. |
 | Build script | `scripts/build.mjs` | Renders templates + content into the finished site (`dist/`), runs consistency checks, and writes `sitemap.xml` and `robots.txt`. |
 | Hosting config | `wrangler.jsonc` | Tells Cloudflare how to build and serve the site. |
 
@@ -81,6 +82,7 @@ Each page is split into its sections in page order (Hero, What we do, Client log
 | Change a button | Each button has **Button text** and **Link**. Links are site paths like `/contact` or full `https://…` addresses. |
 | Add, remove, or reorder cards, logos, partners, or list items | Use the list controls on the field (add, delete, drag to reorder). |
 | Swap an image | Click the image field and upload a new file or pick an existing one. Always update the matching **alt text** field too — it's what screen readers and search engines see. |
+| Use artwork (cover, illustration, spot) | Artwork fields open only their own library folder: **Artwork: covers**, **Artwork: illustrations**, or **Artwork: spots**. Pick the `.svg` and write the alt text for covers and illustrations (spots are decorative and have none). The same artwork can be used on any page. New artwork follows the **Illustrations** rules in `design.md` — ask a developer or Claude Code to make it. |
 | Change a card icon | Pick from the **Icon** dropdown. New icons need a developer (see below). |
 | Bold text or links inside a paragraph | Fields that support it say so. Use `**bold**`, `*italic*`, and `[link text](https://…)`. |
 | Edit the privacy policy | It's a list of blocks (Heading, Subheading, Paragraph, Bullet list) — add, remove, and reorder blocks freely. |
@@ -91,7 +93,7 @@ Every page has an **SEO** section:
 
 - **Page title** — shown in search results and browser tabs. Aim for 50–60 characters (70 max).
 - **Meta description** — the snippet under the title in search results. Aim for 120–160 characters (170 max).
-- **Social share image** — optional. The image shown when the page is shared on LinkedIn, Slack, etc. Defaults to the site-wide share image. Best at 1200×630.
+- **Social share image** — optional. The image shown when the page is shared on LinkedIn, Slack, etc. Defaults to the site-wide share image. The picker opens **Artwork: covers**: choose a cover's `.png` (1200×630). Social sites can't show SVG, so the build rejects it here.
 - **Hide from search engines** — adds `noindex` and removes the page from the sitemap.
 
 **SEO & site settings** (under Site-wide) holds the site name, production **Site URL**, the default share image, favicon, logo for search engines, and social profile links.
@@ -129,7 +131,7 @@ Editors can change anything that's a field. Changing layout, design, or structur
 | --- | --- | --- |
 | Push to any branch other than `main` | Cloudflare Workers Builds runs the build and uploads a preview version at `https://<branch>-m20-website.mike-124.workers.dev`. | The "Workers Builds: m20-website" check on the GitHub commit or PR |
 | Push or merge to `main` | Cloudflare Workers Builds runs the build and deploys production. | Same check, and the Cloudflare dashboard |
-| Every build | Consistency checks: every template tag has a CMS field, every CMS field is used, content matches the schema, image files exist, and `.pages.yml` is current. A failing check stops the deploy, so the live site is never broken by bad content. | Build logs in Cloudflare |
+| Every build | Consistency checks: every template tag has a CMS field, every CMS field is used, content matches the schema, image files exist, artwork fields point into the right library folder, every artwork SVG has the right size and a PNG export, and `.pages.yml` is current. A failing check stops the deploy, so the live site is never broken by bad content. | Build logs in Cloudflare |
 | Production release (run by Claude Code) | Republishes this page from `docs/website-guide.md` through the Atlassian connector. The footer names the commit it was published from. | This page's footer and page history |
 
 ### If a build fails
@@ -142,5 +144,6 @@ A failed build never replaces the live site — production keeps serving the las
 - `npm run dev` — build and serve at http://localhost:8000, rebuilding on every change.
 - `npm run check` — run the consistency checks only.
 - `npm run cms:sync` — regenerate `.pages.yml` after changing `cms/schema.mjs`.
+- `npm run artwork:png` — export PNGs for new or changed artwork SVGs (needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found).
 - Structural changes (a new section, list, field, or page) must update the template, the content JSON, and `cms/schema.mjs` in the same commit, then run `npm run cms:sync`. The full conventions, including design rules and the template tag reference, are in `AGENTS.md` and `design.md` in the repo.
 - Update this guide (`docs/website-guide.md`) in the same change whenever the architecture, CMS, or process changes.

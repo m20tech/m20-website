@@ -6,7 +6,8 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
     "dev": "node scripts/build.mjs --serve",
-    "cms:sync": "node scripts/build.mjs --sync-cms"
+    "cms:sync": "node scripts/build.mjs --sync-cms",
+    "artwork:png": "node scripts/export-artwork.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -6,6 +6,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { ARTWORK } from "./artwork.mjs";
+
 const ICON_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "icons");
 export const iconNames = fs
   .readdirSync(ICON_DIR)
@@ -30,6 +32,18 @@ export const markdown = (name, label, o) => ({
 });
 
 export const image = (name, label, o) => ({ name, label, type: "image", required: true, ...opt(o) });
+
+// An image from the shared artwork library (cms/artwork.mjs). `type` is
+// "covers", "illustrations", or "spots"; the CMS picker opens that folder
+// and only accepts files from it. Optional by default so a page can go
+// without artwork.
+export const artwork = (type, name, label, o) =>
+  image(name, label, {
+    required: false,
+    description: ARTWORK[type].description,
+    ...opt(o),
+    options: { media: type, ...opt(o).options },
+  });
 
 export const icon = (name = "icon", label = "Icon") => ({
   name,
@@ -74,9 +88,9 @@ export const seo = () =>
       description: "Search result snippet. Aim for 120–160 characters.",
       options: { maxlength: 170 },
     }),
-    image("image", "Social share image", {
-      required: false,
-      description: "Optional — defaults to the site-wide share image. Best at 1200×630.",
+    artwork("covers", "image", "Social share image", {
+      description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG.",
+      options: { extensions: ["png", "jpg", "jpeg", "webp"] },
     }),
     boolean("noindex", "Hide from search engines", { description: "Adds noindex and leaves the page out of sitemap.xml." }),
   ]);
