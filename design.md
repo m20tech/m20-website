@@ -137,7 +137,7 @@ Flat, hand-built SVG artwork that shows the things M20's work produces: intranet
 
 | Type | SVG canvas | PNG export | Ground | Where it goes |
 |---|---|---|---|---|
-| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, the same treatment as the homepage hero image (no bottom curve). The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
+| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art in the right half of a dark page hero, bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
 | **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
 | **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Top of a card on an index page, shown at `96px` in place of an icon badge (`margin:0 0 14px -7px` so the circle lines up with the card's text edge). Always decorative: `alt=""`. |
 
@@ -194,6 +194,7 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 - **Radii:** windows `20px`, panels `12px`, cards `10–12px`, chips `7px`, pills fully rounded — the same scale as the site.
 - **Strokes:** spot line art `5px` red, round caps and joins; illustration outlines `2–3.5px`; connectors `2.5px`.
 - **Depth:** `feDropShadow` with `dy` 18–30 and blur 18–28 — ink at 12–22% on paper, black at 50% on ink.
+- **Composition** (covers): keep the focal UI in the right ~60% and nothing important in the last 8% on the right (hero bleed); the left third tells the "before" or "source" part of the story.
 - **Dark grounds** (covers): `#14171C`, a 28px dot grid (`r=1.4`, white at 7%), and a radial glow `#96271C` at 55% fading to transparent behind the focal point. Put the glow on the opposite side from the previous cover so a row of cards alternates.
 - **Files:** hand-written SVG with the exact canvas `viewBox` and matching `width`/`height`; no embedded images, fonts, or external references; aim under 25 KB.
 
@@ -218,12 +219,15 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 </div>
 
 <!-- Cover: first child of a dark hero <section style="position:relative;overflow:hidden;…">.
-     Hidden under 900px (.case-cover { display:none } in the page's <style id="reset">),
-     where it would sit behind the text. Give the hero's text position:relative and
-     keep the h1 to max-width:620px so it clears the art. -->
+     It fills the right half of the hero, vertically centred, at its natural 1200×630 shape
+     (never object-fit:cover, which crops the art's left side). It runs 8% past the right
+     edge, where covers only have glow, and is feathered on the left, top and bottom.
+     Wrap the hero text in .case-hero-text with max-width:min(620px, calc(50% - 20px)) so it
+     never runs under the art. Under 900px the cover is hidden and the text goes full width:
+     @media (max-width: 900px) { .case-cover { display: none; } .case-hero-text { max-width: none !important; } } -->
 [[#if hero.cover]]
-<div class="case-cover" style="position:absolute;top:0;right:0;bottom:0;width:60%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.55) 20%, #000 45%);">
-  <img src="[[ hero.cover ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:right center;display:block;">
+<div class="case-cover" style="position:absolute;top:0;bottom:0;left:calc(50% + 20px);right:0;display:flex;align-items:center;pointer-events:none;">
+  <img src="[[ hero.cover ]]" alt="" width="1200" height="630" style="display:block;width:108%;max-width:none;flex:none;height:auto;-webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);mask-composite:intersect;">
 </div>
 [[/if]]
 ```
