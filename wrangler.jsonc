@@ -1,0 +1,17 @@
+// Cloudflare Workers config. Workers Builds runs `wrangler deploy` for main
+// (production) and `wrangler versions upload` for every other branch, which
+// publishes a preview at https://<branch>-m20-website.mike-124.workers.dev.
+// Both run build.command first, so the CMS content is rendered into dist/.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "m20-website",
+  "compatibility_date": "2026-09-21",
+  "build": {
+    "command": "node scripts/build.mjs"
+  },
+  "assets": {
+    "directory": "./dist"
+  },
+  "preview_urls": true,
+  "workers_dev": true
+}

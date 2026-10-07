@@ -1,0 +1,10 @@
+{
+  "siteName": "M20 Technology",
+  "siteUrl": "https://m20-website.mike-124.workers.dev",
+  "defaultImage": "/assets/hero-network.jpg",
+  "favicon": "/assets/logo.png",
+  "logo": "/assets/logo.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/m20-technology"
+  ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <circle cx="120" cy="124" r="104" fill="#F9E9E4"/>
+  <g fill="none" stroke="#C0392B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- executive tile -->
+    <rect x="36" y="54" width="148" height="122" rx="16" fill="#FFFFFF"/>
+    <!-- health gauge -->
+    <path d="M62 132 a48 48 0 0 1 96 0"/>
+    <line x1="110" y1="132" x2="134" y2="104"/>
+    <line x1="62" y1="154" x2="104" y2="154"/>
+    <line x1="116" y1="154" x2="158" y2="154"/>
+  </g>
+  <path d="M62 132 a48 48 0 0 1 14 -34" fill="none" stroke="#E8A04C" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="110" cy="132" r="7" fill="#C0392B"/>
+  <!-- permission shield -->
+  <path d="M176 120 l30 11 v22 c0 20 -13 32 -30 38 c-17 -6 -30 -18 -30 -38 v-22z" fill="#FFFFFF" stroke="#C0392B" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M164 152l9 9 16 -18" fill="none" stroke="#E8A04C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

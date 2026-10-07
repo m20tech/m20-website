@@ -1,18 +1,36 @@
 # M20 Website
 
-Source for [m20tech.com](https://m20tech.github.io/m20-website/), the marketing site for M20 Technology, an Atlassian Gold Solution Partner.
+Source for [m20tech.com](https://m20-website.mike-124.workers.dev/), the marketing site for M20 Technology, an Atlassian Gold Solution Partner## Repo structure
 
-## Repo structure
+Page HTML files are templates; their copy and images live in `content/` and are edited through [PagesCMS](https://app.pagescms.org). A zero-dependency Node script renders them into `dist/`, which Cloudflare deploys.
 
-The site is a static build with no bundler or build step — pages are edited and served directly.
-
-- `index.html` — homepage
-- `<page>/index.html` — every other page, one folder per clean URL (e.g. `atlassian-services/index.html` serves at `/atlassian-services`): `ai/`, `ai-value-proposition/`, `atlassian-services/`, `partners/`, `contact/`, `case-studies/`, `case-study-dashboard/`, `case-study-intranet/`, `privacy/`
-- `Header.dc.html`, `Footer.dc.html` — shared "design canvas" components, fetched at runtime by every page via `<dc-import>`; not pages themselves, so they stay flat at the repo root
+- `index.html` — homepage template
+- `<page>/index.html` — every other page, one folder per clean URL (e.g. `atlassian-services/index.html` serves at `/atlassian-services`)
+- `Header.dc.html`, `Footer.dc.html` — shared "design canvas" components fetched at runtime via `<dc-import>`
+- `content/` — page and component content (JSON), edited via PagesCMS
+- `cms/schema.mjs` — what's editable in the CMS; generates `.pages.yml`. `cms/icons/` — icon library
+- `scripts/build.mjs` — build, CMS consistency checks, SEO files, and local dev server
+- `docs/website-guide.md` — user guide, published to Confluence as part of each production release
 - `image-slot.js`, `support.js` — shared client-side scripts
-- `assets/` — site-owned images (logos, hero art, partner/client marks)
-- `uploads/` — additional media and documents referenced by pages
+- `assets/` — site images (also the CMS media folder); `uploads/` — additional media
 - `design.md` — the design system reference (see below)
+
+## Local development
+
+```
+npm run dev        # build, serve dist/ at http://localhost:8000, rebuild on change
+npm run check      # CMS consistency checks only
+npm run cms:sync   # regenerate .pages.yml after editing cms/schema.mjs
+```
+
+## Content editing & previews
+
+- Sign in at [app.pagescms.org](https://app.pagescms.org) with GitHub, open `m20tech/m20-website`, and switch to the `preview` branch before editing.
+- Every push to a non-`main` branch deploys a preview at `https://<branch>-m20-website.mike-124.workers.dev` — the shared one is **https://preview-m20-website.mike-124.workers.dev**.
+- Production deploys from `main` via a PR from `preview`. See the **Preview & release workflow** in [AGENTS.md](AGENTS.md).
+- The user guide ([docs/website-guide.md](docs/website-guide.md)) is republished to the [Website Confluence page](https://m20tech.atlassian.net/wiki/x/AoCIcwE) by Claude Code as part of every production release.
+
+)
 
 ## Design system
 

@@ -1,0 +1,134 @@
+{
+  "seo": {
+    "title": "Partners | M20 Technology",
+    "description": "M20 Technology partners with Atlassian, Tempo, Refined, Appfire, Adaptavist, and other leading vendors to deliver exceptional customer experiences.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "About Us",
+    "title": "Partners",
+    "intro": "Working together to provide exceptional customer experiences."
+  },
+  "partners": [
+    {
+      "logo": "/assets/partners/atlassian.webp",
+      "logoAlt": "Atlassian Gold Solution Partner",
+      "name": "Atlassian",
+      "text": "Millions of users globally rely on Atlassian products every day for improving software development, project management, collaboration, and code quality.",
+      "url": "https://www.atlassian.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/squarespace.webp",
+      "logoAlt": "Squarespace Circle Member",
+      "name": "Squarespace",
+      "text": "Squarespace empowers people with creative ideas to succeed by allowing users to create and modify webpages using pre-built templates and drag-and-drop elements, without the need to know code.",
+      "url": "https://www.squarespace.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/servicerocket.webp",
+      "logoAlt": "ServiceRocket",
+      "name": "Service Rocket",
+      "text": "The most reliable Atlassian partner for thousands of businesses around the world. They've got your back with a dedicated global team and industry-leading Atlassian services, training, and software solutions.",
+      "url": "https://www.servicerocket.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/adaptavist.webp",
+      "logoAlt": "Adaptavist",
+      "name": "Adaptavist",
+      "text": "Adaptavist specializes in integrating platforms and custom app development in order to implement your business concepts into workable tools.",
+      "url": "https://www.adaptavist.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/pledge1.webp",
+      "logoAlt": "Pledge 1% Proud Member",
+      "name": "Pledge 1%",
+      "text": "Pledge 1% offers companies turnkey tools and best practices, making it accessible for any company to incorporate philanthropy into their business model.",
+      "url": "https://pledge1percent.org/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/tempo.webp",
+      "logoAlt": "Tempo",
+      "name": "Tempo",
+      "text": "Tempo offers integrated solutions for time management, resource planning, and budget management for software engineering and product management teams.",
+      "url": "https://www.tempo.io/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/refined.webp",
+      "logoAlt": "Refined",
+      "name": "Refined",
+      "text": "Use Refined to power customer, branded intranets, documentation sites, and knowledge bases, while building custom themed help and support sites.",
+      "url": "https://www.refined.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/appfire.webp",
+      "logoAlt": "Appfire",
+      "name": "Appfire",
+      "text": "Enterprise collaboration solutions built for your team, ecosystem, and best work — because when work flows, productivity does, too.",
+      "url": "https://appfire.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/elements.webp",
+      "logoAlt": "Elements",
+      "name": "Elements",
+      "text": "Elements develops and markets apps that enhance Jira and Confluence to enable teams to work more efficiently",
+      "url": "https://elements-apps.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/osc.png",
+      "logoAlt": "Open Source Consulting",
+      "name": "Open Source Consulting",
+      "text": "Open Source Consulting is a cloud migration company that realizes digital transformation for customers. We provide the technology solutions and services for successful cloud adoption and collaborative culture",
+      "url": "https://global.osci.kr/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/exalate.webp",
+      "logoAlt": "Exalate",
+      "name": "Exalate",
+      "text": "With Exalate, you can set up an integration between Jira, GitHub, Zendesk, ServiceNow, Azure DevOps, HP QC/ALM & more.",
+      "url": "https://exalate.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/jxl.webp",
+      "logoAlt": "JXL for Jira",
+      "name": "JXL",
+      "text": "JXL performs at any scale to save countless clicks and hours. Easier faster Jira.",
+      "url": "https://jxl.app/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/revyz.svg",
+      "logoAlt": "Revyz",
+      "name": "Revyz",
+      "text": "Helps you have complete confidence in cloud with enterprise grade protection from all forms of data loss and cyber-threats.",
+      "url": "https://www.revyz.io/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/qmetry.webp",
+      "logoAlt": "QMetry",
+      "name": "QMETRY",
+      "text": "Powerful, scalable, compliance drive quality orchestration platform that enables quality at speed with improved ROI",
+      "url": "https://www.qmetry.com/",
+      "linkLabel": "Learn more →"
+    },
+    {
+      "logo": "/assets/partners/smartbear.webp",
+      "logoAlt": "SmartBear",
+      "name": "SmartBear",
+      "text": "SmartBear is a leading provider of AI-enhanced software quality tools used to streamline end-to-end software delivery.",
+      "url": "https://smartbear.com/",
+      "linkLabel": "Learn more →"
+    }
+  ]
+}

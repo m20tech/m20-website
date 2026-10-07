@@ -1,0 +1,188 @@
+{
+  "seo": {
+    "title": "How We Run on AI | M20 Technology",
+    "description": "How M20 embeds AI in its own operations: a custom Forge app, Rovo agent workflows, self-maintaining knowledge, and the governance that keeps it accountable.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "Value Proposition",
+    "title": "AI, built into how we work — not bolted on.",
+    "intro": "We don't just help clients apply AI across the Atlassian ecosystem — we run our own operations on it. This is a look at how AI is embedded in our billing operations, our workflows, our knowledge base, and the guardrails that keep it all accountable.",
+    "tags": [
+      "Jira",
+      "Confluence",
+      "Forge",
+      "Rovo",
+      "Claude Code",
+      "Teamwork Graph"
+    ]
+  },
+  "inside": {
+    "eyebrow": "What's Inside",
+    "cards": [
+      {
+        "href": "#forge-app",
+        "number": "01",
+        "title": "Custom Forge App Development",
+        "text": "A custom Jira app, built with Claude Code and Forge MCP, that runs billing end to end."
+      },
+      {
+        "href": "#agentic-workflows",
+        "number": "02",
+        "title": "Agentic Workflows",
+        "text": "Rovo agents that create, review, and hand off work items automatically."
+      },
+      {
+        "href": "#knowledge-management",
+        "number": "03",
+        "title": "Agentic Knowledge Management",
+        "text": "Agents that keep our wikis, client briefs, and docs accurate without manual upkeep."
+      },
+      {
+        "href": "#governance",
+        "number": "04",
+        "title": "AI Governance",
+        "text": "Best practices, an agent registry, and audits — the guardrails that keep it all accountable."
+      }
+    ]
+  },
+  "forge": {
+    "eyebrow": "01 · Custom Forge App Development",
+    "title": "From scattered billing ops to one app embedded in Jira.",
+    "tags": [
+      "Jira",
+      "Software",
+      "Forge",
+      "Forge MCP",
+      "TWG CLI",
+      "Claude Code",
+      "Claude Agent for Jira"
+    ],
+    "backgroundLabel": "Background",
+    "background": "Billing for our own services and licenses ran on a patchwork of Jira automations, external scripts, and manual steps. We aren't an app-building business — our only app experience was building legacy Data Center apps — but invoicing and quoting volume had grown steadily for years, and Jira was already the hub tracking all of it. The result was an invoicing system cluttered with multiple draft estimates and invoices for the same deal.",
+    "solutionLabel": "Solution",
+    "solution": "We used Claude Code with Forge MCP to build a custom app embedded directly in our Jira instance. Plugging in the Teamwork Graph CLI and Rovo MCP feeds the app context straight from Jira tasks and related knowledge, and a Claude agent built into the Jira workflow can make code changes directly from the board.",
+    "features": [
+      {
+        "icon": "invoice",
+        "title": "Client invoicing",
+        "items": [
+          "Daily aggregation of work logs into mid-month client estimates",
+          "Auto-generated invoice line items from worklog detail",
+          "Invoice preview embedded directly in the Jira ticket",
+          "Invoice generation once the estimate is approved for sending"
+        ]
+      },
+      {
+        "icon": "sync",
+        "title": "Resales",
+        "items": [
+          "Intraday sync with PPC for new and updated quotes",
+          "Quote preview inside the Jira ticket",
+          "Automated sales order generation from Jira",
+          "Automated invoice generation from Jira"
+        ]
+      }
+    ],
+    "outcomesLabel": "Outcomes",
+    "outcomes": [
+      "A much smoother process — no switching tools or waiting on background automations",
+      "A cleaner invoicing system with a lower error rate",
+      "A significant drop in automation usage and noise from failed automation runs"
+    ]
+  },
+  "workflows": {
+    "eyebrow": "02 · Agentic Workflows",
+    "title": "Agents that work inside existing processes, not around them.",
+    "intro": "Rather than standing up new tools, we plugged agents directly into the workflow steps we already had — creating, reviewing, and handing off work without giving anyone something new to learn.",
+    "tags": [
+      "Jira",
+      "Confluence",
+      "Rovo",
+      "Software",
+      "Work Management"
+    ],
+    "cards": [
+      {
+        "title": "Recurring task creation",
+        "text": "A Rovo agent scans Confluence process docs daily and creates matching work items — assignees, details, and even fuzzy recurrences like \"every odd year.\""
+      },
+      {
+        "title": "AI intake",
+        "text": "An agent reads invoice PDFs and populates the matching work item directly — faster intake, fewer manual entry errors."
+      },
+      {
+        "title": "Review",
+        "text": "A second agent checks items like bills and invoices for common errors before they move forward, catching problems earlier."
+      },
+      {
+        "title": "Handoff",
+        "text": "Agents watch work-item status and hand off automatically, updating status and assignee so the next step starts itself."
+      }
+    ]
+  },
+  "knowledge": {
+    "eyebrow": "03 · Agentic Knowledge Management",
+    "title": "Knowledge that maintains itself.",
+    "intro": "We moved wiki maintenance from a manual chore to a standing agent job.",
+    "tags": [
+      "Rovo",
+      "Connectors",
+      "Confluence",
+      "Slack",
+      "Knowledge Management",
+      "Research"
+    ],
+    "featured": {
+      "label": "Featured example",
+      "title": "Clients data agent",
+      "intro": "A parent agent with sub-agents that maintains client data across the wiki and Jira:",
+      "parts": [
+        {
+          "title": "Company brief",
+          "text": "Overview of the business, customers, and culture, drawn from public web data"
+        },
+        {
+          "title": "Internal summary",
+          "text": "Built from past meetings and projects"
+        },
+        {
+          "title": "Key contacts",
+          "text": "Sourced from meetings, projects, and Slack — including Atlassian AEs"
+        },
+        {
+          "title": "Project status summaries",
+          "text": "Kept current without a manual status round-up"
+        }
+      ]
+    },
+    "cards": [
+      {
+        "title": "Technical docs agent",
+        "text": "Runs regularly to check documentation for accuracy and make requested updates."
+      },
+      {
+        "title": "Document generation",
+        "text": "Combines specs, design, and tone guidelines to produce client presentations and value propositions — this document among them."
+      }
+    ]
+  },
+  "governance": {
+    "eyebrow": "04 · AI Governance",
+    "title": "Guardrails that scale with the agents.",
+    "intro": "More agents means more surface area — so governance is built in, not bolted on afterward.",
+    "items": [
+      "**Documented agent best practices** — covering both development and testing",
+      "**A central agent registry** — so every agent in production is accounted for",
+      "**An audit agent** — compares our policies against actual implementation and generates an audit report plus Jira tasks for any gaps",
+      "**An Atlassian AI security guide** — the same guide we share with clients"
+    ]
+  },
+  "cta": {
+    "title": "See what AI-embedded Atlassian workflows could look like for your team.",
+    "button": {
+      "href": "/contact",
+      "label": "Contact us →"
+    }
+  }
+}

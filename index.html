@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+[[> head]]
 <script src="/support.js"></script>
 </head>
 <body>
@@ -29,17 +30,17 @@
   <section style="position:relative;min-height:580px;display:flex;align-items:center;color:#fff;overflow:hidden;background:#14171C;">
     <div style="position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,12,16,.9) 0%, rgba(10,12,16,.72) 40%, rgba(10,12,16,.3) 70%, rgba(10,12,16,.1) 100%);pointer-events:none;"></div>
     <div class="hero-network-accent" style="position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);">
-      <img src="/assets/hero-network.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+      <img src="[[ hero.image ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
     </div>
     <div style="position:relative;max-width:1180px;margin-inline:auto;padding:48px clamp(20px,4vw,48px) 112px;width:100%;">
       <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#E8A04C;margin:0 0 22px;display:flex;align-items:center;gap:12px;">
-        <span style="width:40px;height:2px;background:#E8A04C;"></span>Atlassian Gold Solution Partner · 10+ Years
+        <span style="width:40px;height:2px;background:#E8A04C;"></span>[[ hero.eyebrow ]]
       </p>
-      <h1 style="font:700 clamp(44px,7vw,80px)/1.12 'Source Serif 4', Georgia, serif;letter-spacing:-0.01em;margin:0 0 20px;max-width:800px;">Empowering teams. Amplifying results.</h1>
-      <p style="font:400 clamp(18px,1.8vw,21px)/1.6 'Source Sans 3', system-ui, sans-serif;color:#EDE7DE;margin:0 0 26px;max-width:600px;">M20 helps organizations get more out of their Atlassian tools — customized software, training, and support that build a genuinely collaborative culture.</p>
+      <h1 style="font:700 clamp(44px,7vw,80px)/1.12 'Source Serif 4', Georgia, serif;letter-spacing:-0.01em;margin:0 0 20px;max-width:800px;">[[ hero.title ]]</h1>
+      <p style="font:400 clamp(18px,1.8vw,21px)/1.6 'Source Sans 3', system-ui, sans-serif;color:#EDE7DE;margin:0 0 26px;max-width:600px;">[[ hero.intro ]]</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap;">
-        <a href="/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Let's talk →</a>
-        <a href="/atlassian-services" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:2px solid rgba(255,255,255,.85);color:#fff;background:rgba(20,23,28,.4);white-space:nowrap" style-hover="background:rgba(255,255,255,.14);border-color:#fff;">Explore services</a>
+        <a href="[[ hero.primaryCta.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ hero.primaryCta.label ]]</a>
+        <a href="[[ hero.secondaryCta.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:2px solid rgba(255,255,255,.85);color:#fff;background:rgba(20,23,28,.4);white-space:nowrap" style-hover="background:rgba(255,255,255,.14);border-color:#fff;">[[ hero.secondaryCta.label ]]</a>
       </div>
     </div>
     <div style="position:absolute;left:-5%;right:-5%;bottom:-1px;height:90px;background:#FAF7F4;border-radius:50% 50% 0 0/100% 100% 0 0;"></div>
@@ -48,33 +49,21 @@
   <section style="padding-block:clamp(16px,2vw,24px) clamp(44px,5.5vw,72px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
       <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-        <span style="width:34px;height:2px;background:#C0392B;"></span>What we do
+        <span style="width:34px;height:2px;background:#C0392B;"></span>[[ services.eyebrow ]]
       </p>
-      <h2 style="font:600 clamp(32px,4.2vw,48px)/1.15 'Source Serif 4', Georgia, serif;margin:0 0 .5em;letter-spacing:-0.01em;max-width:640px;">Services built around the way you work.</h2>
-      <p style="color:#5A6270;margin:0 0 32px;max-width:640px;">We combine deep Atlassian expertise with years of industry experience to build platforms teams actually want to use.</p>
+      <h2 style="font:600 clamp(32px,4.2vw,48px)/1.15 'Source Serif 4', Georgia, serif;margin:0 0 .5em;letter-spacing:-0.01em;max-width:640px;">[[ services.title ]]</h2>
+      <p style="color:#5A6270;margin:0 0 32px;max-width:640px;">[[ services.intro ]]</p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(20px,3vw,36px);">
+        [[#each services.cards]]
         <div style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:36px 32px 30px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;box-shadow:0 18px 40px rgba(20,23,28,.10);transform:translateY(-4px)">
           <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#F9E9E4;margin-bottom:20px;">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#C0392B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="5.5" rx="1.4"></rect><rect x="1.5" y="16" width="7" height="5.5" rx="1.4"></rect><rect x="15.5" y="16" width="7" height="5.5" rx="1.4"></rect><path d="M12 8v3.5M5 16v-4.5h14V16"></path></svg>
+            [[icon icon width="26" height="26" fill="none" stroke="#C0392B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"]]
           </span>
-          <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">Information Architecture</h3>
-          <p style="color:#5A6270;margin:0;">Organize your data — regardless of your unique tools, internal sites, or databases — into something everyone can navigate.</p>
+          <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">[[ title ]]</h3>
+          <p style="color:#5A6270;margin:0;">[[ text ]]</p>
         </div>
-        <div style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:36px 32px 30px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;box-shadow:0 18px 40px rgba(20,23,28,.10);transform:translateY(-4px)">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#F9E9E4;margin-bottom:20px;">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#C0392B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 01-14.6 5.9"></path><path d="M3.5 12a8.5 8.5 0 0114.6-5.9"></path><path d="M18.1 2.6v3.5h-3.5M5.9 21.4v-3.5h3.5"></path><circle cx="12" cy="12" r="2.4"></circle></svg>
-          </span>
-          <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">Digital Transformation</h3>
-          <p style="color:#5A6270;margin:0;">Build a company-wide strategy that inspires real shifts in digital culture — not just new tools, but new habits.</p>
-        </div>
-        <div style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:36px 32px 30px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;box-shadow:0 18px 40px rgba(20,23,28,.10);transform:translateY(-4px)">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#F9E9E4;margin-bottom:20px;">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#C0392B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"></circle><path d="M2.5 18c0-3.2 2.7-5.4 6-5.4s6 2.2 6 5.4"></path><path d="M16 6.5a3 3 0 010 5.6"></path><path d="M18.5 18c0-2.2-.7-3.8-2-4.7"></path><path d="M17.5 2.5h4v5l-1.9-1.4-2.1 1.4z"></path></svg>
-          </span>
-          <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">Collaboration &amp; Knowledge</h3>
-          <p style="color:#5A6270;margin:0;">Empower your team to share everything that matters, so knowledge compounds instead of getting lost.</p>
-        </div>
+        [[/each]]
       </div>
     </div>
   </section>
@@ -83,25 +72,19 @@
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:center;">
       <div>
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-          <span style="width:34px;height:2px;background:#E8A04C;"></span>How we work
+          <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ howWeWork.eyebrow ]]
         </p>
-        <h2 style="font:600 clamp(30px,4vw,44px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">Built with you, not just for you</h2>
-        <p style="font:400 clamp(19px,2vw,22px)/1.65 'Source Sans 3', system-ui, sans-serif;color:#F6DDD7;margin:0 0 1em;">M20 Technology helps companies collaborate more effectively through customized software development, training and support.</p>
-        <p style="color:#F6DDD7;margin:0;">We combine our expertise in quality software with years of industry experience to assist companies in creating technology platforms that foster a collaborative culture.</p>
+        <h2 style="font:600 clamp(30px,4vw,44px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">[[ howWeWork.title ]]</h2>
+        <p style="font:400 clamp(19px,2vw,22px)/1.65 'Source Sans 3', system-ui, sans-serif;color:#F6DDD7;margin:0 0 1em;">[[ howWeWork.lead ]]</p>
+        <p style="color:#F6DDD7;margin:0;">[[ howWeWork.body ]]</p>
       </div>
       <ul style="list-style:none;padding:0;margin:0;display:grid;gap:14px;">
+        [[#each howWeWork.points]]
         <li style="position:relative;padding-left:34px;font-weight:500;color:#FAF7F4;">
           <span style="position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:#E8A04C;-webkit-mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;"></span>
-          Software customization
+          [[ . ]]
         </li>
-        <li style="position:relative;padding-left:34px;font-weight:500;color:#FAF7F4;">
-          <span style="position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:#E8A04C;-webkit-mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;"></span>
-          Governance and best practices
-        </li>
-        <li style="position:relative;padding-left:34px;font-weight:500;color:#FAF7F4;">
-          <span style="position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:#E8A04C;-webkit-mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;mask:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3Cpath d='M6 10.4 8.8 13 14 7.4' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;) center/contain no-repeat;"></span>
-          Ongoing support &amp; optimization
-        </li>
+        [[/each]]
       </ul>
     </div>
   </section>
@@ -109,50 +92,34 @@
   <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
       <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-        <span style="width:34px;height:2px;background:#E8A04C;"></span>Atlassian Rovo AI
+        <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ rovo.eyebrow ]]
       </p>
-      <h2 style="font:600 clamp(32px,4.2vw,48px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;max-width:640px;">Better decisions. Made faster.</h2>
-      <p style="color:#D5D9E1;margin:0 0 32px;max-width:640px;">Unlock enterprise knowledge with generative AI that searches across every app, learns as your teams work, and acts with virtual agents.</p>
-      <a href="/ai" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;margin-bottom:40px;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Learn more →</a>
+      <h2 style="font:600 clamp(32px,4.2vw,48px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;max-width:640px;">[[ rovo.title ]]</h2>
+      <p style="color:#D5D9E1;margin:0 0 32px;max-width:640px;">[[ rovo.intro ]]</p>
+      <a href="[[ rovo.cta.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;margin-bottom:40px;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ rovo.cta.label ]]</a>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(16px,2vw,24px);">
+        [[#each rovo.cards]]
         <div style="background:#23282F;border:1px solid rgba(255,255,255,.08);border-top:3px solid #E8A04C;border-radius:14px;padding:26px 26px 22px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;border-top-color:#E8A04C;box-shadow:0 18px 40px rgba(0,0,0,.28);transform:translateY(-4px)">
-          <p style="font:700 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;color:#E8A04C;margin:0 0 10px;">FIND</p>
-          <p style="margin:0;font-size:16px;color:#fff;">Search once, find every answer.</p>
+          <p style="font:700 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;color:#E8A04C;margin:0 0 10px;">[[ label ]]</p>
+          <p style="margin:0;font-size:16px;color:#fff;">[[ text ]]</p>
         </div>
-        <div style="background:#23282F;border:1px solid rgba(255,255,255,.08);border-top:3px solid #E8A04C;border-radius:14px;padding:26px 26px 22px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;border-top-color:#E8A04C;box-shadow:0 18px 40px rgba(0,0,0,.28);transform:translateY(-4px)">
-          <p style="font:700 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;color:#E8A04C;margin:0 0 10px;">LEARN</p>
-          <p style="margin:0;font-size:16px;color:#fff;">Have an intelligent conversation.</p>
-        </div>
-        <div style="background:#23282F;border:1px solid rgba(255,255,255,.08);border-top:3px solid #E8A04C;border-radius:14px;padding:26px 26px 22px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;border-top-color:#E8A04C;box-shadow:0 18px 40px rgba(0,0,0,.28);transform:translateY(-4px)">
-          <p style="font:700 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;color:#E8A04C;margin:0 0 10px;">ACT</p>
-          <p style="margin:0;font-size:16px;color:#fff;">Meet your new AI teammates.</p>
-        </div>
+        [[/each]]
       </div>
     </div>
   </section>
 
   <section style="background:#F3EEE8;padding-block:clamp(40px,5vw,64px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
-      <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5A6270;margin:0 0 28px;max-width:760px;">Trusted by industry leading teams</p>
+      <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5A6270;margin:0 0 28px;max-width:760px;">[[ clients.heading ]]</p>
       <div class="logo-marquee" onPointerDown="{{ onDragStart }}" onPointerMove="{{ onDragMove }}" onPointerUp="{{ onDragEnd }}" onPointerCancel="{{ onDragEnd }}" onPointerLeave="{{ onDragEnd }}" style="position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);">
         <div class="logo-marquee-track" ref="{{ trackRef }}" style="display:flex;align-items:center;gap:clamp(32px,4.5vw,56px);padding-right:clamp(40px,5vw,72px);width:max-content;">
-          <img src="/assets/clients/admis.webp" alt="ADMIS" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/cllife.webp" alt="CL Life" style="height:96px;width:auto;max-width:200px;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/cowan.webp" alt="Cowan, DeBaets, Abrahams &amp; Sheppard" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/packer.webp" alt="The Packer Collegiate Institute" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/pagoda.webp" alt="Pagoda" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/towerhill.webp" alt="Tower Hill Insurance Group" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/vibrant.webp" alt="Vibrant" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/zebra.webp" alt="The Zebra Co" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/admis.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/cllife.webp" alt="" style="height:96px;width:auto;max-width:200px;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/cowan.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/packer.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/pagoda.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/towerhill.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/vibrant.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
-          <img src="/assets/clients/zebra.webp" alt="" style="height:96px;width:auto;max-width:none;object-fit:contain;border-radius:14px;flex:none;">
+          [[#each clients.logos]]
+          <img src="[[ image ]]" alt="[[ alt ]]" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]none[[/if]];object-fit:contain;border-radius:14px;flex:none;">
+          [[/each]]
+          [[#each clients.logos]]
+          <img src="[[ image ]]" alt="" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]none[[/if]];object-fit:contain;border-radius:14px;flex:none;">
+          [[/each]]
         </div>
       </div>
     </div>
@@ -161,10 +128,10 @@
   <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(36px,4.5vw,52px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;">
       <div style="max-width:620px;">
-        <h2 style="font:600 clamp(28px,3.6vw,40px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 12px;">Ready to amplify your team?</h2>
-        <p style="color:#C9CDD6;margin:0;">Tell us where you're headed and we'll help you get more out of your Atlassian tools.</p>
+        <h2 style="font:600 clamp(28px,3.6vw,40px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 12px;">[[ cta.title ]]</h2>
+        <p style="color:#C9CDD6;margin:0;">[[ cta.text ]]</p>
       </div>
-      <a href="/contact" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;flex:none;white-space:nowrap;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Contact us →</a>
+      <a href="[[ cta.button.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;flex:none;white-space:nowrap;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ cta.button.label ]]</a>
     </div>
   </section>
 

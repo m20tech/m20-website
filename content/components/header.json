@@ -1,0 +1,14 @@
+{
+  "logo": "/assets/logo.png",
+  "logoAlt": "M20 Technology logo",
+  "nav": {
+    "home": "Home",
+    "ai": "AI",
+    "services": "Services",
+    "resources": "Resources",
+    "caseStudies": "Case Studies",
+    "valueProp": "AI with Atlassian",
+    "partners": "Partners"
+  },
+  "cta": "Contact Us"
+}

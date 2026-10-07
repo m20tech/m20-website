@@ -1,0 +1,99 @@
+{
+  "seo": {
+    "title": "Atlassian Rovo AI Services | M20 Technology",
+    "description": "Unlock enterprise knowledge with Atlassian Rovo: AI search, chat, and agents across your apps. M20 helps you plan, extend, and roll out Rovo.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "Atlassian Rovo AI",
+    "title": "Unlock enterprise knowledge with Rovo.",
+    "intro": "Powered by generative AI to help teams make better decisions and reach their goals faster — finding information across every SaaS app, learning as they work, and acting with virtual agents.",
+    "cta": {
+      "href": "/contact",
+      "label": "Learn more →"
+    }
+  },
+  "meet": {
+    "eyebrow": "Meet Rovo",
+    "title": "Find · Learn · Act",
+    "cards": [
+      {
+        "icon": "search",
+        "label": "Find",
+        "title": "Search once, find every answer.",
+        "text": "Ask a question in plain language and Rovo searches every connected app to bring back the answer."
+      },
+      {
+        "icon": "chat",
+        "label": "Learn",
+        "title": "Have an intelligent conversation.",
+        "text": "Rovo chats through your knowledge base, connecting the dots across Confluence, Jira, and beyond."
+      },
+      {
+        "icon": "team-add",
+        "label": "Act",
+        "title": "Meet your new AI teammates.",
+        "text": "Rovo agents take on tasks — drafting content, updating tickets, and more — so your team can focus on the work only they can do."
+      }
+    ],
+    "datasheet": {
+      "href": "https://www.m20tech.com/s/Get_to_know_Rovo__Powered_by_AIv2_C-1_Partner_M20Tech.pdf",
+      "label": "Get the datasheet →"
+    }
+  },
+  "agents": {
+    "eyebrow": "Rovo Agents",
+    "title": "There's an agent for that.",
+    "cards": [
+      {
+        "icon": "checklist",
+        "title": "Create and review agents",
+        "text": "Generate, review and refine content for all types of communications, product specs, goal setting and more."
+      },
+      {
+        "icon": "org-chart-small",
+        "title": "Workflow management agents",
+        "text": "Automate and streamline tasks such as creating a draft design for new requests, or taking action when a Jira issue progresses."
+      },
+      {
+        "icon": "window",
+        "title": "Knowledge management agents",
+        "text": "Answer questions, integrate research into Jira specs, create service checklists, or contribute to custom knowledge bases."
+      },
+      {
+        "icon": "globe",
+        "title": "Team culture agents",
+        "text": "Help with onboarding new employees, building team gratitude and facilitating team collaboration."
+      },
+      {
+        "icon": "gear",
+        "title": "Maintenance agents",
+        "text": "Streamline time-consuming tasks like cleaning up Jira backlogs, organizing Confluence pages, or aligning content to formatting specs."
+      },
+      {
+        "icon": "sparkles",
+        "title": "Custom agents",
+        "text": "Use Rovo Agents out-of-the-box, create your own with Rovo's no-code interface, or explore a wide variety of agents on the Atlassian Marketplace."
+      }
+    ]
+  },
+  "foundation": {
+    "eyebrow": "Foundation",
+    "title": "Built on the Atlassian Teamwork Graph.",
+    "text": "Powered by Atlassian Intelligence and two decades of experience, the Teamwork Graph pulls data from your Atlassian tools and other SaaS apps — unlocking a comprehensive view of your goals, knowledge, teams, and work."
+  },
+  "extend": {
+    "eyebrow": "Extend",
+    "title": "The fastest way to extend Rovo.",
+    "text": "The Atlassian ecosystem has AI-powered agents and search connectors to help you extend Rovo to every team and industry.",
+    "image": "/assets/rovo-connectors.png",
+    "imageAlt": "Rovo search connectors: Google Drive, SharePoint, Microsoft Teams, Figma, Slack, GitHub, Canva, draw.io, LaunchDarkly, Zephyr, UserTesting, Zapier"
+  },
+  "cta": {
+    "title": "For a closer look at Rovo and the possibilities of AI with your team, get in touch.",
+    "button": {
+      "href": "/contact",
+      "label": "Contact us →"
+    }
+  }
+}

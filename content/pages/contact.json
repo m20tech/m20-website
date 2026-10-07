@@ -1,0 +1,32 @@
+{
+  "seo": {
+    "title": "Contact Us | M20 Technology",
+    "description": "Talk to M20 Technology about Atlassian services, Rovo AI, or getting more out of Jira and Confluence. Send us a message or email sales@m20tech.com.",
+    "noindex": false
+  },
+  "intro": {
+    "eyebrow": "Get in touch",
+    "title": "Contact Us",
+    "text": "For a closer look at Rovo, the possibilities of AI with your team, or any of our services — drop us a line.",
+    "emailLink": {
+      "href": "mailto:sales@m20tech.com",
+      "label": "Prefer email? sales@m20tech.com"
+    }
+  },
+  "form": {
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "emailLabel": "Email",
+    "subjectLabel": "Subject",
+    "messageLabel": "Message",
+    "submitLabel": "Submit",
+    "sendingLabel": "Sending…",
+    "invalidText": "Please fill in the highlighted fields (valid email required).",
+    "errorText": "Something went wrong sending your message. Please try again, or email sales@m20tech.com directly."
+  },
+  "thanks": {
+    "title": "Thanks for reaching out!",
+    "text": "A member of the M20 Tech team will get back to you shortly.",
+    "closeLabel": "Close"
+  }
+}

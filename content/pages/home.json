@@ -1,0 +1,123 @@
+{
+  "seo": {
+    "title": "M20 Technology | Atlassian Gold Solution Partner",
+    "description": "M20 helps teams get more out of Atlassian — Jira, Confluence, JSM, and Rovo AI — with custom software, training, and support from a Gold Solution Partner.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "Atlassian Gold Solution Partner · 10+ Years",
+    "image": "/assets/hero-network.jpg",
+    "title": "Empowering teams. Amplifying results.",
+    "intro": "M20 helps organizations get more out of their Atlassian tools — customized software, training, and support that build a genuinely collaborative culture.",
+    "primaryCta": {
+      "href": "/contact",
+      "label": "Let's talk →"
+    },
+    "secondaryCta": {
+      "href": "/atlassian-services",
+      "label": "Explore services"
+    }
+  },
+  "services": {
+    "eyebrow": "What we do",
+    "title": "Services built around the way you work.",
+    "intro": "We combine deep Atlassian expertise with years of industry experience to build platforms teams actually want to use.",
+    "cards": [
+      {
+        "icon": "org-chart",
+        "title": "Information Architecture",
+        "text": "Organize your data — regardless of your unique tools, internal sites, or databases — into something everyone can navigate."
+      },
+      {
+        "icon": "cycle",
+        "title": "Digital Transformation",
+        "text": "Build a company-wide strategy that inspires real shifts in digital culture — not just new tools, but new habits."
+      },
+      {
+        "icon": "team-flag",
+        "title": "Collaboration & Knowledge",
+        "text": "Empower your team to share everything that matters, so knowledge compounds instead of getting lost."
+      }
+    ]
+  },
+  "howWeWork": {
+    "eyebrow": "How we work",
+    "title": "Built with you, not just for you",
+    "lead": "M20 Technology helps companies collaborate more effectively through customized software development, training and support.",
+    "body": "We combine our expertise in quality software with years of industry experience to assist companies in creating technology platforms that foster a collaborative culture.",
+    "points": [
+      "Software customization",
+      "Governance and best practices",
+      "Ongoing support & optimization"
+    ]
+  },
+  "rovo": {
+    "eyebrow": "Atlassian Rovo AI",
+    "title": "Better decisions. Made faster.",
+    "intro": "Unlock enterprise knowledge with generative AI that searches across every app, learns as your teams work, and acts with virtual agents.",
+    "cta": {
+      "href": "/ai",
+      "label": "Learn more →"
+    },
+    "cards": [
+      {
+        "label": "FIND",
+        "text": "Search once, find every answer."
+      },
+      {
+        "label": "LEARN",
+        "text": "Have an intelligent conversation."
+      },
+      {
+        "label": "ACT",
+        "text": "Meet your new AI teammates."
+      }
+    ]
+  },
+  "clients": {
+    "heading": "Trusted by industry leading teams",
+    "logos": [
+      {
+        "image": "/assets/clients/admis.webp",
+        "alt": "ADMIS"
+      },
+      {
+        "image": "/assets/clients/cllife.webp",
+        "alt": "CL Life",
+        "maxWidth": 200
+      },
+      {
+        "image": "/assets/clients/cowan.webp",
+        "alt": "Cowan, DeBaets, Abrahams & Sheppard"
+      },
+      {
+        "image": "/assets/clients/packer.webp",
+        "alt": "The Packer Collegiate Institute"
+      },
+      {
+        "image": "/assets/clients/pagoda.webp",
+        "alt": "Pagoda"
+      },
+      {
+        "image": "/assets/clients/towerhill.webp",
+        "alt": "Tower Hill Insurance Group"
+      },
+      {
+        "image": "/assets/clients/vibrant.webp",
+        "alt": "Vibrant"
+      },
+      {
+        "image": "/assets/clients/zebra.webp",
+        "alt": "The Zebra Co"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to amplify your team?",
+    "text": "Tell us where you're headed and we'll help you get more out of your Atlassian tools.",
+    "button": {
+      "href": "/contact",
+      "label": "Contact us →"
+    }
+  }
+}

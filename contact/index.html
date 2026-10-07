@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+[[> head]]
 <script src="/support.js"></script>
 </head>
 <body>
@@ -25,11 +26,11 @@
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:start;">
       <div>
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-          <span style="width:34px;height:2px;background:#E8A04C;"></span>Get in touch
+          <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ intro.eyebrow ]]
         </p>
-        <h2 style="font:600 clamp(34px,4.6vw,56px)/1.12 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">Contact Us</h2>
-        <p style="color:#C9CDD6;margin:0 0 1em;">For a closer look at Rovo, the possibilities of AI with your team, or any of our services — drop us a line.</p>
-        <p style="margin:0;"><a href="mailto:sales@m20tech.com" style="color:#F5C98F;">Prefer email? sales@m20tech.com</a></p>
+        <h2 style="font:600 clamp(34px,4.6vw,56px)/1.12 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">[[ intro.title ]]</h2>
+        <p style="color:#C9CDD6;margin:0 0 1em;">[[ intro.text ]]</p>
+        <p style="margin:0;"><a href="[[ intro.emailLink.href ]]" style="color:#F5C98F;">[[ intro.emailLink.label ]]</a></p>
       </div>
 
       <form style="background:#fff;color:#14171C;border-radius:22px;padding:clamp(28px,4vw,44px);box-shadow:0 40px 90px rgba(0,0,0,.4);" onsubmit="{{ handleSubmit }}" novalidate="">
@@ -37,24 +38,24 @@
         <div style="display:grid;gap:20px;">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:20px;">
           <div>
-            <label for="firstName" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">First name <span style="color:#C0392B;">*</span></label>
+            <label for="firstName" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.firstNameLabel ]] <span style="color:#C0392B;">*</span></label>
             <input type="text" id="firstName" name="firstName" required="" autocomplete="given-name" value="{{ firstName }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ firstNameBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
           </div>
           <div>
-            <label for="lastName" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Last name <span style="color:#C0392B;">*</span></label>
+            <label for="lastName" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.lastNameLabel ]] <span style="color:#C0392B;">*</span></label>
             <input type="text" id="lastName" name="lastName" required="" autocomplete="family-name" value="{{ lastName }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ lastNameBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
           </div>
         </div>
         <div>
-          <label for="email" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Email <span style="color:#C0392B;">*</span></label>
+          <label for="email" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.emailLabel ]] <span style="color:#C0392B;">*</span></label>
           <input type="email" id="email" name="email" required="" autocomplete="email" value="{{ email }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ emailBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
         </div>
         <div>
-          <label for="subject" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Subject <span style="color:#C0392B;">*</span></label>
+          <label for="subject" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.subjectLabel ]] <span style="color:#C0392B;">*</span></label>
           <input type="text" id="subject" name="subject" required="" value="{{ subject }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ subjectBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
         </div>
         <div>
-          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">Message</label>
+          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.messageLabel ]]</label>
           <textarea id="message" name="message" rows="5" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
         </div>
         <div class="h-captcha" data-captcha="true"></div>
@@ -66,9 +67,9 @@
       <sc-if value="{{ showThanks }}" hint-placeholder-val="{{ false }}">
         <div style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(20,23,28,.6);backdrop-filter:blur(2px);" onclick="{{ closeThanks }}">
           <div role="dialog" aria-modal="true" aria-labelledby="thanksTitle" onclick="{{ stopClick }}" style="background:#fff;color:#14171C;border-radius:22px;padding:clamp(32px,5vw,44px);max-width:420px;width:100%;box-shadow:0 40px 90px rgba(0,0,0,.4);text-align:center;">
-            <p id="thanksTitle" style="font:700 26px/1.2 'Source Serif 4', Georgia, serif;margin:0 0 12px;">Thanks for reaching out!</p>
-            <p style="color:#5A6270;margin:0 0 28px;">A member of the M20 Tech team will get back to you shortly.</p>
-            <button type="button" onclick="{{ closeThanks }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 28px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:0;background:#C0392B;color:#fff;cursor:pointer;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Close</button>
+            <p id="thanksTitle" style="font:700 26px/1.2 'Source Serif 4', Georgia, serif;margin:0 0 12px;">[[ thanks.title ]]</p>
+            <p style="color:#5A6270;margin:0 0 28px;">[[ thanks.text ]]</p>
+            <button type="button" onclick="{{ closeThanks }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 28px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:0;background:#C0392B;color:#fff;cursor:pointer;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ thanks.closeLabel ]]</button>
           </div>
         </div>
       </sc-if>
@@ -82,7 +83,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-const SUBMIT_ERROR_TEXT = "Something went wrong sending your message. Please try again, or email sales@m20tech.com directly.";
+const SUBMIT_ERROR_TEXT = [[json form.errorText]];
 
 class Component extends DCLogic {
   state = {
@@ -117,7 +118,7 @@ class Component extends DCLogic {
       if (!ok) { invalid[f] = true; valid = false; }
     });
     if (!valid) {
-      this.setState({ invalid, statusText: "Please fill in the highlighted fields (valid email required).", statusOk: false });
+      this.setState({ invalid, statusText: [[json form.invalidText]], statusOk: false });
       return;
     }
 
@@ -166,7 +167,7 @@ class Component extends DCLogic {
       firstNameBorder: borderFor("firstName"), lastNameBorder: borderFor("lastName"),
       emailBorder: borderFor("email"), subjectBorder: borderFor("subject"), messageBorder: borderFor("message"),
       statusText: s.statusText, statusColor: s.statusOk ? "#1E7A46" : "#96271C",
-      submitting: s.submitting, submitLabel: s.submitting ? "Sending…" : "Submit",
+      submitting: s.submitting, submitLabel: s.submitting ? [[json form.sendingLabel]] : [[json form.submitLabel]],
       showThanks: s.showThanks, closeThanks: this.closeThanks, stopClick: this.stopClick,
       onField: this.onField, handleSubmit: this.handleSubmit
     };
