@@ -137,7 +137,7 @@ Flat, hand-built SVG artwork that shows the things M20's work produces: intranet
 
 | Type | SVG canvas | PNG export | Ground | Where it goes |
 |---|---|---|---|---|
-| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art in the right half of a dark page hero, bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
+| **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, slightly overlapping the text column and bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
 | **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
 | **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Top of a card on an index page, shown at `96px` in place of an icon badge (`margin:0 0 14px -7px` so the circle lines up with the card's text edge). Always decorative: `alt=""`. |
 
@@ -167,7 +167,6 @@ Supporting motifs:
 - **Page parts** — dark hero band with a gold kicker rule, white cards with tinted icon chips, a red CTA pill, an outline pill.
 - **System of record** — a rounded diamond (`22px` radius, rotated 45°, `#C0392B → #7A1E15` gradient) with three paper bars. It stands for Jira or any source system. Use a real product logo only from the approved Atlassian set, with attribution.
 - **Security** — a shield with a check (permissions, review passed) or a lock (secured production).
-- **Nothing stored** — a dashed data-store cylinder struck through in gold.
 - **Pipeline** — a white chip with two circular arrows (CI/CD); a Git graph (ink trunk, red feature branch merging back).
 - **Progression** — dashed gold connector (`stroke-width:2.5`, `stroke-dasharray:2 8`, round caps) ending in an open chevron. Phases rise left to right on paper-alt step platforms, numbered with 1/2/3 red pips (not digits).
 - **Draft state** — dashed grey (`#9AA1AD`, `stroke-dasharray:4–8`) outlines for prototypes and wireframes.
@@ -200,7 +199,7 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 
 ### Making new artwork
 
-1. **Pick the type and the story.** From the page copy, list the three or four facts the image must show (e.g. "nothing stored", "passes security review", "three phases"). One story per image.
+1. **Pick the type and the story.** From the page copy, list the three or four facts the image must show (e.g. "Jira stays the source", "passes security review", "three phases"). One story per image.
 2. **Start from the closest file** in `assets/artwork/<type>/`: copy it to `<subject>.svg` and rework it. Reuse the motifs and data forms above — don't invent new chart types.
 3. **Check it against the rules:** only tables, meters, event lists, and RAG charts for data; RAG marks carry glyphs; red only for action or red status; no words; exact `viewBox`.
 4. **Export the PNG:** `npm run artwork:png` writes `<subject>.png` beside every new or changed SVG at its type's export size (`-- --all` re-exports everything). It needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found.
@@ -219,15 +218,16 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 </div>
 
 <!-- Cover: first child of a dark hero <section style="position:relative;overflow:hidden;…">.
-     It fills the right half of the hero, vertically centred, at its natural 1200×630 shape
-     (never object-fit:cover, which crops the art's left side). It runs 8% past the right
-     edge, where covers only have glow, and is feathered on the left, top and bottom.
-     Wrap the hero text in .case-hero-text with max-width:min(620px, calc(50% - 20px)) so it
-     never runs under the art. Under 900px the cover is hidden and the text goes full width:
+     It starts 140px left of centre (never left of 520px, so narrow screens don't put the
+     art under the heading), vertically centred, at its natural 1200×630 shape (never
+     object-fit:cover, which crops the art's left side). It runs 4% past the right edge,
+     where covers only have glow, and is feathered on the left, top and bottom. Wrap the
+     hero text in .case-hero-text with max-width:min(620px, 60%); a little overlap with the
+     feathered left edge is fine. Under 900px the cover is hidden and the text goes full width:
      @media (max-width: 900px) { .case-cover { display: none; } .case-hero-text { max-width: none !important; } } -->
 [[#if hero.cover]]
-<div class="case-cover" style="position:absolute;top:0;bottom:0;left:calc(50% + 20px);right:0;display:flex;align-items:center;pointer-events:none;">
-  <img src="[[ hero.cover ]]" alt="" width="1200" height="630" style="display:block;width:108%;max-width:none;flex:none;height:auto;-webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);mask-composite:intersect;">
+<div class="case-cover" style="position:absolute;top:0;bottom:0;left:max(520px, calc(50% - 140px));right:0;display:flex;align-items:center;pointer-events:none;">
+  <img src="[[ hero.cover ]]" alt="" width="1200" height="630" style="display:block;width:104%;max-width:none;flex:none;height:auto;-webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 18%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg, transparent 0%, #000 18%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);mask-composite:intersect;">
 </div>
 [[/if]]
 ```

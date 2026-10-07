@@ -43,14 +43,6 @@
     <circle cx="30" cy="-30" r="5" fill="#E8A04C"/>
   </g>
 
-  <!-- Zero data stored: an empty, struck-through store -->
-  <g transform="translate(220 488)" fill="none" stroke="#9AA1AD" stroke-opacity=".55" stroke-width="2">
-    <ellipse cx="0" cy="-22" rx="34" ry="10"/>
-    <path d="M-34 -22v38c0 6 15 10 34 10s34-4 34-10v-38"/>
-    <path d="M-34 -3c0 6 15 10 34 10s34-4 34-10" stroke-dasharray="3 5"/>
-    <line x1="-46" y1="34" x2="46" y2="-40" stroke="#E8A04C" stroke-opacity=".9" stroke-width="3" stroke-linecap="round"/>
-  </g>
-
   <!-- Streams into the dashboard (only what the UI needs) -->
   <g fill="none" stroke="url(#stream)" stroke-width="2.5" stroke-linecap="round">
     <path d="M286 286 C 360 250, 380 190, 450 192" stroke-opacity=".9"/>

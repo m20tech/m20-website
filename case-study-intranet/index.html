@@ -26,12 +26,12 @@
 
   <section style="position:relative;overflow:hidden;background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);">
     [[#if hero.cover]]
-    <div class="case-cover" style="position:absolute;top:0;bottom:0;left:calc(50% + 20px);right:0;display:flex;align-items:center;pointer-events:none;">
-      <img src="[[ hero.cover ]]" alt="" width="1200" height="630" style="display:block;width:108%;max-width:none;flex:none;height:auto;-webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);mask-composite:intersect;">
+    <div class="case-cover" style="position:absolute;top:0;bottom:0;left:max(520px, calc(50% - 140px));right:0;display:flex;align-items:center;pointer-events:none;">
+      <img src="[[ hero.cover ]]" alt="" width="1200" height="630" style="display:block;width:104%;max-width:none;flex:none;height:auto;-webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 18%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg, transparent 0%, #000 18%), linear-gradient(180deg, transparent 0%, #000 9%, #000 91%, transparent 100%);mask-composite:intersect;">
     </div>
     [[/if]]
     <div style="position:relative;max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);">
-      <div class="case-hero-text" style="max-width:min(620px, calc(50% - 20px));">
+      <div class="case-hero-text" style="max-width:min(620px, 60%);">
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
           <span style="width:34px;height:2px;background:#E8A04C;"></span><a href="/case-studies" style="color:#E8A04C;">[[ hero.eyebrow ]]</a>
         </p>
