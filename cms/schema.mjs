@@ -249,6 +249,7 @@ const pages = [
       object("stack", "Atlassian stack", [
         string("title", "Heading"),
         list("products", "Products", [
+          image("logo", "Logo", { required: false, description: "Official product logo, shown above the name." }),
           string("name", "Product"),
           string("title", "Tagline"),
           strings("items", "Checklist"),
