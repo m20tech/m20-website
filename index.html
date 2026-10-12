@@ -57,9 +57,10 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(20px,3vw,36px);">
         [[#each services.cards]]
         <div style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:36px 32px 30px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease" style-hover="border-color:#C0392B;box-shadow:0 18px 40px rgba(20,23,28,.10);transform:translateY(-4px)">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#F9E9E4;margin-bottom:20px;">
-            [[icon icon width="26" height="26" fill="none" stroke="#C0392B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"]]
-          </span>
+          [[#if spot]]
+          <img src="[[ spot ]]" alt="" width="240" height="240"
+            style="display:block;width:96px;height:96px;margin:0 0 14px -7px;">
+          [[/if]]
           <h3 style="font:600 clamp(21px,2.2vw,26px)/1.12 'Source Serif 4', Georgia, serif;margin:0 0 10px;">[[ title ]]</h3>
           <p style="color:#5A6270;margin:0;">[[ text ]]</p>
         </div>

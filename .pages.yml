@@ -150,33 +150,13 @@ content:
                 type: object
                 list: true
                 fields:
-                  - name: icon
-                    label: Icon
-                    type: select
-                    description: "Icons live in cms/icons/ — ask a developer to add a new one."
-                    required: true
+                  - name: spot
+                    label: Spot
+                    type: image
+                    required: false
+                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
                     options:
-                      values:
-                        - bolt
-                        - chat
-                        - checklist
-                        - cloud-bolt
-                        - cycle
-                        - document-clock
-                        - gear
-                        - globe
-                        - globe-nodes
-                        - invoice
-                        - layers
-                        - org-chart
-                        - org-chart-small
-                        - search
-                        - sparkles
-                        - sync
-                        - team-add
-                        - team-flag
-                        - team-partner
-                        - window
+                      media: spots
                   - name: title
                     label: Title
                     type: string

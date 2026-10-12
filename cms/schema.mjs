@@ -138,7 +138,11 @@ const pages = [
         eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
-        list("cards", "Service cards", [icon(), string("title", "Title"), text("text", "Description")]),
+        list("cards", "Service cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          text("text", "Description"),
+        ]),
       ]),
       object("howWeWork", "How we work", [
         eyebrow(),
