@@ -52,7 +52,7 @@
     ]
   },
   "cycle": {
-    "image": "/assets/optimization-cycle.jpg",
+    "image": "/assets/optimization-cycle.svg",
     "imageAlt": "M20 Optimization Cycle: optimize, train, develop, support",
     "eyebrow": "The optimization cycle",
     "title": "Empower & amplify.",
