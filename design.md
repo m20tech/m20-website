@@ -78,9 +78,13 @@ Supporting spacing:
 ## Responsive layout
 
 Most grids are breakpoint-free (`auto-fit` + `minmax`). Add an explicit media query only when a
-count matters editorially — the Rovo agents grid on `ai.dc.html` is the one such case, pinned to
-3 + 3 via a `.agent-grid` rule in that page's `<style id="reset">` block (3 columns → 2 at
-`900px` → 1 at `600px`).
+count or layout matters editorially, as a class rule in that page's `<style id="reset">` block:
+
+- **Rovo agents** (`ai/index.html`, the icon feature grid below): `.agent-split` puts the heading
+  beside a `.agent-grid` of two columns; the heading stacks above the grid at `900px`, and the
+  grid drops to one column at `600px`.
+- **"What's inside" gallery** (`ai-value-proposition/index.html`): `.xg` rules switch the panel
+  row to a stacked list at `900px` (see **Section gallery** below).
 
 ## Components
 
@@ -93,6 +97,45 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Light service card: white bg, `1px solid #E4DCD3` border, `22px` radius, `36px 32px 30px` padding. Hover: border → red, `box-shadow:0 18px 40px rgba(20,23,28,.10)`, `translateY(-4px)`.
 - Icon badge: `52–56px` square, `14px` radius, tint background `#F9E9E4` (light) — 26px stroke SVG icon in `#C0392B`, `stroke-width:1.9–2.2`, rounded caps/joins, no fill.
 - Dark surface card (on `#14171C` sections): `#23282F` bg, `1px solid rgba(255,255,255,.08)` border, sometimes `3px solid #E8A04C` top accent. Hover: border → red, lift + shadow.
+- Hover lift and the red border are for cards that do something (a link, a filter). New card
+  patterns below that aren't links have no hover state, so red keeps meaning "click here."
+
+**Grid feature cards** (adapted from 21st.dev "Grid Feature Cards" by efferd): the "What we do"
+service pillars on the home page and `/atlassian-services`, and nowhere else, so the pattern
+stays the signature for M20's services rather than a default card.
+- One white panel (`22px` radius, `1px dashed #D6CCC1` border) split into cells by dashed
+  hairlines in the same color. The grid is `auto-fit`, so cells wrap to any count. Each cell
+  draws only its left and top border, and the inner grid sits at `margin:-1px 0 0 -1px` so the
+  panel's `overflow:hidden` clips the outer edges.
+- Cell: `34px 32px 36px` padding, a bare 28px red line icon (no badge), `36px` gap, then a
+  Source Serif 4 600 title (`clamp(21px,2.2vw,24px)`) and muted body.
+- Corner texture: an inline SVG grid (`20px` cells, ink at 10%) with five filled squares (ink at
+  4.5%), anchored to the top right and faded with a radial mask. `.gfc-cell:nth-child(...)` rules
+  shift the squares so neighbouring cells differ. Keep it ink-only — never red or gold.
+- No hover state (the cells aren't links).
+
+**Icon feature grid** (after 21st.dev "Icon Feature Grid" by felipemenezes098): the Rovo agent
+categories on `/ai`. A dark `#14171C` panel (`28px` radius) with the eyebrow and serif heading in
+a narrow left column that sticks while the cards scroll on desktop (`top:110px`), and a
+two-column grid of paper (`#FAF7F4`) icon cards on the right (`18px` radius, 44px tint icon
+badge, ink serif title, muted body). Cards fade up `14px`, staggered by `100ms`, the first time
+the grid scrolls into view (an IntersectionObserver in the page script); under
+`prefers-reduced-motion` they appear immediately. Use it for even-numbered sets (4, 6, 8) — an
+odd count leaves an orphan card.
+
+**Section gallery** (adapted from 21st.dev "Hover Expand Gallery" by kedhareswer): the "What's
+inside" navigation on `/ai-value-proposition`. Each item is a link to a section on the page.
+- Desktop: a `280px` row of panels separated by `1px #E4DCD3` hairlines on the paper-alt band.
+  Closed panels are a `96px` rail with the serif number at the top (`#9AA1AD`) and the title
+  set vertically (Source Sans 3 600 13px, reading bottom to top). The open panel shows a white
+  `18px`-radius card with the title (Source Serif 4 600), summary, and a red arrow pill; its number
+  turns red. Hovering or focusing a panel opens it (`flex-basis` transition, `.62s`,
+  `cubic-bezier(.32,.72,0,1)`), and the last one opened stays open. Clicking jumps to the section.
+- The page script sets `--basis` and `--shown` on each panel and `--n` (panel count) on the row;
+  the open card's inner width is fixed with container units so text doesn't reflow while it
+  widens.
+- Under `900px`: a stacked list of numbered rows with every title and summary shown, no rails.
+- Fits 3–5 items. Keep titles under ~30 characters so the vertical label isn't cut off.
 
 **Navigation (Header)**
 - Sticky header, `rgba(250,247,244,.94)` with `backdrop-filter: blur(10px)`, bottom border `#E4DCD3`.
@@ -254,10 +297,10 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 
 ## Page inventory
 
-- `index.html` (`/`) — Home: hero, 3 service pillars, "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
-- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
-- `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
-- `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
+- `index.html` (`/`) — Home: hero, 3 service pillars (grid feature cards), "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
+- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars (grid feature cards), "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
+- `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (icon feature grid), Teamwork Graph blurb, connector logos, CTA band.
+- `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: "What's inside" section gallery, Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
