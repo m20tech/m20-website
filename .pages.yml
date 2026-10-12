@@ -728,18 +728,14 @@ content:
             label: Optimization cycle
             type: object
             fields:
-              - name: illustration
-                label: Illustration
+              - name: image
+                label: Image
                 type: image
-                required: false
-                description: "1200×800 explanatory illustration."
-                options:
-                  media: illustrations
-              - name: illustrationAlt
-                label: Illustration alt text
+                required: true
+              - name: imageAlt
+                label: Image alt text
                 type: string
-                required: false
-                description: Describe what the illustration shows.
+                required: true
               - name: eyebrow
                 label: Eyebrow
                 type: string
@@ -753,15 +749,6 @@ content:
                 label: Text
                 type: text
                 required: true
-              - name: phases
-                label: Phases
-                type: object
-                list: true
-                fields:
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
               - name: cta
                 label: Button
                 type: object

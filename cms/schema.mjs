@@ -218,11 +218,11 @@ const pages = [
         list("cards", "Solution cards", [icon(), string("title", "Title"), text("text", "Description")]),
       ]),
       object("cycle", "Optimization cycle", [
-        ...illustration(),
+        image("image", "Image"),
+        string("imageAlt", "Image alt text"),
         eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
-        list("phases", "Phases", [string("label", "Label")]),
         link("cta", "Button"),
       ]),
       object("stack", "Atlassian stack", [
