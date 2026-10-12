@@ -66,6 +66,7 @@
     "title": "The Atlassian stack, dialed in.",
     "products": [
       {
+        "logo": "/assets/products/jira.svg",
         "name": "Jira",
         "title": "Plan, track, ship.",
         "items": [
@@ -75,6 +76,7 @@
         ]
       },
       {
+        "logo": "/assets/products/confluence.svg",
         "name": "Confluence",
         "title": "Document, connect, know.",
         "items": [
@@ -84,6 +86,7 @@
         ]
       },
       {
+        "logo": "/assets/products/jira-service-management.svg",
         "name": "Jira Service Management",
         "title": "Formalize service, at any scale.",
         "items": [

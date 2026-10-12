@@ -675,6 +675,11 @@ content:
                 type: object
                 list: true
                 fields:
+                  - name: logo
+                    label: Logo
+                    type: image
+                    required: false
+                    description: "Official product logo, shown above the name."
                   - name: name
                     label: Product
                     type: string
