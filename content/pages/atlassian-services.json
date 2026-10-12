@@ -52,11 +52,17 @@
     ]
   },
   "cycle": {
-    "image": "/assets/optimization-cycle.jpg",
-    "imageAlt": "M20 Optimization Cycle: optimize, train, develop, support",
+    "illustration": "/assets/artwork/illustrations/optimization-cycle.svg",
+    "illustrationAlt": "A four-panel cycle — a rich table, an event list, a RAG chart, and a meter and gauge — looping clockwise around a central Jira system-of-record diamond.",
     "eyebrow": "The optimization cycle",
     "title": "Empower & amplify.",
     "text": "Our optimization cycle empowers your teams and amplifies their results — through customized software development, training, and support.",
+    "phases": [
+      { "label": "Develop" },
+      { "label": "Train" },
+      { "label": "Support" },
+      { "label": "Optimize" }
+    ],
     "cta": {
       "href": "/contact",
       "label": "Get started →"

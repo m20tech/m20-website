@@ -77,13 +77,20 @@
 
   <section style="padding-block:clamp(40px,5vw,64px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:center;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:22px;">
-        <img src="[[ cycle.image ]]" alt="[[ cycle.imageAlt ]]" style="width:100%;max-width:300px;height:auto;display:block;">
-      </div>
+      [[#if cycle.illustration]]
+      <img src="[[ cycle.illustration ]]" alt="[[ cycle.illustrationAlt ]]"
+        width="1200" height="800" loading="lazy"
+        style="display:block;width:100%;height:auto;border-radius:22px;border:1px solid #E4DCD3;">
+      [[/if]]
       <div>
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;margin:0 0 16px;">[[ cycle.eyebrow ]]</p>
         <h3 style="font:600 clamp(28px,3.4vw,36px)/1.2 'Source Serif 4', Georgia, serif;margin:0 0 14px;">[[ cycle.title ]]</h3>
-        <p style="color:#5A6270;margin:0 0 28px;">[[ cycle.text ]]</p>
+        <p style="color:#5A6270;margin:0 0 24px;">[[ cycle.text ]]</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;">
+          [[#each cycle.phases]]
+          <span style="display:inline-flex;align-items:center;padding:8px 16px;border-radius:999px;background:#F3EEE8;border:1px solid #E4DCD3;font:600 14px 'Source Sans 3', system-ui, sans-serif;color:#23282F;">[[ label ]]</span>
+          [[/each]]
+        </div>
         <a href="[[ cycle.cta.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ cycle.cta.label ]]</a>
       </div>
     </div>
