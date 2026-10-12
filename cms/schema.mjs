@@ -8,7 +8,7 @@
 // content JSON, and the entry here together, then run `npm run cms:sync`.
 
 import {
-  string, text, markdown, image, icon, object, list, strings,
+  string, text, markdown, image, object, list, strings,
   blocks, block, link, eyebrow, boolean, number, seo, artwork,
 } from "./fields.mjs";
 import { artworkMedia } from "./artwork.mjs";
@@ -184,13 +184,22 @@ const pages = [
       object("meet", "Meet Rovo", [
         eyebrow(),
         string("title", "Heading"),
-        list("cards", "Cards", [icon(), string("label", "Label"), string("title", "Title"), text("text", "Description")]),
+        list("cards", "Cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("label", "Label"),
+          string("title", "Title"),
+          text("text", "Description"),
+        ]),
         link("datasheet", "Datasheet button"),
       ]),
       object("agents", "Rovo agents", [
         eyebrow(),
         string("title", "Heading"),
-        list("cards", "Agent cards", [icon(), string("title", "Title"), text("text", "Description")]),
+        list("cards", "Agent cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          text("text", "Description"),
+        ]),
       ]),
       object("foundation", "Foundation", [eyebrow(), string("title", "Heading"), text("text", "Text")]),
       object("extend", "Extend", [
@@ -214,12 +223,20 @@ const pages = [
       object("services", "What we do", [
         eyebrow(),
         string("title", "Heading"),
-        list("cards", "Service cards", [icon(), string("title", "Title"), text("text", "Description")]),
+        list("cards", "Service cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          text("text", "Description"),
+        ]),
       ]),
       object("solutions", "Solutions", [
         eyebrow(),
         string("title", "Heading"),
-        list("cards", "Solution cards", [icon(), string("title", "Title"), text("text", "Description")]),
+        list("cards", "Solution cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          text("text", "Description"),
+        ]),
       ]),
       object("cycle", "Optimization cycle", [
         image("image", "Image"),
@@ -351,7 +368,11 @@ const pages = [
         eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
-        list("cards", "Cards", [icon(), string("title", "Title"), text("text", "Text")]),
+        list("cards", "Cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          text("text", "Text"),
+        ]),
       ]),
       object("outcomes", "Outcomes", [
         eyebrow(),
@@ -387,7 +408,11 @@ const pages = [
         text("background", "Background"),
         string("solutionLabel", "Solution label"),
         text("solution", "Solution"),
-        list("features", "Feature cards", [icon(), string("title", "Title"), strings("items", "Items")]),
+        list("features", "Feature cards", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+          string("title", "Title"),
+          strings("items", "Items"),
+        ]),
         string("outcomesLabel", "Outcomes label"),
         strings("outcomes", "Outcomes"),
       ]),

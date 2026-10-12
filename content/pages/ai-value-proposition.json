@@ -64,7 +64,7 @@
     "solution": "We used Claude Code with Forge MCP to build a custom app embedded directly in our Jira instance. Plugging in the Teamwork Graph CLI and Rovo MCP feeds the app context straight from Jira tasks and related knowledge, and a Claude agent built into the Jira workflow can make code changes directly from the board.",
     "features": [
       {
-        "icon": "invoice",
+        "spot": "/assets/artwork/spots/invoice.svg",
         "title": "Client invoicing",
         "items": [
           "Daily aggregation of work logs into mid-month client estimates",
@@ -74,7 +74,7 @@
         ]
       },
       {
-        "icon": "sync",
+        "spot": "/assets/artwork/spots/sync.svg",
         "title": "Resales",
         "items": [
           "Intraday sync with PPC for new and updated quotes",
