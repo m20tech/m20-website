@@ -18,19 +18,19 @@
     "title": "Find · Learn · Act",
     "cards": [
       {
-        "icon": "search",
+        "spot": "/assets/artwork/spots/search.svg",
         "label": "Find",
         "title": "Search once, find every answer.",
         "text": "Ask a question in plain language and Rovo searches every connected app to bring back the answer."
       },
       {
-        "icon": "chat",
+        "spot": "/assets/artwork/spots/chat.svg",
         "label": "Learn",
         "title": "Have an intelligent conversation.",
         "text": "Rovo chats through your knowledge base, connecting the dots across Confluence, Jira, and beyond."
       },
       {
-        "icon": "team-add",
+        "spot": "/assets/artwork/spots/team-add.svg",
         "label": "Act",
         "title": "Meet your new AI teammates.",
         "text": "Rovo agents take on tasks — drafting content, updating tickets, and more — so your team can focus on the work only they can do."
@@ -46,32 +46,32 @@
     "title": "There's an agent for that.",
     "cards": [
       {
-        "icon": "checklist",
+        "spot": "/assets/artwork/spots/checklist.svg",
         "title": "Create and review agents",
         "text": "Generate, review and refine content for all types of communications, product specs, goal setting and more."
       },
       {
-        "icon": "org-chart-small",
+        "spot": "/assets/artwork/spots/org-chart-small.svg",
         "title": "Workflow management agents",
         "text": "Automate and streamline tasks such as creating a draft design for new requests, or taking action when a Jira issue progresses."
       },
       {
-        "icon": "window",
+        "spot": "/assets/artwork/spots/window.svg",
         "title": "Knowledge management agents",
         "text": "Answer questions, integrate research into Jira specs, create service checklists, or contribute to custom knowledge bases."
       },
       {
-        "icon": "globe",
+        "spot": "/assets/artwork/spots/globe.svg",
         "title": "Team culture agents",
         "text": "Help with onboarding new employees, building team gratitude and facilitating team collaboration."
       },
       {
-        "icon": "gear",
+        "spot": "/assets/artwork/spots/gear.svg",
         "title": "Maintenance agents",
         "text": "Streamline time-consuming tasks like cleaning up Jira backlogs, organizing Confluence pages, or aligning content to formatting specs."
       },
       {
-        "icon": "sparkles",
+        "spot": "/assets/artwork/spots/sparkles.svg",
         "title": "Custom agents",
         "text": "Use Rovo Agents out-of-the-box, create your own with Rovo's no-code interface, or explore a wide variety of agents on the Atlassian Marketplace."
       }

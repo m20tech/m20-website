@@ -14,17 +14,17 @@
     "title": "Three ways we make your tools work harder.",
     "cards": [
       {
-        "icon": "org-chart",
+        "spot": "/assets/artwork/spots/org-structure.svg",
         "title": "Information Architecture",
         "text": "Organize your data — regardless of your unique tools, internal sites, or databases — into something everyone can navigate."
       },
       {
-        "icon": "cycle",
+        "spot": "/assets/artwork/spots/transformation-loop.svg",
         "title": "AI Optimization",
         "text": "Build a company-wide strategy that inspires real shifts in digital culture — not just new tools, but new habits."
       },
       {
-        "icon": "team-flag",
+        "spot": "/assets/artwork/spots/collaboration.svg",
         "title": "Collaboration & Knowledge",
         "text": "Empower your team to share everything that matters, so knowledge compounds instead of getting lost."
       }
@@ -35,17 +35,17 @@
     "title": "Solutions shaped around your needs.",
     "cards": [
       {
-        "icon": "globe-nodes",
+        "spot": "/assets/artwork/spots/globe-nodes.svg",
         "title": "Work Management",
         "text": "Unify your organization with tools that streamline project tracking and enhance information sharing across every team."
       },
       {
-        "icon": "document-clock",
+        "spot": "/assets/artwork/spots/document-clock.svg",
         "title": "Enterprise Service Management",
         "text": "Formalize business processes with customer-friendly tools, leveraging automation and AI to adapt as your needs evolve."
       },
       {
-        "icon": "cloud-bolt",
+        "spot": "/assets/artwork/spots/cloud-bolt.svg",
         "title": "Digital Transformation & Cloud",
         "text": "Boost efficiency with cloud-first architecture: seamless integration, strategic automation, robust security, and smooth migration."
       }

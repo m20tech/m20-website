@@ -171,17 +171,17 @@
     "intro": "M20's ability to move quickly comes from three things working together: deep relationships with the people in the room, a clear process for getting from brief to production, and the technical tools to execute without overhead.",
     "cards": [
       {
-        "icon": "team-partner",
+        "spot": "/assets/artwork/spots/team-partner.svg",
         "title": "A Partner Who Knows the Organization",
         "text": "M20 has worked across the client's operations, software, and leadership teams over a long-standing engagement. That relationship means we understand internal governance, how decisions get made, and what security needs to approve — before the first line of code is written. Solutions are shaped around how the organization actually works, not how a new vendor assumes it does."
       },
       {
-        "icon": "layers",
+        "spot": "/assets/artwork/spots/layers.svg",
         "title": "Expertise Across the Stack",
         "text": "The engagement drew on Atlassian platform knowledge, cloud-native development, and a working understanding of organizational governance requirements — all in one team. That combination lets M20 speak to both what leadership needs to see and what IT needs to approve, without translation."
       },
       {
-        "icon": "bolt",
+        "spot": "/assets/artwork/spots/bolt.svg",
         "title": "Rapid Prototyping to Production",
         "text": "M20 embraces AI as a delivery tool — not as a shortcut, but as a way to build precisely to spec, faster. The project moved through three deliberate phases: AI-assisted prototyping to validate the concept, a Git-based pre-production environment to make it ownable, and a full production pipeline to make it scalable. That's a way of working, not just a technical choice."
       }

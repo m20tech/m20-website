@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <circle cx="120" cy="124" r="104" fill="#F9E9E4"/>
+  <g>
+    <rect x="40" y="56" width="132" height="108" rx="16" fill="#FFFFFF"/>
+  </g>
+  <g fill="none" stroke="#C0392B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- top node -->
+    <rect x="86" y="70" width="68" height="24" rx="6"/>
+    <!-- connectors -->
+    <line x1="120" y1="94" x2="120" y2="108"/>
+    <line x1="64" y1="108" x2="176" y2="108"/>
+    <line x1="64" y1="108" x2="64" y2="120"/>
+    <line x1="120" y1="108" x2="120" y2="120"/>
+    <line x1="176" y1="108" x2="176" y2="120"/>
+    <!-- child nodes -->
+    <rect x="42" y="120" width="44" height="22" rx="6"/>
+    <rect x="98" y="120" width="44" height="22" rx="6"/>
+    <rect x="154" y="120" width="44" height="22" rx="6"/>
+  </g>
+  <g fill="#C0392B">
+    <rect x="92" y="76" width="8" height="8" rx="2"/>
+    <rect x="48" y="126" width="7" height="7" rx="1.8"/>
+    <rect x="104" y="126" width="7" height="7" rx="1.8"/>
+    <rect x="160" y="126" width="7" height="7" rx="1.8"/>
+  </g>
+  <circle cx="178" cy="78" r="8" fill="#E8A04C"/>
+</svg>
