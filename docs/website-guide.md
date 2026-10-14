@@ -51,7 +51,7 @@ The site is a small static website. There is no server-side application and no d
 | Preview | `preview` | https://preview-m20-website.mike-124.workers.dev | Blocked (noindex) |
 | Any other branch | `<branch>` | `https://<branch>-m20-website.mike-124.workers.dev` | Blocked (noindex) |
 
-The `m20tech.com` domain still points at the old Squarespace site. When it moves to Cloudflare, update **Site URL** in the CMS (SEO & site settings) so canonical links and the sitemap use the new address.
+**Site URL** (in the CMS under SEO & site settings) is already set to `https://m20tech.com`, which drives canonical links, Open Graph/Twitter tags, and `sitemap.xml`. The `m20tech.com` domain itself still points at the old Squarespace site, though — DNS hasn't cut over to Cloudflare yet. Once it does, no further CMS change is needed; until then, canonical/sitemap URLs point ahead of where the domain actually resolves.
 
 ## Content management (PagesCMS)
 
