@@ -32,6 +32,7 @@ The site is a small static website. There is no server-side application and no d
 | Artwork library | `assets/artwork/covers/`, `illustrations/`, `spots/` | Shared cover, illustration, and spot artwork any page can reuse. Each has an SVG (used on pages) and a PNG export (social sharing, email, slides). Defined in `cms/artwork.mjs`. |
 | Build script | `scripts/build.mjs` | Renders templates + content into the finished site (`dist/`), runs consistency checks, and writes `sitemap.xml` and `robots.txt`. |
 | Hosting config | `wrangler.jsonc` | Tells Cloudflare how to build and serve the site. |
+| Redirects | `_redirects` | Permanent (301) redirects from old Squarespace URLs to their new pages. Add a line here (old path, new path, `301`) whenever a page is renamed or removed and has a replacement. |
 
 ### How a page gets built
 
@@ -51,7 +52,7 @@ The site is a small static website. There is no server-side application and no d
 | Preview | `preview` | https://preview-m20-website.mike-124.workers.dev | Blocked (noindex) |
 | Any other branch | `<branch>` | `https://<branch>-m20-website.mike-124.workers.dev` | Blocked (noindex) |
 
-**Site URL** (in the CMS under SEO & site settings) is already set to `https://m20tech.com`, which drives canonical links, Open Graph/Twitter tags, and `sitemap.xml`. The `m20tech.com` domain itself still points at the old Squarespace site, though — DNS hasn't cut over to Cloudflare yet. Once it does, no further CMS change is needed; until then, canonical/sitemap URLs point ahead of where the domain actually resolves.
+**Site URL** (in the CMS under SEO & site settings) is set to `https://m20tech.com`, which drives canonical links, Open Graph/Twitter tags, and `sitemap.xml`. The `m20tech.com` domain now serves the production site from Cloudflare, and `www.m20tech.com` redirects to it.
 
 ## Content management (PagesCMS)
 

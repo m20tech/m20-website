@@ -1,0 +1,17 @@
+# Permanent (301) redirects from old Squarespace URLs to their new pages,
+# so search rankings and bookmarks carry over after the migration.
+# Format: <old path> <new path> <status>. Served by Cloudflare static assets.
+# Old pages with no new equivalent are intentionally left to return 404.
+
+/home                 /                     301
+/home/                /                     301
+/contact-us           /contact/             301
+/contact-us/          /contact/             301
+/join-us              /contact/             301
+/join-us/             /contact/             301
+/atlassian-rovo       /ai/                  301
+/atlassian-rovo/      /ai/                  301
+/microsite-rovo-ai    /ai/                  301
+/microsite-rovo-ai/   /ai/                  301
+/products             /atlassian-services/  301
+/products/            /atlassian-services/  301
