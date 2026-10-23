@@ -8,9 +8,10 @@ Page HTML files are templates; their copy and images live in `content/` and are 
 - `<page>/index.html` — every other page, one folder per clean URL (e.g. `atlassian-services/index.html` serves at `/atlassian-services`)
 - `Header.dc.html`, `Footer.dc.html` — shared "design canvas" components fetched at runtime via `<dc-import>`
 - `content/` — page and component content (JSON), edited via PagesCMS
-- `cms/schema.mjs` — what's editable in the CMS; generates `.pages.yml`. `cms/icons/` — icon library
+- `cms/schema.mjs` — what's editable in the CMS; generates `.pages.yml`. `cms/icons/` — icon library. `cms/library.mjs` — catalog of every reusable brand asset, built into the unlisted gallery at `/library/`
 - `scripts/build.mjs` — build, CMS consistency checks, SEO files, and local dev server
 - `docs/website-guide.md` — user guide, published to Confluence as part of each production release
+- `docs/design-system.json`, `scripts/design-docs.mjs` — map `design.md` onto the M20 Design System Confluence pages and render their bodies for each release
 - `image-slot.js`, `support.js` — shared client-side scripts
 - `assets/` — site images (also the CMS media folder); `uploads/` — additional media
 - `design.md` — the design system reference (see below)
@@ -35,6 +36,8 @@ npm run cms:sync   # regenerate .pages.yml after editing cms/schema.mjs
 ## Design system
 
 **`design.md` is the golden source for this site's design system** — colors, typography, spacing, component patterns (buttons, cards, nav, forms), imagery, and motion rules. Read it before adding or restyling anything, and keep it in sync if a change introduces a new pattern or token.
+
+It's published to Confluence as the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages (managed by agents, regenerated on every release), and the icons, illustrations, logos, and backgrounds it describes are browsable at https://m20tech.com/library/ (unlisted; share internally).
 
 ## AI tooling setup: TWG CLI & Rovo MCP
 
