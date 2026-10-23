@@ -214,22 +214,22 @@ function libraryHtml(lib, base) {
     if (c.restricted) out.push(`<div data-type="panel-warning"><p><strong>Usage restriction.</strong> ${inline(c.restricted)}</p></div>`);
     const wide = ["covers", "illustrations", "backgrounds"].includes(c.id);
     const rows = c.items.map((it) => {
-      // Confluence previews: rasters where they exist, else the SVG.
+      // Confluence previews: rasters where they exist, else the SVG. One
+      // download link (the raster, or the SVG) keeps the page light; the
+      // gallery entry has every format.
       const preview = it.files.find((f) => f.format !== "svg") ?? it.files[0];
       const w = c.kind === "icon" ? 32 : wide ? 220 : 110;
-      const h = preview.width ? Math.round((w * preview.height) / preview.width) : w;
-      const files = it.files
-        .map((f) => `<a href="${f.url}">${f.format.toUpperCase()}</a>${f.width ? ` ${Math.round(f.width)}×${Math.round(f.height)}` : ""} · ${kb(f.bytes)}`)
-        .join("<br>");
+      const formats = it.files.map((f) => f.format.toUpperCase()).join(", ");
       return (
-        `<tr><td><img src="${preview.url}" alt="${esc(it.title)}" width="${w}" height="${h}"></td>` +
-        `<td><p><strong><a href="${gallery}#${it.key}">${esc(it.title)}</a></strong><br><code>${esc(it.key)}</code></p>` +
-        (it.note ? `<p>${esc(it.note)}</p>` : "") +
-        `</td><td><p>${esc(it.tags.join(", "))}</p></td><td><p>${files}</p></td><td><p>${esc(it.usedOn.join(", ") || "None")}</p></td></tr>`
+        `<tr><td><img src="${preview.url}" alt="${esc(it.title)}" width="${w}"></td>` +
+        `<td><p><strong><a href="${gallery}#${it.key}">${esc(it.title)}</a></strong>${it.note ? `<br>${esc(it.note)}` : ""}</p></td>` +
+        `<td><p>${esc(it.tags.join(", "))}</p></td>` +
+        `<td><p><a href="${preview.url}">${preview.format.toUpperCase()}</a>${it.files.length > 1 ? ` (also ${formats.replace(preview.format.toUpperCase(), "").replace(/^, |, $|, (?=,)/g, "")})` : ""}</p></td>` +
+        `<td><p>${esc(it.usedOn.join(", ") || "None")}</p></td></tr>`
       );
     });
     out.push(
-      `<table><thead><tr><th><p>Preview</p></th><th><p>Asset</p></th><th><p>Tags</p></th><th><p>Files</p></th><th><p>Used on</p></th></tr></thead>` +
+      `<table><thead><tr><th><p>Preview</p></th><th><p>Asset</p></th><th><p>Tags</p></th><th><p>Download</p></th><th><p>Used on</p></th></tr></thead>` +
         `<tbody>${rows.join("")}</tbody></table>`,
     );
   }
