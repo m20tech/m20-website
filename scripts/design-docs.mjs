@@ -236,7 +236,7 @@ function libraryHtml(lib, base) {
   return ["<!--raw-->", ...out, "<!--/raw-->"].join("\n");
 }
 
-function hubMarkdown(config, brandSummary) {
+function hubMarkdown(config, brandSummary, base) {
   const lines = [
     banner(`[design.md](${REPO}/blob/main/design.md)`),
     "",
@@ -253,7 +253,7 @@ function hubMarkdown(config, brandSummary) {
     "",
     "## Quick links",
     "",
-    `- [Asset library gallery](https://m20tech.com${LIBRARY_PATH}): search and download icons, illustrations, logos, and backgrounds (unlisted, internal)`,
+    `- [Asset library gallery](${base}${LIBRARY_PATH}): search and download icons, illustrations, logos, and backgrounds (unlisted, internal)`,
     `- [design.md on GitHub](${REPO}/blob/main/design.md): the source of every page here`,
     `- [Website](https://${config.cloudId}/wiki/x/AoCIcwE): how the site, CMS, and release process work`,
     "",
@@ -331,7 +331,7 @@ async function main() {
     });
   };
 
-  write("00-hub", config.hub, hubMarkdown(config, secs.get("Brand summary")), `[design.md](${REPO}/blob/main/design.md)`);
+  write("00-hub", config.hub, hubMarkdown(config, secs.get("Brand summary"), base), `[design.md](${REPO}/blob/main/design.md)`);
   config.pages.forEach((p, i) => {
     const single = p.sections.length === 1;
     const body = p.sections

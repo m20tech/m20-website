@@ -11,81 +11,123 @@
       "id": "6044352514",
       "title": "Brand & Voice",
       "summary": "Who we are, how we sound, and how to write case studies.",
-      "sections": ["Brand summary", "Voice"]
+      "sections": [
+        "Brand summary",
+        "Voice"
+      ]
     },
     {
       "id": "5319229452",
       "title": "Color",
       "summary": "Palette tokens and the rules for red, gold, and status colors.",
-      "sections": ["Color palette"]
+      "sections": [
+        "Color palette"
+      ]
     },
     {
-      "id": null,
+      "id": "6267961345",
       "title": "Typography",
       "summary": "Source Serif 4 and Source Sans 3, and the web type scale.",
-      "sections": ["Typography"]
+      "sections": [
+        "Typography"
+      ]
     },
     {
       "id": "2968453165",
       "title": "Logo & Lockup",
       "summary": "The M20 mark, the wordmark lockup, and how to embed it on the web, in email, and in PDFs.",
-      "sections": ["Logo & lockup"]
+      "sections": [
+        "Logo & lockup"
+      ]
     },
     {
-      "id": null,
+      "id": "6267994113",
       "title": "Layout, Spacing & Motion",
       "summary": "Max width, gutters, grids, radii, section rhythm, and hover motion.",
-      "sections": ["Layout & spacing", "Responsive layout", "Motion"]
+      "sections": [
+        "Layout & spacing",
+        "Responsive layout",
+        "Motion"
+      ]
     },
     {
-      "id": null,
+      "id": "6268026881",
       "title": "Components",
       "summary": "Buttons, cards, navigation, footer, forms, modals, and other site patterns.",
-      "sections": ["Components"]
+      "sections": [
+        "Components"
+      ]
     },
     {
       "id": "5334859785",
       "title": "Imagery & Illustrations",
       "summary": "Icon spec, photography, and the rules for covers, illustrations, and spots.",
-      "sections": ["Imagery & iconography", "Illustrations"]
+      "sections": [
+        "Imagery & iconography",
+        "Illustrations"
+      ]
     },
     {
       "id": "5182914628",
       "title": "Icon & Graphics Library",
       "summary": "Every reusable icon, illustration, logo, and background, with download links.",
-      "sections": ["Asset library"],
+      "sections": [
+        "Asset library"
+      ],
       "library": true
     },
     {
-      "id": null,
+      "id": "6268059649",
       "title": "Email Templates",
       "summary": "Defensive HTML email structure, fonts, header, buttons, and footer.",
-      "sections": ["Email templates"]
+      "sections": [
+        "Email templates"
+      ]
     },
     {
-      "id": null,
+      "id": "6267928634",
       "title": "PDF & Slide Templates",
       "summary": "Letterhead, document, newsletter, and slide deck templates for print and PDF.",
-      "sections": ["PDF templates"]
+      "sections": [
+        "PDF templates"
+      ]
     },
     {
-      "id": null,
+      "id": "6268092417",
       "title": "Website Reference",
       "summary": "Page inventory and URL structure for m20tech.com.",
-      "sections": ["Page inventory", "URL structure"]
+      "sections": [
+        "Page inventory",
+        "URL structure"
+      ]
     }
   ],
   "teamPages": [
-    { "id": "5318770724", "title": "Publishing Documents to PDF" },
-    { "id": "3018194946", "title": "Document Templates" },
-    { "id": "5629411347", "title": "Email Signature" }
+    {
+      "id": "5318770724",
+      "title": "Publishing Documents to PDF"
+    },
+    {
+      "id": "3018194946",
+      "title": "Document Templates"
+    },
+    {
+      "id": "5629411347",
+      "title": "Email Signature"
+    }
   ],
   "archive": {
-    "id": null,
+    "id": "6267928577",
     "title": "Archive: Legacy Style Guide",
     "pages": [
-      { "id": "5627478020", "title": "10th Anniversary Branding" },
-      { "id": "5337874437", "title": "Logos & Branding" }
+      {
+        "id": "5627478020",
+        "title": "10th Anniversary Branding"
+      },
+      {
+        "id": "5337874437",
+        "title": "Logos & Branding"
+      }
     ]
   }
 }
