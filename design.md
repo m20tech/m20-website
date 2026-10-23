@@ -299,6 +299,8 @@ site actually lives today, not an internal navigation path.
 
 Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
 
+**No em dashes in copy.** Don't use `—` to splice clauses in headlines, body text, cards, or captions, on the site or in emails, PDFs, and decks. Overused em dashes read as generic AI-written copy. Use a period and a second sentence, a comma, or a colon instead, or cut the aside. (The `·` middot separator in eyebrows and footers is fine; it's a label divider, not punctuation in a sentence.)
+
 ## Email templates
 
 Emails are HTML, not the site's usual freeform layout — client support is inconsistent, so build defensively rather than porting web patterns directly.
@@ -324,7 +326,7 @@ Emails are HTML, not the site's usual freeform layout — client support is inco
 - Use the "bulletproof" button pattern — a `<table>`-wrapped, padded, red (`#C0392B`) cell rather than a styled `<a>`/`<button>`. Border-radius on a table cell degrades gracefully (renders square) in Outlook instead of breaking. Text: white, bold, ~15px.
 
 **Footer**
-- Small muted text (`#9AA1AD` on dark / `#5A6270` on light): company name and address, plus an unsubscribe link for any marketing send. Match the address block used on the Letterhead PDF template below.
+- Small muted text (`#9AA1AD` on dark / `#5A6270` on light): company name/tagline copyright line — `© {year} M20 Technology. Empowering Teams. Amplifying Results.` — matching the real site footer (`Footer.dc.html`), plus an unsubscribe link for any marketing send. **Don't** put the street address (or "White Plains, NY") in an email footer — that only belongs in the Letterhead PDF template's header block.
 
 ## PDF templates
 
@@ -390,3 +392,14 @@ For a recurring, visually-driven multi-page send (product updates, team news, cl
   - **By the numbers:** a row of stat tiles — Source Serif 4 600 22pt numeral (see print type scale) over a Source Sans 3 label, matching the case-study stat-tile pattern.
 - **Emoji → icon translation:** never place literal emoji characters in the PDF — they render inconsistently (or not at all) across PDF viewers and fonts, and don't match the brand's hand-drawn-technical line style. Recreate the same idea as a custom inline SVG using the Icons spec (24×24 viewBox, stroke only, rounded caps/joins, brand red). A few common translations: 💡 idea → outlined lightbulb; ✅ done → checkmark-in-circle; 📈 growth → simple line/arrow chart; 🎉 celebration → a small burst/spark glyph; ⚠️ warning → outlined triangle with a line. When in doubt, design a new line icon in the same stroke style rather than reach for an emoji or a filled/colored icon set.
 - **Restraint:** two to four sections per issue is plenty — resist turning every paragraph into its own panel. Keep to the palette's existing logic (red = action, gold = kicker/highlight accent, paper-alt = neutral section break) instead of color-coding sections with new hues; a newsletter that uses five accent colors reads as a different product than the rest of M20's materials.
+
+### 4. Slide Deck
+
+A landscape version of the Newsletter template — same panel/icon/callout vocabulary, one topic per slide instead of a continuous flowed page.
+
+- **Page setup:** landscape, 16:9 widescreen (`13.333in × 7.5in`), one slide per PDF page with a hard page-break between slides. Margins `0.6in` on all sides, with the running header/footer living inside that margin.
+- **Running header/footer:** same lockup and eyebrow treatment as Document/Newsletter — logo lockup top-left, deck title top-right in the running-header eyebrow style — but the footer reads `"Slide {n} of {total}"`, bottom-right, since this is a deck, not a paginated document.
+- **Title slide** (slide 1 only): deck title in the Source Serif 4 display style, presenter/date subtitle beneath it in body weight — the same one-display-serif-moment rule as the other print templates.
+- **Content slides:** one section/topic per slide, built from the Newsletter vocabulary — one icon badge per slide as its entry point, headings in Source Sans 3 only, and the same callout panels (gold-accent tip, red-accent action item, dark pull-quote panel, "by the numbers" stat row) scaled up to fill the wider canvas.
+- Landscape's extra width favors a horizontal split (e.g. a callout panel beside a short paragraph, or a stat row beside a chart) over Newsletter's taller stacked card grids — reach for a 2-column layout before stacking three cards vertically on one slide.
+- Same restraint rule as Newsletter, tightened further: one idea and one icon per slide, no new accent colors — a deck that borrows five colors per slide stops reading as an M20 deck.
