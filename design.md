@@ -2,6 +2,8 @@
 
 Source of truth: this repo (`.dc.html` design-canvas files as templates; copy and images in `content/`, edited via PagesCMS — see AGENTS.md). Live reference: https://m20-website.mike-124.workers.dev/
 
+Published to Confluence as the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages, which agents regenerate from this file with `npm run docs:design` on every production release (see **Publishing the design system** in AGENTS.md). Edit this file, never those pages. Each `##` section below belongs to one Confluence page, mapped in `docs/design-system.json`; a new `##` section needs a page there or the build fails.
+
 ## Brand summary
 
 M20 Technology is an Atlassian Gold Solution Partner. The site's tone is editorial and confident rather than typical SaaS-cheerful: a warm, off-white paper background, a deep charcoal-navy for contrast sections, a brick-red accent for action, and a serif display face paired with a clean grotesque for body/UI text. Corners are soft (14–28px radii), pills for buttons, generous whitespace, and a restrained set of thin-stroke line icons in the accent red.
@@ -128,6 +130,7 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
 - Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
+- Video-call backgrounds: `assets/backgrounds/video-*.png`, 1920×1080, in the ink, maroon, and paper grounds (two have a name card to fill in). Browse them, and every other asset, in the **Asset library** below.
 
 ## Illustrations
 
@@ -233,6 +236,39 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 ```
 
 
+## Asset library
+
+Every reusable icon, illustration, logo, and background lives in this repo and is catalogued in `cms/library.mjs`. Other projects (decks, proposals, emails, Jira and Confluence spaces) reuse these files rather than keeping their own copies.
+
+- **Gallery:** https://m20tech.com/library/ (search, filter by collection, download, copy URL; icons export as SVG or PNG in any brand color and size). Deep links work: `/library/#icons/gear`, `/library/?q=jira`. It's **unlisted**: not in the nav or the sitemap, and served with `noindex`. Share the link internally; don't link it from public pages.
+- **Machine-readable:** https://m20tech.com/library/library.json lists every asset with its tags, formats, sizes, absolute URLs, and the pages that use it. Scripts and agents in other repos should read this rather than scrape the gallery.
+- **Confluence:** the **Icon & Graphics Library** page under the M20 Design System, generated from the same catalog.
+- **Stable URLs:** files under `/assets/` are served from `https://m20tech.com/assets/…` and are safe to hotlink from email and docs. Icons are published as brand-red standalone SVGs at `https://m20tech.com/library/icons/<name>.svg`. Renaming or deleting a file breaks those links, so add a new file instead of replacing one that's in use elsewhere.
+
+**Collections**
+
+| Collection | Source | Notes |
+|---|---|---|
+| Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
+| Spots, covers, illustrations | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
+| Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
+| Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and 1920×1080 video-call backgrounds. |
+| Diagrams | `assets/optimization-cycle.jpg`, `assets/rovo-connectors.png` | Finished diagrams used on the site. |
+| Atlassian product logos | `assets/products/` | Atlassian marks: follow [Atlassian's logo usage](https://atlassian.design/components/logo/usage). |
+| Partner logos, client logos | `assets/partners/`, `assets/clients/` | Third-party marks with usage restrictions shown in the gallery. Client logos are approved for the website only. |
+
+**Adding an asset**
+
+1. Make it by the rules in this file (Icons spec under **Imagery & iconography**, artwork under **Illustrations**) and put it in its collection's folder. Name it by subject (`team-add`, not `card-3-icon`). A new loose file in `assets/` goes in a collection's `files` list in `cms/library.mjs`; a new folder needs a new collection there.
+2. Add an entry under that collection's `items` in `cms/library.mjs`: a title, 3–8 search tags (synonyms people will type, products, topics), and a note for any usage caveat.
+3. Run `npm run library:check` (lists anything without tags) and `npm run check`. Files uploaded through PagesCMS show up in the gallery straight away under their filename; the next agent release fills in their tags.
+
+**Using icons outside the site**
+
+- **Atlassian and Slack emoji:** upload the icon as a 128px PNG from the gallery, named with the `m20-` prefix (`:m20-gear:`), in [Atlassian emoji admin](https://admin.atlassian.com/s/5e746b06-8b36-4248-91d5-d175a3417a2b/emoji) and Slack.
+- **Jira work item icons** render at 16px, so use the simplest icons (one or two strokes) and export at 64px. If nothing in the library reads at that size, design a simpler variant in the same style rather than using a third-party set.
+- **Slides, docs, and PDFs:** brand red on light grounds, white or gold on dark, one icon per section (see **PDF templates**). Prefer the Spot version as a section marker.
+
 ## Logo & lockup
 
 Reference for any deliverable that needs the M20 logo in a header — web, email, or PDF.
@@ -242,7 +278,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - **Sizing:** ~42px mark height in the site header, ~36px in the footer. Scale down proportionally for compact placements (email header, PDF running header) — don't go below ~24px, where the mark starts to lose legibility.
 - **Embedding by output type:**
   - **Web pages:** relative path, `assets/logo.png`.
-  - **Email:** an absolute, publicly reachable URL — `https://m20-website.mike-124.workers.dev/assets/logo.png`. Email clients (Gmail, Outlook, Apple Mail) fetch images over the network and commonly strip or block `data:` URIs, so base64-embedding the logo is not reliable here. Always set explicit `width`/`height` on the `<img>` and a plain-text `alt="M20 Technology"` fallback.
+  - **Email:** an absolute, publicly reachable URL on the brand domain — `https://m20tech.com/assets/logo.png`. Email clients (Gmail, Outlook, Apple Mail) fetch images over the network and commonly strip or block `data:` URIs, so base64-embedding the logo is not reliable here. Always set explicit `width`/`height` on the `<img>` and a plain-text `alt="M20 Technology"` fallback.
   - **PDF:** embed as a base64 data URI in the HTML/CSS that gets rendered to PDF (or reference the local file path directly if the renderer runs inside this repo). That keeps the PDF self-contained and reproducible without a network fetch at render time.
 
 ## Motion
@@ -300,6 +336,64 @@ site actually lives today, not an internal navigation path.
 Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
 
 **No em dashes in copy.** Don't use `—` to splice clauses in headlines, body text, cards, or captions, on the site or in emails, PDFs, and decks. Overused em dashes read as generic AI-written copy. Use a period and a second sentence, a comma, or a colon instead, or cut the aside. (The `·` middot separator in eyebrows and footers is fine; it's a label divider, not punctuation in a sentence.)
+
+Our voice is that of technical experts who communicate clearly and without pretension. It stays the same in a client proposal, an internal how-to, and a marketing one-pager; only the tone shifts with the audience.
+
+### Brand personality
+
+| Trait | What it means in practice |
+|---|---|
+| **Expert but approachable** | We know our stuff, but we don't talk down to people. Avoid unnecessary jargon and explain things clearly. |
+| **Direct** | Get to the point and respect the reader's time. Lead with the key message. |
+| **Collaborative** | Write with people in mind, not at them. Use "we" and "you", not distant third person. |
+| **Confident, not arrogant** | State things clearly and back them up. Avoid hedging like "we think maybe" or "it could potentially be said." |
+
+### Tone by context
+
+| Context | Tone | Example |
+|---|---|---|
+| Client proposals | Confident, professional | "We recommend a phased approach that reduces risk while delivering early value." |
+| Internal documentation | Clear, efficient, visual: heavy use of lists and diagrams | "Use the M20 Proposal template for all client-facing proposals." |
+| Marketing and website copy | Engaging, benefit-led | "Streamline your workflows. We handle the complexity." |
+| Support and how-to guides | Helpful, step by step | "First, open Settings. Then select the option that matches your workflow." |
+| Presentations | Punchy, visual-first | Short declarative statements. Let visuals carry the detail. |
+
+### Writing principles
+
+- **Use active voice.** "We delivered the project on time," not "The project was delivered on time." Use passive only when the subject genuinely doesn't matter.
+- **Keep sentences short.** Aim for under 20 words. Split complex ideas across sentences rather than stacking clauses.
+- **Lead with the point.** State what matters first, then the context. Add a TL;DR to long documents.
+- **Cut filler.** Drop "It is important to note that…", "In order to…", "As previously mentioned…".
+- **Be consistent with names.** Use official product and feature names, capitalized the way the product itself writes them (Jira Service Management, Rovo, Teamwork Graph).
+- **Contractions are fine** (we're, you'll, it's), except in legal or contractual documents.
+
+| Avoid | Instead |
+|---|---|
+| Buzzwords ("synergize", "leverage", "disruptive") | Plain language that says what you mean |
+| Casual or flippant tone in client-facing work | Friendly but professional |
+| Vague hedges ("kind of", "sort of", "might") | Clear and specific |
+| Impersonal phrasing ("the user", "one should") | Human and direct ("you", "we") |
+| Verbose, flowery language | Concise sentences |
+
+### Case studies and client-facing content
+
+Every case study (on the site, in a proposal, or in a deck) follows the same narrative and uses the same three content patterns. The live examples are `/case-study-intranet` and `/case-study-dashboard`.
+
+**Structure: challenge, solution, outcomes**
+
+| Section | Purpose | Length |
+|---|---|---|
+| **The Challenge** | The client's problem and constraints. Be specific. | 1–2 short paragraphs |
+| **The Solution** | What M20 built and why. Focus on decisions, not just deliverables. | 1–2 short paragraphs |
+| **Outcomes** | Results, quantified where possible, tied back to the challenge. | 1 paragraph + stat callouts |
+
+Make the client the hero. M20's role is enabling the client's success, not showcasing M20.
+
+**Stat callouts.** A row of 3–5 highlights (never more than 5) near the top. The value is a number, percentage, or single word ("0", "100%", "Pixel"); the label beneath it is 2–4 words ("Content disruption", "Executive buy-in", "Perfect UI match"). Stats must be verifiable: if you can't quantify it, reframe it as a concrete result ("Pixel perfect", not "Beautiful design"). Visual treatment: the stat-numeral type token on the web, the print stat numeral in PDFs.
+
+**Pull quotes and testimonials.** 2–4 sentences about outcomes or the experience of working together, not just satisfaction. Always attributed (name, title, company where permitted); when anonymized, keep the industry and company type ("Client, Software & Design Industry"). Get written approval before publishing any client quote externally. Visual treatment: the pull-quote type token; the dark pull-quote panel in PDFs and decks.
+
+**Tech stack callouts.** A compact list of the 3–6 primary tools behind the outcome, using official product names. Group related tools when the list passes five ("Confluence + Refined").
 
 ## Email templates
 

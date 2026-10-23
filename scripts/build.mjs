@@ -15,6 +15,9 @@ import http from "node:http";
 import { fileURLToPath } from "node:url";
 import { parse, render, checkTemplate } from "./template.mjs";
 import { ARTWORK } from "../cms/artwork.mjs";
+import { LIBRARY_PATH } from "../cms/library.mjs";
+import { loadLibrary, scanUsage, writeLibrary } from "./library.mjs";
+import { checkMapping } from "./design-docs.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
@@ -24,7 +27,7 @@ const PAGES_YML = path.join(ROOT, ".pages.yml");
 
 // Repo paths that are tooling or source-of-truth rather than site files.
 const EXCLUDE = new Set([
-  ".git", ".github", ".claude", "docs", ".vscode", ".wrangler", "node_modules", "dist",
+  ".git", ".github", ".claude", ".confluence", "docs", ".vscode", ".wrangler", "node_modules", "dist",
   "cms", "content", "scripts", ".pages.yml", ".gitignore", ".assetsignore",
   "package.json", "package-lock.json", "wrangler.jsonc",
 ]);
@@ -244,6 +247,9 @@ export async function build({ write = true } = {}) {
   const errors = [];
   MEDIA = new Map([].concat(schema.media).map((m) => [m.name, m]));
   checkArtwork(errors);
+  const library = loadLibrary({ root: ROOT, usage: scanUsage(schema.entries, ROOT) });
+  errors.push(...library.errors);
+  errors.push(...checkMapping());
 
   const yml = renderPagesYml(schema);
   const onDisk = fs.existsSync(PAGES_YML) ? fs.readFileSync(PAGES_YML, "utf8") : "";
@@ -309,7 +315,7 @@ export async function build({ write = true } = {}) {
     const msg = `CMS check failed:\n  - ${errors.join("\n  - ")}`;
     throw Object.assign(new Error(msg), { cmsErrors: errors });
   }
-  if (!write) return { files: files.length, pages: rendered.size };
+  if (!write) return { files: files.length, pages: rendered.size, untagged: library.untagged };
 
   fs.rmSync(DIST, { recursive: true, force: true });
   for (const f of files) {
@@ -318,17 +324,22 @@ export async function build({ write = true } = {}) {
     if (rendered.has(f)) fs.writeFileSync(dest, rendered.get(f));
     else fs.copyFileSync(path.join(ROOT, f), dest);
   }
+  writeLibrary(DIST, library, { siteUrl: site.siteUrl, commit: process.env.WORKERS_CI_COMMIT_SHA || "" });
   writeSeoFiles(site, sitemap);
-  return { files: files.length, pages: rendered.size };
+  return { files: files.length, pages: rendered.size, untagged: library.untagged };
 }
 
-// robots.txt, sitemap.xml, and (previews only) a noindex header on every response.
+// robots.txt, sitemap.xml, and noindex headers: on every response for
+// previews, and on the unlisted asset library in production. The library is
+// deliberately not disallowed in robots.txt, which would advertise its path
+// and stop crawlers from seeing the noindex.
 function writeSeoFiles(site, urls) {
   if (PREVIEW) {
     fs.writeFileSync(path.join(DIST, "robots.txt"), "User-agent: *\nDisallow: /\n");
     fs.writeFileSync(path.join(DIST, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n");
   } else {
     fs.writeFileSync(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
+    fs.writeFileSync(path.join(DIST, "_headers"), `${LIBRARY_PATH}*\n  X-Robots-Tag: noindex, nofollow\n`);
   }
   const body = urls.map((u) => `  <url><loc>${escapeXml(u)}</loc></url>`).join("\n");
   fs.writeFileSync(
@@ -363,6 +374,7 @@ async function run(write) {
   try {
     const r = await build({ write });
     console.log(`✓ CMS check passed — ${r.pages} CMS pages${write ? `, ${r.files} files written to dist/` : ""}`);
+    if (r.untagged?.length) console.log(`! ${r.untagged.length} library asset(s) have no tags — run \`npm run library:check\``);
     return true;
   } catch (err) {
     console.error(err.cmsErrors ? err.message : err);

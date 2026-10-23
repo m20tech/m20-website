@@ -30,6 +30,8 @@ The site is a small static website. There is no server-side application and no d
 | Icon library | `cms/icons/*.svg` | Icons editors can pick for cards. |
 | Images | `assets/` | Site images; also where images uploaded through the CMS are stored. |
 | Artwork library | `assets/artwork/covers/`, `illustrations/`, `spots/` | Shared cover, illustration, and spot artwork any page can reuse. Each has an SVG (used on pages) and a PNG export (social sharing, email, slides). Defined in `cms/artwork.mjs`. |
+| Asset library | `cms/library.mjs` | Catalog (titles and search tags) of every reusable icon, illustration, logo, and background. The build turns it into the unlisted gallery at https://m20tech.com/library/ and `library.json`, which other projects use to find and hotlink brand assets. |
+| Design system docs | `design.md`, `docs/design-system.json`, `scripts/design-docs.mjs` | The design system, and its mapping onto the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) Confluence pages, which Claude Code republishes on every release. |
 | Build script | `scripts/build.mjs` | Renders templates + content into the finished site (`dist/`), runs consistency checks, and writes `sitemap.xml` and `robots.txt`. |
 | Hosting config | `wrangler.jsonc` | Tells Cloudflare how to build and serve the site. |
 | Redirects | `_redirects` | Permanent (301) redirects from old Squarespace URLs to their new pages. Add a line here (old path, new path, `301`) whenever a page is renamed or removed and has a replacement. |
@@ -112,7 +114,7 @@ Editors can change anything that's a field. Changing layout, design, or structur
 3. Someone reviews https://preview-m20-website.mike-124.workers.dev.
 4. When it's approved, a pull request from `preview` to `main` is opened.
 5. When the approver says to publish, Claude Code merges the pull request, and Cloudflare automatically deploys production.
-6. Claude Code confirms the production build, republishes this Confluence page, and resets `preview` for the next round.
+6. Claude Code confirms the production build, republishes this Confluence page and the M20 Design System pages, and resets `preview` for the next round.
 
 ### Manual steps (people)
 
@@ -132,8 +134,9 @@ Editors can change anything that's a field. Changing layout, design, or structur
 | --- | --- | --- |
 | Push to any branch other than `main` | Cloudflare Workers Builds runs the build and uploads a preview version at `https://<branch>-m20-website.mike-124.workers.dev`. | The "Workers Builds: m20-website" check on the GitHub commit or PR |
 | Push or merge to `main` | Cloudflare Workers Builds runs the build and deploys production. | Same check, and the Cloudflare dashboard |
-| Every build | Consistency checks: every template tag has a CMS field, every CMS field is used, content matches the schema, image files exist, artwork fields point into the right library folder, every artwork SVG has the right size and a PNG export, and `.pages.yml` is current. A failing check stops the deploy, so the live site is never broken by bad content. | Build logs in Cloudflare |
+| Every build | Consistency checks: every template tag has a CMS field, every CMS field is used, content matches the schema, image files exist, artwork fields point into the right library folder, every `design.md` section is mapped to a Confluence page, every asset-library entry has a file, every artwork SVG has the right size and a PNG export, and `.pages.yml` is current. A failing check stops the deploy, so the live site is never broken by bad content. | Build logs in Cloudflare |
 | Production release (run by Claude Code) | Republishes this page from `docs/website-guide.md` through the Atlassian connector. The footer names the commit it was published from. | This page's footer and page history |
+| Production release (run by Claude Code) | Republishes the M20 Design System pages whose source changed in `design.md` or the asset library, plus the hub page. Each page's footer names its commit. | The [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) hub page footer |
 
 ### If a build fails
 
