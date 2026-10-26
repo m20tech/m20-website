@@ -17,7 +17,8 @@ import { parse, render, checkTemplate } from "./template.mjs";
 import { ARTWORK } from "../cms/artwork.mjs";
 import { LIBRARY_PATH } from "../cms/library.mjs";
 import { loadLibrary, scanUsage, writeLibrary } from "./library.mjs";
-import { checkMapping } from "./design-docs.mjs";
+import { checkMapping, loadConfig } from "./design-docs.mjs";
+import { GUIDE_PATH, writeDesignGuide } from "./design-guide.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
@@ -324,22 +325,24 @@ export async function build({ write = true } = {}) {
     if (rendered.has(f)) fs.writeFileSync(dest, rendered.get(f));
     else fs.copyFileSync(path.join(ROOT, f), dest);
   }
-  writeLibrary(DIST, library, { siteUrl: site.siteUrl, commit: process.env.WORKERS_CI_COMMIT_SHA || "" });
+  const commit = process.env.WORKERS_CI_COMMIT_SHA || "";
+  writeLibrary(DIST, library, { siteUrl: site.siteUrl, commit });
+  writeDesignGuide(DIST, { md: fs.readFileSync(path.join(ROOT, "design.md"), "utf8"), config: loadConfig(), lib: library, site, commit });
   writeSeoFiles(site, sitemap);
   return { files: files.length, pages: rendered.size, untagged: library.untagged };
 }
 
 // robots.txt, sitemap.xml, and noindex headers: on every response for
-// previews, and on the unlisted asset library in production. The library is
-// deliberately not disallowed in robots.txt, which would advertise its path
-// and stop crawlers from seeing the noindex.
+// previews, and on the unlisted asset library and design guide in production.
+// They're deliberately not disallowed in robots.txt, which would advertise
+// their paths and stop crawlers from seeing the noindex.
 function writeSeoFiles(site, urls) {
   if (PREVIEW) {
     fs.writeFileSync(path.join(DIST, "robots.txt"), "User-agent: *\nDisallow: /\n");
     fs.writeFileSync(path.join(DIST, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n");
   } else {
     fs.writeFileSync(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
-    fs.writeFileSync(path.join(DIST, "_headers"), `${LIBRARY_PATH}*\n  X-Robots-Tag: noindex, nofollow\n`);
+    fs.writeFileSync(path.join(DIST, "_headers"), [LIBRARY_PATH, GUIDE_PATH].map((p) => `${p}*\n  X-Robots-Tag: noindex, nofollow\n`).join(""));
   }
   const body = urls.map((u) => `  <url><loc>${escapeXml(u)}</loc></url>`).join("\n");
   fs.writeFileSync(

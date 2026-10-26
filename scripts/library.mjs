@@ -197,6 +197,7 @@ function renderGallery(data) {
 <meta name="robots" content="noindex, nofollow">
 <title>Asset Library · M20 Technology</title>
 <link rel="icon" href="/assets/logo.png">
+<script>if (/[?&]embed\\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -216,6 +217,9 @@ function renderGallery(data) {
   .lockup img { width:36px; height:36px; }
   .lockup b { display:block; font:700 20px/1 'Source Sans 3', sans-serif; }
   .lockup span { display:block; margin-top:3px; font:600 10px/1 'Source Sans 3', sans-serif; letter-spacing:.2em; color:var(--muted); }
+  .guide-link { font:600 14px 'Source Sans 3'; color:var(--ink); text-decoration:none; padding:8px 12px; border-radius:999px; }
+  .guide-link:hover { background:var(--paper-alt); }
+  html.embed header.top, html.embed footer { display:none; }
   .search { flex:1 1 320px; display:flex; align-items:center; gap:10px; background:#fff; border:1.5px solid var(--border);
     border-radius:999px; padding:0 18px; min-height:46px; }
   .search:focus-within { border-color:var(--red); }
@@ -303,6 +307,7 @@ function renderGallery(data) {
       <img src="/assets/logo.png" alt="" width="36" height="36">
       <div><b>M20</b><span>ASSET LIBRARY</span></div>
     </a>
+    <a class="guide-link" href="/design/">Design system</a>
     <label class="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A6270" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
       <input id="q" type="search" placeholder="Search ${count} icons, illustrations, logos…" autocomplete="off" aria-label="Search assets">

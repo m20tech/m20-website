@@ -1,5 +1,5 @@
 {
-  "$comment": "Maps design.md to the M20 Design System pages in Confluence. Every `##` section of design.md must appear in exactly one page's `sections` (npm run check enforces it). `library: true` appends the generated asset catalog from cms/library.mjs. A page with `id: null` doesn't exist yet: the publishing agent creates it under the hub and writes its ID back here. See \"Publishing the design system\" in AGENTS.md.",
+  "$comment": "Maps design.md to the M20 Design System pages in Confluence. Every `##` section of design.md must appear in exactly one page's `sections` (npm run check enforces it). `slug` is the page's visual guide at /design/<slug>/ (\"library\" is the asset library at /library/), which Confluence embeds with the Iframe macro. `library: true` appends the generated asset catalog from cms/library.mjs. A page with `id: null` doesn't exist yet: the publishing agent creates it under the hub and writes its ID back here. See \"Publishing the design system\" in AGENTS.md.",
   "cloudId": "m20tech.atlassian.net",
   "spaceKey": "Team",
   "hub": {
@@ -10,6 +10,7 @@
     {
       "id": "6044352514",
       "title": "Brand & Voice",
+      "slug": "brand",
       "summary": "Who we are, how we sound, and how to write case studies.",
       "sections": [
         "Brand summary",
@@ -19,6 +20,7 @@
     {
       "id": "5319229452",
       "title": "Color",
+      "slug": "color",
       "summary": "Palette tokens and the rules for red, gold, and status colors.",
       "sections": [
         "Color palette"
@@ -27,6 +29,7 @@
     {
       "id": "6267961345",
       "title": "Typography",
+      "slug": "typography",
       "summary": "Source Serif 4 and Source Sans 3, and the web type scale.",
       "sections": [
         "Typography"
@@ -35,6 +38,7 @@
     {
       "id": "2968453165",
       "title": "Logo & Lockup",
+      "slug": "logo",
       "summary": "The M20 mark, the wordmark lockup, and how to embed it on the web, in email, and in PDFs.",
       "sections": [
         "Logo & lockup"
@@ -43,6 +47,7 @@
     {
       "id": "6267994113",
       "title": "Layout, Spacing & Motion",
+      "slug": "layout",
       "summary": "Max width, gutters, grids, radii, section rhythm, and hover motion.",
       "sections": [
         "Layout & spacing",
@@ -53,6 +58,7 @@
     {
       "id": "6268026881",
       "title": "Components",
+      "slug": "components",
       "summary": "Buttons, cards, navigation, footer, forms, modals, and other site patterns.",
       "sections": [
         "Components"
@@ -61,6 +67,7 @@
     {
       "id": "5334859785",
       "title": "Imagery & Illustrations",
+      "slug": "imagery",
       "summary": "Icon spec, photography, and the rules for covers, illustrations, and spots.",
       "sections": [
         "Imagery & iconography",
@@ -70,6 +77,7 @@
     {
       "id": "5182914628",
       "title": "Icon & Graphics Library",
+      "slug": "library",
       "summary": "Every reusable icon, illustration, logo, and background, with download links.",
       "sections": [
         "Asset library"
@@ -79,6 +87,7 @@
     {
       "id": "6268059649",
       "title": "Email Templates",
+      "slug": "email",
       "summary": "Defensive HTML email structure, fonts, header, buttons, and footer.",
       "sections": [
         "Email templates"
@@ -87,6 +96,7 @@
     {
       "id": "6267928634",
       "title": "PDF & Slide Templates",
+      "slug": "print",
       "summary": "Letterhead, document, newsletter, and slide deck templates for print and PDF.",
       "sections": [
         "PDF templates"
@@ -95,6 +105,7 @@
     {
       "id": "6268092417",
       "title": "Website Reference",
+      "slug": "website",
       "summary": "Page inventory and URL structure for m20tech.com.",
       "sections": [
         "Page inventory",
