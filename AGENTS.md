@@ -13,7 +13,7 @@ Coding conventions for agents working in this repo. See [README.md](README.md) f
 
 `design.md` also covers non-web deliverables: **Logo & lockup** (how to embed the M20 logo in a header for web, email, or PDF output) and dedicated **Email templates** / **PDF templates** sections. Read those before generating an email message or a PDF.
 
-`design.md` is published to Confluence as the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages, one page per group of `##` sections as mapped in `docs/design-system.json`. Adding, renaming, or removing a `##` section means updating that mapping in the same change (the build fails otherwise); a new page gets `"id": null` and is created at the next release. Never edit those Confluence pages directly — they're regenerated on every release (see **Publishing the design system** below).
+`design.md` is rendered as a visual guide at `/design/<slug>/` (unlisted, noindex; built by `scripts/design-guide.mjs`) and published to Confluence as the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages, which embed those visual pages with the Iframe macro. Both follow `docs/design-system.json`: one page per group of `##` sections. The visual guide parses the Color palette, Typography scale, radius scale, Section rhythm, Voice, and Status (RAG) tables and lists, so keep their shape when you edit them, and add a specimen in `scripts/design-guide.mjs` when you add a component or template to `design.md`. Adding, renaming, or removing a `##` section means updating that mapping in the same change (the build fails otherwise); a new page gets `"id": null` and is created at the next release. Never edit those Confluence pages directly — they're regenerated on every release (see **Publishing the design system** below).
 
 ### Asset library
 
@@ -22,7 +22,7 @@ Every reusable icon, illustration, logo, and background is catalogued in `cms/li
 - **Any new asset gets a catalog entry in the same change:** a title, 3–8 search tags, and a note for usage caveats, under its collection's `items`. Run `npm run library:check` to find assets with no tags (for example, files an editor uploaded through PagesCMS) and fill them in before a release.
 - An entry for a file that doesn't exist fails the build; a file with no entry doesn't (so CMS uploads never block a deploy) but is listed by `library:check`.
 - Don't rename or delete an asset other projects might hotlink (`https://m20tech.com/assets/…`, `/library/icons/…`); add a new file instead.
-- Never link `/library/` from a public page or add it to the sitemap. The build adds the noindex header.
+- Never link `/library/` or `/design/` from a public page or add them to the sitemap. The build adds the noindex header to both.
 
 ## Site structure
 
@@ -79,7 +79,7 @@ Hosting is Cloudflare Workers (static assets) with Workers Builds connected to t
 
 ### Publishing the design system
 
-The [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages in Confluence (space `Team`) are generated from `design.md` and `cms/library.mjs` and are **managed by agents**: every page carries a "Managed by agents" banner and a footer naming the commit it was published from. `scripts/design-docs.mjs` renders the page bodies; you publish them with the Atlassian (Rovo) MCP tools. This keeps an Atlassian API token out of GitHub, same as the user guide.
+The [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) pages in Confluence (space `Team`) are generated from `design.md` and `cms/library.mjs` and are **managed by agents**: every page carries a "Managed by agents" banner, an Iframe macro embedding its visual guide page from `https://m20tech.com/design/<slug>/?embed` (the library page embeds `/library/?embed`), a collapsed text version for search, and a footer naming the commit it was published from. The embeds update with every production deploy, so Confluence only needs republishing when the text or the page list changes. `scripts/design-docs.mjs` renders the page bodies; you publish them with the Atlassian (Rovo) MCP tools. This keeps an Atlassian API token out of GitHub, same as the user guide.
 
 1. On `main` at the merge commit (`git checkout main && git pull`), find the commit the pages were last published from: read the hub page (`getConfluencePage`, cloudId `m20tech.atlassian.net`, pageId `5182816335`, `contentFormat: "markdown"`) and take the sha from its footer.
 2. Run `npm run docs:design -- --since <that sha>` (omit `--since` to republish everything, e.g. if the footer is missing). It writes one Confluence-HTML body per page to `.confluence/design-system/` and lists the pages to publish; `plan.json` there has each page's `action`, `id`, `title`, `file`, and `changed` flag.

@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // Turns design.md and the asset catalog (cms/library.mjs) into the bodies of
 // the M20 Design System pages in Confluence, mapped by docs/design-system.json.
+// Each page embeds its visual guide page (/design/<slug>/, built by
+// scripts/design-guide.mjs) with the Iframe macro, followed by a collapsed
+// text version for Confluence search.
 // It doesn't talk to Confluence: it writes one Confluence-HTML file per page
 // plus a plan.json, and the releasing agent publishes them with the Atlassian
 // (Rovo) MCP tools (contentFormat "html"). See "Publishing the design system" in AGENTS.md.
@@ -17,6 +20,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { LIBRARY_PATH } from "../cms/library.mjs";
 import { loadLibrary, libraryJson, scanUsage } from "./library.mjs";
+import { GUIDE_PATH, guideHref } from "./design-guide.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CONFIG = path.join(ROOT, "docs", "design-system.json");
@@ -85,8 +89,8 @@ function rewriteLinks(text, config, owner) {
 }
 
 const banner = (source) =>
-  `> 🤖 **Managed by agents. Don't edit this page.** It's generated from ${source} in the ` +
-  `[m20tech/m20-website](${REPO}) repo and republished on every production release, so edits made here are overwritten. ` +
+  `> 🤖 **Managed by agents. Don't edit this page.** The visual guide below is embedded live from m20tech.com and always shows production. ` +
+  `The page is generated from ${source} in the [m20tech/m20-website](${REPO}) repo and republished on releases, so edits made here are overwritten. ` +
   `To change it, edit the repo (or ask Claude Code to) and release.`;
 
 const footer = (branch, commit, date, source) =>
@@ -199,41 +203,35 @@ export function mdToHtml(md) {
   return out.join("\n");
 }
 
-// The asset catalog as a Confluence table per collection, previews included.
-function libraryHtml(lib, base) {
+// Confluence's native Iframe macro, as the editor stores it.
+function iframeMacro(src, height) {
+  const params = { macroParams: { src: { value: src }, width: { value: "100%" }, height: { value: String(height) } }, macroMetadata: { schemaVersion: { value: "1" }, title: "Iframe" } };
+  return `<div data-type="extension" data-extension-key="iframe" data-extension-type="com.atlassian.confluence.macro.core" data-layout="full-width" data-parameters="${esc(JSON.stringify(params))}"></div>`;
+}
+
+// The visual guide page, embedded, with a link out to the full page.
+function embed(href, height) {
+  return [
+    "<!--raw-->",
+    iframeMacro(`${href}?embed`, height),
+    `<p><a href="${href}">Open the full page</a> to see it at full width.</p>`,
+    "<!--/raw-->",
+  ].join("\n");
+}
+
+// The generated text, collapsed, so Confluence search and Rovo can still
+// find everything the embed shows.
+function textVersion(html) {
+  return ["<!--raw-->", `<details><summary>Text version (from design.md, for search)</summary>${html}</details>`, "<!--/raw-->"].join("\n");
+}
+
+// The asset catalog as plain text (titles and tags per collection), so the
+// library page stays searchable without repeating the gallery.
+function libraryIndex(lib, base) {
   const json = libraryJson(lib, { siteUrl: base });
-  const gallery = base + LIBRARY_PATH;
-  const out = [
-    `<h2>Browse the library</h2>`,
-    `<p><strong><a href="${gallery}">Open the searchable gallery</a></strong> to filter, preview, and download every asset, ` +
-      `and to export icons in any brand color and size. Every asset below links to its gallery entry. ` +
-      `Scripts and agents in other repos can read <a href="${gallery}library.json">library.json</a>.</p>`,
-  ];
-  for (const c of json.collections) {
-    out.push(`<h3>${esc(c.label)}</h3>`, `<p>${esc(c.description)} ${esc(c.usage)}</p>`);
-    if (c.restricted) out.push(`<div data-type="panel-warning"><p><strong>Usage restriction.</strong> ${inline(c.restricted)}</p></div>`);
-    const wide = ["covers", "illustrations", "backgrounds"].includes(c.id);
-    const rows = c.items.map((it) => {
-      // Confluence previews: rasters where they exist, else the SVG. One
-      // download link (the raster, or the SVG) keeps the page light; the
-      // gallery entry has every format.
-      const preview = it.files.find((f) => f.format !== "svg") ?? it.files[0];
-      const w = c.kind === "icon" ? 32 : wide ? 220 : 110;
-      const formats = it.files.map((f) => f.format.toUpperCase()).join(", ");
-      return (
-        `<tr><td><img src="${preview.url}" alt="${esc(it.title)}" width="${w}"></td>` +
-        `<td><p><strong><a href="${gallery}#${it.key}">${esc(it.title)}</a></strong>${it.note ? `<br>${esc(it.note)}` : ""}</p></td>` +
-        `<td><p>${esc(it.tags.join(", "))}</p></td>` +
-        `<td><p><a href="${preview.url}">${preview.format.toUpperCase()}</a>${it.files.length > 1 ? ` (also ${formats.replace(preview.format.toUpperCase(), "").replace(/^, |, $|, (?=,)/g, "")})` : ""}</p></td>` +
-        `<td><p>${esc(it.usedOn.join(", ") || "None")}</p></td></tr>`
-      );
-    });
-    out.push(
-      `<table><thead><tr><th><p>Preview</p></th><th><p>Asset</p></th><th><p>Tags</p></th><th><p>Download</p></th><th><p>Used on</p></th></tr></thead>` +
-        `<tbody>${rows.join("")}</tbody></table>`,
-    );
-  }
-  return ["<!--raw-->", ...out, "<!--/raw-->"].join("\n");
+  return json.collections.map((c) =>
+    `<h3>${esc(c.label)}</h3><p>${c.items.map((it) => `<a href="${base}${LIBRARY_PATH}#${it.key}">${esc(it.title)}</a> (${esc(it.tags.join(", "))})`).join("; ")}</p>`,
+  ).join("");
 }
 
 function hubMarkdown(config, brandSummary, base) {
@@ -241,7 +239,9 @@ function hubMarkdown(config, brandSummary, base) {
     banner(`[design.md](${REPO}/blob/main/design.md)`),
     "",
     "How M20 Technology looks and sounds on the website and in email, PDFs, slides, and everything else we publish. " +
-      "Start with the page you need below, or open the asset library to grab an icon, illustration, or logo.",
+      "Every page shows the real thing: swatches, live type, components you can copy, and templates.",
+    "",
+    embed(`${base}${GUIDE_PATH}`, config.hub.embedHeight ?? 760),
     "",
     brandSummary,
     "",
@@ -253,6 +253,7 @@ function hubMarkdown(config, brandSummary, base) {
     "",
     "## Quick links",
     "",
+    `- [Visual design guide](${base}${GUIDE_PATH}): every page of this guide at full width (unlisted, internal)`,
     `- [Asset library gallery](${base}${LIBRARY_PATH}): search and download icons, illustrations, logos, and backgrounds (unlisted, internal)`,
     `- [design.md on GitHub](${REPO}/blob/main/design.md): the source of every page here`,
     `- [Website](https://${config.cloudId}/wiki/x/AoCIcwE): how the site, CMS, and release process work`,
@@ -268,6 +269,7 @@ function hubMarkdown(config, brandSummary, base) {
     "",
     "- `design.md` in the website repo is the single source of truth for the design system. `cms/library.mjs` catalogs the asset library.",
     "- Each `##` section of design.md belongs to one page here, mapped in `docs/design-system.json`. The site build fails if a new section isn't mapped, so no section goes unpublished.",
+    "- The site build renders each page's visual guide at `m20tech.com/design/<page>/` from the same design.md, and each Confluence page embeds it with the Iframe macro. The visuals update on every production deploy without republishing Confluence.",
     "- On every production release, Claude Code runs `npm run docs:design` and republishes the pages whose source changed, plus this page. The footer below names the commit they match.",
     "- To change anything here, edit the repo (or ask Claude Code to) and release. Questions go to the WEB project in Jira.",
   ];
@@ -334,11 +336,16 @@ async function main() {
   write("00-hub", config.hub, hubMarkdown(config, secs.get("Brand summary"), base), `[design.md](${REPO}/blob/main/design.md)`);
   config.pages.forEach((p, i) => {
     const single = p.sections.length === 1;
-    const body = p.sections
+    const text = p.sections
       .map((s) => (single ? "" : `## ${s}\n\n`) + rewriteLinks(secs.get(s), config, p))
       .join("\n\n");
-    const parts = [banner(`[design.md](${REPO}/blob/main/design.md)` + (p.library ? ` and [cms/library.mjs](${REPO}/blob/main/cms/library.mjs)` : "")), "", body];
-    if (p.library) parts.push("", libraryHtml(lib, base));
+    const parts = [
+      banner(`[design.md](${REPO}/blob/main/design.md)` + (p.library ? ` and [cms/library.mjs](${REPO}/blob/main/cms/library.mjs)` : "")),
+      "",
+      embed(base + guideHref(p), p.embedHeight ?? (p.library ? 800 : 1000)),
+      "",
+      textVersion(mdToHtml(text) + (p.library ? libraryIndex(lib, base) : "")),
+    ];
     const source = p.sections.map((s) => `design.md → ${s}`).join(", ") + (p.library ? ", cms/library.mjs" : "");
     write(`${String(i + 1).padStart(2, "0")}-${slug(p.title)}`, p, parts.join("\n"), source);
   });
