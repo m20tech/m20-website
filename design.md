@@ -254,6 +254,7 @@ Every app, agent, and plugin M20 builds has one **app icon**. It names the *prod
 | M20 Agent Policies | Plugin | `agent-policies` | [m20tech/m20-agent-policies](https://github.com/m20tech/m20-agent-policies) |
 | CL Life Approvals | App | `cllife-approvals` | [m20tech/cllife-approvals](https://github.com/m20tech/cllife-approvals) |
 | M20 Intelligence | Agent | `m20-intelligence` | [m20tech/m20-intelligence](https://github.com/m20tech/m20-intelligence) |
+| M20 Registrations | App | `registrations` | [m20tech/registrations](https://github.com/m20tech/registrations) |
 | M20 Reselling Tools | App | `reselling-tools` | [m20tech/reselling](https://github.com/m20tech/reselling) |
 
 ## Asset library

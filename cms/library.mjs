@@ -125,6 +125,7 @@ export const LIBRARY = [
       "agent-policies": { title: "M20 Agent Policies", tags: ["app icon", "plugin", "policies", "claude code", "agents", "clipboard"], note: "Plugin: m20tech/m20-agent-policies." },
       "cllife-approvals": { title: "CL Life Approvals", tags: ["app icon", "app", "forge", "approvals", "jsm", "shield"], note: "App: m20tech/cllife-approvals (client app for CL Life)." },
       "m20-intelligence": { title: "M20 Intelligence", tags: ["app icon", "agent", "rovo", "search", "reports", "jobs"], note: "Agent: m20tech/m20-intelligence." },
+      "registrations": { title: "M20 Registrations", tags: ["app icon", "app", "forge", "registrations", "apc", "calendar", "refresh"], note: "App: m20tech/registrations." },
       "reselling-tools": { title: "M20 Reselling Tools", tags: ["app icon", "app", "forge", "reselling", "quotes", "invoicing", "price tag"], note: "App: m20tech/reselling." },
     },
   },
