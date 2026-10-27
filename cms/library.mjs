@@ -111,6 +111,24 @@ export const LIBRARY = [
     },
   },
   {
+    id: "app-icons",
+    label: "App icons",
+    dir: "assets/artwork/app-icons",
+    kind: "artwork",
+    description:
+      "512×512 app icons: a glyph on a rounded tile whose ground shows the type " +
+      "(red gradient = app, ink with glow = agent, paper = plugin). PNG export is 1024×1024.",
+    usage:
+      "One per M20 app, agent, or plugin: its Confluence parent page, the Apps and Shared Agents Index, " +
+      "decks, and Atlassian/Slack emoji. Not for topics or features — use icons and spots for those.",
+    items: {
+      "agent-policies": { title: "M20 Agent Policies", tags: ["app icon", "plugin", "policies", "claude code", "agents", "clipboard"], note: "Plugin: m20tech/m20-agent-policies." },
+      "cllife-approvals": { title: "CL Life Approvals", tags: ["app icon", "app", "forge", "approvals", "jsm", "shield"], note: "App: m20tech/cllife-approvals (client app for CL Life)." },
+      "m20-intelligence": { title: "M20 Intelligence", tags: ["app icon", "agent", "rovo", "search", "reports", "jobs"], note: "Agent: m20tech/m20-intelligence." },
+      "reselling-tools": { title: "M20 Reselling Tools", tags: ["app icon", "app", "forge", "reselling", "quotes", "invoicing", "price tag"], note: "App: m20tech/reselling." },
+    },
+  },
+  {
     id: "brand",
     label: "Logo & badges",
     files: ["assets/logo.png", "assets/atlassian-gold.png"],

@@ -26,6 +26,13 @@ export const ARTWORK = {
     pngScale: 2,
     description: "240×240 spot illustration, shown at about 104px. Decorative.",
   },
+  "app-icons": {
+    label: "Artwork: app icons",
+    width: 512,
+    height: 512,
+    pngScale: 2,
+    description: "512×512 app icon: one per M20 app, agent, or plugin.",
+  },
 };
 
 export const ARTWORK_EXTENSIONS = ["svg", "png", "jpg", "jpeg", "webp"];
