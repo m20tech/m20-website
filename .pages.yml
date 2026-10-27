@@ -35,6 +35,16 @@ media:
       - jpg
       - jpeg
       - webp
+  - name: app-icons
+    label: "Artwork: app icons"
+    input: assets/artwork/app-icons
+    output: /assets/artwork/app-icons
+    extensions:
+      - svg
+      - png
+      - jpg
+      - jpeg
+      - webp
 content:
   - name: pages
     label: Pages

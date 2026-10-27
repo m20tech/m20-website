@@ -292,6 +292,8 @@ const VISUALS = {
          <p class="see">All ${coll("icons").length} icons, with color and size export, are in the <a href="${LIBRARY_PATH}#icons">asset library</a>.</p>`),
       block("Spots", "240×240 art, shown at 96px at the top of index cards.",
         `<div class="spots">${coll("spots").map((s) => `<a href="${LIBRARY_PATH}#${s.key}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
+      block("App icons", "One per M20 app, agent, or plugin: a filled tile whose ground shows the type — red app, ink agent, paper plugin.",
+        `<div class="spots">${coll("app-icons").map((s) => `<a href="${LIBRARY_PATH}#${s.key}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
       block("Covers and illustrations", "Covers sit behind dark page heroes and double as share images. Illustrations explain the work beside the text.",
         `<div class="art">${[...coll("covers"), ...coll("illustrations")].map((a) => `<a href="${LIBRARY_PATH}#${a.key}"><img src="${raster(a)}" alt="${esc(a.title)}" loading="lazy"><span>${esc(a.title)}</span></a>`).join("")}</div>`),
       `<section class="block" id="status"><h2>Status (RAG) colors</h2><p class="intro">Status only, never decoration. Every mark carries its glyph so color is never the only signal.</p>

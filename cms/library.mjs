@@ -27,7 +27,9 @@ export const LIBRARY = [
       "Use for icon badges, slides, docs, Jira/Confluence emoji, and anywhere a small glyph is needed. " +
       "Pick a color and size in the gallery to download an SVG or PNG. Most icons also have a Spot version.",
     items: {
+      alert: { title: "Alert", tags: ["warning", "attention", "risk", "exception", "issue", "needs attention"] },
       bolt: { title: "Bolt", tags: ["lightning", "fast", "speed", "automation", "power", "energy"] },
+      "calendar-check": { title: "Calendar with check", tags: ["schedule", "tasks", "due date", "recurring", "deadline", "planning"] },
       chat: { title: "Chat", tags: ["conversation", "message", "support", "talk", "comments", "rovo chat"] },
       checklist: { title: "Checklist", tags: ["tasks", "todo", "list", "done", "requirements", "audit"] },
       "cloud-bolt": { title: "Cloud bolt", tags: ["cloud", "migration", "power", "saas", "performance"] },
@@ -37,15 +39,18 @@ export const LIBRARY = [
       "globe-nodes": { title: "Globe with nodes", tags: ["network", "integration", "connected", "global", "teamwork graph"] },
       globe: { title: "Globe", tags: ["world", "web", "international", "internet", "website"] },
       invoice: { title: "Invoice", tags: ["billing", "finance", "receipt", "licensing", "purchase", "quote"] },
+      "invoice-overdue": { title: "Overdue invoice", tags: ["billing", "past due", "unpaid", "collections", "finance", "reminder"] },
       layers: { title: "Layers", tags: ["stack", "platform", "architecture", "products", "tiers"] },
       "org-chart-small": { title: "Org chart (small)", tags: ["hierarchy", "structure", "team", "organization", "reporting"] },
       "org-chart": { title: "Org chart", tags: ["hierarchy", "structure", "team", "organization", "reporting"] },
+      "price-tag": { title: "Price tag", tags: ["quote", "pricing", "cost", "sales", "offer", "atlassian quote"] },
       search: { title: "Search", tags: ["find", "magnifier", "discover", "lookup", "rovo search"] },
       sparkles: { title: "Sparkles", tags: ["ai", "rovo", "magic", "new", "smart", "generate"] },
       sync: { title: "Sync", tags: ["refresh", "integration", "update", "two-way", "exchange", "migration"] },
       "team-add": { title: "Add team member", tags: ["people", "onboarding", "users", "invite", "staffing"] },
       "team-flag": { title: "Team with flag", tags: ["people", "goal", "milestone", "leadership", "project team"] },
       "team-partner": { title: "Team partnership", tags: ["people", "collaboration", "partner", "handshake", "together"] },
+      ticket: { title: "Ticket", tags: ["work item", "request", "jira", "issue", "service desk", "order"] },
       window: { title: "App window", tags: ["browser", "ui", "application", "screen", "web app", "portal"] },
     },
   },
@@ -103,6 +108,24 @@ export const LIBRARY = [
     items: {
       "confluence-intranet-layers": { title: "Confluence intranet layers", tags: ["confluence", "intranet", "architecture", "isometric", "layers", "refined"] },
       "prototype-to-production": { title: "Prototype to production", tags: ["pipeline", "ci/cd", "delivery", "phases", "security review", "jira"] },
+    },
+  },
+  {
+    id: "app-icons",
+    label: "App icons",
+    dir: "assets/artwork/app-icons",
+    kind: "artwork",
+    description:
+      "512×512 app icons: a glyph on a rounded tile whose ground shows the type " +
+      "(red gradient = app, ink with glow = agent, paper = plugin). PNG export is 1024×1024.",
+    usage:
+      "One per M20 app, agent, or plugin: its Confluence parent page, the Apps and Shared Agents Index, " +
+      "decks, and Atlassian/Slack emoji. Not for topics or features — use icons and spots for those.",
+    items: {
+      "agent-policies": { title: "M20 Agent Policies", tags: ["app icon", "plugin", "policies", "claude code", "agents", "clipboard"], note: "Plugin: m20tech/m20-agent-policies." },
+      "cllife-approvals": { title: "CL Life Approvals", tags: ["app icon", "app", "forge", "approvals", "jsm", "shield"], note: "App: m20tech/cllife-approvals (client app for CL Life)." },
+      "m20-intelligence": { title: "M20 Intelligence", tags: ["app icon", "agent", "rovo", "search", "reports", "jobs"], note: "Agent: m20tech/m20-intelligence." },
+      "reselling-tools": { title: "M20 Reselling Tools", tags: ["app icon", "app", "forge", "reselling", "quotes", "invoicing", "price tag"], note: "App: m20tech/reselling." },
     },
   },
   {

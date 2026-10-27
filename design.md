@@ -142,6 +142,7 @@ Flat, hand-built SVG artwork that shows the things M20's work produces: intranet
 |---|---|---|---|---|
 | **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, slightly overlapping the text column and bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
 | **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
+| **App icon** | `512×512` | `1024×1024` (2×, transparent corners) | Rounded tile; ground shows the type | One per app, agent, or plugin — see **App icons** below. Never a topic or feature marker. |
 | **Spot** | `240×240` | `480×480` (2×, transparent) | Red-tint circle `#F9E9E4` (`r=104`) on transparent | Top of a card on an index page, shown at `96px` in place of an icon badge (`margin:0 0 14px -7px` so the circle lines up with the card's text edge). Always decorative: `alt=""`. |
 
 Pages use the **SVG** (sharp at any size, 1–20 KB). The **PNG** is for places that can't take SVG: social share images, email (absolute URL, see **Logo & lockup**), slides, and PDFs.
@@ -236,6 +237,25 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 ```
 
 
+### App icons
+
+Every app, agent, and plugin M20 builds has one **app icon**. It names the *product*, so it looks different from everything else here: line icons and spots mean a topic and sit on paper or a red-tint circle; an app icon is a **filled rounded tile** with its own ground. The agent policies (`app-icon` in [m20-agent-policies](https://github.com/m20tech/m20-agent-policies)) require one per project; its Confluence parent page shows it.
+
+- **Canvas:** `512×512`, the tile filling it with `rx="116"`; PNG export `1024×1024` with transparent corners. Files: `assets/artwork/app-icons/<slug>.svg` + `.png`, slug = the project's short name.
+- **Ground = type.** **App** — brand red gradient, `#C0392B` top-left → `#7A1E15` bottom-right. **Agent** — ink `#14171C` with a `#96271C` radial glow (55–75%) from the bottom-right, like a cover. **Plugin** — paper alt `#F3EEE8` with an `8px` `#E4DCD3` inner border, so it holds its edge on white pages. App and agent tiles add a white top-down sheen (10–14% → 0 at the middle).
+- **Glyph:** one idea for what the project does, centered in the middle `256×256`. Strokes `26–34px`, round caps and joins — paper `#FAF7F4` on red and ink grounds, ink `#14171C` on paper. Redraw at tile scale; don't paste a 24px line icon.
+- **One gold accent** (`#E8A04C`) per icon: the part that carries the meaning (the tag's hole, the approval check, the agent's spark, the plugin's clip). No other colors.
+- **No** text, letters, numbers, product or client logos, shadows outside the tile, or more than two shapes besides the accent. Check it at 32px: the glyph must still read.
+- **Making one:** copy the closest icon in `assets/artwork/app-icons/`, rework the glyph, export the PNG (`npm run artwork:png`), add the catalog entry under **App icons** in `cms/library.mjs` and a row below, then `npm run check`.
+- **Using one:** link the production files (`https://m20tech.com/assets/artwork/app-icons/<slug>.png`) — on Confluence at 96px at the top of the project's parent page, at 32px in tables. For an emoji, upload the PNG as `:m20-app-<slug>:`.
+
+| Project | Type | File | Repo |
+|---|---|---|---|
+| M20 Agent Policies | Plugin | `agent-policies` | [m20tech/m20-agent-policies](https://github.com/m20tech/m20-agent-policies) |
+| CL Life Approvals | App | `cllife-approvals` | [m20tech/cllife-approvals](https://github.com/m20tech/cllife-approvals) |
+| M20 Intelligence | Agent | `m20-intelligence` | [m20tech/m20-intelligence](https://github.com/m20tech/m20-intelligence) |
+| M20 Reselling Tools | App | `reselling-tools` | [m20tech/reselling](https://github.com/m20tech/reselling) |
+
 ## Asset library
 
 Every reusable icon, illustration, logo, and background lives in this repo and is catalogued in `cms/library.mjs`. Other projects (decks, proposals, emails, Jira and Confluence spaces) reuse these files rather than keeping their own copies.
@@ -250,7 +270,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Collection | Source | Notes |
 |---|---|---|
 | Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
-| Spots, covers, illustrations | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
+| Spots, covers, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
 | Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and 1920×1080 video-call backgrounds. |
 | Diagrams | `assets/optimization-cycle.jpg`, `assets/rovo-connectors.png` | Finished diagrams used on the site. |
