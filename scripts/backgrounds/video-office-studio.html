@@ -1,0 +1,135 @@
+<!doctype html>
+<!-- M20 video background: "Studio": bright paper-toned office, daylight. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=block"
+  rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+    position: relative; background: #F3EEE8; }
+  svg { display: block; position: absolute; inset: 0; filter: blur(0.8px); }
+</style>
+<script src="scenes.js"></script>
+<script src="lockup.js"></script>
+</head>
+<body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080"
+  xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const BOOKS = ["#14171C", "#23282F", "#C0392B", "#E8A04C", "#5A6270",
+  "#9AA1AD", "#E4DCD3", "#F0C9A8", "#96271C", "#D5D9E1"];
+
+// Window: 3 x 4 panes in a thin dark steel frame.
+const WX = 110, WY = 70, WW = 470, WH = 720, F = 12;
+let panes = "";
+for (let c = 1; c < 3; c++) {
+  panes += `<rect x="${WX + (WW / 3) * c - F / 2}" y="${WY}" width="${F}"
+    height="${WH}" fill="#2A2F37"/>`;
+}
+for (let r = 1; r < 4; r++) {
+  panes += `<rect x="${WX}" y="${WY + (WH / 4) * r - F / 2}" width="${WW}"
+    height="${F}" fill="#2A2F37"/>`;
+}
+let city = "";
+const cr = rng(7);
+for (let x = WX - 20; x < WX + WW; x += 40 + cr() * 50) {
+  const h = 90 + cr() * 220;
+  city += `<rect x="${x}" y="${WY + WH - h}" width="${50 + cr() * 60}" height="${h}"
+    fill="${cr() < 0.5 ? "#C9D0D8" : "#D5DBE2"}"/>`;
+}
+
+document.getElementById("s").innerHTML = `
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F7F2EC"/><stop offset="1" stop-color="#ECE4DA"/>
+  </linearGradient>
+  <radialGradient id="daylight" cx="0.22" cy="0.38" r="0.62">
+    <stop offset="0" stop-color="#fff" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#D9E3EB"/><stop offset="1" stop-color="#F6F0E8"/>
+  </linearGradient>
+  <linearGradient id="spineShade" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity=".12"/>
+    <stop offset=".3" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".18"/>
+  </linearGradient>
+  <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#B98F63"/><stop offset="1" stop-color="#9C7550"/>
+  </linearGradient>
+  <radialGradient id="lampGlow" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="#F5C98F" stop-opacity=".55"/>
+    <stop offset="1" stop-color="#F5C98F" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+  <filter id="haze"><feGaussianBlur stdDeviation="4"/></filter>
+  <filter id="beam"><feGaussianBlur stdDeviation="40"/></filter>
+  <clipPath id="glass"><rect x="${WX}" y="${WY}" width="${WW}" height="${WH}"/></clipPath>
+</defs>
+
+<rect width="1920" height="1080" fill="url(#wall)"/>
+<rect width="1920" height="1080" fill="url(#daylight)"/>
+
+<!-- daylight falling across the wall from the window -->
+<path d="M${WX + WW} ${WY + 40} L1080 ${WY + 260} L1180 980 L${WX + WW} ${WY + WH}Z"
+  fill="#fff" opacity=".35" filter="url(#beam)"/>
+
+<!-- window -->
+<rect x="${WX - 10}" y="${WY - 10}" width="${WW + 20}" height="${WH + 20}" rx="4"
+  fill="rgba(20,23,28,.08)" filter="url(#soft)"/>
+<g clip-path="url(#glass)">
+  <rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="url(#sky)"/>
+  <g filter="url(#haze)" opacity=".9">${city}</g>
+</g>
+${panes}
+<rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="none"
+  stroke="#2A2F37" stroke-width="${F * 1.4}"/>
+<rect x="${WX - 30}" y="${WY + WH + 6}" width="${WW + 60}" height="16" rx="2"
+  fill="#E6DED3"/>
+
+<!-- right wall: shelves -->
+${shelf(1400, 520, 400, "#C9A57E", "#B48C62")}
+${books(1418, 1650, 520, 3, BOOKS)}
+<path d="M1712 520 Q1690 470 1712 430 L1746 430 Q1768 470 1746 520Z" fill="#E4DCD3"/>
+<path d="M1729 430 L1729 360" stroke="#4A5A3A" stroke-width="3"/>
+${leaf(1729, 380, 46, -130, "#5E7D57")}${leaf(1729, 368, 50, -50, "#4F6B4A")}
+${leaf(1729, 360, 40, -92, "#6E8C64")}
+
+${shelf(1400, 720, 400, "#C9A57E", "#B48C62")}
+${pot(1460, 720, 80, 70, "#F7F4F0", "#E4DCD3")}
+${plant(1460, 650, 11, { height: 120, spread: 60, leaves: 16, size: 46 })}
+${books(1540, 1790, 720, 9, BOOKS, { hMin: 100, hMax: 150 })}
+
+<!-- credenza along the back wall -->
+<rect x="0" y="842" width="1920" height="30" fill="rgba(20,23,28,.14)"
+  filter="url(#soft)"/>
+<rect x="0" y="860" width="1920" height="220" fill="url(#oak)"/>
+<rect x="0" y="860" width="1920" height="14" fill="#C9A57E"/>
+${[320, 640, 960, 1280, 1600].map((x) => `<rect x="${x - 1}" y="880" width="2"
+  height="200" fill="rgba(20,23,28,.22)"/>`).join("")}
+${[300, 980, 1620].map((x) => `<rect x="${x}" y="930" width="40" height="5" rx="2.5"
+  fill="#14171C" opacity=".55"/>`).join("")}
+
+<!-- plant in front of the window -->
+${plant(300, 760, 5, { height: 430, spread: 170, leaves: 34, size: 82 })}
+${pot(300, 860, 150, 110, "#F7F4F0", "#E4DCD3")}
+
+<!-- table lamp -->
+<circle cx="1290" cy="700" r="170" fill="url(#lampGlow)"/>
+<path d="M1290 860 Q1250 840 1258 790 Q1266 750 1290 745 Q1314 750 1322 790
+  Q1330 840 1290 860Z" fill="#E4DCD3"/>
+<path d="M1222 745 L1358 745 L1336 640 L1244 640Z" fill="#FAF3E7"/>
+<path d="M1222 745 L1358 745 L1354 728 L1226 728Z" fill="#F5C98F" opacity=".5"/>
+
+<!-- objects on the credenza, right -->
+${stack(1520, 860, 4, ["#14171C", "#E8A04C", "#5A6270"], 3)}
+<ellipse cx="1590" cy="790" rx="44" ry="10" fill="#14171C" opacity=".85"/>
+<path d="M1546 790 Q1590 836 1634 790Z" fill="#23282F"/>
+`;
+
+lockup({ x: 1420, y: 150, mark: 112 });
+</script>
+</body>
+</html>

@@ -192,8 +192,8 @@ export const LIBRARY = [
     dir: "assets/backgrounds",
     files: ["assets/hero-network.jpg"],
     kind: "image",
-    description: "Hero photography and 1920×1080 video-call backgrounds in the site palette.",
-    usage: "Video-call backgrounds for Zoom, Meet, and Teams (the name-card versions have space for your name), slide backgrounds, hero images.",
+    description: "Hero photography, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes in the site palette.",
+    usage: "Video-call backgrounds for Zoom, Meet, and Teams (the name-card versions have space for your name), Gmail themes, slide backgrounds, hero images.",
     items: {
       "hero-network": { title: "Hero network mesh", tags: ["hero", "photography", "network", "mesh", "dark", "red"], note: "Homepage hero. Pair with a left-to-right dark gradient for text." },
       "video-ink-network": { title: "Video background: ink network", tags: ["video call", "zoom", "teams", "meet", "dark", "network"] },
@@ -203,6 +203,12 @@ export const LIBRARY = [
       "video-paper-optimization-cycle": { title: "Video background: optimization cycle", tags: ["video call", "zoom", "teams", "meet", "light", "optimization cycle"] },
       "video-ink-name-card": { title: "Video background: ink name card", tags: ["video call", "zoom", "teams", "meet", "dark", "name card", "template"], note: "Template: replace \"Your Name\" and \"Your Role\" before use." },
       "video-paper-name-card": { title: "Video background: paper name card", tags: ["video call", "zoom", "teams", "meet", "light", "name card", "template"], note: "Template: replace \"Your Name\" and \"Your Role\" before use." },
+      "video-office-studio": { title: "Video background: studio office", tags: ["video call", "zoom", "teams", "meet", "office", "light", "window", "shelves"] },
+      "video-office-lounge": { title: "Video background: lounge office", tags: ["video call", "zoom", "teams", "meet", "office", "dark", "bookshelf", "evening"] },
+      "video-office-city": { title: "Video background: city office", tags: ["video call", "zoom", "teams", "meet", "office", "skyline", "window", "dusk"] },
+      "gmail-ink": { title: "Gmail theme: ink", tags: ["gmail", "email", "theme", "wallpaper", "dark", "mesh"], note: "In Gmail, set Text background to Dark." },
+      "gmail-paper": { title: "Gmail theme: paper", tags: ["gmail", "email", "theme", "wallpaper", "light", "mesh"], note: "In Gmail, set Text background to Light." },
+      "gmail-ember": { title: "Gmail theme: ember", tags: ["gmail", "email", "theme", "wallpaper", "maroon", "red", "mesh"], note: "In Gmail, set Text background to Dark." },
     },
   },
   {
