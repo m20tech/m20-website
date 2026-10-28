@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Generates the page hero backgrounds in assets/artwork/heroes/ (1600×900
-// SVGs): dark network art in the spirit of the homepage's hero-network.jpg,
-// with one idea per page. Seeded, so re-running gives identical files.
+// SVGs): contour-and-flow art, families of fine smooth lines in maroon, grey,
+// and gold on ink, with one shape per page. Seeded, so re-running gives
+// identical files.
 //
 //   node scripts/hero-art.mjs        write the SVGs (then: npm run artwork:png)
 //
@@ -16,227 +17,170 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "assets", "artwork", "heroes");
 const W = 1600, H = 900;
 
-const rng = (seed) => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);
 const f = (n) => +n.toFixed(1);
+const lerp = (a, b, t) => a + (b - a) * t;
+const mix = (c1, c2, t) => c1.map((v, i) => Math.round(lerp(v, c2[i], t)));
+const rgb = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
 
-// A scene is nodes + edges. kind: "dim" (grey), "hot" (red glow), "gold".
-function render({ nodes, edges, rings = [], extras = "", seed = 1 }) {
-  const rand = rng(seed);
-  const pal = {
-    dim: { fill: "#2A303B", stroke: "#4A5365", glow: null },
-    hot: { fill: "#F0654F", stroke: "#FFB3A6", glow: "#E0533F" },
-    gold: { fill: "#F5C98F", stroke: "#FFE3BE", glow: "#E8A04C" },
-  };
-  const edgeColor = (a, b) =>
-    a.kind === "hot" || b.kind === "hot" ? "#E0533F" : a.kind === "gold" || b.kind === "gold" ? "#E8A04C" : "#5A6478";
-  const lines = edges.map(([i, j]) => {
-    const a = nodes[i], b = nodes[j];
-    const lit = a.kind !== "dim" || b.kind !== "dim";
-    return `<line x1="${f(a.x)}" y1="${f(a.y)}" x2="${f(b.x)}" y2="${f(b.y)}" stroke="${edgeColor(a, b)}" stroke-opacity="${lit ? 0.7 : 0.38}" stroke-width="${lit ? 1.8 : 1.2}"/>`;
-  });
-  // Depth: nodes flagged `far` are blurred and fainter, like the photo.
-  const far = nodes.filter((n) => n.far), near = nodes.filter((n) => !n.far);
-  const dot = (n) => {
-    const p = pal[n.kind ?? "dim"];
-    const halo = p.glow ? `<circle cx="${f(n.x)}" cy="${f(n.y)}" r="${f(n.r * 5)}" fill="url(#g-${n.kind})"/>` : "";
-    return `${halo}<circle cx="${f(n.x)}" cy="${f(n.y)}" r="${f(n.r)}" fill="${p.fill}" stroke="${p.stroke}" stroke-opacity=".55" stroke-width="1.5"/>`;
-  };
-  const ringSvg = rings
-    .map((r) => `<circle cx="${r.cx}" cy="${r.cy}" r="${r.r}" fill="none" stroke="${r.color ?? "#5A6478"}" stroke-opacity="${r.o ?? 0.35}" stroke-width="${r.w ?? 1.5}"${r.dash ? ` stroke-dasharray="${r.dash}"` : ""} stroke-linecap="round"/>`)
-    .join("\n    ");
-  void rand;
+const GREY = [90, 100, 120], MAROON = [150, 39, 28], RED = [224, 83, 63], GOLD = [232, 160, 76], PALE = [245, 201, 143];
+
+// Catmull-Rom spline through points -> SVG path data.
+function smooth(pts, closed = false) {
+  const n = pts.length;
+  const p = (i) => (closed ? pts[(i + n) % n] : pts[Math.max(0, Math.min(n - 1, i))]);
+  let d = `M${f(pts[0].x)} ${f(pts[0].y)}`;
+  const last = closed ? n : n - 1;
+  for (let i = 0; i < last; i++) {
+    const p0 = p(i - 1), p1 = p(i), p2 = p(i + 1), p3 = p(i + 2);
+    d += `C${f(p1.x + (p2.x - p0.x) / 6)} ${f(p1.y + (p2.y - p0.y) / 6)} ${f(p2.x - (p3.x - p1.x) / 6)} ${f(p2.y - (p3.y - p1.y) / 6)} ${f(p2.x)} ${f(p2.y)}`;
+  }
+  return d + (closed ? "Z" : "");
+}
+
+const line = (pts, { color = GREY, o = 0.4, w = 1.4, dash, closed = false, fill = "none" } = {}) =>
+  `<path d="${smooth(pts, closed)}" fill="${fill}" stroke="${rgb(color)}" stroke-opacity="${f(o)}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ""} stroke-linecap="round" stroke-linejoin="round"/>`;
+
+function frame(body, { wash = [0.68, 0.5], defs = "" } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
   <defs>
-    <radialGradient id="g-hot"><stop offset="0" stop-color="#E0533F" stop-opacity=".55"/><stop offset="1" stop-color="#E0533F" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g-gold"><stop offset="0" stop-color="#E8A04C" stop-opacity=".5"/><stop offset="1" stop-color="#E8A04C" stop-opacity="0"/></radialGradient>
-    <radialGradient id="wash" cx=".68" cy=".5" r=".6"><stop offset="0" stop-color="#96271C" stop-opacity=".32"/><stop offset="1" stop-color="#96271C" stop-opacity="0"/></radialGradient>
-    <filter id="soft" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="3"/></filter>
+    <radialGradient id="wash" cx="${wash[0]}" cy="${wash[1]}" r=".6"><stop offset="0" stop-color="#96271C" stop-opacity=".34"/><stop offset="1" stop-color="#96271C" stop-opacity="0"/></radialGradient>
+    <radialGradient id="halo"><stop offset="0" stop-color="#E8A04C" stop-opacity=".5"/><stop offset="1" stop-color="#E8A04C" stop-opacity="0"/></radialGradient>
+    ${defs}
   </defs>
   <rect width="${W}" height="${H}" fill="#14171C"/>
   <rect width="${W}" height="${H}" fill="url(#wash)"/>
-  <g>
-    ${ringSvg}
-  </g>
-  <g>
-    ${lines.join("\n    ")}
-  </g>
-  <g filter="url(#soft)" opacity=".7">
-    ${far.map(dot).join("\n    ")}
-  </g>
-  <g>
-    ${near.map(dot).join("\n    ")}
-  </g>
-  ${extras}
+  ${body.join("\n  ")}
 </svg>
 `;
 }
 
-// Scatter helper: jittered points in a box, avoiding a list of keep-out discs.
-function scatter(rand, n, box, avoid = [], min = 70) {
-  const pts = [];
-  let guard = 0;
-  while (pts.length < n && guard++ < n * 80) {
-    const p = { x: box[0] + rand() * (box[2] - box[0]), y: box[1] + rand() * (box[3] - box[1]) };
-    if ([...pts, ...avoid].every((q) => Math.hypot(q.x - p.x, q.y - p.y) > (q.min ?? min))) pts.push(p);
-  }
-  return pts;
-}
+// Colour ramp across a family: grey -> maroon -> red, with `hot` lines gold.
+const ramp = (t) => (t < 0.5 ? mix(GREY, MAROON, t * 2) : mix(MAROON, RED, (t - 0.5) * 2));
 
-// Connect each node to its k nearest neighbours (no duplicate edges).
-function nearest(nodes, k, maxLen = 330, skip = () => false) {
-  const seen = new Set(), edges = [];
-  nodes.forEach((a, i) => {
-    nodes
-      .map((b, j) => [j, Math.hypot(a.x - b.x, a.y - b.y)])
-      .filter(([j, d]) => j !== i && d < maxLen)
-      .sort((p, q) => p[1] - q[1])
-      .slice(0, k)
-      .forEach(([j]) => {
-        const key = i < j ? `${i}-${j}` : `${j}-${i}`;
-        if (!seen.has(key) && !skip(i, j)) { seen.add(key); edges.push([i, j]); }
-      });
-  });
-  return edges;
-}
-
-const sparkle = (x, y, s) =>
-  `<path d="M${x} ${y - s} L${x + s * 0.22} ${y - s * 0.22} L${x + s} ${y} L${x + s * 0.22} ${y + s * 0.22} L${x} ${y + s} L${x - s * 0.22} ${y + s * 0.22} L${x - s} ${y} L${x - s * 0.22} ${y - s * 0.22} Z" fill="#F5C98F" fill-opacity=".9"/>`;
-
-const dim = (p, r = 7, far = false) => ({ ...p, r, kind: "dim", far });
 const scenes = {};
 
-// Atlassian services — a cycle: five tool hubs round a ring, one linked to the
-// centre (train, develop, support, optimize).
+// Services — orbits: a family of wobbling rings round one point, the way
+// work cycles through train, develop, support, optimize. One ring is gold.
 scenes["atlassian-services"] = () => {
-  const cx = 1130, cy = 450, R = 270, rand = rng(11);
-  const hubs = Array.from({ length: 5 }, (_, i) => {
-    const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
-    return { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a), r: 15, kind: i === 1 ? "hot" : "dim" };
-  });
-  hubs[3].kind = "gold";
-  const nodes = [{ x: cx, y: cy, r: 12, kind: "dim" }, ...hubs];
-  const edges = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [1, 2], [2, 3], [3, 4], [4, 5], [5, 1]];
-  hubs.forEach((h, i) => {
-    for (let k = 0; k < 3; k++) {
-      const a = Math.atan2(h.y - cy, h.x - cx) + (k - 1) * 0.55 + (rand() - 0.5) * 0.2;
-      const d = 90 + rand() * 60;
-      nodes.push(dim({ x: h.x + d * Math.cos(a), y: h.y + d * Math.sin(a) }, 6 + rand() * 3, rand() > 0.6));
-      edges.push([i + 1, nodes.length - 1]);
-    }
-  });
-  scatter(rng(5), 12, [640, 40, 1580, 860], nodes.map((n) => ({ ...n, min: 150 })), 120).forEach((p) => nodes.push(dim(p, 5, true)));
-  edges.push(...nearest(nodes.slice(16), 2, 260).map(([a, b]) => [a + 16, b + 16]));
-  return render({
-    nodes, edges, seed: 11,
-    rings: [{ cx, cy, r: R, color: "#E8A04C", o: 0.5, w: 2.5, dash: "2 10" }, { cx, cy, r: R + 150, o: 0.18 }],
-  });
+  const cx = 1120, cy = 450, out = [];
+  const N = 22;
+  for (let k = 0; k < N; k++) {
+    const t = k / (N - 1), r0 = 70 + k * 21;
+    const pts = Array.from({ length: 72 }, (_, i) => {
+      const a = (i / 72) * Math.PI * 2;
+      const wob = 1 + 0.07 * Math.sin(a * 2 + k * 0.35) + 0.04 * Math.sin(a * 3 - k * 0.2);
+      return { x: cx + r0 * wob * Math.cos(a) * 1.18, y: cy + r0 * wob * Math.sin(a) * 0.9 };
+    });
+    const gold = k === 9;
+    out.push(line(pts, { closed: true, color: gold ? GOLD : ramp(t), o: gold ? 0.85 : 0.5 - t * 0.2, w: gold ? 2.6 : 1.4 }));
+  }
+  out.push(`<circle cx="${cx}" cy="${cy}" r="90" fill="url(#halo)"/>`);
+  return frame(out);
 };
 
-// AI — hub and spokes: one glowing agent node reaching out to the rest.
+// AI — a fan of rays curving out of one bright source, like light through a
+// lens: one agent, many reaches.
 scenes["ai"] = () => {
-  const cx = 1120, cy = 450, rand = rng(23);
-  const nodes = [{ x: cx, y: cy, r: 20, kind: "hot" }];
-  const edges = [];
-  [[150, 8], [290, 12], [430, 14]].forEach(([r, n], ring) => {
-    for (let i = 0; i < n; i++) {
-      const a = (i / n) * Math.PI * 2 + ring * 0.4 + (rand() - 0.5) * 0.25;
-      const rr = r + (rand() - 0.5) * 40;
-      const p = { x: cx + rr * Math.cos(a) * 1.25, y: cy + rr * Math.sin(a) * 0.85 };
-      if (p.x < 520 || p.x > 1580 || p.y < 30 || p.y > 870) continue;
-      nodes.push(dim(p, ring === 0 ? 10 : 6 + rand() * 3, ring === 2));
-    }
-  });
-  nodes.forEach((n, i) => { if (i && Math.hypot(n.x - cx, n.y - cy) < 200) edges.push([0, i]); });
-  edges.push(...nearest(nodes.slice(1), 2, 260).map(([a, b]) => [a + 1, b + 1]));
-  [3, 9, 17].forEach((i) => nodes[i] && (nodes[i].kind = i === 9 ? "gold" : "hot"));
-  return render({
-    nodes, edges, seed: 23,
-    rings: [{ cx, cy, r: 190, o: 0.2 }, { cx, cy, r: 370, o: 0.14, dash: "3 9" }],
-    extras: sparkle(1390, 250, 20) + sparkle(1310, 300, 11),
-  });
+  const sx = 1010, sy = 470, out = [];
+  const N = 46;
+  for (let k = 0; k < N; k++) {
+    const t = k / (N - 1);
+    const a = lerp(-1.25, 1.25, t);
+    const len = 700 + 240 * Math.sin(t * Math.PI);
+    const pts = Array.from({ length: 24 }, (_, i) => {
+      const u = i / 23, r = 25 + u * len;
+      const ang = a + 0.55 * Math.sin(u * 2.4 + t * 5) * u * (a > 0 ? 1 : 0.8);
+      return { x: sx + r * Math.cos(ang), y: sy + r * Math.sin(ang) * 0.8 };
+    });
+    const hot = k % 9 === 4;
+    out.push(line(pts, { color: hot ? GOLD : ramp(0.25 + 0.7 * Math.abs(t - 0.5) * 1.4), o: hot ? 0.8 : 0.45, w: hot ? 2.2 : 1.2 }));
+  }
+  out.push(`<circle cx="${sx}" cy="${sy}" r="130" fill="url(#halo)"/>`);
+  out.push(`<circle cx="${sx}" cy="${sy}" r="9" fill="#F5C98F"/>`);
+  return frame(out, { wash: [0.62, 0.52] });
 };
 
-// AI value proposition — rising tiers: each tier of the network sits higher
-// and glows brighter than the one before it.
+// AI value — ridgelines that climb: each ridge sits higher and swells more
+// than the one in front, the top one in gold. Ridges occlude those behind.
 scenes["ai-value-proposition"] = () => {
-  const rand = rng(37);
-  const tiers = [
-    { x: 700, y: 690, n: 4 }, { x: 900, y: 570, n: 4 }, { x: 1110, y: 440, n: 4 }, { x: 1320, y: 310, n: 3 },
-  ];
-  const nodes = [], idx = [];
-  tiers.forEach((t, ti) => {
-    idx.push([]);
-    for (let i = 0; i < t.n; i++) {
-      const kind = ti === 3 && i === 1 ? "hot" : ti === 2 && i === 2 ? "gold" : "dim";
-      nodes.push({ x: t.x + (i - t.n / 2) * 62 + rand() * 24, y: t.y + (i % 2) * 50 + (rand() - 0.5) * 40, r: 7 + ti * 2.2, kind, far: ti === 0 });
-      idx[ti].push(nodes.length - 1);
-    }
-  });
-  const edges = [];
-  idx.forEach((tier, ti) => {
-    for (let i = 0; i < tier.length - 1; i++) edges.push([tier[i], tier[i + 1]]);
-    if (ti < idx.length - 1) tier.forEach((a, i) => { edges.push([a, idx[ti + 1][Math.min(i, idx[ti + 1].length - 1)]]); edges.push([a, idx[ti + 1][Math.max(0, i - 1)]]); });
-  });
-  const base = nodes.length;
-  scatter(rng(8), 14, [600, 60, 1580, 860], nodes.map((n) => ({ ...n, min: 120 })), 110).forEach((p) => nodes.push(dim(p, 5, true)));
-  edges.push(...nearest(nodes.slice(base), 2, 240).map(([a, b]) => [a + base, b + base]));
-  return render({ nodes, edges, seed: 37, extras: sparkle(1480, 190, 18) });
+  const out = [];
+  const R = 15;
+  for (let k = 0; k < R; k++) {
+    const t = k / (R - 1); // 0 = back (top), 1 = front (bottom)
+    const base = 380 + t * 480;
+    const amp = 70 + (1 - t) * 170;
+    const pts = Array.from({ length: 60 }, (_, i) => {
+      const u = i / 59, x = u * W;
+      const bump = Math.exp(-(((u - (0.78 - (1 - t) * 0.04)) / 0.2) ** 2));
+      const ripple = 10 * Math.sin(u * 14 + k * 1.3) * (0.4 + u);
+      const climb = u * u * (0.35 + (1 - t) * 0.5) * 120;
+      return { x, y: base - amp * bump - climb - ripple };
+    });
+    const top = k === 0;
+    const poly = smooth(pts) + `L${W} ${H}L0 ${H}Z`;
+    out.push(`<path d="${poly}" fill="#14171C" fill-opacity=".92" stroke="${rgb(top ? GOLD : ramp(1 - t))}" stroke-opacity="${top ? 0.95 : 0.55 - (1 - t) * 0.1}" stroke-width="${top ? 2.6 : 1.4}" stroke-linejoin="round"/>`);
+  }
+  return frame(out, { wash: [0.8, 0.3] });
 };
 
-// Partners — two clusters joined by a few bright bridges.
+// Partners — two streams of lines, one grey and one red, that cross and
+// interleave in the middle: separate sources working as one.
 scenes["partners"] = () => {
-  const rand = rng(53);
-  const left = scatter(rand, 11, [640, 200, 1000, 720], [], 85).map((p) => dim(p, 8 + rand() * 3));
-  const right = scatter(rand, 11, [1180, 200, 1540, 720], [], 85).map((p) => dim(p, 8 + rand() * 3));
-  const nodes = [...left, ...right];
-  const edges = [
-    ...nearest(left, 3, 230),
-    ...nearest(right, 3, 230).map(([a, b]) => [a + left.length, b + left.length]),
-  ];
-  // Bridges: the closest left/right pairs, lit.
-  const pairs = [];
-  left.forEach((a, i) => right.forEach((b, j) => pairs.push([i, j + left.length, Math.hypot(a.x - b.x, a.y - b.y)])));
-  pairs.sort((p, q) => p[2] - q[2]).slice(0, 3).forEach(([i, j], k) => {
-    nodes[i].kind = k === 1 ? "gold" : "hot"; nodes[j].kind = k === 1 ? "gold" : "hot";
-    nodes[i].r += 3; nodes[j].r += 3;
-    edges.push([i, j]);
-  });
-  scatter(rng(2), 8, [560, 40, 1590, 860], nodes.map((n) => ({ ...n, min: 120 })), 100).forEach((p) => nodes.push(dim(p, 5, true)));
-  return render({ nodes, edges, seed: 53 });
+  const out = [], N = 20;
+  for (let k = 0; k < N; k++) {
+    const t = k / (N - 1);
+    for (const dir of [1, -1]) {
+      const y0 = dir > 0 ? 80 + t * 300 : 820 - t * 300; // start on the left edge
+      const y1 = dir > 0 ? 820 - t * 300 : 80 + t * 300; // end on the right edge
+      const pts = Array.from({ length: 30 }, (_, i) => {
+        const u = i / 29, s = u * u * (3 - 2 * u);
+        return { x: -20 + u * 1640, y: lerp(y0, y1, s) + 18 * Math.sin(u * 6 + t * 4) * Math.sin(u * Math.PI) };
+      });
+      const hot = k === 10 && dir > 0;
+      out.push(line(pts, { color: hot ? GOLD : dir > 0 ? mix(MAROON, RED, t) : GREY, o: hot ? 0.9 : dir > 0 ? 0.55 : 0.4, w: hot ? 2.6 : 1.3 }));
+    }
+  }
+  return frame(out, { wash: [0.7, 0.5] });
 };
 
-// Privacy — a protected core: the lit network sits inside a dashed boundary;
-// outside nodes connect only as far as the line.
+// Privacy — nested rounded contours closing round a lit core, the outer
+// ones fading and the boundary dashed gold: kept inside, kept safe.
 scenes["privacy"] = () => {
-  const cx = 1130, cy = 450, R = 250, rand = rng(71);
-  const inner = scatter(rand, 9, [cx - R * 0.75, cy - R * 0.75, cx + R * 0.75, cy + R * 0.75], [], 85)
-    .filter((p) => Math.hypot(p.x - cx, p.y - cy) < R - 45)
-    .map((p) => dim(p, 9));
-  inner[0].kind = "hot"; inner[0].r = 14;
-  if (inner[3]) inner[3].kind = "gold";
-  const outer = scatter(rand, 16, [580, 40, 1590, 860], [{ x: cx, y: cy, min: R + 60 }], 100).map((p) => dim(p, 5 + rand() * 2, true));
-  const nodes = [...inner, ...outer];
-  const edges = [
-    ...nearest(inner, 3, 240),
-    ...nearest(outer, 2, 260).map(([a, b]) => [a + inner.length, b + inner.length]),
-  ];
-  return render({
-    nodes, edges, seed: 71,
-    rings: [{ cx, cy, r: R, color: "#E8A04C", o: 0.55, w: 2.5, dash: "2 10" }, { cx, cy, r: R + 42, o: 0.16 }],
-  });
+  const cx = 1120, cy = 450, out = [];
+  const N = 20;
+  for (let k = N - 1; k >= 0; k--) {
+    const t = k / (N - 1), s = 40 + k * 24;
+    const n = 4.2 - t * 1.6; // superellipse exponent: squarer inside
+    const pts = Array.from({ length: 96 }, (_, i) => {
+      const a = (i / 96) * Math.PI * 2, c = Math.cos(a), sn = Math.sin(a);
+      const r = 1 / Math.pow(Math.pow(Math.abs(c), n) + Math.pow(Math.abs(sn), n), 1 / n);
+      return { x: cx + s * 1.22 * r * c, y: cy + s * 0.96 * r * sn };
+    });
+    const boundary = k === 11;
+    out.push(line(pts, { closed: true, color: boundary ? GOLD : ramp(1 - t), o: boundary ? 0.9 : 0.5 - t * 0.28, w: boundary ? 2.4 : 1.4, dash: boundary ? "2 10" : undefined }));
+  }
+  out.push(`<circle cx="${cx}" cy="${cy}" r="70" fill="url(#halo)"/>`);
+  return frame(out);
 };
 
-// Contact — two nodes and the one bright link between them, over a quiet net.
+// Contact — two sets of ripples, gold and red, spreading until they meet:
+// a message going out and a reply coming back.
 scenes["contact"] = () => {
-  const rand = rng(89);
-  const a = { x: 930, y: 590, r: 20, kind: "gold" }, b = { x: 1360, y: 310, r: 20, kind: "hot" };
-  const nodes = [a, b];
-  scatter(rand, 20, [580, 40, 1590, 860], [{ ...a, min: 110 }, { ...b, min: 110 }], 105).forEach((p) => nodes.push(dim(p, 5 + rand() * 4, rand() > 0.5)));
-  const edges = [[0, 1], ...nearest(nodes, 2, 260)];
-  return render({
-    nodes, edges, seed: 89,
-    rings: [{ cx: 930, cy: 590, r: 70, color: "#E8A04C", o: 0.35, dash: "2 8" }, { cx: 1360, cy: 310, r: 70, color: "#E0533F", o: 0.35, dash: "2 8" }],
-  });
+  const out = [];
+  const sources = [{ x: 960, y: 610, c: GOLD }, { x: 1350, y: 290, c: RED }];
+  for (const s of sources) {
+    for (let k = 0; k < 16; k++) {
+      const t = k / 15, r = 36 + k * 44;
+      const pts = Array.from({ length: 60 }, (_, i) => {
+        const a = (i / 60) * Math.PI * 2;
+        return { x: s.x + r * Math.cos(a) * (1 + 0.025 * Math.sin(a * 3 + k)), y: s.y + r * Math.sin(a) * (1 + 0.025 * Math.sin(a * 3 + k)) };
+      });
+      out.push(line(pts, { closed: true, color: mix(s.c, GREY, t * 0.8), o: 0.6 - t * 0.38, w: k === 0 ? 2.4 : 1.3 }));
+    }
+    out.push(`<circle cx="${s.x}" cy="${s.y}" r="8" fill="${rgb(s.c === GOLD ? PALE : s.c)}"/>`);
+    out.push(`<circle cx="${s.x}" cy="${s.y}" r="90" fill="url(#halo)" opacity="${s.c === GOLD ? 0.8 : 0.5}"/>`);
+  }
+  return frame(out);
 };
 
 fs.mkdirSync(OUT, { recursive: true });
