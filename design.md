@@ -129,6 +129,7 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
 - Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
+- Sourcing third-party logos and brand assets: check what we already have first (`assets/clients/`, `assets/partners/`, `assets/products/`, and the Atlassian logos in Drive). For anything missing or low-resolution, use the **Brandfetch MCP** (`https://mcp.brandfetch.io/mcp`, configured for this project) to pull official, high-resolution logos, icons, and brand colors instead of cropping screenshots or recreating marks by hand. Prefer SVG or a large transparent PNG, and pick the full-color horizontal lockup unless the layout calls for an icon. Client logos still follow the usage note in **Asset library** (approved for the website only); check before using one in other materials.
 - Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
 - Video-call backgrounds: `assets/backgrounds/video-*.png`, 1920×1080, in the ink, maroon, and paper grounds (two have a name card to fill in). Browse them, and every other asset, in the **Asset library** below.
 
@@ -274,6 +275,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Spots, covers, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
 | Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and 1920×1080 video-call backgrounds. |
+| Slide corner art | `assets/slides/corners/` | Faint top-right corner art for 16:9 decks, one motif per section. Sits behind slide content. |
 | Diagrams | `assets/optimization-cycle.jpg`, `assets/rovo-connectors.png` | Finished diagrams used on the site. |
 | Atlassian product logos | `assets/products/` | Atlassian marks: follow [Atlassian's logo usage](https://atlassian.design/components/logo/usage). |
 | Partner logos, client logos | `assets/partners/`, `assets/clients/` | Third-party marks with usage restrictions shown in the gallery. Client logos are approved for the website only. |

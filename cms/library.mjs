@@ -130,6 +130,28 @@ export const LIBRARY = [
     },
   },
   {
+    id: "slide-corners",
+    label: "Slide corner art",
+    dir: "assets/slides/corners",
+    kind: "image",
+    description:
+      "1360×600 transparent PNGs: faint brand-red line art that fades out from the top-right corner. " +
+      "One motif per deck section.",
+    usage:
+      "Place at 680×300 pt in the top-right corner of a 16:9 slide (1440×810 pt), sent to the back so " +
+      "cards and text cover it and it only shows in empty space. Use one motif across all slides of a section.",
+    items: {
+      "agentic-workflows": { title: "Agentic workflows", tags: ["slide", "corner", "workflow", "process", "handoff", "agents"] },
+      "ai-governance": { title: "AI governance", tags: ["slide", "corner", "governance", "shield", "security", "policy"] },
+      "agentic-automation": { title: "Agentic automation", tags: ["slide", "corner", "automation", "gears", "document", "deterministic"] },
+      "knowledge-management": { title: "Knowledge management", tags: ["slide", "corner", "knowledge", "pages", "docs", "confluence"] },
+      "continuous-learning": { title: "Continuous learning", tags: ["slide", "corner", "learning", "loop", "rings", "feedback"] },
+      "claude-atlassian": { title: "Claude + Atlassian", tags: ["slide", "corner", "layers", "platform", "claude", "teamwork graph"] },
+      "ai-stack": { title: "AI stack", tags: ["slide", "corner", "stack", "layers", "forge", "architecture"] },
+      "co-sell": { title: "Co-sell", tags: ["slide", "corner", "partnership", "co-sell", "overlap", "atlassian"] },
+    },
+  },
+  {
     id: "brand",
     label: "Logo & badges",
     files: ["assets/logo.png", "assets/atlassian-gold.png"],
