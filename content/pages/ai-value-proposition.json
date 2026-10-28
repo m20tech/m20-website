@@ -6,6 +6,7 @@
   },
   "hero": {
     "eyebrow": "Value Proposition",
+    "image": "/assets/artwork/heroes/ai-value-proposition.svg",
     "title": "AI, built into how we work — not bolted on.",
     "intro": "We don't just help clients apply AI across the Atlassian ecosystem — we run our own operations on it. This is a look at how AI is embedded in our billing operations, our workflows, our knowledge base, and the guardrails that keep it all accountable.",
     "tags": [

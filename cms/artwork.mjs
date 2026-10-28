@@ -12,6 +12,13 @@ export const ARTWORK = {
     pngScale: 1,
     description: "1200×630 cover art. Use the .svg on pages; the .png is the social share image.",
   },
+  heroes: {
+    label: "Artwork: heroes",
+    width: 1600,
+    height: 900,
+    pngScale: 1,
+    description: "1600×900 dark hero background, faded in from the right of the hero. Decorative.",
+  },
   illustrations: {
     label: "Artwork: illustrations",
     width: 1200,

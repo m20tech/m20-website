@@ -29,7 +29,7 @@ The site is a small static website. There is no server-side application and no d
 | CMS schema | `cms/schema.mjs` (generates `.pages.yml`) | Defines exactly which fields editors see for each page. |
 | Icon library | `cms/icons/*.svg` | Icons editors can pick for cards. |
 | Images | `assets/` | Site images; also where images uploaded through the CMS are stored. |
-| Artwork library | `assets/artwork/covers/`, `illustrations/`, `spots/` | Shared cover, illustration, and spot artwork any page can reuse. Each has an SVG (used on pages) and a PNG export (social sharing, email, slides). Defined in `cms/artwork.mjs`. |
+| Artwork library | `assets/artwork/covers/`, `heroes/`, `illustrations/`, `spots/` | Shared cover, hero, illustration, and spot artwork any page can reuse. Each has an SVG (used on pages) and a PNG export (social sharing, email, slides). Defined in `cms/artwork.mjs`. |
 | Asset library | `cms/library.mjs` | Catalog (titles and search tags) of every reusable icon, illustration, logo, and background. The build turns it into the unlisted gallery at https://m20tech.com/library/ and `library.json`, which other projects use to find and hotlink brand assets. |
 | Design system docs | `design.md`, `docs/design-system.json`, `scripts/design-guide.mjs`, `scripts/design-docs.mjs` | The design system; its visual guide at https://m20tech.com/design/ (unlisted: live swatches, type, components, and templates, built from `design.md`); and the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) Confluence pages, which embed the visual guide and are republished by Claude Code on releases. |
 | Build script | `scripts/build.mjs` | Renders templates + content into the finished site (`dist/`), runs consistency checks, and writes `sitemap.xml` and `robots.txt`. |
@@ -85,6 +85,7 @@ Each page is split into its sections in page order (Hero, What we do, Client log
 | Change a button | Each button has **Button text** and **Link**. Links are site paths like `/contact` or full `https://…` addresses. |
 | Add, remove, or reorder cards, logos, partners, or list items | Use the list controls on the field (add, delete, drag to reorder). |
 | Swap an image | Click the image field and upload a new file or pick an existing one. Always update the matching **alt text** field too — it's what screen readers and search engines see. |
+| Add a hero background | Every dark page hero has an optional **Background image**. Pick a `.svg` from **Artwork: heroes** (it fades in from the right behind the heading); clear it for a plain dark hero. |
 | Use artwork (cover, illustration, spot) | Artwork fields open only their own library folder: **Artwork: covers**, **Artwork: illustrations**, or **Artwork: spots**. Pick the `.svg`. Illustrations need alt text; covers and spots are decorative and have none. On the case studies, the spot sits on the index card, the cover is the hero background, and the illustration is beside **The Solution**. The same artwork can be used on any page. New artwork follows the **Illustrations** rules in `design.md` — ask a developer or Claude Code to make it. |
 | Change a card icon | Pick from the **Icon** dropdown. New icons need a developer (see below). |
 | Bold text or links inside a paragraph | Fields that support it say so. Use `**bold**`, `*italic*`, and `[link text](https://…)`. |
@@ -148,6 +149,7 @@ A failed build never replaces the live site — production keeps serving the las
 - `npm run dev` — build and serve at http://localhost:8000, rebuilding on every change.
 - `npm run check` — run the consistency checks only.
 - `npm run cms:sync` — regenerate `.pages.yml` after changing `cms/schema.mjs`.
+- Client logos: refreshed from Brandfetch for the clients marked **Can Advertise** in Jira Assets, by running the `refresh-client-logos` skill in Claude Code (`.claude/skills/refresh-client-logos/`). Each client has a light-background logo and a `-reverse` version for dark backgrounds, listed in `cms/clients.json`.
 - `npm run artwork:png` — export PNGs for new or changed artwork SVGs (needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found).
 - Structural changes (a new section, list, field, or page) must update the template, the content JSON, and `cms/schema.mjs` in the same commit, then run `npm run cms:sync`. The full conventions, including design rules and the template tag reference, are in `AGENTS.md` and `design.md` in the repo.
 - Update this guide (`docs/website-guide.md`) in the same change whenever the architecture, CMS, or process changes.

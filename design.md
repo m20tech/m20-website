@@ -127,7 +127,8 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 - Icons: custom inline SVGs from the icon library in `cms/icons/` (editors pick them per card in the CMS; add new ones there), 24×24 viewBox, `stroke` only (no fill except small accent dots), `stroke-width` ~1.9–2.2, rounded linecap/linejoin — consistent hand-drawn-technical feel, always in brand red on light backgrounds.
 - Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
-- Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
+- Hero backgrounds: every dark page hero has an optional **Background image** (`cms/partials/hero-bg.html`): the image fills the right 62% of the hero, masked to fade in from the left under a dark gradient so the text stays legible; empty means a plain ink hero. Pages use the **Hero** artwork type below, one idea per page, in the homepage's network style.
+- Client logos: full-color, on the paper-alt background, arranged in an infinite marquee (96px tall, capped at 240px wide so wordmarks don't dominate). Pulled from Brandfetch for the clients flagged **Can Advertise** in Jira Assets, each with a light-background logo and a `-reverse` version for dark backgrounds; refresh them with the `refresh-client-logos` skill (`.claude/skills/`).
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
 - Sourcing third-party logos and brand assets: check what we already have first (`assets/clients/`, `assets/partners/`, `assets/products/`, and the Atlassian logos in Drive). For anything missing or low-resolution, use the **Brandfetch MCP** (`https://mcp.brandfetch.io/mcp`, configured for this project) to pull official, high-resolution logos, icons, and brand colors instead of cropping screenshots or recreating marks by hand. Prefer SVG or a large transparent PNG, and pick the full-color horizontal lockup unless the layout calls for an icon. Client logos still follow the usage note in **Asset library** (approved for the website only); check before using one in other materials.
 - Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
@@ -141,6 +142,7 @@ Flat, hand-built SVG artwork that shows the things M20's work produces: intranet
 
 | Type | SVG canvas | PNG export | Ground | Where it goes |
 |---|---|---|---|---|
+| **Hero** | `1600×900` | `1600×900` (1×) | Ink `#14171C` + red wash | Optional background of a dark page hero (the `hero-bg` partial), faded in from the right at up to 62% of the hero width, cropped to fit (`object-fit:cover`). Network art in the style of the homepage photo: grey nodes and hairline edges, a few red or gold glowing nodes, no words, one idea per page. Decorative: `alt=""`. |
 | **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, slightly overlapping the text column and bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
 | **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
 | **App icon** | `512×512` | `1024×1024` (2×, transparent corners) | Rounded tile; ground shows the type | One per app, agent, or plugin — see **App icons** below. Never a topic or feature marker. |
@@ -201,6 +203,12 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 - **Composition** (covers): keep the focal UI in the right ~60% and nothing important in the last 8% on the right (hero bleed); the left third tells the "before" or "source" part of the story.
 - **Dark grounds** (covers): `#14171C`, a 28px dot grid (`r=1.4`, white at 7%), and a radial glow `#96271C` at 55% fading to transparent behind the focal point. Put the glow on the opposite side from the previous cover so a row of cards alternates.
 - **Files:** hand-written SVG with the exact canvas `viewBox` and matching `width`/`height`; no embedded images, fonts, or external references; aim under 25 KB.
+
+### Heroes
+
+Hero art is network art, not the data visuals above (those four forms are for covers and illustrations): grey nodes `r 5–10` with a `1.5px` lighter rim, hairline edges (`#5A6478` at 38%), and **at most three lit nodes** per image: red `#E0533F` or gold `#E8A04C`, each with a soft radial halo, plus lit edges leaving them. Far nodes are blurred and fainter for depth. One idea per page, drawn from its theme and kept abstract: services is a cycle (hubs round a dashed gold ring), AI a hub and spokes, AI value rising tiers, partners two clusters joined by bridges, privacy a lit core inside a dashed boundary, contact two nodes and one link. Keep the focal point in the right 60%; the left fades out under the text. No words, no charts.
+
+The SVGs are generated, so they stay consistent: edit the scene for a page in `scripts/hero-art.mjs`, run `node scripts/hero-art.mjs` then `npm run artwork:png`. A new page gets a new scene there, the file in `assets/artwork/heroes/`, a catalog entry under **Heroes** in `cms/library.mjs`, and the SVG picked as the hero's **Background image** in the CMS.
 
 ### Making new artwork
 
@@ -272,7 +280,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Collection | Source | Notes |
 |---|---|---|
 | Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
-| Spots, covers, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
+| Spots, covers, heroes, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
 | Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and 1920×1080 video-call backgrounds. |
 | Slide corner art | `assets/slides/corners/` | Faint top-right corner art for 16:9 decks, one motif per section. Sits behind slide content. |

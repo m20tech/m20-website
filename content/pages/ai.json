@@ -6,6 +6,7 @@
   },
   "hero": {
     "eyebrow": "Atlassian Rovo AI",
+    "image": "/assets/artwork/heroes/ai.svg",
     "title": "Unlock enterprise knowledge with Rovo.",
     "intro": "Powered by generative AI to help teams make better decisions and reach their goals faster — finding information across every SaaS app, learning as they work, and acting with virtual agents.",
     "cta": {
