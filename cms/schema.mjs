@@ -239,17 +239,18 @@ const pages = [
         ]),
       ]),
       object("cycle", "Optimization cycle", [
-        image("image", "Image"),
+        artwork("illustrations", "image", "Illustration", { required: true, description: "The cycle illustration (pick the .svg)." }),
         string("imageAlt", "Image alt text"),
         eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
+        list("steps", "Steps", [string("title", "Step"), text("text", "Description")]),
         link("cta", "Button"),
       ]),
       object("stack", "Atlassian stack", [
         string("title", "Heading"),
         list("products", "Products", [
-          image("logo", "Logo", { required: false, description: "Official product logo, shown above the name." }),
+          image("logo", "Logo", { required: false, description: "Official product logo for dark backgrounds (the -inverse file), shown above the name." }),
           string("name", "Product"),
           string("title", "Tagline"),
           strings("items", "Checklist"),

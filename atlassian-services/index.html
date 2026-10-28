@@ -80,13 +80,21 @@
 
   <section style="padding-block:clamp(40px,5vw,64px);">
     <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(28px,4vw,48px);align-items:center;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:22px;">
-        <img src="[[ cycle.image ]]" alt="[[ cycle.imageAlt ]]" style="width:100%;max-width:300px;height:auto;display:block;">
-      </div>
+      <img src="[[ cycle.image ]]" alt="[[ cycle.imageAlt ]]" width="1200" height="800" loading="lazy"
+        style="display:block;width:100%;height:auto;border-radius:22px;border:1px solid #E4DCD3;">
       <div>
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;margin:0 0 16px;">[[ cycle.eyebrow ]]</p>
         <h3 style="font:600 clamp(28px,3.4vw,36px)/1.2 'Source Serif 4', Georgia, serif;margin:0 0 14px;">[[ cycle.title ]]</h3>
-        <p style="color:#5A6270;margin:0 0 28px;">[[ cycle.text ]]</p>
+        <p style="color:#5A6270;margin:0 0 24px;">[[ cycle.text ]]</p>
+        <ol style="list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:14px;">
+          [[#each cycle.steps]]
+          <li style="display:flex;gap:16px;align-items:baseline;">
+            <span style="flex:none;width:30px;height:30px;border-radius:999px;background:#F9E9E4;color:#C0392B;font:700 14px/30px 'Source Sans 3', system-ui, sans-serif;text-align:center;">[[ @number ]]</span>
+            <span><strong style="font:600 18px 'Source Serif 4', Georgia, serif;">[[ title ]]</strong><br>
+              <span style="color:#5A6270;font-size:16px;">[[ text ]]</span></span>
+          </li>
+          [[/each]]
+        </ol>
         <a href="[[ cycle.cta.href ]]" style="display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;background:#C0392B;color:#fff;white-space:nowrap" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">[[ cycle.cta.label ]]</a>
       </div>
     </div>
@@ -100,9 +108,7 @@
         [[#each stack.products]]
         <div style="background:#23282F;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px 26px;transition:border-color .18s ease, transform .18s ease" style-hover="border-color:#C0392B;transform:translateY(-4px)">
           [[#if logo]]
-          <span style="display:inline-flex;align-items:center;background:#fff;border-radius:10px;padding:10px 14px;margin-bottom:16px;">
-            <img src="[[ logo ]]" alt="[[ name ]] logo" style="height:26px;width:auto;max-width:150px;display:block;">
-          </span>
+          <img src="[[ logo ]]" alt="[[ name ]]" style="height:34px;width:auto;max-width:220px;display:block;margin-bottom:20px;">
           [[/if]]
           <p style="font:600 12px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#E8A04C;margin:0 0 10px;">[[ name ]]</p>
           <h3 style="font:600 20px/1.2 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 14px;">[[ title ]]</h3>

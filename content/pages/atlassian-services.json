@@ -53,11 +53,29 @@
     ]
   },
   "cycle": {
-    "image": "/assets/optimization-cycle.jpg",
-    "imageAlt": "M20 Optimization Cycle: optimize, train, develop, support",
+    "image": "/assets/artwork/illustrations/optimization-cycle.svg",
+    "imageAlt": "The optimization cycle: four arrows in a loop for optimize, train, develop, and support",
     "eyebrow": "The optimization cycle",
     "title": "Empower & amplify.",
     "text": "Our optimization cycle empowers your teams and amplifies their results — through customized software development, training, and support.",
+    "steps": [
+      {
+        "title": "Optimize",
+        "text": "Find where your Atlassian tools can do more, and tune them to how your teams really work."
+      },
+      {
+        "title": "Train",
+        "text": "Hands-on training that teams actually use, so adoption sticks."
+      },
+      {
+        "title": "Develop",
+        "text": "Custom apps, automations, and integrations built to fit your processes."
+      },
+      {
+        "title": "Support",
+        "text": "Ongoing help that keeps everything running, and the cycle turning."
+      }
+    ],
     "cta": {
       "href": "/contact",
       "label": "Get started →"
@@ -67,7 +85,7 @@
     "title": "The Atlassian stack, dialed in.",
     "products": [
       {
-        "logo": "/assets/products/jira.svg",
+        "logo": "/assets/products/jira-inverse.svg",
         "name": "Jira",
         "title": "Plan, track, ship.",
         "items": [
@@ -77,7 +95,7 @@
         ]
       },
       {
-        "logo": "/assets/products/confluence.svg",
+        "logo": "/assets/products/confluence-inverse.svg",
         "name": "Confluence",
         "title": "Document, connect, know.",
         "items": [
@@ -87,7 +105,7 @@
         ]
       },
       {
-        "logo": "/assets/products/jira-service-management.svg",
+        "logo": "/assets/products/jira-service-management-inverse.svg",
         "name": "Jira Service Management",
         "title": "Formalize service, at any scale.",
         "items": [

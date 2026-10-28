@@ -125,6 +125,7 @@ export const LIBRARY = [
     usage: "Half of a two-column section beside the text it explains; slides and proposals. Needs alt text.",
     items: {
       "confluence-intranet-layers": { title: "Confluence intranet layers", tags: ["confluence", "intranet", "architecture", "isometric", "layers", "refined"] },
+      "optimization-cycle": { title: "Optimization cycle", tags: ["cycle", "optimize", "train", "develop", "support", "services", "ring", "loop", "process"], note: "Wordless: pair with the four steps as text. Supersedes the old diagram JPG." },
       "prototype-to-production": { title: "Prototype to production", tags: ["pipeline", "ci/cd", "delivery", "phases", "security review", "jira"] },
     },
   },
@@ -225,9 +226,12 @@ export const LIBRARY = [
     description: "Official Atlassian product logos used on the site.",
     usage: "Product stack cards, slides, proposals. Never recolor or redraw them.",
     items: {
-      jira: { title: "Jira", tags: ["atlassian", "jira", "product", "logo"] },
-      confluence: { title: "Confluence", tags: ["atlassian", "confluence", "product", "logo"] },
-      "jira-service-management": { title: "Jira Service Management", tags: ["atlassian", "jsm", "service management", "itsm", "product", "logo"] },
+      jira: { title: "Jira", tags: ["atlassian", "jira", "product", "logo"], note: "Full-color lockup for light backgrounds." },
+      "jira-inverse": { title: "Jira (for dark backgrounds)", tags: ["atlassian", "jira", "product", "logo", "dark background", "inverse"], note: "Wordmark in white, blue mark unchanged. Use on ink; never on photos or busy art." },
+      confluence: { title: "Confluence", tags: ["atlassian", "confluence", "product", "logo"], note: "Full-color lockup for light backgrounds." },
+      "confluence-inverse": { title: "Confluence (for dark backgrounds)", tags: ["atlassian", "confluence", "product", "logo", "dark background", "inverse"], note: "Wordmark in white, blue mark unchanged. Use on ink; never on photos or busy art." },
+      "jira-service-management": { title: "Jira Service Management", tags: ["atlassian", "jsm", "service management", "itsm", "product", "logo"], note: "Full-color lockup for light backgrounds." },
+      "jira-service-management-inverse": { title: "Jira Service Management (for dark backgrounds)", tags: ["atlassian", "jsm", "service management", "itsm", "product", "logo", "dark background", "inverse"], note: "Wordmark in white, yellow mark unchanged. Use on ink; never on photos or busy art." },
     },
   },
   {

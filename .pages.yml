@@ -663,9 +663,12 @@ content:
             type: object
             fields:
               - name: image
-                label: Image
+                label: Illustration
                 type: image
                 required: true
+                description: The cycle illustration (pick the .svg).
+                options:
+                  media: illustrations
               - name: imageAlt
                 label: Image alt text
                 type: string
@@ -683,6 +686,19 @@ content:
                 label: Text
                 type: text
                 required: true
+              - name: steps
+                label: Steps
+                type: object
+                list: true
+                fields:
+                  - name: title
+                    label: Step
+                    type: string
+                    required: true
+                  - name: text
+                    label: Description
+                    type: text
+                    required: true
               - name: cta
                 label: Button
                 type: object
@@ -713,7 +729,7 @@ content:
                     label: Logo
                     type: image
                     required: false
-                    description: "Official product logo, shown above the name."
+                    description: "Official product logo for dark backgrounds (the -inverse file), shown above the name."
                   - name: name
                     label: Product
                     type: string
