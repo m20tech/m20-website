@@ -14,10 +14,10 @@ export const ARTWORK = {
   },
   heroes: {
     label: "Artwork: heroes",
-    width: 1600,
-    height: 900,
+    width: 2400,
+    height: 1350,
     pngScale: 1,
-    description: "1600×900 dark hero background, faded in from the right of the hero. Decorative.",
+    description: "2400×1350 dark network hero, faded in from the right of the hero. Decorative. Pick the .jpg.",
   },
   illustrations: {
     label: "Artwork: illustrations",

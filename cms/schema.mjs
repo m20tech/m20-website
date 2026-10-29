@@ -180,7 +180,7 @@ const pages = [
     path: "content/pages/ai.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
+      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
       object("meet", "Meet Rovo", [
         eyebrow(),
         string("title", "Heading"),
@@ -219,7 +219,7 @@ const pages = [
     path: "content/pages/atlassian-services.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }), string("title", "Heading"), text("intro", "Intro")]),
+      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }), string("title", "Heading"), text("intro", "Intro")]),
       object("services", "What we do", [
         eyebrow(),
         string("title", "Heading"),
@@ -239,12 +239,11 @@ const pages = [
         ]),
       ]),
       object("cycle", "Optimization cycle", [
-        artwork("illustrations", "image", "Illustration", { required: true, description: "The cycle illustration (pick the .svg)." }),
+        image("image", "Image"),
         string("imageAlt", "Image alt text"),
         eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
-        list("steps", "Steps", [string("title", "Step"), text("text", "Description")]),
         link("cta", "Button"),
       ]),
       object("stack", "Atlassian stack", [
@@ -266,7 +265,7 @@ const pages = [
     path: "content/pages/partners.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }), string("title", "Heading"), text("intro", "Intro")]),
+      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }), string("title", "Heading"), text("intro", "Intro")]),
       list("partners", "Partners", [
         image("logo", "Logo", { options: { path: "assets/partners" } }),
         string("logoAlt", "Logo alt text"),
@@ -303,7 +302,7 @@ const pages = [
     path: "content/pages/privacy.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }), string("title", "Heading"), string("updated", "Last updated line")]),
+      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }), string("title", "Heading"), string("updated", "Last updated line")]),
       blocks("body", "Policy text", [
         block("heading", "Heading", [string("text", "Heading")]),
         block("subheading", "Subheading", [string("text", "Subheading")]),
@@ -392,7 +391,7 @@ const pages = [
     path: "content/pages/ai-value-proposition.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
+      object("hero", "Hero", [eyebrow(), artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
       object("inside", "What's inside", [
         eyebrow(),
         list("cards", "Section cards", [
@@ -456,7 +455,7 @@ const pages = [
       seo(),
       object("intro", "Intro", [
         eyebrow(),
-        artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg." }),
+        artwork("heroes", "image", "Background image", { description: "Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero." }),
         string("title", "Heading"),
         text("text", "Text"),
         link("emailLink", "Email link", { description: "Use a mailto: link, e.g. mailto:sales@m20tech.com." }),

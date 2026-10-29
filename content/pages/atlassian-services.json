@@ -6,7 +6,7 @@
   },
   "hero": {
     "eyebrow": "Atlassian Services",
-    "image": "/assets/artwork/heroes/atlassian-services.svg",
+    "image": "/assets/artwork/heroes/atlassian-services.jpg",
     "title": "Get more out of your Atlassian tools.",
     "intro": "Whether you're a software, service, or business team, there's a place for Atlassian to improve how you work together. We set your tools up so employees use them because they want to — not because they have to."
   },
@@ -53,29 +53,11 @@
     ]
   },
   "cycle": {
-    "image": "/assets/artwork/illustrations/optimization-cycle.svg",
-    "imageAlt": "The optimization cycle: four arrows in a loop for optimize, train, develop, and support",
+    "image": "/assets/optimization-cycle.jpg",
+    "imageAlt": "M20 Optimization Cycle: optimize, train, develop, support",
     "eyebrow": "The optimization cycle",
     "title": "Empower & amplify.",
     "text": "Our optimization cycle empowers your teams and amplifies their results — through customized software development, training, and support.",
-    "steps": [
-      {
-        "title": "Optimize",
-        "text": "Find where your Atlassian tools can do more, and tune them to how your teams really work."
-      },
-      {
-        "title": "Train",
-        "text": "Hands-on training that teams actually use, so adoption sticks."
-      },
-      {
-        "title": "Develop",
-        "text": "Custom apps, automations, and integrations built to fit your processes."
-      },
-      {
-        "title": "Support",
-        "text": "Ongoing help that keeps everything running, and the cycle turning."
-      }
-    ],
     "cta": {
       "href": "/contact",
       "label": "Get started →"
