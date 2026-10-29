@@ -99,11 +99,11 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
+              - name: imageSet
+                label: Background image set
+                type: string
                 required: true
-                description: Decorative network art on the right of the hero.
+                description: "Base path of the generated hero image set (<base>-960…2560 and <base>-compact-480…1440, as .avif/.webp/.jpg). Regenerate with python3 scripts/backgrounds/home-hero.py; see Imagery & iconography in design.md."
               - name: title
                 label: Heading
                 type: string

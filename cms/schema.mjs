@@ -128,7 +128,7 @@ const pages = [
       seo(),
       object("hero", "Hero", [
         eyebrow(),
-        image("image", "Background image", { description: "Decorative network art on the right of the hero." }),
+        string("imageSet", "Background image set", { description: "Base path of the generated hero image set (<base>-960…2560 and <base>-compact-480…1440, as .avif/.webp/.jpg). Regenerate with python3 scripts/backgrounds/home-hero.py; see Imagery & iconography in design.md." }),
         string("title", "Heading"),
         text("intro", "Intro"),
         link("primaryCta", "Primary button"),

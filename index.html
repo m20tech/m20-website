@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 [[> head]]
+<link rel="preload" as="image" type="image/avif" media="(min-width: 901px)" fetchpriority="high" imagesizes="100vw"
+  imagesrcset="[[ hero.imageSet ]]-960.avif 960w, [[ hero.imageSet ]]-1440.avif 1440w, [[ hero.imageSet ]]-1920.avif 1920w, [[ hero.imageSet ]]-2560.avif 2560w">
+<link rel="preload" as="image" type="image/avif" media="(max-width: 900px)" fetchpriority="high" imagesizes="100vw"
+  imagesrcset="[[ hero.imageSet ]]-compact-480.avif 480w, [[ hero.imageSet ]]-compact-960.avif 960w, [[ hero.imageSet ]]-compact-1440.avif 1440w">
 <script src="/support.js"></script>
 </head>
 <body>
@@ -16,7 +20,10 @@
   <style id="reset">
     body { margin: 0; }
     a { text-decoration: none; }
-    @media (max-width: 760px) { .hero-network-accent { width: 100% !important; } }
+    @media (max-width: 900px) {
+      .hero-bg { object-position: right bottom !important; }
+      .hero-overlay { background: linear-gradient(180deg, rgba(20,23,28,.5) 0%, rgba(20,23,28,.2) 70%, rgba(20,23,28,0) 100%) !important; }
+    }
     .logo-marquee { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
     .logo-marquee:active { cursor: grabbing; }
     .logo-marquee img { pointer-events: none; -webkit-user-drag: none; }
@@ -28,10 +35,22 @@
   <dc-import name="Header" active-page="home" hint-size="100%,76px"></dc-import>
 
   <section style="position:relative;min-height:580px;display:flex;align-items:center;color:#fff;overflow:hidden;background:#14171C;">
-    <div style="position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,12,16,.9) 0%, rgba(10,12,16,.72) 40%, rgba(10,12,16,.3) 70%, rgba(10,12,16,.1) 100%);pointer-events:none;"></div>
-    <div class="hero-network-accent" style="position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);">
-      <img src="[[ hero.image ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
-    </div>
+    <picture>
+      <source media="(max-width: 900px)" type="image/avif" width="1440" height="1440" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-compact-480.avif 480w, [[ hero.imageSet ]]-compact-960.avif 960w, [[ hero.imageSet ]]-compact-1440.avif 1440w">
+      <source media="(max-width: 900px)" type="image/webp" width="1440" height="1440" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-compact-480.webp 480w, [[ hero.imageSet ]]-compact-960.webp 960w, [[ hero.imageSet ]]-compact-1440.webp 1440w">
+      <source media="(max-width: 900px)" width="1440" height="1440" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-compact-480.jpg 480w, [[ hero.imageSet ]]-compact-960.jpg 960w, [[ hero.imageSet ]]-compact-1440.jpg 1440w">
+      <source type="image/avif" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-960.avif 960w, [[ hero.imageSet ]]-1440.avif 1440w, [[ hero.imageSet ]]-1920.avif 1920w, [[ hero.imageSet ]]-2560.avif 2560w">
+      <source type="image/webp" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-960.webp 960w, [[ hero.imageSet ]]-1440.webp 1440w, [[ hero.imageSet ]]-1920.webp 1920w, [[ hero.imageSet ]]-2560.webp 2560w">
+      <img class="hero-bg" src="[[ hero.imageSet ]]-1920.jpg" alt="" width="1920" height="800" loading="eager" fetchpriority="high" sizes="100vw"
+        srcset="[[ hero.imageSet ]]-960.jpg 960w, [[ hero.imageSet ]]-1440.jpg 1440w, [[ hero.imageSet ]]-1920.jpg 1920w, [[ hero.imageSet ]]-2560.jpg 2560w"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;display:block;pointer-events:none;">
+    </picture>
+    <div class="hero-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(20,23,28,.7) 0%, rgba(20,23,28,.42) 34%, rgba(20,23,28,0) 56%);pointer-events:none;"></div>
     <div style="position:relative;max-width:1180px;margin-inline:auto;padding:48px clamp(20px,4vw,48px) 112px;width:100%;">
       <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#E8A04C;margin:0 0 22px;display:flex;align-items:center;gap:12px;">
         <span style="width:40px;height:2px;background:#E8A04C;"></span>[[ hero.eyebrow ]]
