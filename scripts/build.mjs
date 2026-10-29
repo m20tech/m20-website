@@ -28,7 +28,7 @@ const PAGES_YML = path.join(ROOT, ".pages.yml");
 
 // Repo paths that are tooling or source-of-truth rather than site files.
 const EXCLUDE = new Set([
-  ".git", ".github", ".claude", ".confluence", "docs", ".vscode", ".wrangler", "node_modules", "dist",
+  ".git", ".github", ".claude", ".confluence", ".design-canvas", "docs", ".vscode", ".wrangler", "node_modules", "dist",
   "cms", "content", "scripts", ".pages.yml", ".gitignore", ".assetsignore",
   "package.json", "package-lock.json", "wrangler.jsonc",
 ]);

@@ -127,11 +127,13 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 - Icons: custom inline SVGs from the icon library in `cms/icons/` (editors pick them per card in the CMS; add new ones there), 24×24 viewBox, `stroke` only (no fill except small accent dots), `stroke-width` ~1.9–2.2, rounded linecap/linejoin — consistent hand-drawn-technical feel, always in brand red on light backgrounds.
 - Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
-- Client logos: grayscale-free, contained in their own rounded chip on the paper-alt background, arranged in an infinite marquee.
-- Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage).
+- Client logos: full-color, on the paper-alt background, arranged in an infinite marquee (96px tall, capped at 240px wide so wordmarks don't dominate). Pulled from Brandfetch for the clients flagged **Can Advertise** in Jira Assets, each with a light-background logo and a `-reverse` version for dark backgrounds; refresh them with the `refresh-client-logos` skill (`.claude/skills/`).
+- Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage). **On dark backgrounds** use the `-inverse` file (`assets/products/<product>-inverse.svg`): the official lockup with the wordmark in white and the product mark untouched, set directly on ink at 34px tall with at least the mark's height of clear space around it. Atlassian's own logo component offers the same inverse appearance for dark and bold backgrounds. Never put a product logo over photos or busy art, recolor the mark, crop it, or rebuild the lockup; where a dark surface isn't available, use the full-color file on paper or white. (The ADS site's logo pages don't spell out containers or clear space, so these two are house rules; check the Atlassian brand kit before changing them.)
 - Sourcing third-party logos and brand assets: check what we already have first (`assets/clients/`, `assets/partners/`, `assets/products/`, and the Atlassian logos in Drive). For anything missing or low-resolution, use the **Brandfetch MCP** (`https://mcp.brandfetch.io/mcp`, configured for this project) to pull official, high-resolution logos, icons, and brand colors instead of cropping screenshots or recreating marks by hand. Prefer SVG or a large transparent PNG, and pick the full-color horizontal lockup unless the layout calls for an icon. Client logos still follow the usage note in **Asset library** (approved for the website only); check before using one in other materials.
 - Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
-- Video-call backgrounds: `assets/backgrounds/video-*.png`, 1920×1080, in the ink, maroon, and paper grounds (two have a name card to fill in). Browse them, and every other asset, in the **Asset library** below.
+- Video-call backgrounds: `assets/backgrounds/video-*.png`, 1920×1080, in the ink, maroon, and paper grounds (two have a name card to fill in), plus three illustrated offices (`video-office-studio`, `-lounge`, `-city`). The offices keep the logo top-right and the center clear for the speaker. Zoom, Meet, and Teams mirror your own preview, so the logo looks reversed to you but reads correctly to everyone else. Browse them, and every other asset, in the **Asset library** below.
+- Gmail themes: `assets/backgrounds/gmail-{ink,paper,ember}.png`, 2560×1440. Gmail draws its top bar, left nav, and right strip straight onto the theme image, so each theme is one tone edge to edge with only a faint mesh texture: never a light/dark split under the nav, and no bright accents in the nav or top bar. Install via Settings → Themes → View all → My photos, with **Text background** Dark for ink and ember, Light for paper.
+- Background sources: the office scenes and Gmail themes are generated from HTML in `scripts/backgrounds/` (`render.sh <source.html> <out.png> [scale]`, needs Google Chrome; Gmail themes take `?v=ink|paper|ember` and scale `1.3333`). Check a Gmail theme with `gmail-mock.html?img=<png>&text=light|dark`, a rough Gmail layout, before uploading it.
 
 ## Illustrations
 
@@ -255,6 +257,7 @@ Every app, agent, and plugin M20 builds has one **app icon**. It names the *prod
 | M20 Agent Policies | Plugin | `agent-policies` | [m20tech/m20-agent-policies](https://github.com/m20tech/m20-agent-policies) |
 | CL Life Approvals | App | `cllife-approvals` | [m20tech/cllife-approvals](https://github.com/m20tech/cllife-approvals) |
 | M20 Intelligence | Agent | `m20-intelligence` | [m20tech/m20-intelligence](https://github.com/m20tech/m20-intelligence) |
+| M20 Registrations | App | `registrations` | [m20tech/registrations](https://github.com/m20tech/registrations) |
 | M20 Reselling Tools | App | `reselling-tools` | [m20tech/reselling](https://github.com/m20tech/reselling) |
 
 ## Asset library
@@ -273,7 +276,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
 | Spots, covers, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
-| Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and 1920×1080 video-call backgrounds. |
+| Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes. |
 | Slide corner art | `assets/slides/corners/` | Faint top-right corner art for 16:9 decks, one motif per section. Sits behind slide content. |
 | Diagrams | `assets/optimization-cycle.jpg`, `assets/rovo-connectors.png` | Finished diagrams used on the site. |
 | Atlassian product logos | `assets/products/` | Atlassian marks: follow [Atlassian's logo usage](https://atlassian.design/components/logo/usage). |

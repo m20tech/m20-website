@@ -78,16 +78,16 @@
     "heading": "Trusted by industry leading teams",
     "logos": [
       {
-        "image": "/assets/clients/admis.webp",
+        "image": "/assets/clients/admis.png",
         "alt": "ADMIS"
       },
       {
-        "image": "/assets/clients/cllife.webp",
+        "image": "/assets/clients/cllife.png",
         "alt": "CL Life",
-        "maxWidth": 200
+        "maxWidth": 240
       },
       {
-        "image": "/assets/clients/cowan.webp",
+        "image": "/assets/clients/cowan.png",
         "alt": "Cowan, DeBaets, Abrahams & Sheppard"
       },
       {
@@ -99,15 +99,20 @@
         "alt": "Pagoda"
       },
       {
-        "image": "/assets/clients/towerhill.webp",
+        "image": "/assets/clients/towerhill.svg",
         "alt": "Tower Hill Insurance Group"
       },
       {
-        "image": "/assets/clients/vibrant.webp",
-        "alt": "Vibrant"
+        "image": "/assets/clients/vibrant.svg",
+        "alt": "Vibrant",
+        "maxWidth": 240
       },
       {
-        "image": "/assets/clients/zebra.webp",
+        "image": "/assets/clients/wasteconnections.png",
+        "alt": "Waste Connections"
+      },
+      {
+        "image": "/assets/clients/zebra.svg",
         "alt": "The Zebra Co"
       }
     ]

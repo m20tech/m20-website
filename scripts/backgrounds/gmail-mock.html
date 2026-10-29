@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  Rough Gmail-layout mock for checking a theme image: top bar, left nav,
+  opaque message panel, right add-on strip. ?img=<png>&text=light|dark
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+    font: 15px Arial, sans-serif; }
+  #bg { position: absolute; inset: 0; background-size: cover; }
+  .top { position: absolute; left: 0; right: 0; top: 0; height: 64px;
+    display: flex; align-items: center; gap: 24px; padding-left: 24px; }
+  .search { width: 720px; height: 46px; border-radius: 24px; margin-left: 140px; }
+  .nav { position: absolute; left: 0; top: 64px; width: 256px; }
+  .compose { margin: 8px 0 16px 8px; width: 140px; height: 56px;
+    border-radius: 16px; }
+  .item { height: 32px; line-height: 32px; padding-left: 26px;
+    font-size: 14px; border-radius: 0 16px 16px 0; margin-right: 12px; }
+  .panel { position: absolute; left: 256px; right: 56px; top: 64px;
+    bottom: 16px; border-radius: 16px; }
+  .row { height: 40px; border-bottom: 1px solid rgba(128,128,128,.15); }
+  body.light { color: #1f1f1f; }
+  body.light .search, body.light .compose { background: rgba(255,255,255,.75); }
+  body.light .panel { background: #fff; }
+  body.light .sel { background: rgba(0,0,0,.08); font-weight: bold; }
+  body.dark { color: #fff; }
+  body.dark .search, body.dark .compose { background: rgba(255,255,255,.14); }
+  body.dark .panel { background: #1f1f1f; }
+  body.dark .sel { background: rgba(255,255,255,.14); font-weight: bold; }
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="top"><span style="font-size:22px">&#9776;&nbsp;&nbsp;Mail</span>
+  <div class="search"></div></div>
+<div class="nav">
+  <div class="compose"></div>
+  <div class="item sel">Inbox</div><div class="item">Starred</div>
+  <div class="item">Snoozed</div><div class="item">Sent</div>
+  <div class="item">Drafts</div><div class="item">More</div>
+  <div class="item" style="margin-top:20px">Labels</div>
+  <div class="item">Clients</div><div class="item">Partners</div>
+</div>
+<div class="panel" id="panel"></div>
+<script>
+const q = new URLSearchParams(location.search);
+document.body.className = q.get("text") || "light";
+document.getElementById("bg").style.backgroundImage = `url(${q.get("img")})`;
+document.getElementById("panel").innerHTML =
+  '<div class="row"></div>'.repeat(24);
+</script>
+</body>
+</html>

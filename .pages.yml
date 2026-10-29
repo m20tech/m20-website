@@ -689,7 +689,7 @@ content:
                     label: Logo
                     type: image
                     required: false
-                    description: "Official product logo, shown above the name."
+                    description: "Official product logo for dark backgrounds (the -inverse file), shown above the name."
                   - name: name
                     label: Product
                     type: string

@@ -116,10 +116,10 @@
       <div class="logo-marquee" onPointerDown="{{ onDragStart }}" onPointerMove="{{ onDragMove }}" onPointerUp="{{ onDragEnd }}" onPointerCancel="{{ onDragEnd }}" onPointerLeave="{{ onDragEnd }}" style="position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);">
         <div class="logo-marquee-track" ref="{{ trackRef }}" style="display:flex;align-items:center;gap:clamp(32px,4.5vw,56px);padding-right:clamp(40px,5vw,72px);width:max-content;">
           [[#each clients.logos]]
-          <img src="[[ image ]]" alt="[[ alt ]]" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]none[[/if]];object-fit:contain;border-radius:14px;flex:none;">
+          <img src="[[ image ]]" alt="[[ alt ]]" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]240px[[/if]];object-fit:contain;border-radius:14px;flex:none;">
           [[/each]]
           [[#each clients.logos]]
-          <img src="[[ image ]]" alt="" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]none[[/if]];object-fit:contain;border-radius:14px;flex:none;">
+          <img src="[[ image ]]" alt="" style="height:96px;width:auto;max-width:[[#if maxWidth]][[ maxWidth ]]px[[else]]240px[[/if]];object-fit:contain;border-radius:14px;flex:none;">
           [[/each]]
         </div>
       </div>

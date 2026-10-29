@@ -1,0 +1,202 @@
+{
+  "updated": "2026-10-27",
+  "clients": [
+    {
+      "slug": "admis",
+      "name": "ADM Investor Services",
+      "alt": "ADMIS",
+      "domain": "admis.com",
+      "brandId": "id5sOwbYOy",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "admis.png",
+        "source": "brandfetch",
+        "format": "png",
+        "size": [
+          108,
+          108
+        ]
+      },
+      "reverse": {
+        "file": "admis-reverse.png",
+        "source": "derived",
+        "format": "png",
+        "size": [
+          108,
+          108
+        ]
+      },
+      "note": "Brandfetch only has a 108px logo."
+    },
+    {
+      "slug": "cllife",
+      "name": "CL Life and Annuity Insurance Company",
+      "alt": "CL Life",
+      "domain": "cllife.com",
+      "brandId": "idpJS0sAqM",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "cllife.png",
+        "source": "brandfetch",
+        "format": "png",
+        "size": [
+          575,
+          128
+        ]
+      },
+      "reverse": {
+        "file": "cllife-reverse.png",
+        "source": "derived",
+        "format": "png",
+        "size": [
+          575,
+          128
+        ]
+      },
+      "note": "Jira 'Can Advertise' is blank; shown because it was already on the site."
+    },
+    {
+      "slug": "cowan",
+      "name": "Cowan, DeBaets, Abrahams & Sheppard LLP",
+      "alt": "Cowan, DeBaets, Abrahams & Sheppard",
+      "domain": "cdas.com",
+      "brandId": "idu6lmqoFt",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "cowan.png",
+        "source": "brandfetch",
+        "format": "png",
+        "size": [
+          180,
+          180
+        ]
+      },
+      "reverse": null,
+      "note": "Brandfetch only has a 180px tile. No reverse version (logo has no transparency)."
+    },
+    {
+      "slug": "packer",
+      "name": "The Packer Collegiate Institute",
+      "alt": "The Packer Collegiate Institute",
+      "domain": "packer.edu",
+      "brandId": "id6T2wtHnx",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "packer.webp",
+        "source": "manual"
+      },
+      "reverse": null,
+      "note": "Brandfetch has only an icon (a P on white), no logo; kept the existing file."
+    },
+    {
+      "slug": "pagoda",
+      "name": "Pagoda",
+      "alt": "Pagoda",
+      "domain": null,
+      "brandId": null,
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "pagoda.webp",
+        "source": "manual"
+      },
+      "reverse": null,
+      "note": "No Website in Jira, so no Brandfetch lookup; kept the existing file."
+    },
+    {
+      "slug": "towerhill",
+      "name": "Tower Hill Insurance Group",
+      "alt": "Tower Hill Insurance Group",
+      "domain": "thig.com",
+      "brandId": "idN0SV29Dr",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "towerhill.svg",
+        "source": "brandfetch",
+        "format": "svg",
+        "size": null
+      },
+      "reverse": {
+        "file": "towerhill-reverse.png",
+        "source": "derived",
+        "format": "png",
+        "size": [
+          820,
+          259
+        ]
+      },
+      "note": ""
+    },
+    {
+      "slug": "vibrant",
+      "name": "Vibrant Emotional Health",
+      "alt": "Vibrant",
+      "domain": "vibrant.org",
+      "brandId": "idgjfDVndH",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "vibrant.svg",
+        "source": "brandfetch",
+        "format": "svg",
+        "size": null
+      },
+      "reverse": {
+        "file": "vibrant-reverse.png",
+        "source": "derived",
+        "format": "png",
+        "size": [
+          820,
+          131
+        ]
+      },
+      "note": ""
+    },
+    {
+      "slug": "wasteconnections",
+      "name": "Waste Connections",
+      "alt": "Waste Connections",
+      "domain": "wasteconnections.com",
+      "brandId": "idRkAXODWV",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "wasteconnections.png",
+        "source": "brandfetch",
+        "format": "png",
+        "size": [
+          2048,
+          465
+        ]
+      },
+      "reverse": {
+        "file": "wasteconnections-reverse.svg",
+        "source": "brandfetch",
+        "format": "svg",
+        "size": null
+      },
+      "note": "New: Can Advertise is true in Jira."
+    },
+    {
+      "slug": "zebra",
+      "name": "The Zebra",
+      "alt": "The Zebra Co",
+      "domain": "thezebra.com",
+      "brandId": "idrXCOb3IZ",
+      "fetched": "2026-10-27",
+      "light": {
+        "file": "zebra.svg",
+        "source": "brandfetch",
+        "format": "svg",
+        "size": null
+      },
+      "reverse": {
+        "file": "zebra-reverse.png",
+        "source": "derived",
+        "format": "png",
+        "size": [
+          800,
+          247
+        ]
+      },
+      "note": "Jira 'Can Advertise' is blank; shown because it was already on the site."
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<!-- M20 video background: "Lounge": dark ink office, warm evening light. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=block"
+  rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+    position: relative; background: #14171C; }
+  svg { display: block; position: absolute; inset: 0; filter: blur(0.8px); }
+</style>
+<script src="scenes.js"></script>
+<script src="lockup.js"></script>
+</head>
+<body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080"
+  xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const BOOKS = ["#2A2F37", "#3A404A", "#7A1E15", "#96271C", "#B07A3A",
+  "#5A6270", "#4A3628", "#6B4A2E", "#C9CDD6"];
+
+// Built-in shelving niche, lit from under each shelf.
+const NX = 100, NW = 520, NY = 60, NB = 900;
+const SHELVES = [300, 570, 840];
+let niche = `
+  <rect x="${NX - 24}" y="${NY - 24}" width="${NW + 48}" height="${NB - NY + 24}"
+    fill="#23282F"/>
+  <rect x="${NX}" y="${NY}" width="${NW}" height="${NB - NY}" fill="#0F1115"/>`;
+SHELVES.forEach((y, i) => {
+  niche += `
+  <rect x="${NX}" y="${y - (i ? 270 : 240)}" width="${NW}" height="${i ? 270 : 240}"
+    fill="url(#ledWash)"/>`;
+});
+niche += books(NX + 30, NX + 330, SHELVES[0], 21, BOOKS);
+niche += `<path d="M${NX + 400} ${SHELVES[0]} Q${NX + 380} ${SHELVES[0] - 70}
+  ${NX + 420} ${SHELVES[0] - 110} Q${NX + 460} ${SHELVES[0] - 70}
+  ${NX + 440} ${SHELVES[0]}Z" fill="#5A6270"/>`;
+niche += stack(NX + 40, SHELVES[1], 8, ["#96271C", "#3A404A", "#B07A3A", "#2A2F37"], 4);
+niche += books(NX + 220, NX + 490, SHELVES[1], 33, BOOKS);
+niche += pot(NX + 110, SHELVES[2], 110, 90, "#2E343C", "#3A404A");
+niche += plant(NX + 110, SHELVES[2] - 90, 14, { height: 170, spread: 90,
+  leaves: 22, size: 54, greens: ["#2F4430", "#3B5239", "#46603F"] });
+niche += books(NX + 230, NX + 500, SHELVES[2], 47, BOOKS, { hMin: 100, hMax: 150 });
+SHELVES.forEach((y) => {
+  niche += `<rect x="${NX}" y="${y}" width="${NW}" height="22" fill="#3A2E25"/>
+  <rect x="${NX + 10}" y="${y + 22}" width="${NW - 20}" height="3" fill="#F5C98F"/>`;
+});
+
+// Walnut slat wall on the right.
+let slats = `<rect x="1280" y="0" width="640" height="900" fill="#0F1115"/>`;
+for (let x = 1284; x < 1920; x += 32) {
+  slats += `<rect x="${x}" y="0" width="24" height="900" fill="url(#walnut)"/>`;
+}
+
+document.getElementById("s").innerHTML = `
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1E232A"/><stop offset="1" stop-color="#15181D"/>
+  </linearGradient>
+  <radialGradient id="warm" cx="0.5" cy="0.42" r="0.45">
+    <stop offset="0" stop-color="#E8A04C" stop-opacity=".16"/>
+    <stop offset="1" stop-color="#E8A04C" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="ledWash" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5C98F" stop-opacity=".30"/>
+    <stop offset=".55" stop-color="#E8A04C" stop-opacity=".07"/>
+    <stop offset="1" stop-color="#E8A04C" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="walnut" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5A4231"/><stop offset=".6" stop-color="#46331F"/>
+    <stop offset="1" stop-color="#2E2117"/>
+  </linearGradient>
+  <linearGradient id="spineShade" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity=".2"/>
+    <stop offset=".3" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+  </linearGradient>
+  <linearGradient id="slatLight" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#14171C" stop-opacity=".55"/>
+    <stop offset=".5" stop-color="#14171C" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient id="pendantGlow" cx=".5" cy=".5" r=".5" fx=".5" fy=".12">
+    <stop offset="0" stop-color="#F5C98F" stop-opacity=".45"/>
+    <stop offset=".5" stop-color="#E8A04C" stop-opacity=".08"/>
+    <stop offset="1" stop-color="#E8A04C" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="signGlow" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="#E8A04C" stop-opacity=".22"/>
+    <stop offset="1" stop-color="#E8A04C" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+
+<rect width="1920" height="1080" fill="url(#wall)"/>
+<rect width="1920" height="1080" fill="url(#warm)"/>
+${niche}
+${slats}
+<rect x="1280" y="0" width="640" height="900" fill="url(#slatLight)"/>
+<ellipse cx="1640" cy="220" rx="360" ry="200" fill="url(#signGlow)"/>
+<!-- sign plate mounted on the slats -->
+<rect x="1446" y="140" width="380" height="180" rx="18" fill="rgba(0,0,0,.5)"
+  filter="url(#soft)" transform="translate(0 12)"/>
+<rect x="1446" y="140" width="380" height="180" rx="18" fill="#14171C"
+  stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+
+<!-- pendant lamp -->
+<path d="M1190 0 L1190 150" stroke="#0B0D10" stroke-width="3"/>
+<ellipse cx="1190" cy="380" rx="340" ry="330" fill="url(#pendantGlow)"/>
+<path d="M1120 214 Q1124 150 1190 146 Q1256 150 1260 214Z" fill="#0F1115"/>
+<ellipse cx="1190" cy="214" rx="70" ry="9" fill="#F5C98F"/>
+
+<!-- credenza -->
+<rect x="0" y="880" width="1920" height="30" fill="rgba(0,0,0,.45)" filter="url(#soft)"/>
+<rect x="0" y="900" width="1920" height="180" fill="#20252C"/>
+<rect x="0" y="900" width="1920" height="12" fill="#2E343C"/>
+${[384, 768, 1152, 1536].map((x) => `<rect x="${x - 1}" y="918" width="2" height="162"
+  fill="rgba(0,0,0,.4)"/>`).join("")}
+${stack(1560, 900, 12, ["#3A404A", "#B07A3A", "#2A2F37"], 3)}
+<path d="M1760 900 Q1740 846 1772 812 L1796 812 Q1828 846 1808 900Z" fill="#3A404A"/>
+`;
+
+lockup({ x: 1484, y: 174, mark: 112, ink: "#FAF7F4", muted: "#C9CDD6",
+  markFilter: "drop-shadow(0 0 14px rgba(192,57,43,.55))",
+  textShadow: "0 0 18px rgba(232,160,76,.35)" });
+</script>
+</body>
+</html>
