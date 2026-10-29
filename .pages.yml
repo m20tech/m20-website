@@ -358,7 +358,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title
@@ -581,7 +581,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title
@@ -663,12 +663,9 @@ content:
             type: object
             fields:
               - name: image
-                label: Illustration
+                label: Image
                 type: image
                 required: true
-                description: The cycle illustration (pick the .svg).
-                options:
-                  media: illustrations
               - name: imageAlt
                 label: Image alt text
                 type: string
@@ -686,19 +683,6 @@ content:
                 label: Text
                 type: text
                 required: true
-              - name: steps
-                label: Steps
-                type: object
-                list: true
-                fields:
-                  - name: title
-                    label: Step
-                    type: string
-                    required: true
-                  - name: text
-                    label: Description
-                    type: text
-                    required: true
               - name: cta
                 label: Button
                 type: object
@@ -821,7 +805,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title
@@ -998,7 +982,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title
@@ -1672,7 +1656,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title
@@ -1973,7 +1957,7 @@ content:
                 label: Background image
                 type: image
                 required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
+                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero.
                 options:
                   media: heroes
               - name: title

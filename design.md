@@ -121,7 +121,7 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 **Sticky footer** (short pages — `contact.dc.html`, `case-studies.dc.html`): when a page's content is shorter than the viewport, the footer would otherwise stop mid-screen and leave a bare white strip below it, since `body` has no background of its own. Those pages give the outer wrapper `min-height:100vh;display:flex;flex-direction:column;` and the main `<section>` `flex:1 0 auto;`, which pins the footer to the bottom and lets the section absorb the slack. Apply this to any new page that can render shorter than about 1000px.
 
-**Optimization Cycle** (`atlassian-services/index.html`): the `optimization-cycle` illustration (`assets/artwork/illustrations/`) in the left column of a two-column section, with the four steps (optimize, train, develop, support) as a numbered list beside it, so the words stay editable and the art stays wordless. It is one bold ring of four arrow segments (gold `#D98A2B`, maroon, red, slate `#5A6478`) with sharp pointed heads, each carrying a white badge with a single simple glyph (dial, open book, code brackets, lifebuoy), round a small paper centre with a loop mark and one gold sparkle, inside a dashed gold ring; clusters of 1–4 ringed red pips on each badge number the steps. Glyphs are `8px` strokes at about 70px so they read at half-column width. The old `assets/optimization-cycle.jpg` stays for existing links but is no longer used on the page.
+**Optimization Cycle diagram** (`atlassian-services/index.html`): a static image (`assets/optimization-cycle.jpg`, 720×753, ~55KB) rather than an inline SVG — a segmented ring in the red→gold family with an icon and label baked into each of the four segments (optimize, train, develop, support) and "Optimization Cycle" centered in a paper-colored hole. Its background is a near-exact match for the site's `#FAF7F4` paper color, so it drops onto the page with no card/border wrapper needed. Displayed at `max-width:300px`, so the source is intentionally oversized (~2.4× at display size) for retina screens — resize proportionally if it's ever swapped again, don't ship it at display resolution.
 
 ## Imagery & iconography
 
@@ -144,7 +144,7 @@ Flat, hand-built SVG artwork that shows the things M20's work produces: intranet
 
 | Type | SVG canvas | PNG export | Ground | Where it goes |
 |---|---|---|---|---|
-| **Hero** | `1600×900` | `1600×900` (1×) | Ink `#14171C` + red wash | Optional background of a dark page hero (the `hero-bg` partial), faded in from the right at up to 62% of the hero width, cropped to fit (`object-fit:cover`). Contour-and-flow line art (see **Heroes** below): fine curves in grey, maroon, and red with one gold line, no words, one shape per page. Decorative: `alt=""`. |
+| **Hero** | n/a (rendered) | `2400×1350` JPG | Ink `#12141B` network mesh | Optional background of a dark page hero (the `hero-bg` partial), faded in from the right at up to 62% of the hero width, cropped to fit (`object-fit:cover`). The homepage hero's network mesh with one shape lit per page (see **Heroes** below). No words. Decorative: `alt=""`. |
 | **Cover** | `1200×630` | `1200×630` (1×) | Ink `#14171C` + dot mesh + maroon glow | Background art on the right of a dark page hero, slightly overlapping the text column and bleeding off the right edge like the homepage hero image (no bottom curve). Shown whole (never cropped) and only feathered at its edges, so its left-side story stays visible. The PNG is the page's **social share image**. Decorative on the page: `alt=""`. |
 | **Illustration** | `1200×800` | `2400×1600` (2×) | Paper `#FAF7F4` | Half of a two-column section, beside the text it explains (`align-items:center`), so it never breaks the section's alignment. `width:100%` of its column, `22px` radius, `1px` border (`#E4DCD3` on light sections, `rgba(255,255,255,.08)` on dark). Needs alt text. |
 | **App icon** | `512×512` | `1024×1024` (2×, transparent corners) | Rounded tile; ground shows the type | One per app, agent, or plugin — see **App icons** below. Never a topic or feature marker. |
@@ -208,9 +208,20 @@ The dark-ground set was chosen to pass colorblind (protan/deutan/tritan) separat
 
 ### Heroes
 
-Hero art is **contour and flow**, deliberately unlike the homepage's network photograph: families of smooth lines (`2.2–2.4px`, at about 0.6–0.75 opacity so they survive the crop and fade) that ramp from grey through maroon to red on ink, with **exactly one gold line** (`3.6–5px`, or a heavy dashed boundary) as the headline, and at most one soft gold halo. Keep each SVG under 25 KB (about 14 rings or 34 rays, 16–48 points per curve). No nodes, no words, no charts. One shape per page, drawn from its theme: services is orbits (open arcs round one point), AI a fan of rays from one source, AI value ridgelines that climb, partners two streams that braid through the middle, privacy nested contours closing round an off-centre lit core inside a heavy dashed boundary, contact two sets of ripples meeting (only the sender's first ring is gold). Keep the focal point in the right 60%; the left fades out under the text.
+Every page hero shares the homepage hero's look (`assets/hero-network.jpg`), so the site reads as one family: a mesh of slate and brass links between grey sphere nodes on a plane that recedes into the distance, sharp in a middle band and softly blurred in front of and behind it (depth of field), on ink. A few nodes glow red or amber with a soft bloom. What changes per page is **which shape in the mesh is lit**, drawn from that page's story:
 
-The SVGs are generated, so they stay consistent: edit the scene for a page in `scripts/hero-art.mjs`, run `node scripts/hero-art.mjs` then `npm run artwork:png`. A new page gets a new scene there, the file in `assets/artwork/heroes/`, a catalog entry under **Heroes** in `cms/library.mjs`, and the SVG picked as the hero's **Background image** in the CMS.
+| Page | Lit shape | Why |
+|---|---|---|
+| Services | A loop through four lit nodes, one amber | The optimization cycle: optimize, train, develop, support |
+| AI | One amber hub with lit spokes to red nodes across the mesh | Rovo finding answers across every app |
+| AI value | A lit path climbing through the mesh to an amber node | AI built into how we work, not bolted on |
+| Partners | Three lit cores joined by glowing bridges | Working together across the ecosystem |
+| Privacy | One amber core inside a softly lit perimeter ring | Data kept inside a boundary |
+| Contact | A lit path running out from behind the contact form to an amber node beside it | Your message reaching us |
+
+Rules: lit edges are warm red (`#E2704A`) and at most one node per image is amber, as the headline. Add two to four stray red sparks for texture, never on or beside the shape. Keep the shape between 40% and 92% of the width; the left fades out under the text. No words, charts, or icons.
+
+The images are rendered, so they stay consistent: edit or add a page's scene in `scripts/hero-art.py` and run `python3 scripts/hero-art.py [page ...]` (Pillow only; seeded, so re-running gives identical files). A new page gets a new scene there, the JPG in `assets/artwork/heroes/`, a catalog entry under **Heroes** in `cms/library.mjs`, and the JPG picked as the hero's **Background image** in the CMS.
 
 ### Making new artwork
 
@@ -282,7 +293,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Collection | Source | Notes |
 |---|---|---|
 | Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
-| Spots, covers, heroes, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
+| Spots, covers, heroes, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs, except heroes (rendered JPGs). |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
 | Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes. |
 | Slide corner art | `assets/slides/corners/` | Faint top-right corner art for 16:9 decks, one motif per section. Sits behind slide content. |
