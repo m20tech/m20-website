@@ -22,17 +22,8 @@
 
   <dc-import name="Header" active-page="contact" hint-size="100%,76px"></dc-import>
 
-  <section style="position:relative;overflow:hidden;background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);flex:1 0 auto;">
-    [[#if intro.image]]
-    <style>
-        @media (max-width: 760px) { .hero-bg { width: 100% !important; opacity: .5; } }
-    </style>
-    <div style="position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,12,16,.9) 0%, rgba(10,12,16,.72) 40%, rgba(10,12,16,.3) 70%, rgba(10,12,16,.1) 100%);pointer-events:none;"></div>
-    <div class="hero-bg" style="position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 22%, rgba(0,0,0,.85) 52%, #000 78%);">
-        <img src="[[ intro.image ]]" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
-    </div>
-    [[/if]]
-    <div style="position:relative;max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:start;">
+  <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);flex:1 0 auto;">
+    <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:start;">
       <div>
         <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
           <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ intro.eyebrow ]]

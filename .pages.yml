@@ -15,16 +15,6 @@ media:
       - jpg
       - jpeg
       - webp
-  - name: heroes
-    label: "Artwork: heroes"
-    input: assets/artwork/heroes
-    output: /assets/artwork/heroes
-    extensions:
-      - svg
-      - png
-      - jpg
-      - jpeg
-      - webp
   - name: illustrations
     label: "Artwork: illustrations"
     input: assets/artwork/illustrations
@@ -112,8 +102,8 @@ content:
               - name: image
                 label: Background image
                 type: image
-                required: false
-                description: Optional art faded in from the right of the hero. Leave empty for a plain dark hero.
+                required: true
+                description: Decorative network art on the right of the hero.
               - name: title
                 label: Heading
                 type: string
@@ -354,13 +344,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
@@ -577,13 +560,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
@@ -663,12 +639,9 @@ content:
             type: object
             fields:
               - name: image
-                label: Illustration
+                label: Image
                 type: image
                 required: true
-                description: The cycle illustration (pick the .svg).
-                options:
-                  media: illustrations
               - name: imageAlt
                 label: Image alt text
                 type: string
@@ -686,19 +659,6 @@ content:
                 label: Text
                 type: text
                 required: true
-              - name: steps
-                label: Steps
-                type: object
-                list: true
-                fields:
-                  - name: title
-                    label: Step
-                    type: string
-                    required: true
-                  - name: text
-                    label: Description
-                    type: text
-                    required: true
               - name: cta
                 label: Button
                 type: object
@@ -817,13 +777,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
@@ -994,13 +947,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
@@ -1668,13 +1614,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
@@ -1969,13 +1908,6 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
-                required: false
-                description: Optional dark art faded in from the right of the hero. Leave empty for a plain dark hero. Pick the .svg.
-                options:
-                  media: heroes
               - name: title
                 label: Heading
                 type: string
