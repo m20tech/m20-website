@@ -99,11 +99,11 @@ content:
                 type: string
                 required: true
                 description: Small uppercase label above the heading.
-              - name: image
-                label: Background image
-                type: image
+              - name: imageSet
+                label: Background image set
+                type: string
                 required: true
-                description: Decorative network art on the right of the hero.
+                description: "Base path of the generated hero image set (<base>-960…2560 and <base>-compact-480…1440, as .avif/.webp/.jpg). Regenerate with python3 scripts/backgrounds/home-hero.py; see Imagery & iconography in design.md."
               - name: title
                 label: Heading
                 type: string
@@ -365,6 +365,13 @@ content:
                     type: string
                     required: true
                     description: "A site path like /contact, or a full https:// URL."
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: meet
             label: Meet Rovo
             type: object
@@ -568,6 +575,13 @@ content:
                 label: Intro
                 type: text
                 required: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: services
             label: What we do
             type: object
@@ -785,6 +799,13 @@ content:
                 label: Intro
                 type: text
                 required: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: partners
             label: Partners
             type: object
@@ -955,6 +976,13 @@ content:
                 label: Last updated line
                 type: string
                 required: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: body
             label: Policy text
             type: block
@@ -1626,6 +1654,13 @@ content:
                 label: Tags
                 type: string
                 list: true
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: inside
             label: "What's inside"
             type: object
@@ -1930,6 +1965,13 @@ content:
                     required: true
                     description: "A site path like /contact, or a full https:// URL."
                 description: "Use a mailto: link, e.g. mailto:sales@m20tech.com."
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image."
+                options:
+                  media: covers
           - name: form
             label: Form
             type: object

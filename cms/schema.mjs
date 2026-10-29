@@ -93,6 +93,9 @@ const caseStudyHero = () =>
     strings("tags", "Tags"),
     artwork("covers", "cover", "Cover image", { description: "Background art on the right of the hero (decorative). Pick the cover's .svg." }),
   ]);
+// Cover art on the right of a dark page hero (same embed as the case studies).
+const heroCover = () =>
+  artwork("covers", "cover", "Cover image", { description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg; pick its .png as the Social share image." });
 const highlights = () =>
   object("highlights", "Project highlights", [
     eyebrow(),
@@ -128,7 +131,7 @@ const pages = [
       seo(),
       object("hero", "Hero", [
         eyebrow(),
-        image("image", "Background image", { description: "Decorative network art on the right of the hero." }),
+        string("imageSet", "Background image set", { description: "Base path of the generated hero image set (<base>-960…2560 and <base>-compact-480…1440, as .avif/.webp/.jpg). Regenerate with python3 scripts/backgrounds/home-hero.py; see Imagery & iconography in design.md." }),
         string("title", "Heading"),
         text("intro", "Intro"),
         link("primaryCta", "Primary button"),
@@ -180,7 +183,7 @@ const pages = [
     path: "content/pages/ai.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
+      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button"), heroCover()]),
       object("meet", "Meet Rovo", [
         eyebrow(),
         string("title", "Heading"),
@@ -219,7 +222,7 @@ const pages = [
     path: "content/pages/atlassian-services.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
+      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), heroCover()]),
       object("services", "What we do", [
         eyebrow(),
         string("title", "Heading"),
@@ -265,7 +268,7 @@ const pages = [
     path: "content/pages/partners.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
+      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), heroCover()]),
       list("partners", "Partners", [
         image("logo", "Logo", { options: { path: "assets/partners" } }),
         string("logoAlt", "Logo alt text"),
@@ -302,7 +305,7 @@ const pages = [
     path: "content/pages/privacy.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), string("updated", "Last updated line")]),
+      object("hero", "Hero", [eyebrow(), string("title", "Heading"), string("updated", "Last updated line"), heroCover()]),
       blocks("body", "Policy text", [
         block("heading", "Heading", [string("text", "Heading")]),
         block("subheading", "Subheading", [string("text", "Subheading")]),
@@ -391,7 +394,7 @@ const pages = [
     path: "content/pages/ai-value-proposition.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
+      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags"), heroCover()]),
       object("inside", "What's inside", [
         eyebrow(),
         list("cards", "Section cards", [
@@ -458,6 +461,7 @@ const pages = [
         string("title", "Heading"),
         text("text", "Text"),
         link("emailLink", "Email link", { description: "Use a mailto: link, e.g. mailto:sales@m20tech.com." }),
+        heroCover(),
       ]),
       object("form", "Form", [
         string("firstNameLabel", "First name label"),
