@@ -96,6 +96,12 @@ export const LIBRARY = [
     items: {
       "intranet-transformation": { title: "Intranet transformation", tags: ["confluence", "intranet", "before and after", "refined", "case study", "hero"] },
       "jira-executive-dashboard": { title: "Jira executive dashboard", tags: ["jira", "dashboard", "kpi", "rag", "reporting", "case study", "hero"] },
+      "atlassian-work-layers": { title: "Atlassian work layers", tags: ["atlassian", "services", "work management", "knowledge", "service management", "layers", "before and after", "hero"], note: "Services hero: scattered legacy tools become tidy layers (work, service queue, knowledge) inside the optimization cycle." },
+      "rovo-find-learn-act": { title: "Rovo: find, learn, act", tags: ["rovo", "ai", "search", "chat", "agents", "find learn act", "hero"], note: "AI hero: search results, a conversation, then agent cards completing tasks." },
+      "ai-operations-pipeline": { title: "AI operations pipeline", tags: ["ai", "forge", "agentic workflow", "automation", "governance", "knowledge", "pipeline", "hero"], note: "AI value hero: a Forge app feeds agentic workflow steps, knowledge layers, and a governance check." },
+      "connected-ecosystem": { title: "Connected ecosystem", tags: ["partners", "integrations", "marketplace", "ecosystem", "sync", "system of record", "hero"], note: "Partners hero. Content sits in the middle band (y 190-440) because the partners hero is short." },
+      "data-protection": { title: "Data protection", tags: ["privacy", "security", "permissions", "shield", "lock", "legal", "hero"], note: "Privacy hero, deliberately quiet. Content sits in the middle band (y 190-440) because the privacy hero is short." },
+      "meeting-request": { title: "Meeting request", tags: ["contact", "calendar", "events", "form", "booking", "hero"], note: "Contact hero: an event list with today's date active next to a short form. The page's own form covers the middle on most screens." },
       "network-mesh": { title: "Network mesh (home share image)", tags: ["home", "network", "mesh", "share image", "og", "social"], note: "PNG only: rendered from scripts/backgrounds/home-hero.html (?v=share), not a hand-drawn cover. The homepage's social share image." },
     },
   },
