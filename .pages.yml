@@ -991,6 +991,128 @@ content:
                     description: "Supports **bold**, *italic*, and [link text](https://…)."
                     required: true
                     list: true
+      - name: not-found
+        label: "404 (page not found)"
+        type: file
+        path: content/pages/404.json
+        format: json
+        fields:
+          - name: seo
+            label: SEO
+            type: object
+            fields:
+              - name: title
+                label: Page title
+                type: string
+                required: true
+                description: "Shown in search results and browser tabs. Aim for 50–60 characters."
+                options:
+                  maxlength: 70
+              - name: description
+                label: Meta description
+                type: text
+                required: true
+                description: "Search result snippet. Aim for 120–160 characters."
+                options:
+                  maxlength: 170
+              - name: image
+                label: Social share image
+                type: image
+                required: false
+                description: "Optional — defaults to the site-wide share image. Pick a cover's .png (1200×630); social sites can't show SVG."
+                options:
+                  media: covers
+                  extensions:
+                    - png
+                    - jpg
+                    - jpeg
+                    - webp
+              - name: noindex
+                label: Hide from search engines
+                type: boolean
+                description: Adds noindex and leaves the page out of sitemap.xml.
+          - name: hero
+            label: Hero
+            type: object
+            fields:
+              - name: eyebrow
+                label: Eyebrow
+                type: string
+                required: true
+                description: Small uppercase label above the heading.
+              - name: title
+                label: Heading
+                type: string
+                required: true
+              - name: text
+                label: Text
+                type: text
+                required: true
+              - name: primaryCta
+                label: Primary button
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+              - name: secondaryCta
+                label: Secondary button
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+              - name: cover
+                label: Cover image
+                type: image
+                required: false
+                description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg."
+                options:
+                  media: covers
+          - name: links
+            label: Popular pages
+            type: object
+            fields:
+              - name: eyebrow
+                label: Eyebrow
+                type: string
+                required: true
+                description: Small uppercase label above the heading.
+              - name: items
+                label: Page cards
+                type: object
+                list: true
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: text
+                    label: Text
+                    type: text
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: A site path like /contact.
+              - name: linkLabel
+                label: Card link text
+                type: string
+                required: true
+                description: "Shown at the bottom of every card, before the arrow."
       - name: case-study-intranet
         label: "Case Study: Intranet"
         type: file
