@@ -1,9 +1,9 @@
 <title>[[ seo.title ]]</title>
 <meta name="description" content="[[ seo.description ]]">
-<link rel="canonical" href="[[ build.url ]]">
 [[#if seo.noindex]]
 <meta name="robots" content="noindex, nofollow">
 [[else]]
+<link rel="canonical" href="[[ build.url ]]">
 [[#if build.preview]]
 <meta name="robots" content="noindex, nofollow">
 [[/if]]
