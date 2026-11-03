@@ -321,7 +321,6 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
-- `404.html` (any path with no page) — Page not found: dark hero with the `page-not-found` cover, **Back to home** and **Contact us** buttons, and popular-page cards on paper. Uses the sticky-footer layout. `noindex`, no canonical link, and left out of `sitemap.xml`.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
 
 ## URL structure
@@ -331,12 +330,6 @@ Every page is clean-slug, extension-free: each non-home page is a folder holding
 with no `.html` or `.dc.html` in the address bar. `index.html` stays at the repo root as the home
 page. `Header.dc.html` and `Footer.dc.html` are not pages — they're fetched at runtime by
 `<dc-import>` and never get a clean URL of their own.
-
-**Missing pages.** `404.html` at the repo root is the not-found page. `wrangler.jsonc` sets
-`not_found_handling: "404-page"`, so Cloudflare serves it with a 404 status for any path that has
-no file, at whatever depth the URL was; `npm run dev` does the same. It stays at the root as
-`404.html`, not `404/index.html`, because that's where Cloudflare looks for it. An old URL that has
-a new equivalent belongs in `_redirects` (301) instead, so it never reaches the 404 page.
 
 **Base path.** Because `Header.dc.html`/`Footer.dc.html` are shared fragments reused at every
 page's depth (root for home, one level down for everything else), and because every page's own
