@@ -318,23 +318,10 @@ const pages = [
     path: "content/pages/404.json",
     fields: [
       seo(),
-      object("hero", "Hero", [
-        eyebrow(),
-        string("title", "Heading"),
-        text("text", "Text"),
-        link("primaryCta", "Primary button"),
-        link("secondaryCta", "Secondary button"),
-        artwork("covers", "cover", "Cover image", { description: "Background art on the right of the hero (decorative), hidden under 900px. Pick the cover's .svg." }),
-      ]),
-      object("links", "Popular pages", [
-        eyebrow(),
-        list("items", "Page cards", [
-          string("title", "Title"),
-          text("text", "Text"),
-          string("href", "Link", { description: "A site path like /contact." }),
-        ]),
-        string("linkLabel", "Card link text", { description: "Shown at the bottom of every card, before the arrow." }),
-      ]),
+      eyebrow(),
+      string("title", "Heading"),
+      text("text", "Text"),
+      link("cta", "Button"),
     ],
   },
   {

@@ -1,42 +1,14 @@
 {
   "seo": {
     "title": "Page not found | M20 Technology",
-    "description": "The page you're looking for isn't here. Head back to the M20 Technology home page, or explore our Atlassian services, Rovo AI, and case studies.",
+    "description": "The page you're looking for doesn't exist or has moved. Head back to the M20 Technology home page.",
     "noindex": true
   },
-  "hero": {
-    "eyebrow": "Error 404",
-    "title": "We can't find that page.",
-    "text": "The link may be out of date, or the address may have a typo. Head back home, or pick up from one of the pages below.",
-    "primaryCta": {
-      "label": "Back to home",
-      "href": "/"
-    },
-    "secondaryCta": {
-      "label": "Contact us",
-      "href": "/contact"
-    },
-    "cover": "/assets/artwork/covers/page-not-found.svg"
-  },
-  "links": {
-    "eyebrow": "Popular pages",
-    "items": [
-      {
-        "title": "Atlassian services",
-        "text": "Set up, migrate, and optimize Jira, Confluence, and Jira Service Management.",
-        "href": "/atlassian-services"
-      },
-      {
-        "title": "Rovo AI",
-        "text": "Find, learn, and act across your tools with Atlassian's AI teammate.",
-        "href": "/ai"
-      },
-      {
-        "title": "Case studies",
-        "text": "See how we've helped teams get more out of Atlassian.",
-        "href": "/case-studies"
-      }
-    ],
-    "linkLabel": "Go to page"
+  "eyebrow": "Error 404",
+  "title": "Page not found",
+  "text": "The page you're looking for doesn't exist or has moved.",
+  "cta": {
+    "label": "Back to home",
+    "href": "/"
   }
 }

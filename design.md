@@ -321,7 +321,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
-- `404.html` (any path with no page) — Page not found: dark hero with the `page-not-found` cover, **Back to home** and **Contact us** buttons, and popular-page cards on paper. Uses the sticky-footer layout. `noindex`, no canonical link, and left out of `sitemap.xml`.
+- `404.html` (any path with no page) — Page not found: a standard error page on paper, nothing more than header, a centered eyebrow, heading, one sentence, a **Back to home** button, and footer. No hero art. Uses the sticky-footer layout. `noindex`, no canonical link, and left out of `sitemap.xml`.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
 
 ## URL structure

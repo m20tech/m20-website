@@ -96,7 +96,6 @@ export const LIBRARY = [
     items: {
       "intranet-transformation": { title: "Intranet transformation", tags: ["confluence", "intranet", "before and after", "refined", "case study", "hero"] },
       "jira-executive-dashboard": { title: "Jira executive dashboard", tags: ["jira", "dashboard", "kpi", "rag", "reporting", "case study", "hero"] },
-      "page-not-found": { title: "Page not found", tags: ["404", "not found", "broken link", "error", "navigation", "hero"], note: "Hero art for the 404 page. A dead link leads to a missing page (draft outlines, red status); a gold connector leads back to the home page." },
     },
   },
   {

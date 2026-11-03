@@ -34,7 +34,7 @@ The site is a small static website. There is no server-side application and no d
 | Design system docs | `design.md`, `docs/design-system.json`, `scripts/design-guide.mjs`, `scripts/design-docs.mjs` | The design system; its visual guide at https://m20tech.com/design/ (unlisted: live swatches, type, components, and templates, built from `design.md`); and the [M20 Design System](https://m20tech.atlassian.net/wiki/x/T4DrNAE) Confluence pages, which embed the visual guide and are republished by Claude Code on releases. |
 | Build script | `scripts/build.mjs` | Renders templates + content into the finished site (`dist/`), runs consistency checks, and writes `sitemap.xml` and `robots.txt`. |
 | Hosting config | `wrangler.jsonc` | Tells Cloudflare how to build and serve the site. |
-| Not-found page | `404.html`, `content/pages/404.json` | Shown, with a 404 status, for any address that has no page. Editable in the CMS as **404 (page not found)**: heading, text, buttons, and the popular-page cards. Hidden from search engines. |
+| Not-found page | `404.html`, `content/pages/404.json` | Shown, with a 404 status, for any address that has no page. Editable in the CMS as **404 (page not found)**: eyebrow, heading, text, and button. Hidden from search engines. |
 | Redirects | `_redirects` | Permanent (301) redirects from old Squarespace URLs to their new pages. Add a line here (old path, new path, `301`) whenever a page is renamed or removed and has a replacement. |
 
 ### How a page gets built
