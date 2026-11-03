@@ -316,7 +316,7 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 ## Page inventory
 
 - `index.html` (`/`) — Home: hero, 3 service pillars, "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
-- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM), Gold Partner CTA band.
+- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM; the inverse logo names the product, so there's no separate product label above the tagline), Gold Partner CTA band.
 - `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).

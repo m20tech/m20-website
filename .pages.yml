@@ -689,11 +689,12 @@ content:
                     label: Logo
                     type: image
                     required: false
-                    description: "Official product logo for dark backgrounds (the -inverse file), shown above the name."
+                    description: "Official product logo for dark backgrounds (the -inverse file), shown at the top of the card."
                   - name: name
                     label: Product
                     type: string
                     required: true
+                    description: "The logo's alt text. Shown as a label only when the card has no logo."
                   - name: title
                     label: Tagline
                     type: string
