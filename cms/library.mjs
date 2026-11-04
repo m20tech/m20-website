@@ -1,8 +1,8 @@
 // The brand asset library: every reusable icon, illustration, logo, and
-// background, grouped into collections. The build turns this into the
-// searchable gallery at /library/ (unlisted, noindex) and library.json, and
-// scripts/design-docs.mjs turns it into the "Icon & Graphics Library"
-// Confluence page. See "Asset library" in design.md.
+// background, grouped into collections. The build turns this into
+// /library/library.json and the icon SVGs, scripts/design-artifacts.mjs into
+// the searchable gallery (an Atlassian Artifact), and scripts/design-docs.mjs
+// into the "Icon & Graphics Library" Confluence page. See "Asset library" in design.md.
 //
 // A collection is either a folder (`dir`, every file in it is an asset) or an
 // explicit `files` list (for assets that sit loose in assets/). Files with the
