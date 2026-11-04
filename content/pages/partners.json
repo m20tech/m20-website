@@ -2,12 +2,14 @@
   "seo": {
     "title": "Partners | M20 Technology",
     "description": "M20 Technology partners with Atlassian, Tempo, Refined, Appfire, Adaptavist, and other leading vendors to deliver exceptional customer experiences.",
+    "image": "/assets/artwork/covers/connected-ecosystem.png",
     "noindex": false
   },
   "hero": {
     "eyebrow": "About Us",
     "title": "Partners",
-    "intro": "Working together to provide exceptional customer experiences."
+    "intro": "Working together to provide exceptional customer experiences.",
+    "cover": "/assets/artwork/covers/connected-ecosystem.svg"
   },
   "partners": [
     {

@@ -2,6 +2,7 @@
   "seo": {
     "title": "How We Run on AI | M20 Technology",
     "description": "How M20 embeds AI in its own operations: a custom Forge app, Rovo agent workflows, self-maintaining knowledge, and the governance that keeps it accountable.",
+    "image": "/assets/artwork/covers/ai-operations-pipeline.png",
     "noindex": false
   },
   "hero": {
@@ -15,7 +16,8 @@
       "Rovo",
       "Claude Code",
       "Teamwork Graph"
-    ]
+    ],
+    "cover": "/assets/artwork/covers/ai-operations-pipeline.svg"
   },
   "inside": {
     "eyebrow": "What's Inside",
