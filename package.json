@@ -9,6 +9,7 @@
     "cms:sync": "node scripts/build.mjs --sync-cms",
     "artwork:png": "node scripts/export-artwork.mjs",
     "library:check": "node scripts/library.mjs --check",
+    "docs:artifacts": "node scripts/design-artifacts.mjs",
     "docs:design": "node scripts/design-docs.mjs"
   },
   "engines": {

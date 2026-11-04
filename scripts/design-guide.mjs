@@ -1,11 +1,15 @@
-// Builds the visual design guide at /design/ (unlisted, noindex): one page
+// Builds the visual design guide (internal, not on the site): one page
 // per M20 Design System page in docs/design-system.json, each with live
 // specimens (swatches, type, lockups, components, templates) above the
 // design.md text for its sections. design.md stays the only written source;
 // the specimens are parsed from its tables and lists where they can be, and
-// reuse the site's own markup where they can't. Confluence embeds these pages
-// with the Iframe macro (see scripts/design-docs.mjs), and ?embed hides the
-// guide's own chrome so they sit cleanly inside a Confluence page.
+// reuse the site's own markup where they can't.
+//
+// The pages aren't served by the site. scripts/design-artifacts.mjs renders
+// each one twice as a self-contained Atlassian Artifact: a full page, and an
+// embed without the header and title that the Confluence pages show with the
+// Iframe macro. `npm run dev` also writes the full pages to dist/design/ for
+// local preview; deployed builds don't.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -140,7 +144,7 @@ const VISUALS = {
     ].join("");
   },
 
-  color({ secs }) {
+  color({ secs, href }) {
     const rows = table(secs.get("Color palette"), "Token");
     const swatch = (name, hex, usage) => {
       const onPaper = contrast(hex, "#FAF7F4"), onInk = contrast(hex, "#14171C"), white = contrast(hex, "#FFFFFF");
@@ -159,7 +163,7 @@ const VISUALS = {
           ${specimen("Dark section", `<div style="background:#14171C;padding:24px;border-radius:14px;">${eyebrow("Rovo AI", "#E8A04C")}<h3 style="font:600 24px/1.2 ${SERIF};margin:14px 0 10px;color:#FAF7F4;">Ink with a gold kicker</h3><p style="font:400 16px/1.6 ${SANS};color:#C9CDD6;margin:0 0 16px;">Gold labels, never gold buttons. Links in <span style="color:#F5C98F;">gold tint</span>.</p><a style="${BTN}background:#C0392B;color:#fff;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">See the agents</a></div>`, { ground: "ink" })}
           ${specimen("Maroon band", `<div style="background:linear-gradient(135deg,#96271C,#7A1E15);padding:24px;border-radius:14px;"><h3 style="font:600 24px/1.2 ${SERIF};margin:0 0 10px;color:#fff;">Red gradient band</h3><p style="font:400 16px/1.6 ${SANS};color:#F3EEE8;margin:0;">One per page at most, for the brand statement.</p></div>`)}
         </div>`),
-      `<p class="see">Status (red, amber, green) colors for artwork are on <a href="${GUIDE_PATH}imagery/#status">Imagery &amp; Illustrations</a>.</p>`,
+      `<p class="see">Status (red, amber, green) colors for artwork are on <a href="${href("imagery", "status")}">Imagery &amp; Illustrations</a>.</p>`,
     ].join("");
   },
 
@@ -179,7 +183,7 @@ const VISUALS = {
     ].join("");
   },
 
-  logo({ site }) {
+  logo({ site, href }) {
     const emailSnippet = `<img src="${site.siteUrl}/assets/logo.png" width="32" height="32" alt="M20 Technology" style="display:block;border:0;">`;
     return [
       block("Lockup", "Mark plus stacked wordmark. Use the full lockup whenever there's room.",
@@ -193,7 +197,7 @@ const VISUALS = {
         <p class="see">Below 24px the mark stops reading. Don't recolor, outline, or add effects to the mark.</p>`),
       block("Embedding", "",
         specimen("Email (hosted URL, explicit size)", emailSnippet, { note: "Email clients block data URIs, so always use the hosted file." })
-        + `<p class="see"><a href="/assets/logo.png" download>Download logo.png</a> · 300×300, transparent · <a href="${LIBRARY_PATH}#brand/logo">Library entry</a></p>`),
+        + `<p class="see"><a href="/assets/logo.png" download>Download logo.png</a> · 300×300, transparent · <a href="${href("library", "brand/logo")}">Library entry</a></p>`),
     ].join("");
   },
 
@@ -278,7 +282,7 @@ const VISUALS = {
     ].join("");
   },
 
-  imagery({ lib, secs }) {
+  imagery({ lib, secs, href }) {
     const coll = (id) => lib.collections.find((c) => c.id === id)?.items ?? [];
     const raster = (it) => (it.files.find((f) => f.format === "svg") ?? it.files[0]).path;
     const rag = table(secs.get("Illustrations"), "Status");
@@ -289,17 +293,17 @@ const VISUALS = {
       block("Icons", "24×24, stroke only, 2px, round caps and joins. Red on light, white or gold on dark.",
         `<div class="icon-rows"><div class="icon-row paper">${icons.map((i) => ico(i, "#C0392B")).join("")}</div>
          <div class="icon-row ink">${icons.map((i, n) => ico(i, n % 3 ? "#FAF7F4" : "#E8A04C")).join("")}</div></div>
-         <p class="see">All ${coll("icons").length} icons, with color and size export, are in the <a href="${LIBRARY_PATH}#icons">asset library</a>.</p>`),
+         <p class="see">All ${coll("icons").length} icons, with color and size export, are in the <a href="${href("library", "icons")}">asset library</a>.</p>`),
       block("Spots", "240×240 art, shown at 96px at the top of index cards.",
-        `<div class="spots">${coll("spots").map((s) => `<a href="${LIBRARY_PATH}#${s.key}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
+        `<div class="spots">${coll("spots").map((s) => `<a href="${href("library", s.key)}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
       block("App icons", "One per M20 app, agent, or plugin: a filled tile whose ground shows the type — red app, ink agent, paper plugin.",
-        `<div class="spots">${coll("app-icons").map((s) => `<a href="${LIBRARY_PATH}#${s.key}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
+        `<div class="spots">${coll("app-icons").map((s) => `<a href="${href("library", s.key)}" title="${esc(s.title)}"><img src="${raster(s)}" alt="${esc(s.title)}" loading="lazy"></a>`).join("")}</div>`),
       block("Covers and illustrations", "Covers sit behind dark page heroes and double as share images. Illustrations explain the work beside the text.",
-        `<div class="art">${[...coll("covers"), ...coll("illustrations")].map((a) => `<a href="${LIBRARY_PATH}#${a.key}"><img src="${raster(a)}" alt="${esc(a.title)}" loading="lazy"><span>${esc(a.title)}</span></a>`).join("")}</div>`),
+        `<div class="art">${[...coll("covers"), ...coll("illustrations")].map((a) => `<a href="${href("library", a.key)}"><img src="${raster(a)}" alt="${esc(a.title)}" loading="lazy"><span>${esc(a.title)}</span></a>`).join("")}</div>`),
       `<section class="block" id="status"><h2>Status (RAG) colors</h2><p class="intro">Status only, never decoration. Every mark carries its glyph so color is never the only signal.</p>
         <div class="cards two">${["paper", "ink"].map((g) => `<div class="stage ${g}" style="display:flex;gap:10px;flex-wrap:wrap;">${rag.map(([s, glyph, light, dark]) => pill(plain(glyph), hexes(g === "ink" ? dark : light)[0], plain(s).split("/")[0].trim(), g === "ink")).join("")}</div>`).join("")}</div></section>`,
       block("Photography and backgrounds", "",
-        `<div class="art">${coll("backgrounds").slice(0, 4).map((a) => `<a href="${LIBRARY_PATH}#${a.key}"><img src="${raster(a)}" alt="${esc(a.title)}" loading="lazy"><span>${esc(a.title)}</span></a>`).join("")}</div>`),
+        `<div class="art">${coll("backgrounds").slice(0, 4).map((a) => `<a href="${href("library", a.key)}"><img src="${raster(a)}" alt="${esc(a.title)}" loading="lazy"><span>${esc(a.title)}</span></a>`).join("")}</div>`),
     ].join("");
   },
 
@@ -373,12 +377,20 @@ const PREVIEW = {
 
 // ------------------------------------------------------------------- shell
 
-export const guideHref = (p) => (p.slug === "library" ? LIBRARY_PATH : `${GUIDE_PATH}${p.slug}/`);
+// Links between guide pages when they're served locally (npm run dev).
+// `slug` is a page's slug, "hub", or "library"; `hash` an anchor on it.
+export const localHref = (slug, hash = "") =>
+  (slug === "library" ? LIBRARY_PATH : slug === "hub" ? GUIDE_PATH : `${GUIDE_PATH}${slug}/`) + (hash ? `#${hash}` : "");
 
-function shell({ title, eyebrowText, lead, body, nav, current, commit }) {
+// Root-relative src/href → absolute on `base` (the Site URL), so a page works
+// as a single file hosted anywhere. Escaped markup in code samples is skipped.
+export const absolutize = (html, base) => (base ? html.replace(/\b(src|href)="\/(?!\/)/g, `$1="${base}/`) : html);
+
+function shell({ title, eyebrowText, lead, body, nav, current, variant, href, fullHref }) {
+  const embed = variant === "embed";
   return `<!doctype html>
 <!-- GENERATED by scripts/design-guide.mjs from design.md. Do not edit. -->
-<html lang="en">
+<html lang="en"${embed ? ' class="embed"' : ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -388,23 +400,21 @@ function shell({ title, eyebrowText, lead, body, nav, current, commit }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>if (/[?&]embed\\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
 <style>${CSS}</style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <a class="brand" href="${GUIDE_PATH}">${lockup(34)}<span class="tag">Design System</span></a>
-  <nav aria-label="Design system">${nav.map((p) => `<a href="${guideHref(p)}"${p.slug === current ? ' aria-current="page"' : ""}>${esc(p.title)}</a>`).join("")}</nav>
-</div></header>
+${embed ? "" : `<header class="top"><div class="wrap">
+  <a class="brand" href="${href("hub")}">${lockup(34)}<span class="tag">Design System</span></a>
+  <nav aria-label="Design system">${nav.map((p) => `<a href="${href(p.slug)}"${p.slug === current ? ' aria-current="page"' : ""}>${esc(p.title)}</a>`).join("")}</nav>
+</div></header>`}
 <main class="wrap">
-  <div class="hero"><p class="eyebrow">${esc(eyebrowText)}</p><h1>${esc(title)}</h1>${lead ? `<p class="lead">${lead}</p>` : ""}
-    <p class="open-full"><a href="${current ? `${GUIDE_PATH}${current === "hub" ? "" : current + "/"}` : GUIDE_PATH}" target="_blank" rel="noopener">Open full page ↗</a></p></div>
+  <div class="hero">${embed ? "" : `<p class="eyebrow">${esc(eyebrowText)}</p><h1>${esc(title)}</h1>`}${lead ? `<p class="lead">${lead}</p>` : ""}
+    ${embed && fullHref ? `<p class="open-full"><a href="${fullHref}" target="_blank" rel="noopener">Open full page ↗</a></p>` : ""}</div>
   ${body}
 </main>
-<footer><div class="wrap">
+${embed ? "" : `<footer><div class="wrap">
   <span>Generated from <a href="https://github.com/m20tech/m20-website/blob/main/design.md">design.md</a> and managed by agents. Edit the repo, not this page.</span>
-  <span>${commit ? esc(commit.slice(0, 7)) : ""}</span>
-</div></footer>
+</div></footer>`}
 <div class="toast" id="toast" role="status"></div>
 <script>${JS}</script>
 </body>
@@ -414,45 +424,63 @@ function shell({ title, eyebrowText, lead, body, nav, current, commit }) {
 
 // Links in design.md text: #section → the guide page that owns it; repo
 // paths → GitHub.
-function guideLinks(html, config) {
+function guideLinks(html, config, href) {
   const owner = new Map();
   for (const p of config.pages) for (const s of p.sections) owner.set(s.toLowerCase().replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"), p);
   return html.replace(/href="([^"]+)"/g, (all, h) => {
     if (h.startsWith("#")) {
       const p = owner.get(h.slice(1).replace(/-+/g, "-"));
-      return p ? `href="${guideHref(p)}"` : all;
+      return p ? `href="${href(p.slug)}"` : all;
     }
     if (/^(https?:|mailto:|\/)/.test(h)) return all;
     return `href="https://github.com/m20tech/m20-website/blob/main/${h}"`;
   });
 }
 
-export function writeDesignGuide(dist, { md, config, lib, site, commit = "" }) {
+// Every guide page as HTML, keyed by slug ("hub" for the index; the library
+// page is scripts/library.mjs's). `variant` is "full" or "embed"; `href(slug,
+// hash)` resolves links to other pages; `fullHref(slug)` is the full-page
+// link an embed offers; `base` makes asset URLs absolute.
+export function renderDesignGuide({ md, config, lib, site, variant = "full", href = localHref, fullHref = () => "", base = "" }) {
   const secs = sections(md).sections;
   const libJson = libraryJson(lib, { siteUrl: site.siteUrl });
-  const out = path.join(dist, GUIDE_PATH.replace(/^\/|\/$/g, ""));
-  fs.mkdirSync(out, { recursive: true });
   const nav = config.pages;
-  const ctx = { secs, lib: libJson, site };
+  const ctx = { secs, lib: libJson, site, href };
+  const finish = (html) => {
+    html = absolutize(html, base);
+    // Embeds can't download (the Iframe macro's sandbox blocks it): open the file instead.
+    return variant === "embed" ? html.replace(/ download>/g, ' target="_blank" rel="noopener">') : html;
+  };
+  const out = new Map();
 
   for (const p of config.pages) {
     if (p.slug === "library") continue;
     const visual = VISUALS[p.slug]?.(ctx) ?? "";
     const text = p.sections.map((s) => (p.sections.length > 1 ? `## ${s}\n\n` : "") + secs.get(s)).join("\n\n");
-    const body = `${visual}<section class="block guidelines"><h2>Guidelines</h2><p class="intro">The written rules from design.md.</p><div class="prose">${guideLinks(mdToHtml(text), config)}</div></section>`;
-    fs.mkdirSync(path.join(out, p.slug), { recursive: true });
-    fs.writeFileSync(path.join(out, p.slug, "index.html"), shell({ title: p.title, eyebrowText: "M20 Design System", lead: esc(p.summary), body, nav, current: p.slug, commit }));
+    const body = `${visual}<section class="block guidelines"><h2>Guidelines</h2><p class="intro">The written rules from design.md.</p><div class="prose">${guideLinks(mdToHtml(text), config, href)}</div></section>`;
+    out.set(p.slug, finish(shell({ title: p.title, eyebrowText: "M20 Design System", lead: esc(p.summary), body, nav, current: p.slug, variant, href, fullHref: fullHref(p.slug) })));
   }
 
-  const cards = config.pages.map((p) => `<a class="hub-card" href="${guideHref(p)}"><div class="pv">${PREVIEW[p.slug] ?? ""}</div><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></a>`).join("");
+  const cards = config.pages.map((p) => `<a class="hub-card" href="${href(p.slug)}"><div class="pv">${PREVIEW[p.slug] ?? ""}</div><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></a>`).join("");
   const summary = mdToHtml(secs.get("Brand summary") ?? "");
-  fs.writeFileSync(path.join(out, "index.html"), shell({
+  out.set("hub", finish(shell({
     title: "M20 Design System",
     eyebrowText: "Brand guide",
     lead: "How M20 Technology looks and sounds on the website and in email, PDFs, and slides. Every page shows the real thing.",
     body: `<div class="hub">${cards}</div><section class="block guidelines"><h2>In one paragraph</h2><div class="prose">${summary}</div></section>`,
-    nav, current: "hub", commit,
-  }));
+    nav, current: "hub", variant, href, fullHref: fullHref("hub"),
+  })));
+  return out;
+}
+
+// Local preview only (npm run dev): the full pages at /design/.
+export function writeDesignGuide(dist, opts) {
+  const out = path.join(dist, GUIDE_PATH.replace(/^\/|\/$/g, ""));
+  for (const [slug, html] of renderDesignGuide(opts)) {
+    const dir = slug === "hub" ? out : path.join(out, slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), html);
+  }
 }
 
 // -------------------------------------------------------------- CSS / JS
@@ -477,7 +505,7 @@ header.top nav a[aria-current] { background:var(--ink); color:#fff; }
 .eyebrow::before { content:""; width:40px; height:2px; background:currentColor; }
 h1 { font:700 clamp(36px,5vw,56px)/1.12 'Source Serif 4', Georgia, serif; letter-spacing:-.01em; margin:0 0 16px; }
 .lead { font-size:19px; color:var(--muted); max-width:720px; margin:0; }
-.open-full { display:none; margin:10px 0 0; font:600 14px 'Source Sans 3'; }
+.open-full { margin:10px 0 0; font:600 14px 'Source Sans 3'; }
 .block { padding-block:clamp(28px,4vw,44px) 0; }
 .block > h2 { font:600 clamp(24px,3vw,32px)/1.2 'Source Serif 4', Georgia, serif; letter-spacing:-.01em; margin:0 0 6px; }
 .block .intro { color:var(--muted); margin:0 0 20px; max-width:780px; }
@@ -626,19 +654,38 @@ footer a { color:#F5C98F; }
 html.embed header.top, html.embed footer { display:none; }
 html.embed .hero { padding-top:20px; }
 html.embed h1 { font-size:clamp(28px,4vw,40px); }
-html.embed .open-full { display:block; }
 @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 `;
 
 const JS = `
 (() => {
   const toast = (m) => { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 1500); };
-  const copy = (s, m) => navigator.clipboard.writeText(s).then(() => toast(m), () => toast("Copy failed"));
+  // Artifacts block the async clipboard API, so try execCommand first.
+  const copy = (s, m) => {
+    const t = document.createElement("textarea");
+    t.value = s; t.setAttribute("readonly", ""); t.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
+    (document.querySelector("dialog[open]") || document.body).appendChild(t);
+    t.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch {}
+    t.remove();
+    if (ok) return toast(m);
+    if (navigator.clipboard) navigator.clipboard.writeText(s).then(() => toast(m), () => toast("Copy failed"));
+    else toast("Copy failed");
+  };
+  // The download attribute is ignored across origins, so fetch the file and save the blob.
+  const save = (url) => fetch(url).then((r) => (r.ok ? r.blob() : Promise.reject())).then((b) => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = url.split("/").pop(); a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }).catch(() => window.open(url, "_blank", "noopener"));
   document.addEventListener("click", (e) => {
     const c = e.target.closest("[data-copy]");
     if (c) return copy(c.dataset.copy, c.dataset.copy + " copied");
     const b = e.target.closest(".copy");
-    if (b) copy(b.parentElement.querySelector("code").textContent, "HTML copied");
+    if (b) return copy(b.parentElement.querySelector("code").textContent, "HTML copied");
+    const d = e.target.closest("a[download]");
+    if (d) { e.preventDefault(); save(d.href); }
   });
   // style-hover="…": the site's hover convention, applied the same way here.
   document.querySelectorAll("[style-hover]").forEach((el) => {
@@ -650,7 +697,5 @@ const JS = `
   // Website thumbnails: scale each 1280px-wide page to its card.
   const thumbs = () => document.querySelectorAll(".thumb > div").forEach((d) => d.style.setProperty("--s", d.clientWidth / 1280));
   px(); thumbs(); addEventListener("resize", () => { px(); thumbs(); });
-  // In an embed, keep links to other guide pages inside the frame.
-  if (document.documentElement.classList.contains("embed")) document.querySelectorAll('a[href^="${GUIDE_PATH}"]').forEach((a) => { if (!a.target) a.search = "?embed"; });
 })();
 `;
