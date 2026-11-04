@@ -1,0 +1,14 @@
+{
+  "seo": {
+    "title": "Page not found | M20 Technology",
+    "description": "The page you're looking for doesn't exist or has moved. Head back to the M20 Technology home page.",
+    "noindex": true
+  },
+  "eyebrow": "Error 404",
+  "title": "Page not found",
+  "text": "The page you're looking for doesn't exist or has moved.",
+  "cta": {
+    "label": "Back to home",
+    "href": "/"
+  }
+}

@@ -312,6 +312,19 @@ const pages = [
     ],
   },
   {
+    name: "not-found",
+    label: "404 (page not found)",
+    template: "404.html",
+    path: "content/pages/404.json",
+    fields: [
+      seo(),
+      eyebrow(),
+      string("title", "Heading"),
+      text("text", "Text"),
+      link("cta", "Button"),
+    ],
+  },
+  {
     name: "case-study-intranet",
     label: "Case Study: Intranet",
     template: "case-study-intranet/index.html",

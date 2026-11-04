@@ -367,8 +367,14 @@ function serve(port) {
     if (!file.startsWith(DIST)) { res.writeHead(403).end(); return; }
     if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, "index.html");
     else if (!fs.existsSync(file) && fs.existsSync(`${file}.html`)) file = `${file}.html`;
-    if (!fs.existsSync(file)) { res.writeHead(404).end("Not found"); return; }
-    res.writeHead(200, { "content-type": TYPES[path.extname(file)] || "application/octet-stream", "cache-control": "no-store" });
+    let status = 200;
+    // Same as Cloudflare's not_found_handling "404-page": serve 404.html with a 404.
+    if (!fs.existsSync(file)) {
+      file = path.join(DIST, "404.html");
+      status = 404;
+      if (!fs.existsSync(file)) { res.writeHead(404).end("Not found"); return; }
+    }
+    res.writeHead(status, { "content-type": TYPES[path.extname(file)] || "application/octet-stream", "cache-control": "no-store" });
     fs.createReadStream(file).pipe(res);
   }).listen(port, () => console.log(`Serving dist/ at http://localhost:${port}`));
 }
