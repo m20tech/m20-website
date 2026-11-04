@@ -249,8 +249,8 @@ const pages = [
       object("stack", "Atlassian stack", [
         string("title", "Heading"),
         list("products", "Products", [
-          image("logo", "Logo", { required: false, description: "Official product logo for dark backgrounds (the -inverse file), shown above the name." }),
-          string("name", "Product"),
+          image("logo", "Logo", { required: false, description: "Official product logo for dark backgrounds (the -inverse file), shown at the top of the card." }),
+          string("name", "Product", { description: "The logo's alt text. Shown as a label only when the card has no logo." }),
           string("title", "Tagline"),
           strings("items", "Checklist"),
         ]),
