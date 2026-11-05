@@ -10,26 +10,45 @@ function rng(seed) {
   };
 }
 
+// A plain book spine, top-left at (x, top).
+function plainSpine(x, top, w, h, c) {
+  return `<rect x="${x}" y="${top}" width="${w}" height="${h}" rx="2" fill="${c}"/>
+    <rect x="${x + 3}" y="${top + 14}" width="${w - 6}" height="3" fill="#fff"
+      opacity=".22"/>
+    <rect x="${x}" y="${top}" width="${w}" height="${h}" rx="2"
+      fill="url(#spineShade)"/>`;
+}
+
 // A row of book spines standing on a shelf whose top surface is at y.
-function books(x0, x1, y, seed, colors, { hMin = 110, hMax = 165 } = {}) {
+// `spine(x, top, w, h, color, i)` draws one (default: plainSpine); with
+// `rainbow`, colours run through `colors` in order from left to right.
+// A leaning book rests its top on the book to its left.
+function books(x0, x1, y, seed, colors, { hMin = 110, hMax = 165,
+  spine = plainSpine, rainbow = false } = {}) {
   const r = rng(seed);
-  let s = "", x = x0;
+  let s = "", x = x0, prev = null, i = 0;
   while (x < x1) {
-    if (r() < 0.12) { x += 18 + r() * 30; continue; }        // gap
+    if (r() < 0.12) { x += 18 + r() * 30; prev = null; continue; }  // gap
     const w = 16 + r() * 18, h = hMin + r() * (hMax - hMin);
     if (x + w > x1) break;
-    const c = colors[Math.floor(r() * colors.length)];
-    if (r() < 0.1 && x + h * 0.5 < x1) {                        // leaning book
-      s += `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" rx="2"
-        fill="${c}" transform="rotate(18 ${x + w} ${y})"/>`;
-      x += w + h * 0.3;
+    let c = colors[Math.floor(r() * colors.length)];
+    if (rainbow) {
+      c = colors[Math.min(colors.length - 1,
+        Math.floor(((x - x0) / (x1 - x0)) * colors.length))];
+    }
+    if (r() < 0.1 && prev) {                                       // leaning book
+      // tilted 18° to the left about its bottom-left corner, placed so it
+      // touches the book beside it: its top corner against that book's side,
+      // or its side against that book's top corner when that book is shorter
+      const lx = prev.end + Math.min(h * 0.309, prev.h * 0.325);
+      if (lx + w > x1) break;
+      s += `<g transform="rotate(-18 ${lx} ${y})">${spine(lx, y - h, w, h, c, i++)}</g>`;
+      x = lx + w + 6;
+      prev = null;
       continue;
     }
-    s += `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" rx="2" fill="${c}"/>`;
-    s += `<rect x="${x + 3}" y="${y - h + 14}" width="${w - 6}" height="3"
-      fill="#fff" opacity=".22"/>`;
-    s += `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" rx="2"
-      fill="url(#spineShade)"/>`;
+    s += spine(x, y - h, w, h, c, i++);
+    prev = { end: x + w, h };
     x += w + 1.5;
   }
   return s;

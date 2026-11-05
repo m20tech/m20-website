@@ -192,7 +192,7 @@ export const LIBRARY = [
       "video-office-studio": { title: "Video background: studio office", tags: ["video call", "zoom", "teams", "meet", "office", "light", "window", "shelves"] },
       "video-office-lounge": { title: "Video background: lounge office", tags: ["video call", "zoom", "teams", "meet", "office", "dark", "bookshelf", "evening"] },
       "video-office-city": { title: "Video background: city office", tags: ["video call", "zoom", "teams", "meet", "office", "skyline", "window", "dusk"] },
-      "video-office-ny-fall": { title: "Video background: NY home office, fall", tags: ["video call", "zoom", "teams", "meet", "office", "new york", "suburb", "fall", "autumn", "pumpkins"] },
+      "video-office-ny-fall": { title: "Video background: NY home office, fall", tags: ["video call", "zoom", "teams", "meet", "office", "new york", "suburb", "fall", "autumn", "pumpkins", "turkey", "thanksgiving"] },
       "video-office-ny-winter": { title: "Video background: NY home office, winter", tags: ["video call", "zoom", "teams", "meet", "office", "new york", "suburb", "winter", "snow"] },
       "video-office-ny-spring": { title: "Video background: NY home office, spring", tags: ["video call", "zoom", "teams", "meet", "office", "new york", "suburb", "spring", "blossom"] },
       "video-office-ny-summer": { title: "Video background: NY home office, summer", tags: ["video call", "zoom", "teams", "meet", "office", "new york", "suburb", "summer"] },

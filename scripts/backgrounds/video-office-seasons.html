@@ -318,7 +318,54 @@ function viewNY() {
   } else {
     near += crown(WX + 10, WY + 40, 170, 105, CROWNS[SEASON], 12, 220, 0.16);
   }
-  return { sky, far, mid: ground + mid, near };
+  const pet = SEASON === "fall" && !HOLIDAY ? turkey(WX + 470, WY + WH - 20) : "";
+  return { sky, far, mid: ground + mid, near, pet };
+}
+
+// A wild turkey right outside the glass, fanned out, head up, peering in.
+function turkey(tx, by) {
+  const cx = tx + 40, cy = by - 24, R = 150;
+  const pt = (a, rr) => `${(cx + Math.cos(a) * rr).toFixed(1)} ${(cy + Math.sin(a) * rr).toFixed(1)}`;
+  let s = "";
+  // tail fan: contiguous feathers, banded near the tips
+  const a0 = Math.PI * 1.04, a1 = Math.PI * 1.96, n = 22, step = (a1 - a0) / n;
+  for (let i = 0; i < n; i++) {
+    const a = a0 + i * step;
+    s += `<path d="M${cx} ${cy} L${pt(a, R)} A${R} ${R} 0 0 1 ${pt(a + step, R)}Z"
+      fill="${i % 2 ? "#6B4A2E" : "#76533A"}" stroke="#4A3324" stroke-width="1"/>`;
+  }
+  const band = (rr, w, c, o = 1) => `<path d="M${pt(a0, rr)} A${rr} ${rr} 0 0 1 ${pt(a1, rr)}"
+    fill="none" stroke="${c}" stroke-width="${w}" opacity="${o}"/>`;
+  s += band(R * 0.52, 5, "#3B2A1E", 0.7) + band(R * 0.7, 4, "#3B2A1E", 0.7)
+    + band(R - 16, 14, "#C9A87A", 0.95) + band(R - 4, 8, "#3B2A1E");
+  // body: dark bronze with scalloped feather rows
+  s += `<ellipse cx="${tx + 20}" cy="${by}" rx="118" ry="88" fill="#3E2C20"/>`;
+  for (let row = 0; row < 4; row++) {
+    for (let k = 0; k < 8; k++) {
+      const fx = tx - 70 + k * 26 + (row % 2) * 13, fy = by - 62 + row * 22;
+      s += `<path d="M${fx - 11} ${fy} Q${fx} ${fy + 12} ${fx + 11} ${fy}" fill="none"
+        stroke="#9A7448" stroke-width="2.5" opacity=".7"/>`;
+    }
+  }
+  // neck, beard, head
+  const hx = tx - 100, hy = by - 132;
+  s += `<path d="M${tx - 62} ${by - 46} Q${tx - 100} ${by - 72} ${hx + 6} ${hy + 18}"
+      stroke="#9AAFC4" stroke-width="30" fill="none" stroke-linecap="round"/>
+    <ellipse cx="${tx - 58}" cy="${by - 40}" rx="34" ry="24" fill="#3E2C20"/>
+    <path d="M${tx - 78} ${by - 30} q-6 30 -2 50" stroke="#1E1712" stroke-width="7"
+      stroke-linecap="round" fill="none"/>
+    <path d="M${hx + 4} ${hy + 22} q-18 20 -8 40 q16 -2 20 -24Z" fill="#C0392B"/>
+    <circle cx="${hx + 18}" cy="${hy + 44}" r="7" fill="#C0392B"/>
+    <circle cx="${hx + 22}" cy="${hy + 30}" r="6" fill="#D24A3A"/>
+    <ellipse cx="${hx}" cy="${hy}" rx="24" ry="20" fill="#A9BCD0"
+      transform="rotate(-12 ${hx} ${hy})"/>
+    <path d="M${hx - 22} ${hy + 2} L${hx - 40} ${hy + 8} L${hx - 22} ${hy + 11}Z"
+      fill="#C9B48A"/>
+    <path d="M${hx - 16} ${hy - 12} q-10 10 -12 34" stroke="#C0392B" stroke-width="6"
+      stroke-linecap="round" fill="none"/>
+    <circle cx="${hx - 5}" cy="${hy - 3}" r="5.5" fill="#14171C"/>
+    <circle cx="${hx - 3.5}" cy="${hy - 4.5}" r="1.8" fill="#fff"/>`;
+  return s;
 }
 
 function viewDallas() {
@@ -363,6 +410,42 @@ for (let r = 1; r < 4; r++) {
   panes += `<rect x="${WX}" y="${WY + (WH / 4) * r - F / 2}" width="${WW}"
     height="${F}" fill="#2A2F37"/>`;
 }
+
+// O'Reilly-style spine: white cap with a small black animal, a thin black
+// rule, a solid subject-colour block with the title in white, a dark foot.
+const RAINBOW = ["#C2185B", "#D3382F", "#E8743B", "#E8A04C", "#1F9E8E", "#1E8FC8",
+  "#2D6BB5", "#4A4FA8", "#6A3FA0"];
+function oreillySpine(x, top, w, h, c, i) {
+  const r = rng(500 + i);
+  const cap = h * 0.17, foot = h * 0.09;
+  const ax = x + w * 0.5, ay = top + cap * 0.55, as = Math.min(w * 0.3, 7);
+  // a few animal silhouettes, chosen per book
+  const animals = [
+    `<ellipse cx="${ax}" cy="${ay}" rx="${as}" ry="${as * 0.6}" fill="#14171C"/>
+     <circle cx="${ax - as * 0.9}" cy="${ay - as * 0.5}" r="${as * 0.4}" fill="#14171C"/>`,
+    `<path d="M${ax - as} ${ay + as * 0.6} L${ax - as * 0.6} ${ay - as * 0.4} L${ax + as * 0.3}
+       ${ay - as * 0.7} L${ax + as} ${ay + as * 0.6}Z" fill="#14171C"/>`,
+    `<ellipse cx="${ax}" cy="${ay}" rx="${as * 0.55}" ry="${as}" fill="#14171C"/>
+     <path d="M${ax} ${ay - as} l${as * 0.5} ${-as * 0.4}" stroke="#14171C" stroke-width="1.5"/>`,
+  ];
+  const t1 = h * (0.34 + r() * 0.2), t2 = h * (0.12 + r() * 0.16);
+  return `<rect x="${x}" y="${top}" width="${w}" height="${h}" rx="1.5" fill="${c}"/>
+    <rect x="${x}" y="${top}" width="${w}" height="${cap}" rx="1.5" fill="#F7F5F0"/>
+    ${animals[Math.floor(r() * animals.length)]}
+    <rect x="${x}" y="${top + cap}" width="${w}" height="2.5" fill="#14171C"/>
+    <rect x="${x + w * 0.5 - (w > 24 ? 4 : 1.5)}" y="${top + cap + 10}" width="2.2"
+      height="${t1}" fill="#fff" opacity=".9"/>
+    ${w > 24 ? `<rect x="${x + w * 0.5 + 2}" y="${top + cap + 10}" width="2.2"
+      height="${t2}" fill="#fff" opacity=".75"/>` : ""}
+    <rect x="${x}" y="${top + h - foot}" width="${w}" height="${foot}" fill="#23282F"/>
+    <rect x="${x + w * 0.25}" y="${top + h - foot * 0.6}" width="${w * 0.5}" height="2.5"
+      fill="#F7F5F0" opacity=".8"/>
+    <rect x="${x}" y="${top}" width="${w}" height="${h}" rx="1.5" fill="url(#spineShade)"/>`;
+}
+const shelfBooks = (x0, x1, y, seed, opts = {}) => NY
+  ? books(x0, x1, y, seed, RAINBOW, { hMin: 138, hMax: 150, ...opts,
+      spine: oreillySpine, rainbow: true })
+  : books(x0, x1, y, seed, BOOKS, opts);
 
 function frame(x, y) {  // a small framed photo standing on a shelf at y
   return `<rect x="${x}" y="${y - 96}" width="74" height="96" rx="2" fill="#2A2F37"/>
@@ -540,6 +623,7 @@ document.getElementById("s").innerHTML = `
   </radialGradient>
   <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
   <filter id="haze"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <filter id="nearHaze"><feGaussianBlur stdDeviation="1"/></filter>
   <filter id="farHaze"><feGaussianBlur stdDeviation="4"/></filter>
   <filter id="beam"><feGaussianBlur stdDeviation="40"/></filter>
   <filter id="glow" x="-1" y="-1" width="3" height="3">
@@ -562,6 +646,7 @@ document.getElementById("s").innerHTML = `
   <rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="url(#sky)"/>
   <g filter="url(#farHaze)" opacity=".8">${view.far}</g>
   <g filter="url(#haze)">${view.mid}${view.near}</g>
+  ${view.pet ? `<g filter="url(#nearHaze)">${view.pet}</g>` : ""}
   <rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="#fff" opacity=".1"/>
 </g>
 ${panes}
@@ -573,12 +658,12 @@ ${HOLIDAY ? garland() : ""}
 
 <!-- right wall: shelves -->
 ${shelf(1400, 520, 400, "#C9A57E", "#B48C62")}
-${books(1418, 1650, 520, 3, BOOKS)}
+${shelfBooks(1418, 1650, 520, 3)}
 ${shelfTop}
 
 ${shelf(1400, 720, 400, "#C9A57E", "#B48C62")}
 ${shelfLow}
-${books(1540, 1790, 720, 9, BOOKS, { hMin: 100, hMax: 150 })}
+${shelfBooks(1540, 1790, 720, 9, NY ? { hMin: 126, hMax: 138 } : { hMin: 100, hMax: 150 })}
 
 <!-- credenza along the back wall -->
 <rect x="0" y="842" width="1920" height="30" fill="rgba(20,23,28,.14)"
@@ -605,7 +690,7 @@ ${stack(1500, 860, 4, ["#14171C", "#E8A04C", "#5A6270"], 3)}
 <path d="M1526 790 Q1570 836 1614 790Z" fill="#23282F"/>
 `;
 
-lockup({ x: 1420, y: 150, mark: 112 });
+lockup({ x: 1450, y: 160, mark: 92, opacity: 0.55, markFilter: "none", textShadow: "none" });
 </script>
 </body>
 </html>
