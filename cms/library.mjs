@@ -173,10 +173,15 @@ export const LIBRARY = [
     dir: "assets/backgrounds",
     files: ["assets/hero-network.jpg"],
     kind: "image",
-    description: "Hero photography, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes in the site palette.",
+    description: "Hero photography and its vector take, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes in the site palette.",
     usage: "Video-call backgrounds for Zoom, Meet, and Teams (the name-card versions have space for your name), Gmail themes, slide backgrounds, hero images.",
     items: {
       "hero-network": { title: "Hero network mesh", tags: ["hero", "photography", "network", "mesh", "dark", "red"], note: "Homepage hero. Pair with a left-to-right dark gradient for text." },
+      "hero-network-mesh": {
+        title: "Hero network mesh (vector)",
+        tags: ["hero", "vector", "network", "mesh", "dark", "red", "glow", "svg"],
+        note: "Vector take on the homepage hero photo, same 2752×1536 size. The SVG stays sharp at any size; its blur and glow are SVG filters, so use the PNG where filters don't render (email, some slide apps). Pair with a left-to-right dark gradient for text.",
+      },
       "video-ink-network": { title: "Video background: ink network", tags: ["video call", "zoom", "teams", "meet", "dark", "network"] },
       "video-ink-minimal": { title: "Video background: ink minimal", tags: ["video call", "zoom", "teams", "meet", "dark", "minimal", "logo"] },
       "video-maroon": { title: "Video background: maroon", tags: ["video call", "zoom", "teams", "meet", "red", "maroon", "gradient"] },
