@@ -65,9 +65,13 @@ Hosting is Cloudflare Workers (static assets) with Workers Builds connected to t
 
 1. **All changes go to the `preview` branch** unless the user names a different branch. Commit there and **push after every change** — don't leave work unpushed and don't commit to `main` directly.
 2. After pushing, wait for the "Workers Builds: m20-website" check on the commit (`gh api repos/m20tech/m20-website/commits/<sha>/check-runs`) and **give the user the preview URL**: `https://preview-m20-website.mike-124.workers.dev` (or `https://<branch>-m20-website.mike-124.workers.dev` for another branch). If the build failed, report it with the reason.
-3. **Only when the user asks**, open a PR from `preview` into `main` for production (`gh pr create --base main --head preview`), summarizing everything on `preview` that isn't on `main`, and give the user the PR link.
-4. **Merge only when the user tells you to publish.** Production merges go through Claude Code so the release steps below always run together:
-   1. Merge with a merge commit, keeping the branch: `gh pr merge <n> --merge`.
+3. **Only when the user asks** to release (publish, merge to `main`, or open a production PR), first check whether `preview` changes the website: `git fetch && npm run site:diff` on `preview` (it builds `origin/main` and `HEAD` the way production does and compares the pages, shared components, scripts, sitemap/robots/headers/redirects, hosting config, and every asset a page uses; see the top of `scripts/site-diff.mjs`). Then:
+   - **No website changes** (`✓`, exit 0; for example only the asset library, `design.md`, docs, or scripts changed): **no PR or review is needed.** Merge directly, as step 4.1 describes, and run the release steps.
+   - **Website changes** (`✗`, exit 1, listing the files): open a PR from `preview` into `main` (`gh pr create --base main --head preview`), summarizing everything on `preview` that isn't on `main` and pasting the `site:diff` list, and give the user the PR link. Merge it only when the user tells you to publish.
+4. **Production merges go through Claude Code** so the release steps below always run together:
+   1. Merge with a merge commit, keeping the branch:
+      - Website changes: `gh pr merge <n> --merge`.
+      - No website changes: merge `origin/preview` into `origin/main` and push it, with no PR: `git checkout --detach origin/main && git merge --no-ff origin/preview -m "<ticket keys> Merge preview into main" && git push origin HEAD:main`. `main`'s branch protection requires an approved PR, which repo admins may bypass, so this needs an admin account (Mike's); if the push is rejected, fall back to the PR flow and say why. Re-run `npm run site:diff` right before merging if `preview` moved since you checked.
    2. Wait for the "Workers Builds: m20-website" check on the merge commit to succeed, and give the user the production URL, https://m20-website.mike-124.workers.dev.
    3. **Publish the user guide to Confluence.** Use the Atlassian (Rovo) MCP tool `updateConfluencePage` with cloudId `m20tech.atlassian.net`, pageId `6233292802` ([Website](https://m20tech.atlassian.net/wiki/x/AoCIcwE)), `contentFormat: "markdown"`, and a version message naming the merge commit. The body is `docs/website-guide.md` as it is on `main`, without its `# M20 Website Guide` heading (the page title is "Website"), followed by `---` and an italic footer: *Published from `main` at commit [<short sha>](https://github.com/m20tech/m20-website/commit/<sha>) on <date>. Source: [docs/website-guide.md](https://github.com/m20tech/m20-website/blob/main/docs/website-guide.md).* Publish every release, even if the guide didn't change, so the footer matches production. If the Atlassian tools aren't available, say so. Don't skip this step silently.
    4. **Publish the design system** (artifacts, then Confluence) — see **Publishing the design system** below. Run it every release; it only republishes the artifacts whose HTML changed and the pages whose source changed, plus the hub.
@@ -75,7 +79,7 @@ Hosting is Cloudflare Workers (static assets) with Workers Builds connected to t
    6. Move the Jira ticket to Done and add the commit hashes.
    If someone merged on GitHub directly, run steps 2–6 as soon as you notice (for example, `main` has commits that the Confluence footers don't mention).
 5. **Keep the user guide current:** `docs/website-guide.md` is the user-facing documentation (architecture, CMS, process). Update it in the same change whenever any of those change. Never edit the Confluence page directly — it's overwritten on every release.
-6. CMS editors follow the same flow: in PagesCMS, switch the branch selector to `preview`, make edits (each save is a commit that rebuilds the preview), then ask for a production PR.
+6. CMS editors follow the same flow: in PagesCMS, switch the branch selector to `preview`, make edits (each save is a commit that rebuilds the preview), then ask for a production release. CMS content edits change pages, so they always go through a PR.
 
 ### Publishing the design system
 

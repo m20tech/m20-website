@@ -1,12 +1,13 @@
 // Shared M20 logo lockup for the video backgrounds: mark + stacked
 // "M20 / TECHNOLOGY" wordmark, per design.md "Logo & lockup".
-// lockup({ x, y, mark, ink, muted, markFilter, textShadow }) appends it to <body>.
+// lockup({ x, y, mark, ink, muted, markFilter, textShadow, opacity }) appends it
+// to <body>. A lower opacity makes it read as part of the room (a subtle mark).
 function lockup({ x, y, mark = 104, ink = "#14171C", muted = "#5A6270",
   markFilter = "drop-shadow(0 2px 3px rgba(20,23,28,.18))",
-  textShadow = "0 2px 3px rgba(20,23,28,.18)" }) {
+  textShadow = "0 2px 3px rgba(20,23,28,.18)", opacity = 1 }) {
   const el = document.createElement("div");
   el.style.cssText = `position:absolute;left:${x}px;top:${y}px;display:flex;
-    align-items:center;gap:${Math.round(mark * 0.2)}px;`;
+    align-items:center;gap:${Math.round(mark * 0.2)}px;opacity:${opacity};`;
   el.innerHTML = `
     <img src="../../assets/logo.png" width="${mark}" height="${mark}"
       style="display:block;filter:${markFilter}">

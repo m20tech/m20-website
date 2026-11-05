@@ -1,0 +1,711 @@
+<!doctype html>
+<!--
+  M20 video backgrounds: the "Studio" office with a home-office view.
+  ?v= picks the variant:
+    ny-fall | ny-winter | ny-spring | ny-summer  suburban New York street
+    ny-holiday   the winter street, with Christmas and Hanukkah decorations
+    dallas       a Dallas-area street: brick ranch houses, live oaks, big sky
+  The NY rooms have no plants indoors. The logo stays top-right and the
+  centre stays clear for the speaker.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=block"
+  rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+    position: relative; background: #F3EEE8; }
+  svg { display: block; position: absolute; inset: 0; filter: blur(0.8px); }
+</style>
+<script src="scenes.js"></script>
+<script src="lockup.js"></script>
+</head>
+<body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080"
+  xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const V = new URLSearchParams(location.search).get("v") || "ny-fall";
+const SEASON = V === "dallas" ? "dallas"
+  : V === "ny-holiday" ? "winter" : V.replace("ny-", "");
+const HOLIDAY = V === "ny-holiday";
+const NY = V.startsWith("ny-");
+
+const BOOKS = ["#14171C", "#23282F", "#C0392B", "#E8A04C", "#5A6270",
+  "#9AA1AD", "#E4DCD3", "#F0C9A8", "#96271C", "#D5D9E1"];
+
+// Window: 4 x 4 panes, wider than the studio's so the view carries the season.
+const WX = 100, WY = 70, WW = 600, WH = 720, F = 12;
+const GROUND = WY + WH * (SEASON === "dallas" ? 0.6 : 0.56);
+
+// ---- the view -------------------------------------------------------------
+
+const SKY = {
+  fall: ["#C9D6E2", "#F3EADF"], winter: ["#C7CED6", "#ECEDEE"],
+  spring: ["#BFD7EA", "#F1F2EA"], summer: ["#9FC4E4", "#EAF1F2"],
+  dallas: ["#7FAFD9", "#ECEFEC"],
+};
+const SKY_HOLIDAY = ["#B7BED0", "#F2D9C9"];  // late-afternoon winter glow
+
+const LAWN = {
+  fall: "#97A060", winter: "#F2F4F6", spring: "#9DBE6E", summer: "#7C9E56",
+  dallas: "#A3A665",
+};
+const CROWNS = {
+  fall: ["#C0392B", "#D9622B", "#E8A04C", "#F2C14E", "#9C3A1F", "#B5651D",
+    "#8E9447"],
+  spring: ["#A8C982", "#B9D493", "#93B872", "#C6DDA2"],
+  summer: ["#3F5A3C", "#4F6B4A", "#5E7D57", "#6E8C64", "#46633F"],
+  dallas: ["#4E5B35", "#5C6B3E", "#6B7A48", "#58663A"],
+};
+const BLOSSOM = ["#F4C6D2", "#F8DCE4", "#FFFFFF", "#EFB3C4"];
+
+// A crown of overlapping discs filling an ellipse.
+function crown(cx, cy, rx, ry, colors, seed, n = 40, dot = 0.32) {
+  const r = rng(seed);
+  let s = "";
+  for (let i = 0; i < n; i++) {
+    const a = r() * Math.PI * 2, d = Math.sqrt(r());
+    const x = cx + Math.cos(a) * rx * d, y = cy + Math.sin(a) * ry * d;
+    const rad = Math.min(rx, ry) * dot * (0.6 + r() * 0.6);
+    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(1)}"
+      fill="${colors[Math.floor(r() * colors.length)]}"/>`;
+  }
+  return s;
+}
+
+// Bare branches, recursively; snow sits on top of the thicker ones.
+function branches(x, y, len, a, depth, r, snow) {
+  if (depth === 0 || len < 6) return "";
+  const x2 = x + Math.cos(a) * len, y2 = y + Math.sin(a) * len;
+  const w = Math.max(1, depth * 1.6);
+  let s = `<path d="M${x.toFixed(1)} ${y.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}"
+    stroke="#5B5048" stroke-width="${w}" stroke-linecap="round"/>`;
+  if (snow && depth > 2) {
+    s += `<path d="M${x.toFixed(1)} ${(y - w * 0.5).toFixed(1)}
+      L${x2.toFixed(1)} ${(y2 - w * 0.5).toFixed(1)}" stroke="#fff"
+      stroke-width="${w * 0.55}" stroke-linecap="round" opacity=".9"/>`;
+  }
+  const k = 2 + (r() < 0.4 ? 1 : 0);
+  for (let i = 0; i < k; i++) {
+    const na = a + (i - (k - 1) / 2) * (0.5 + r() * 0.3) + (r() - 0.5) * 0.3;
+    s += branches(x2, y2, len * (0.66 + r() * 0.14), na, depth - 1, r, snow);
+  }
+  return s;
+}
+
+// A deciduous street tree standing at (x, base), dressed for the season.
+function tree(x, base, size, seed, season = SEASON) {
+  const r = rng(seed);
+  const trunkH = size * 0.55;
+  let s = `<path d="M${x - size * 0.05} ${base} L${x - size * 0.03} ${base - trunkH}
+    L${x + size * 0.03} ${base - trunkH} L${x + size * 0.05} ${base}Z" fill="#5B5048"/>`;
+  if (season === "winter") {
+    for (let i = 0; i < 4; i++) {
+      s += branches(x, base - trunkH * (0.7 + i * 0.1), size * 0.32,
+        -Math.PI / 2 + (i - 1.5) * 0.42, 5, r, true);
+    }
+    return s;
+  }
+  const cy = base - trunkH - size * 0.28;
+  if (season === "dallas") {  // live oak: low, wide, dark
+    s += crown(x, cy + size * 0.14, size * 0.6, size * 0.3, CROWNS.dallas, seed, 150, 0.2);
+    return s;
+  }
+  s += crown(x, cy, size * 0.42, size * 0.46, CROWNS[season], seed, 140, 0.19);
+  return s;
+}
+
+function blossomTree(x, base, size, seed) {
+  const r = rng(seed);
+  let s = branches(x, base, size * 0.4, -Math.PI / 2, 4, r, false);
+  s += crown(x, base - size * 0.62, size * 0.42, size * 0.32, BLOSSOM, seed, 150, 0.16);
+  return s;
+}
+
+function spruce(x, base, h, snow) {
+  let s = `<rect x="${x - 5}" y="${base - h * 0.12}" width="10" height="${h * 0.12}"
+    fill="#4A3F36"/>`;
+  for (let i = 0; i < 4; i++) {
+    const t = base - h * 0.1 - i * h * 0.22, w = h * (0.36 - i * 0.07);
+    s += `<path d="M${x - w} ${t} L${x} ${t - h * 0.36} L${x + w} ${t}Z"
+      fill="${i % 2 ? "#2F4A3A" : "#35523F"}"/>`;
+    if (snow) {
+      s += `<path d="M${x - w * 0.55} ${t - h * 0.16} L${x} ${t - h * 0.36}
+        L${x + w * 0.55} ${t - h * 0.16} Q${x} ${t - h * 0.22} ${x - w * 0.55}
+        ${t - h * 0.16}Z" fill="#fff" opacity=".9"/>`;
+    }
+  }
+  return s;
+}
+
+// String lights along a polyline: a bulb every `gap` px with a soft glow.
+function lights(points, gap, seed) {
+  const r = rng(seed);
+  const colors = ["#FF5A4A", "#FFD36B", "#6BD38A", "#6BB8FF", "#FFF4D6"];
+  let s = "";
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x1, y1] = points[i], [x2, y2] = points[i + 1];
+    const n = Math.max(1, Math.round(Math.hypot(x2 - x1, y2 - y1) / gap));
+    for (let j = 0; j < n; j++) {
+      const x = x1 + ((x2 - x1) * j) / n, y = y1 + ((y2 - y1) * j) / n;
+      const c = colors[Math.floor(r() * colors.length)];
+      s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="${c}"
+        opacity=".45" filter="url(#glow)"/>
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="${c}"/>`;
+    }
+  }
+  return s;
+}
+
+// A two-storey colonial: side-gabled roof, shutters, a door with a small portico.
+function colonial(x, base, w, { siding, roof, trim = "#F7F4F0", shutter, door,
+  chimney = true, snow = false, deco = false }) {
+  const h = w * 0.5, top = base - h, rh = w * 0.24;
+  let s = `<rect x="${x}" y="${top}" width="${w}" height="${h}" fill="${siding}"/>`;
+  // clapboard lines
+  for (let y = top + 8; y < base; y += 8) {
+    s += `<rect x="${x}" y="${y}" width="${w}" height="1" fill="#000" opacity=".05"/>`;
+  }
+  if (chimney) {
+    s += `<rect x="${x + w * 0.8}" y="${top - rh - 14}" width="${w * 0.07}"
+      height="${rh + 14}" fill="#8A4B3C"/>`;
+  }
+  const roofPts = `${x - 8},${top} ${x + w * 0.16},${top - rh} ${x + w * 0.84},${top - rh}
+    ${x + w + 8},${top}`;
+  s += `<polygon points="${roofPts}" fill="${roof}"/>`;
+  if (snow) {
+    s += `<polygon points="${x - 8},${top - 3} ${x + w * 0.16},${top - rh}
+      ${x + w * 0.84},${top - rh} ${x + w + 8},${top - 3}" fill="#F4F6F8"/>
+      <rect x="${x - 8}" y="${top - 4}" width="${w + 16}" height="6" rx="3" fill="#fff"/>`;
+  }
+  s += `<rect x="${x - 8}" y="${top - 2}" width="${w + 16}" height="5" fill="${trim}"/>`;
+  // windows: 3 up, 2 down either side of the door
+  const ww = w * 0.12, wh = h * 0.28;
+  const win = (cx, cy) => `<rect x="${cx - ww / 2 - ww * 0.42}" y="${cy}" width="${ww * 0.36}"
+      height="${wh}" fill="${shutter}"/>
+    <rect x="${cx + ww / 2 + ww * 0.06}" y="${cy}" width="${ww * 0.36}" height="${wh}"
+      fill="${shutter}"/>
+    <rect x="${cx - ww / 2}" y="${cy}" width="${ww}" height="${wh}" fill="${trim}"/>
+    <rect x="${cx - ww / 2 + 3}" y="${cy + 3}" width="${ww - 6}" height="${wh - 6}"
+      fill="${deco ? "#F6D9A4" : "#8C98A6"}"/>
+    <rect x="${cx - 0.75}" y="${cy + 3}" width="1.5" height="${wh - 6}" fill="${trim}"/>`;
+  for (const fx of [0.2, 0.5, 0.8]) s += win(x + w * fx, top + h * 0.12);
+  for (const fx of [0.2, 0.8]) s += win(x + w * fx, top + h * 0.56);
+  const dw = w * 0.1, dh = h * 0.36;
+  s += `<rect x="${x + w / 2 - dw / 2 - 6}" y="${base - dh - 14}" width="${dw + 12}"
+      height="6" fill="${trim}"/>
+    <rect x="${x + w / 2 - dw / 2}" y="${base - dh}" width="${dw}" height="${dh}"
+      fill="${door}"/>`;
+  if (deco) {
+    s += `<circle cx="${x + w / 2}" cy="${base - dh * 0.62}" r="${dw * 0.3}" fill="none"
+      stroke="#2F5A3A" stroke-width="${dw * 0.16}"/>
+      <circle cx="${x + w / 2}" cy="${base - dh * 0.62 + dw * 0.28}" r="2.5" fill="#C0392B"/>`;
+    s += lights([[x - 8, top + 1], [x + w * 0.16, top - rh], [x + w * 0.84, top - rh],
+      [x + w + 8, top + 1]], 11, Math.round(x));
+  }
+  return s;
+}
+
+// A single-storey brick ranch with a low hip roof and a two-car garage.
+function ranch(x, base, w, { brick, roof, trim = "#F1ECE4", door = "#5A4636" }) {
+  const h = w * 0.24, top = base - h, rh = w * 0.11;
+  let s = `<rect x="${x}" y="${top}" width="${w}" height="${h}" fill="${brick}"/>`;
+  for (let y = top + 5; y < base; y += 5) {
+    s += `<rect x="${x}" y="${y}" width="${w}" height="1" fill="#fff" opacity=".07"/>`;
+  }
+  s += `<polygon points="${x - 12},${top + 2} ${x + w * 0.22},${top - rh}
+    ${x + w * 0.78},${top - rh} ${x + w + 12},${top + 2}" fill="${roof}"/>
+    <rect x="${x - 12}" y="${top}" width="${w + 24}" height="4" fill="${trim}"/>`;
+  const gw = w * 0.36, gh = h * 0.62;
+  s += `<rect x="${x + w * 0.58}" y="${base - gh}" width="${gw}" height="${gh}"
+    fill="${trim}"/>`;
+  for (let i = 1; i < 4; i++) {
+    s += `<rect x="${x + w * 0.58}" y="${base - gh + (gh / 4) * i}" width="${gw}"
+      height="1.5" fill="#000" opacity=".12"/>`;
+  }
+  for (const fx of [0.1, 0.3]) {
+    s += `<rect x="${x + w * fx}" y="${top + h * 0.3}" width="${w * 0.1}"
+      height="${h * 0.4}" fill="${trim}"/>
+      <rect x="${x + w * fx + 3}" y="${top + h * 0.3 + 3}" width="${w * 0.1 - 6}"
+      height="${h * 0.4 - 6}" fill="#7E8C99"/>`;
+  }
+  s += `<rect x="${x + w * 0.45}" y="${base - h * 0.62}" width="${w * 0.07}"
+    height="${h * 0.62}" fill="${door}"/>`;
+  return s;
+}
+
+function viewNY() {
+  const snow = SEASON === "winter";
+  const sky = HOLIDAY ? SKY_HOLIDAY : SKY[SEASON];
+  let far = "", mid = "", near = "";
+  // distant tree line behind the houses
+  const fr = rng(31);
+  for (let x = WX - 40; x < WX + WW + 40; x += 34) {
+    const y = GROUND - 140 - fr() * 40;
+    if (SEASON === "winter") {
+      far += branches(x, GROUND - 90, 60 + fr() * 30, -Math.PI / 2, 4, fr, false);
+    } else {
+      far += crown(x, y + 30, 46, 44, CROWNS[SEASON], 100 + x, 8, 0.5);
+    }
+  }
+  if (snow) far = `<g opacity=".45">${far}</g>`;
+  // houses across the street
+  const houses = [
+    { siding: "#E9E4DA", roof: "#4A4F57", shutter: "#2F3E4F", door: "#96271C" },
+    { siding: "#9FB1C0", roof: "#3E434A", shutter: "#F7F4F0", door: "#2F3E4F" },
+    { siding: "#C7B79A", roof: "#5A4D44", shutter: "#3D4A3A", door: "#14171C" },
+  ];
+  const HB = GROUND + 92;
+  mid += colonial(WX - 120, HB, 250, { ...houses[2], snow, deco: HOLIDAY, chimney: false });
+  mid += colonial(WX + 170, HB, 270, { ...houses[0], snow, deco: HOLIDAY });
+  mid += colonial(WX + 520, HB, 250, { ...houses[1], snow, deco: HOLIDAY });
+  // trees between the houses
+  if (SEASON === "spring") {
+    mid += blossomTree(WX + 480, HB + 6, 210, 4);
+    mid += tree(WX + 150, HB + 6, 190, 5);
+  } else {
+    mid += tree(WX + 480, HB + 6, 210, 4);
+    mid += tree(WX + 150, HB + 6, 190, 5);
+  }
+  mid += spruce(WX + 560, HB + 8, 150, snow);
+  // lawns, sidewalk, street, near verge
+  const lawn = LAWN[SEASON];
+  let ground = `<rect x="${WX}" y="${HB - 6}" width="${WW}" height="40" fill="${lawn}"/>
+    <rect x="${WX}" y="${HB + 34}" width="${WW}" height="14" fill="${snow ? "#E2E5E8" : "#CFCBC3"}"/>
+    <rect x="${WX}" y="${HB + 48}" width="${WW}" height="64"
+      fill="${snow ? "#8E949B" : "#6F737A"}"/>
+    <rect x="${WX}" y="${HB + 78}" width="${WW}" height="3" fill="#E8D9A8" opacity=".55"/>
+    <rect x="${WX}" y="${HB + 112}" width="${WW}" height="${WY + WH - HB - 112}"
+      fill="${lawn}"/>`;
+  if (snow) {
+    ground += `<path d="M${WX} ${HB + 52} Q${WX + 150} ${HB + 40} ${WX + 300} ${HB + 52}
+      T${WX + WW} ${HB + 52} L${WX + WW} ${HB + 44} L${WX} ${HB + 44}Z" fill="#F2F4F6"/>
+      <path d="M${WX} ${HB + 112} Q${WX + 200} ${HB + 100} ${WX + 400} ${HB + 112}
+      T${WX + WW} ${HB + 110} L${WX + WW} ${HB + 120} L${WX} ${HB + 120}Z" fill="#F2F4F6"/>`;
+  }
+  if (SEASON === "fall") {  // fallen leaves on both lawns
+    const lr = rng(77);
+    for (let i = 0; i < 160; i++) {
+      const y = lr() < 0.5 ? HB - 4 + lr() * 36 : HB + 114 + lr() * (WY + WH - HB - 114);
+      ground += `<ellipse cx="${(WX + lr() * WW).toFixed(1)}" cy="${y.toFixed(1)}"
+        rx="${(2 + lr() * 3).toFixed(1)}" ry="1.6"
+        fill="${CROWNS.fall[Math.floor(lr() * 6)]}"/>`;
+    }
+  }
+  // a white picket fence along our front lawn
+  const fb = WY + WH - 26, fh = 54;
+  ground += `<rect x="${WX}" y="${fb - fh * 0.75}" width="${WW}" height="7" fill="#E9E5DC"/>
+    <rect x="${WX}" y="${fb - fh * 0.3}" width="${WW}" height="7" fill="#E9E5DC"/>`;
+  for (let x = WX + 4; x < WX + WW; x += 24) {
+    ground += `<path d="M${x} ${fb} L${x} ${fb - fh} L${x + 7} ${fb - fh - 9} L${x + 14}
+      ${fb - fh} L${x + 14} ${fb}Z" fill="#F7F4EE"/>`;
+    if (snow) {
+      ground += `<path d="M${x - 1} ${fb - fh + 2} L${x + 7} ${fb - fh - 10} L${x + 15}
+        ${fb - fh + 2}Z" fill="#fff"/>`;
+    }
+  }
+  if (snow) {
+    ground += `<rect x="${WX}" y="${fb - 6}" width="${WW}" height="${WY + WH - fb + 6}"
+      fill="#F2F4F6"/>`;
+  }
+  // a big tree on our side of the street, its canopy framing the top-left
+  if (SEASON === "winter") {
+    near += branches(WX - 60, WY + 300, 170, -Math.PI / 2 + 0.55, 5, rng(9), true);
+  } else if (SEASON === "spring") {
+    near += crown(WX + 10, WY + 40, 170, 105, CROWNS.spring, 12, 220, 0.16);
+    near += crown(WX + 90, WY + 90, 90, 55, BLOSSOM, 13, 70, 0.16);
+  } else {
+    near += crown(WX + 10, WY + 40, 170, 105, CROWNS[SEASON], 12, 220, 0.16);
+  }
+  const pet = SEASON === "fall" && !HOLIDAY ? turkey(WX + WW, WY + WH + 90, 0.62, -12) : "";
+  return { sky, far, mid: ground + mid, near, pet };
+}
+
+// A silly cartoon turkey peeking in: drawn around its body centre (0, 0),
+// then placed at (tx, ty), scaled and tilted. Big eyes with lashes, a wide
+// open-beak grin, a dangling snood, and a fan of rounded feathers.
+function turkey(tx, ty, scale = 1, tilt = 0) {
+  let s = "";
+  const lobe = (a, rr, rx, ry, fill) => {
+    const x = Math.cos(a) * rr, y = Math.sin(a) * rr, deg = (a * 180) / Math.PI + 90;
+    return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rx}" ry="${ry}"
+      fill="${fill}" transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+  };
+  // fan: dark outer feathers, then orange, each with a darker inner tip
+  for (let i = 0; i <= 9; i++) {
+    const a = Math.PI * (1.02 + (i / 9) * 0.96);
+    s += lobe(a, 285, 64, 98, "#5B2E1E") + lobe(a, 266, 48, 70, "#47231A");
+  }
+  for (let i = 0; i <= 9; i++) {
+    const a = Math.PI * (1.0 + (i / 9) * 1.0) + 0.06;
+    s += lobe(a, 214, 54, 78, "#F58220") + lobe(a, 192, 42, 50, "#FF9A3C");
+  }
+  s += `<circle r="152" fill="#43211A"/><circle r="140" fill="#5A2A1C"/>
+    <circle cx="-30" cy="-30" r="96" fill="#663220" opacity=".55"/>`;
+  // neck with a frilly base
+  s += `<path d="M-10 -40 Q-40 -150 -70 -230" stroke="#F06B5E" stroke-width="86"
+      fill="none" stroke-linecap="round"/>`;
+  for (const [x, y, r] of [[-62, -12, 22], [-30, 4, 24], [4, -2, 22], [24, -30, 18],
+    [-74, -40, 18]]) s += `<circle cx="${x}" cy="${y}" r="${r}" fill="#F06B5E"/>`;
+  // head, tilted toward the glass
+  const H = [-80, -300];
+  const h = (dx, dy) => `${H[0] + dx} ${H[1] + dy}`;
+  s += `<g transform="rotate(-14 ${H[0]} ${H[1]})">
+    <ellipse cx="${H[0] + 6}" cy="${H[1] - 6}" rx="96" ry="92" fill="#F37266"/>
+    <ellipse cx="${H[0] + 30}" cy="${H[1] - 40}" rx="50" ry="36" fill="#F7877A" opacity=".7"/>
+    <!-- grin: yellow beak around an open mouth -->
+    <path d="M${h(-128, -6)} Q${h(-140, 76)} ${h(-34, 92)} Q${h(66, 98)} ${h(84, 40)}
+      Q${h(36, 20)} ${h(-20, 20)} Q${h(-84, 14)} ${h(-128, -6)}Z" fill="#F9B92E"/>
+    <path d="M${h(-100, 14)} Q${h(-66, 70)} ${h(-12, 68)} Q${h(36, 64)} ${h(56, 40)}
+      Q${h(0, 40)} ${h(-100, 14)}Z" fill="#3A1A12"/>
+    <path d="M${h(-96, 16)} Q${h(-60, 30)} ${h(52, 40)}" stroke="#fff" stroke-width="5"
+      fill="none" stroke-linecap="round"/>
+    <ellipse cx="${H[0] - 36}" cy="${H[1] + 58}" rx="28" ry="9" fill="#D9443B"/>
+    <path d="M${h(-118, -12)} Q${h(-44, -36)} ${h(44, 2)} Q${h(4, 30)} ${h(-52, 22)}
+      Q${h(-100, 14)} ${h(-118, -12)}Z" fill="#FCC93A"/>
+    <circle cx="${H[0] - 10}" cy="${H[1] - 6}" r="4" fill="#3A1A12"/>
+    <!-- eyes with lashes -->
+    ${[[-30, -52, 1], [44, -40, 1]].map(([dx, dy]) => {
+      const ex = H[0] + dx, ey = H[1] + dy;
+      return `<ellipse cx="${ex}" cy="${ey}" rx="34" ry="38" fill="#fff" stroke="#14171C"
+          stroke-width="5"/>
+        <circle cx="${ex - 4}" cy="${ey + 6}" r="24" fill="#14171C"/>
+        <circle cx="${ex + 6}" cy="${ey - 4}" r="8" fill="#fff"/>
+        <circle cx="${ex - 10}" cy="${ey + 16}" r="3.5" fill="#fff"/>
+        ${[-14, 0, 14].map((o) => `<path d="M${ex + o} ${ey - 37} l${o * 0.5} -16"
+          stroke="#14171C" stroke-width="4" stroke-linecap="round"/>`).join("")}`;
+    }).join("")}
+    <!-- snood dangling over the beak -->
+    <path d="M${h(4, -12)} C${h(30, 18)} ${h(-8, 44)} ${h(10, 86)}" stroke="#C62828"
+      stroke-width="13" fill="none" stroke-linecap="round"/>
+  </g>`;
+  return `<g transform="translate(${tx} ${ty}) rotate(${tilt}) scale(${scale})">${s}</g>`;
+}
+
+function viewDallas() {
+  let far = "", mid = "", near = "";
+  // flat horizon, a hazy downtown skyline far off to the right
+  const sr = rng(41);
+  for (let x = WX + 330; x < WX + 500; x += 12 + sr() * 12) {
+    const h = 40 + sr() * 90;
+    far += `<rect x="${x}" y="${GROUND - h}" width="${10 + sr() * 14}" height="${h}"
+      fill="${sr() < 0.5 ? "#7F94A9" : "#8DA1B4"}"/>`;
+  }
+  far += crown(WX + 150, GROUND - 6, 160, 18, ["#8E9A6E", "#99A47A"], 51, 26, 0.6);
+  far += crown(WX + 560, GROUND - 4, 120, 14, ["#8E9A6E", "#99A47A"], 52, 20, 0.6);
+  const HB = GROUND + 96;
+  mid += `<rect x="${WX}" y="${GROUND - 2}" width="${WW}" height="${HB - GROUND + 40}"
+    fill="${LAWN.dallas}"/>`;
+  mid += ranch(WX - 60, HB, 330, { brick: "#B07A5C", roof: "#6B6259" });
+  mid += ranch(WX + 330, HB, 320, { brick: "#C9A27E", roof: "#5E574F", door: "#2F3E4F" });
+  mid += tree(WX + 290, HB + 4, 180, 21);
+  mid += tree(WX + 620, HB + 6, 200, 22);
+  // crepe myrtle by the drive
+  mid += crown(WX + 270, HB - 60, 40, 50, ["#D9668F", "#E68AA8", "#C95582"], 23, 26, 0.35);
+  mid += `<rect x="${WX + 266}" y="${HB - 20}" width="6" height="22" fill="#8D7B6A"/>`;
+  mid += `<rect x="${WX}" y="${HB + 34}" width="${WW}" height="14" fill="#D8D2C6"/>
+    <rect x="${WX}" y="${HB + 48}" width="${WW}" height="64" fill="#7A7D82"/>
+    <rect x="${WX}" y="${HB + 112}" width="${WW}" height="${WY + WH - HB - 112}"
+      fill="#9EA261"/>`;
+  near += crown(WX + 10, WY + 30, 190, 90, CROWNS.dallas, 24, 220, 0.16);
+  return { sky: SKY.dallas, far, mid, near };
+}
+
+const view = SEASON === "dallas" ? viewDallas() : viewNY();
+
+// ---- the room ---------------------------------------------------------------
+
+let panes = "";
+for (let c = 1; c < 4; c++) {
+  panes += `<rect x="${WX + (WW / 4) * c - F / 2}" y="${WY}" width="${F}"
+    height="${WH}" fill="#2A2F37"/>`;
+}
+for (let r = 1; r < 4; r++) {
+  panes += `<rect x="${WX}" y="${WY + (WH / 4) * r - F / 2}" width="${WW}"
+    height="${F}" fill="#2A2F37"/>`;
+}
+
+// O'Reilly-style spine: white cap with a small black animal, a thin black
+// rule, a solid subject-colour block with the title in white, a dark foot.
+const RAINBOW = ["#C2185B", "#D3382F", "#E8743B", "#E8A04C", "#1F9E8E", "#1E8FC8",
+  "#2D6BB5", "#4A4FA8", "#6A3FA0"];
+function oreillySpine(x, top, w, h, c, i) {
+  const r = rng(500 + i);
+  const cap = h * 0.17, foot = h * 0.09;
+  const ax = x + w * 0.5, ay = top + cap * 0.55, as = Math.min(w * 0.3, 7);
+  // a few animal silhouettes, chosen per book
+  const animals = [
+    `<ellipse cx="${ax}" cy="${ay}" rx="${as}" ry="${as * 0.6}" fill="#14171C"/>
+     <circle cx="${ax - as * 0.9}" cy="${ay - as * 0.5}" r="${as * 0.4}" fill="#14171C"/>`,
+    `<path d="M${ax - as} ${ay + as * 0.6} L${ax - as * 0.6} ${ay - as * 0.4} L${ax + as * 0.3}
+       ${ay - as * 0.7} L${ax + as} ${ay + as * 0.6}Z" fill="#14171C"/>`,
+    `<ellipse cx="${ax}" cy="${ay}" rx="${as * 0.55}" ry="${as}" fill="#14171C"/>
+     <path d="M${ax} ${ay - as} l${as * 0.5} ${-as * 0.4}" stroke="#14171C" stroke-width="1.5"/>`,
+  ];
+  const t1 = h * (0.34 + r() * 0.2), t2 = h * (0.12 + r() * 0.16);
+  return `<rect x="${x}" y="${top}" width="${w}" height="${h}" rx="1.5" fill="${c}"/>
+    <rect x="${x}" y="${top}" width="${w}" height="${cap}" rx="1.5" fill="#F7F5F0"/>
+    ${animals[Math.floor(r() * animals.length)]}
+    <rect x="${x}" y="${top + cap}" width="${w}" height="2.5" fill="#14171C"/>
+    <rect x="${x + w * 0.5 - (w > 24 ? 4 : 1.5)}" y="${top + cap + 10}" width="2.2"
+      height="${t1}" fill="#fff" opacity=".9"/>
+    ${w > 24 ? `<rect x="${x + w * 0.5 + 2}" y="${top + cap + 10}" width="2.2"
+      height="${t2}" fill="#fff" opacity=".75"/>` : ""}
+    <rect x="${x}" y="${top + h - foot}" width="${w}" height="${foot}" fill="#23282F"/>
+    <rect x="${x + w * 0.25}" y="${top + h - foot * 0.6}" width="${w * 0.5}" height="2.5"
+      fill="#F7F5F0" opacity=".8"/>
+    <rect x="${x}" y="${top}" width="${w}" height="${h}" rx="1.5" fill="url(#spineShade)"/>`;
+}
+const shelfBooks = (x0, x1, y, seed, opts = {}) => NY
+  ? books(x0, x1, y, seed, RAINBOW, { hMin: 138, hMax: 150, ...opts,
+      spine: oreillySpine, rainbow: true })
+  : books(x0, x1, y, seed, BOOKS, opts);
+
+function frame(x, y) {  // a small framed photo standing on a shelf at y
+  return `<rect x="${x}" y="${y - 96}" width="74" height="96" rx="2" fill="#2A2F37"/>
+    <rect x="${x + 8}" y="${y - 88}" width="58" height="80" fill="#F7F4F0"/>
+    <rect x="${x + 14}" y="${y - 82}" width="46" height="46" fill="#D5DBE2"/>
+    <path d="M${x + 14} ${y - 44} L${x + 30} ${y - 62} L${x + 42} ${y - 50} L${x + 50}
+      ${y - 58} L${x + 60} ${y - 46} L${x + 60} ${y - 36} L${x + 14} ${y - 36}Z"
+      fill="#5A6270"/>`;
+}
+
+function clock(x, y) {  // a round desk clock on a shelf at y
+  return `<rect x="${x - 26}" y="${y - 8}" width="52" height="8" rx="3" fill="#2A2F37"/>
+    <circle cx="${x}" cy="${y - 48}" r="42" fill="#2A2F37"/>
+    <circle cx="${x}" cy="${y - 48}" r="35" fill="#F7F4F0"/>
+    <path d="M${x} ${y - 48} L${x} ${y - 74} M${x} ${y - 48} L${x + 16} ${y - 40}"
+      stroke="#14171C" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${x}" cy="${y - 48}" r="3" fill="#C0392B"/>`;
+}
+
+function pumpkin(x, y, w, color = "#D9622B") {
+  const h = w * 0.62;
+  return `<ellipse cx="${x - w * 0.22}" cy="${y - h / 2}" rx="${w * 0.3}" ry="${h / 2}"
+      fill="${color}"/>
+    <ellipse cx="${x + w * 0.22}" cy="${y - h / 2}" rx="${w * 0.3}" ry="${h / 2}"
+      fill="${color}"/>
+    <ellipse cx="${x}" cy="${y - h / 2}" rx="${w * 0.3}" ry="${h / 2}" fill="${color}"/>
+    <ellipse cx="${x}" cy="${y - h / 2}" rx="${w * 0.3}" ry="${h / 2}" fill="#000"
+      opacity=".08"/>
+    <path d="M${x} ${y - h + 2} q2 -14 10 -18" stroke="#5B5048" stroke-width="5"
+      fill="none" stroke-linecap="round"/>`;
+}
+
+function lantern(x, y) {
+  return `<circle cx="${x}" cy="${y - 44}" r="46" fill="url(#lampGlow)"/>
+    <rect x="${x - 24}" y="${y - 82}" width="48" height="82" rx="4" fill="#2A2F37"/>
+    <rect x="${x - 17}" y="${y - 72}" width="34" height="62" fill="#F7EBD3"/>
+    <rect x="${x - 6}" y="${y - 40}" width="12" height="30" fill="#FAF3E7"/>
+    <ellipse cx="${x}" cy="${y - 46}" rx="4" ry="7" fill="#F5B04C"/>
+    <path d="M${x - 14} ${y - 82} Q${x} ${y - 104} ${x + 14} ${y - 82}" stroke="#2A2F37"
+      stroke-width="4" fill="none"/>`;
+}
+
+function xmasTree(x, base, h) {
+  const r = rng(61);
+  let s = `<rect x="${x - 8}" y="${base - h * 0.1}" width="16" height="${h * 0.1}"
+    fill="#5B4636"/>`;
+  for (let i = 0; i < 4; i++) {
+    const t = base - h * 0.08 - i * h * 0.2, w = h * (0.34 - i * 0.07);
+    s += `<path d="M${x - w} ${t} Q${x} ${t + 10} ${x + w} ${t} L${x} ${t - h * 0.34}Z"
+      fill="${i % 2 ? "#2F5A3A" : "#35683F"}"/>`;
+  }
+  for (let i = 0; i < 26; i++) {  // ornaments and warm lights
+    const ty = r(), y = base - h * 0.12 - ty * h * 0.74;
+    const half = h * 0.32 * (1 - ty) * 0.92;
+    const ox = x + (r() * 2 - 1) * half;
+    s += i % 2
+      ? `<circle cx="${ox}" cy="${y}" r="7" fill="${["#C0392B", "#E8A04C", "#F7F4F0"][i % 3]}"/>`
+      : `<circle cx="${ox}" cy="${y}" r="9" fill="#FFE1A0" opacity=".5" filter="url(#glow)"/>
+         <circle cx="${ox}" cy="${y}" r="3" fill="#FFF1C8"/>`;
+  }
+  s += `<path d="M${x} ${base - h - 14} l6 12 13 2 -10 9 3 13 -12 -6 -12 6 3 -13 -10 -9
+    13 -2Z" fill="#E8A04C"/>`;
+  return s;
+}
+
+function gift(x, y, w, h, color, ribbon) {
+  return `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" rx="2" fill="${color}"/>
+    <rect x="${x + w / 2 - 4}" y="${y - h}" width="8" height="${h}" fill="${ribbon}"/>
+    <rect x="${x}" y="${y - h * 0.6}" width="${w}" height="7" fill="${ribbon}"/>
+    <path d="M${x + w / 2} ${y - h} q-14 -14 -18 -2 q4 6 18 2 q14 -14 18 -2 q-4 6 -18 2Z"
+      fill="${ribbon}"/>`;
+}
+
+// A brass menorah, all nine candles lit (the eighth night), shamash raised.
+function menorah(cx, base) {
+  const d = 14, armY = base - 80;
+  let s = `<path d="M${cx - 34} ${base} L${cx + 34} ${base} L${cx + 20} ${base - 12}
+    L${cx - 20} ${base - 12}Z" fill="#B88F3E"/>
+    <rect x="${cx - 4}" y="${armY}" width="8" height="${base - armY - 10}" fill="#C9A24C"/>`;
+  for (let i = 1; i <= 4; i++) {
+    s += `<path d="M${cx - i * d} ${armY} A${i * d} ${i * d * 0.9} 0 0 0 ${cx + i * d}
+      ${armY}" stroke="#C9A24C" stroke-width="5" fill="none"/>`;
+  }
+  for (let i = -4; i <= 4; i++) {
+    const x = cx + i * d, top = i === 0 ? armY - 22 : armY;
+    if (i === 0) s += `<rect x="${x - 3}" y="${top}" width="6" height="22" fill="#C9A24C"/>`;
+    s += `<rect x="${x - 6}" y="${top - 6}" width="12" height="7" rx="2" fill="#C9A24C"/>
+      <rect x="${x - 3}" y="${top - 30}" width="6" height="24" fill="${i === 0 ? "#F7F4F0" : "#9DB4D6"}"/>
+      <ellipse cx="${x}" cy="${top - 38}" rx="10" ry="12" fill="#FFD27A" opacity=".5"
+        filter="url(#glow)"/>
+      <path d="M${x} ${top - 46} Q${x + 5} ${top - 36} ${x} ${top - 31} Q${x - 5} ${top - 36}
+        ${x} ${top - 46}Z" fill="#F5B04C"/>`;
+  }
+  return s;
+}
+
+function garland() {  // swags of greenery and warm lights across the window head
+  const y = WY - 4;
+  let s = "", pts = [];
+  const sw = (WW + 40) / 4;
+  for (let i = 0; i < 4; i++) {
+    const x1 = WX - 20 + i * sw, x2 = x1 + sw;
+    s += `<path d="M${x1} ${y} Q${x1 + sw / 2} ${y + 46} ${x2} ${y}" stroke="#2F5A3A"
+      stroke-width="16" fill="none" stroke-linecap="round"/>
+      <path d="M${x1} ${y} Q${x1 + sw / 2} ${y + 46} ${x2} ${y}" stroke="#3F7048"
+      stroke-width="7" fill="none" stroke-dasharray="3 9"/>`;
+    for (let t = 0.08; t < 1; t += 0.14) {
+      const x = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * (x1 + sw / 2) + t * t * x2;
+      const yy = (1 - t) * (1 - t) * y + 2 * (1 - t) * t * (y + 46) + t * t * y;
+      s += `<circle cx="${x}" cy="${yy}" r="8" fill="#FFE1A0" opacity=".55"
+        filter="url(#glow)"/><circle cx="${x}" cy="${yy}" r="3" fill="#FFF1C8"/>`;
+    }
+    s += `<circle cx="${x1}" cy="${y}" r="9" fill="#C0392B"/>`;
+  }
+  return s + `<circle cx="${WX + WW + 20}" cy="${y}" r="9" fill="#C0392B"/>`;
+}
+
+// Agave in a terracotta pot (Dallas): a rosette of stiff blue-green blades.
+function agave(x, base) {
+  const r = rng(71);
+  let s = "";
+  for (let i = 0; i < 15; i++) {
+    const a = -170 + (i / 14) * 160 + (r() - 0.5) * 8;
+    const len = 90 + (1 - Math.abs(a + 90) / 90) * 90 + r() * 20;
+    s += leaf(x, base - 6, len, a, ["#6E8F86", "#7FA096", "#5D7D74"][i % 3], 0.17);
+  }
+  return s;
+}
+
+// shelf dressing: NY rooms have no plants
+const shelfTop = HOLIDAY ? menorah(1726, 520) : NY ? frame(1700, 520)
+  : `<path d="M1712 520 Q1690 470 1712 430 L1746 430 Q1768 470 1746 520Z" fill="#E4DCD3"/>
+    <path d="M1729 430 L1729 360" stroke="#4A5A3A" stroke-width="3"/>
+    ${leaf(1729, 380, 46, -130, "#5E7D57")}${leaf(1729, 368, 50, -50, "#4F6B4A")}
+    ${leaf(1729, 360, 40, -92, "#6E8C64")}`;
+const shelfLow = NY ? (SEASON === "winter" ? lantern(1460, 720) : clock(1460, 720))
+  : `${pot(1460, 720, 80, 70, "#C97B54", "#B5694A")}
+    ${plant(1460, 650, 11, { height: 120, spread: 60, leaves: 16, size: 46 })}`;
+
+let credenzaLeft = "";
+if (V === "dallas") credenzaLeft = agave(260, 800) + pot(260, 860, 130, 96, "#C97B54", "#B5694A");
+if (SEASON === "fall") {
+  credenzaLeft = pumpkin(250, 860, 120) + pumpkin(370, 860, 84, "#E8A04C")
+    + pumpkin(450, 860, 60, "#F2E6D0");
+}
+if (HOLIDAY) {
+  credenzaLeft = xmasTree(300, 860, 380) + gift(170, 860, 70, 56, "#C0392B", "#E8A04C")
+    + gift(400, 860, 84, 44, "#2F5A3A", "#F7F4F0") + gift(480, 860, 52, 36, "#E8A04C", "#C0392B");
+}
+
+document.getElementById("s").innerHTML = `
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F7F2EC"/><stop offset="1" stop-color="#ECE4DA"/>
+  </linearGradient>
+  <radialGradient id="daylight" cx="0.22" cy="0.38" r="0.62">
+    <stop offset="0" stop-color="#fff" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="${view.sky[0]}"/>
+    <stop offset="${(GROUND - WY) / WH}" stop-color="${view.sky[1]}"/>
+  </linearGradient>
+  <linearGradient id="spineShade" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity=".12"/>
+    <stop offset=".3" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".18"/>
+  </linearGradient>
+  <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#B98F63"/><stop offset="1" stop-color="#9C7550"/>
+  </linearGradient>
+  <radialGradient id="lampGlow" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="#F5C98F" stop-opacity=".55"/>
+    <stop offset="1" stop-color="#F5C98F" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+  <filter id="haze"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <filter id="nearHaze"><feGaussianBlur stdDeviation="1"/></filter>
+  <filter id="farHaze"><feGaussianBlur stdDeviation="4"/></filter>
+  <filter id="beam"><feGaussianBlur stdDeviation="40"/></filter>
+  <filter id="glow" x="-1" y="-1" width="3" height="3">
+    <feGaussianBlur stdDeviation="4"/>
+  </filter>
+  <clipPath id="glass"><rect x="${WX}" y="${WY}" width="${WW}" height="${WH}"/></clipPath>
+</defs>
+
+<rect width="1920" height="1080" fill="url(#wall)"/>
+<rect width="1920" height="1080" fill="url(#daylight)"/>
+
+<!-- daylight falling across the wall from the window -->
+<path d="M${WX + WW} ${WY + 40} L1120 ${WY + 260} L1200 980 L${WX + WW} ${WY + WH}Z"
+  fill="#fff" opacity="${SEASON === "winter" ? ".25" : ".35"}" filter="url(#beam)"/>
+
+<!-- window and the view through it -->
+<rect x="${WX - 10}" y="${WY - 10}" width="${WW + 20}" height="${WH + 20}" rx="4"
+  fill="rgba(20,23,28,.08)" filter="url(#soft)"/>
+<g clip-path="url(#glass)">
+  <rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="url(#sky)"/>
+  <g filter="url(#farHaze)" opacity=".8">${view.far}</g>
+  <g filter="url(#haze)">${view.mid}${view.near}</g>
+  ${view.pet ? `<g filter="url(#nearHaze)">${view.pet}</g>` : ""}
+  <rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="#fff" opacity=".1"/>
+</g>
+${panes}
+<rect x="${WX}" y="${WY}" width="${WW}" height="${WH}" fill="none"
+  stroke="#2A2F37" stroke-width="${F * 1.4}"/>
+<rect x="${WX - 30}" y="${WY + WH + 6}" width="${WW + 60}" height="16" rx="2"
+  fill="#E6DED3"/>
+${HOLIDAY ? garland() : ""}
+
+<!-- right wall: shelves -->
+${shelf(1400, 520, 400, "#C9A57E", "#B48C62")}
+${shelfBooks(1418, 1650, 520, 3)}
+${shelfTop}
+
+${shelf(1400, 720, 400, "#C9A57E", "#B48C62")}
+${shelfLow}
+${shelfBooks(1540, 1790, 720, 9, NY ? { hMin: 126, hMax: 138 } : { hMin: 100, hMax: 150 })}
+
+<!-- credenza along the back wall -->
+<rect x="0" y="842" width="1920" height="30" fill="rgba(20,23,28,.14)"
+  filter="url(#soft)"/>
+<rect x="0" y="860" width="1920" height="220" fill="url(#oak)"/>
+<rect x="0" y="860" width="1920" height="14" fill="#C9A57E"/>
+${[320, 640, 960, 1280, 1600].map((x) => `<rect x="${x - 1}" y="880" width="2"
+  height="200" fill="rgba(20,23,28,.22)"/>`).join("")}
+${[300, 980, 1620].map((x) => `<rect x="${x}" y="930" width="40" height="5" rx="2.5"
+  fill="#14171C" opacity=".55"/>`).join("")}
+
+${credenzaLeft}
+
+<!-- table lamp -->
+<circle cx="1290" cy="700" r="170" fill="url(#lampGlow)"/>
+<path d="M1290 860 Q1250 840 1258 790 Q1266 750 1290 745 Q1314 750 1322 790
+  Q1330 840 1290 860Z" fill="#E4DCD3"/>
+<path d="M1222 745 L1358 745 L1336 640 L1244 640Z" fill="#FAF3E7"/>
+<path d="M1222 745 L1358 745 L1354 728 L1226 728Z" fill="#F5C98F" opacity=".5"/>
+
+<!-- objects on the credenza, right -->
+${stack(1500, 860, 4, ["#14171C", "#E8A04C", "#5A6270"], 3)}
+<ellipse cx="1570" cy="790" rx="44" ry="10" fill="#14171C" opacity=".85"/>
+<path d="M1526 790 Q1570 836 1614 790Z" fill="#23282F"/>
+`;
+
+lockup({ x: 1450, y: 160, mark: 92, opacity: 0.55, markFilter: "none", textShadow: "none" });
+</script>
+</body>
+</html>

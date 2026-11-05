@@ -113,8 +113,10 @@ Editors can change anything that's a field. Changing layout, design, or structur
 1. Changes (from developers, AI agents, or PagesCMS editors) are committed to the `preview` branch.
 2. Cloudflare automatically builds and deploys the preview site.
 3. Someone reviews https://preview-m20-website.mike-124.workers.dev.
-4. When it's approved, a pull request from `preview` to `main` is opened.
-5. When the approver says to publish, Claude Code merges the pull request, and Cloudflare automatically deploys production.
+4. When a release is requested, Claude Code runs `npm run site:diff`, which builds `main` and `preview` the way production does and checks whether anything visitors get would change: pages, shared components, scripts, the sitemap, robots, headers and redirects, hosting config, and every asset a page uses.
+   - **Website changes:** a pull request from `preview` to `main` is opened for review, and Claude Code merges it when the approver says to publish.
+   - **No website changes** (for example new asset-library files, design system docs, or tooling only): no pull request or review is needed. Claude Code merges `preview` into `main` directly.
+5. Cloudflare automatically deploys production.
 6. Claude Code confirms the production build, republishes this Confluence page and the M20 Design System pages, and resets `preview` for the next round.
 
 ### Manual steps (people)
@@ -125,8 +127,8 @@ Editors can change anything that's a field. Changing layout, design, or structur
 | Make content changes | Editor | PagesCMS on the `preview` branch. |
 | Make code or design changes | Developer / AI agent | Work on the `preview` branch, preview locally with `npm run dev`, commit, and push. |
 | Review the preview | Requester / approver | Check https://preview-m20-website.mike-124.workers.dev on desktop and mobile. |
-| Request publishing | Approver | Ask Claude Code for a production PR. |
-| Approve and publish | Approver | Review the PR on GitHub, then tell Claude Code to publish. Claude Code runs the release: it merges the PR, confirms the production build, republishes this page, and resets `preview`. Merge through Claude Code rather than GitHub's **Merge pull request** button so those release steps run together. |
+| Request publishing | Approver | Ask Claude Code to release. If the website would change, it opens a production PR; if not, it merges and releases straight away. |
+| Approve and publish | Approver | For a release that changes the website: review the PR on GitHub, then tell Claude Code to publish. Claude Code runs the release: it merges the PR, confirms the production build, republishes this page, and resets `preview`. Merge through Claude Code rather than GitHub's **Merge pull request** button so those release steps run together. |
 | Close the ticket | Requester | Move the Jira ticket to Done once the change is live. |
 
 ### Automated steps (systems)
