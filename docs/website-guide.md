@@ -150,6 +150,7 @@ A failed build never replaces the live site — production keeps serving the las
 - Requirements: Node 20+. No packages to install.
 - `npm run dev` — build and serve at http://localhost:8000, rebuilding on every change.
 - `npm run check` — run the consistency checks only.
+- `npm run site:diff` — check whether `preview` changes the website compared with `main` (decides whether a release needs a PR).
 - `npm run cms:sync` — regenerate `.pages.yml` after changing `cms/schema.mjs`.
 - `npm run artwork:png` — export PNGs for new or changed artwork SVGs (needs Google Chrome or Chromium; set `CHROME_PATH` if it isn't found).
 - Structural changes (a new section, list, field, or page) must update the template, the content JSON, and `cms/schema.mjs` in the same commit, then run `npm run cms:sync`. The full conventions, including design rules and the template tag reference, are in `AGENTS.md` and `design.md` in the repo.
