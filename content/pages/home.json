@@ -25,8 +25,8 @@
     "cards": [
       {
         "spot": "/assets/artwork/spots/org-structure.svg",
-        "title": "Information Architecture",
-        "text": "Organize your data — regardless of your unique tools, internal sites, or databases — into something everyone can navigate."
+        "title": "Context Architecture",
+        "text": "Information architecture for the AI era. We connect and organize your work, knowledge, code, and data, so your people can find what they need and your AI agents can see it and act on it."
       },
       {
         "spot": "/assets/artwork/spots/transformation-loop.svg",
