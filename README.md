@@ -67,7 +67,7 @@ This repo already includes [.vscode/mcp.json](.vscode/mcp.json) configuring the 
 {
   "servers": {
     "atlassian-mcp-server": {
-      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "url": "https://mcp.atlassian.com/v2/mcp",
       "type": "http"
     }
   },
@@ -89,7 +89,7 @@ To use it:
 Claude Code can connect to the same remote server directly over HTTP:
 
 ```
-claude mcp add --transport http atlassian-mcp-server https://mcp.atlassian.com/v1/mcp/authv2
+claude mcp add --transport http atlassian-mcp-server https://mcp.atlassian.com/v2/mcp
 ```
 
 Complete the Atlassian authentication flow in your browser when prompted, then confirm the server is listed via `claude mcp list`.
