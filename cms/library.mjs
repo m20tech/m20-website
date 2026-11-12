@@ -55,6 +55,48 @@ export const LIBRARY = [
     },
   },
   {
+    id: "jira-priority",
+    label: "Jira priority icons",
+    dir: "assets/icons/jira-priority",
+    files: ["16", "32", "48"].flatMap((size) =>
+      ["upcoming", "active", "at-risk", "critical", "overdue"].map((p) => `assets/icons/jira-priority/${size}/priority-${p}.png`),
+    ),
+    kind: "image",
+    description:
+      "Five line icons for Jira Resale ticket priorities, from least to most urgent: Upcoming, Active, At Risk, Critical, Overdue. " +
+      "24×24 viewBox, 2.2px stroke, colors fixed. SVG plus transparent 16, 32, and 48px PNGs.",
+    usage:
+      "Jira priority icons (shown at 16px). Each icon passes 3:1 contrast on Jira's light and dark themes and has its own shape, " +
+      "so the set works without color. Don't recolor them, and don't use them as general-purpose icons. See Jira priority icons in the design system.",
+    items: {
+      "priority-upcoming": {
+        title: "Priority: Upcoming",
+        tags: ["jira", "priority", "upcoming", "scheduled", "clock", "green", "resale", "renewal"],
+        note: "Least urgent. Green #2F9460 ring with clock hands.",
+      },
+      "priority-active": {
+        title: "Priority: Active",
+        tags: ["jira", "priority", "active", "in progress", "live", "blue", "resale"],
+        note: "Blue #3D7BC4 ring with a center dot.",
+      },
+      "priority-at-risk": {
+        title: "Priority: At Risk",
+        tags: ["jira", "priority", "at risk", "warning", "triangle", "amber", "orange", "resale"],
+        note: "Deep amber #C27512 warning triangle. Uses the deep amber, not the gold accent, which fails contrast on white.",
+      },
+      "priority-critical": {
+        title: "Priority: Critical",
+        tags: ["jira", "priority", "critical", "urgent", "diamond", "red", "resale"],
+        note: "Red #E0533F diamond with an exclamation mark.",
+      },
+      "priority-overdue": {
+        title: "Priority: Overdue",
+        tags: ["jira", "priority", "overdue", "past due", "late", "exclamation", "deep red", "resale"],
+        note: "Most urgent, and the only solid icon in the set: deep red #7A1E15 disc with a paper exclamation mark, plus a thin paper ring that outlines it on dark themes.",
+      },
+    },
+  },
+  {
     id: "spots",
     label: "Spot illustrations",
     dir: "assets/artwork/spots",

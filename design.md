@@ -136,6 +136,24 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Gmail themes: `assets/backgrounds/gmail-{ink,paper,ember}.png`, 2560×1440. Gmail draws its top bar, left nav, and right strip straight onto the theme image, so each theme is one tone edge to edge with only a faint mesh texture: never a light/dark split under the nav, and no bright accents in the nav or top bar. Install via Settings → Themes → View all → My photos, with **Text background** Dark for ink and ember, Light for paper.
 - Background sources: the office scenes and Gmail themes are generated from HTML in `scripts/backgrounds/` (`render.sh <source.html> <out.png> [scale]`, needs Google Chrome; Gmail themes take `?v=ink|paper|ember` and scale `1.3333`; the home offices are `video-office-seasons.html?v=ny-fall|ny-winter|ny-spring|ny-summer|ny-holiday|dallas`). Check a Gmail theme with `gmail-mock.html?img=<png>&text=light|dark`, a rough Gmail layout, before uploading it. The vector hero mesh is drawn in VectorCraft by `python3 -I scripts/backgrounds/hero-network-mesh.py` (needs `vectorcraft-cli`; `--native` also writes an editable `.vectorcraft` file, which isn't committed).
 
+### Jira priority icons
+
+Five priority icons for Jira Resale tickets, in `assets/icons/jira-priority/`: `priority-<name>.svg`, with transparent PNGs in `16/`, `32/`, and `48/` (the same filename in each). They follow the line-icon rules above (24×24 viewBox, `2.2` stroke, round caps and joins) with two differences: **each has a fixed color**, because Jira shows one image on both its light and dark themes, and Overdue is solid.
+
+| Priority | Shape | Color | On white | On Jira dark `#1F1F21` |
+|---|---|---|---|---|
+| Upcoming | Ring with clock hands | Green `#2F9460` (RAG green on dark) | 3.8:1 | 4.3:1 |
+| Active | Ring with a center dot | Priority blue `#3D7BC4` | 4.4:1 | 3.8:1 |
+| At Risk | Triangle with `!` | Deep amber `#C27512` | 3.6:1 | 4.6:1 |
+| Critical | Diamond with `!` | Red `#E0533F` (RAG red on dark) | 3.8:1 | 4.3:1 |
+| Overdue | Solid disc with `!`, thin paper ring | Deep red `#7A1E15` + paper `#FAF7F4` | 10.4:1 (disc) | 15.4:1 (ring) |
+
+- **Escalation without color:** the calm states are open rings (Upcoming's clock, Active's dot). The trouble states carry `!` in a container that gets louder: a triangle (At Risk), then a diamond (Critical), then a solid disc (Overdue). Check the set in grayscale on both themes after any change. An earlier Overdue with clock hands looked like Upcoming in grayscale on dark.
+- **Contrast:** one image has to pass 3:1 against white and against Jira's dark surfaces (`#1F1F21`, raised `#242528`), so each stroke color sits in the middle of the luminance range. The tokens that pass are RAG green and red *on dark*. Brand red `#C0392B` (3.0:1) and success green `#1E7A46` (3.1:1) barely pass on dark and fail on raised dark surfaces, and gold `#E8A04C` fails on white (2.2:1). Overdue's deep red can't pass on dark, so its paper ring carries the outline there. On white, the ring disappears.
+- **Two colors added for this set** (priority/status icons only, never page UI): **priority blue `#3D7BC4`** (the palette had no blue) and **deep amber `#C27512`** (gold at a contrast that works on white).
+- **In Jira:** priorities are set by Jira admins (Settings → Work items → Priorities). Use the SVG URL (`https://m20tech.com/assets/icons/jira-priority/priority-<name>.svg`) where Jira accepts one, since it stays sharp on high-density screens. Otherwise, use the `32/` PNG.
+- **Editing:** change the SVG, then run `npm run artwork:png` to re-export the three PNG sizes. Check every icon at 16px on white and on `#1F1F21` before committing.
+
 ## Illustrations
 
 Flat, hand-built SVG artwork that shows the things M20's work produces: intranet pages, Jira dashboards, status tables, delivery pipelines. It shares the site's palette and radii, so it reads as part of the page rather than stock art. Live examples: `/case-studies` (a spot on each card) and `/case-study-intranet`, `/case-study-dashboard` (cover in the hero, illustration in **The Solution**).
@@ -275,6 +293,7 @@ Every reusable icon, illustration, logo, and background lives in this repo and i
 | Collection | Source | Notes |
 |---|---|---|
 | Icons | `cms/icons/*.svg` | Bare 24×24 (or 32×32) stroke SVGs; color and size are applied on export. |
+| Jira priority icons | `assets/icons/jira-priority/` | Fixed-color SVGs with 16, 32, and 48px PNGs in folders by size. See **Jira priority icons** above. |
 | Spots, covers, illustrations, app icons | `assets/artwork/<type>/` | See **Illustrations** above. SVG + PNG pairs. |
 | Logo & badges | `assets/logo.png`, `assets/atlassian-gold.png` | See **Logo & lockup**. |
 | Backgrounds | `assets/backgrounds/`, `assets/hero-network.jpg` | Hero image and its vector take, 1920×1080 video-call backgrounds, and 2560×1440 Gmail themes. |
