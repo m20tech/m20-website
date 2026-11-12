@@ -2,6 +2,8 @@
 // Exports every SVG in the artwork library (assets/artwork/<type>/) to a PNG
 // next to it, at the size cms/artwork.mjs sets for its type. PNGs are what
 // social share images, email, slides, and PDFs use; pages use the SVG.
+// Also exports the fixed-color icon sets in ICON_SETS (Jira priority icons)
+// to one transparent PNG per size, in a folder per size.
 //
 //   npm run artwork:png            export SVGs whose PNG is missing or older
 //   npm run artwork:png -- --all   re-export everything
@@ -18,6 +20,10 @@ import { ARTWORK } from "../cms/artwork.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ALL = process.argv.includes("--all");
+
+// Icon sets whose colors are part of the design (unlike cms/icons, which are
+// recolored on export). See "Jira priority icons" in design.md.
+const ICON_SETS = [{ dir: "assets/icons/jira-priority", viewBox: 24, sizes: [16, 32, 48] }];
 
 function findChrome() {
   if (process.env.CHROME_PATH) return process.env.CHROME_PATH;
@@ -76,6 +82,20 @@ async function main() {
     for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".svg"))) {
       const svg = path.join(dir, f), png = svg.replace(/\.svg$/, ".png");
       if (ALL || !fs.existsSync(png) || fs.statSync(png).mtimeMs < fs.statSync(svg).mtimeMs) jobs.push({ svg, png, a });
+    }
+  }
+  // Fixed-color icon sets: each SVG gets one PNG per size, in <dir>/<size>/.
+  for (const set of ICON_SETS) {
+    const dir = path.join(ROOT, set.dir);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".svg"))) {
+      const svg = path.join(dir, f);
+      for (const size of set.sizes) {
+        const png = path.join(dir, String(size), f.replace(/\.svg$/, ".png"));
+        fs.mkdirSync(path.dirname(png), { recursive: true });
+        const a = { width: set.viewBox, height: set.viewBox, pngScale: size / set.viewBox };
+        if (ALL || !fs.existsSync(png) || fs.statSync(png).mtimeMs < fs.statSync(svg).mtimeMs) jobs.push({ svg, png, a });
+      }
     }
   }
   if (!jobs.length) return console.log("All artwork PNGs are up to date.");

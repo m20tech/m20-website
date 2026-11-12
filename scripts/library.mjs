@@ -398,7 +398,7 @@ ${embed ? "" : `<footer>
         (c.restricted ? '<p class="restricted"><b>Usage restriction.</b> ' + esc(c.restricted) + "</p>" : "") +
         '</div><div class="grid' + (wide ? " wide" : "") + '">' +
         list.map((it) => '<button class="card" data-key="' + it.key + '">' + thumb(it) + '<div class="meta"><b>' + esc(it.title) + "</b><span>" +
-          esc(it.files.map((f) => f.format.toUpperCase()).join(" · ")) + "</span></div></button>").join("") +
+          esc([...new Set(it.files.map((f) => f.format.toUpperCase()))].join(" · ")) + "</span></div></button>").join("") +
         "</div></section>";
     }).join("");
     $("#results").innerHTML = html || '<p class="empty">No assets match “' + esc($("#q").value) + '”.</p>';
