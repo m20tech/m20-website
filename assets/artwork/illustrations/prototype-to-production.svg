@@ -6,10 +6,6 @@
     <filter id="deep" x="-20%" y="-20%" width="140%" height="160%">
       <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#14171C" flood-opacity=".22"/>
     </filter>
-    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#E8A04C" stop-opacity=".35"/>
-      <stop offset="1" stop-color="#E8A04C" stop-opacity="0"/>
-    </linearGradient>
     <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#C0392B"/>
       <stop offset="1" stop-color="#7A1E15"/>
@@ -81,7 +77,7 @@
     <path d="M296 352l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#F5C98F"/>
   </g>
 
-  <!-- PHASE 2 · Pre-production: code + git branches -->
+  <!-- PHASE 2 · Pre-production: code + review table -->
   <g filter="url(#soft)">
     <rect x="450" y="290" width="300" height="256" rx="20" fill="#FFFFFF" stroke="#E4DCD3"/>
   </g>
@@ -94,20 +90,24 @@
     <rect x="502" y="394" width="38" height="6" rx="3" fill="#5A6270"/><rect x="546" y="394" width="82" height="6" rx="3" fill="#9AA1AD"/>
     <rect x="488" y="410" width="20" height="6" rx="3" fill="#E8A04C"/>
   </g>
-  <!-- branch graph -->
-  <g fill="none" stroke-width="3.5" stroke-linecap="round">
-    <line x1="486" y1="490" x2="714" y2="490" stroke="#14171C"/>
-    <path d="M530 490 C 550 490, 552 462, 574 462 L 630 462 C 652 462, 654 490, 674 490" stroke="#C0392B"/>
+  <!-- review table: reviewable changes with status and progress -->
+  <g>
+    <rect x="486" y="446" width="40" height="4" rx="2" fill="#C9C2B8"/><rect x="596" y="446" width="30" height="4" rx="2" fill="#C9C2B8"/><rect x="656" y="446" width="34" height="4" rx="2" fill="#C9C2B8"/>
+    <rect x="486" y="459" width="14" height="14" rx="4" fill="#E4DCD3"/>
+    <rect x="510" y="463" width="72" height="6" rx="3" fill="#14171C"/>
+    <rect x="596" y="458" width="48" height="16" rx="8" fill="#1E7A46" fill-opacity=".14"/><circle cx="604" cy="466" r="5" fill="#1E7A46"/><path d="M601.5 466l1.8 1.8 3.2 -3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="614" y="464" width="22" height="4" rx="2" fill="#5A6270" fill-opacity=".55"/>
+    <rect x="656" y="463" width="58" height="6" rx="3" fill="#E4DCD3"/><rect x="656" y="463" width="48" height="6" rx="3" fill="#9AA1AD"/>
+    <rect x="486" y="487" width="14" height="14" rx="4" fill="#E4DCD3"/>
+    <rect x="510" y="491" width="58" height="6" rx="3" fill="#14171C"/>
+    <rect x="596" y="486" width="48" height="16" rx="8" fill="#1E7A46" fill-opacity=".14"/><circle cx="604" cy="494" r="5" fill="#1E7A46"/><path d="M601.5 494l1.8 1.8 3.2 -3.5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="614" y="492" width="22" height="4" rx="2" fill="#5A6270" fill-opacity=".55"/>
+    <rect x="656" y="491" width="58" height="6" rx="3" fill="#E4DCD3"/><rect x="656" y="491" width="56" height="6" rx="3" fill="#9AA1AD"/>
+    <rect x="486" y="515" width="14" height="14" rx="4" fill="#E4DCD3"/>
+    <rect x="510" y="519" width="66" height="6" rx="3" fill="#14171C"/>
+    <rect x="596" y="514" width="48" height="16" rx="8" fill="#E8A04C" fill-opacity=".14"/><circle cx="604" cy="522" r="5" fill="#E8A04C"/><path d="M604 519.5v2.8" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/><circle cx="604" cy="524.4" r="0.9" fill="#FFFFFF"/><rect x="614" y="520" width="22" height="4" rx="2" fill="#5A6270" fill-opacity=".55"/>
+    <rect x="656" y="519" width="58" height="6" rx="3" fill="#E4DCD3"/><rect x="656" y="519" width="34" height="6" rx="3" fill="#9AA1AD"/>
+    <line x1="486" y1="482" x2="714" y2="482" stroke="#E4DCD3" stroke-width="1"/>
+    <line x1="486" y1="510" x2="714" y2="510" stroke="#E4DCD3" stroke-width="1"/>
   </g>
-  <g stroke-width="3.5">
-    <circle cx="486" cy="490" r="8" fill="#FFFFFF" stroke="#14171C"/>
-    <circle cx="530" cy="490" r="8" fill="#FFFFFF" stroke="#14171C"/>
-    <circle cx="590" cy="462" r="8" fill="#FFFFFF" stroke="#C0392B"/>
-    <circle cx="630" cy="462" r="8" fill="#FFFFFF" stroke="#C0392B"/>
-    <circle cx="674" cy="490" r="10" fill="#C0392B" stroke="#C0392B"/>
-    <circle cx="714" cy="490" r="8" fill="#FFFFFF" stroke="#14171C"/>
-  </g>
-  <rect x="486" y="516" width="120" height="6" rx="3" fill="#C9C2B8"/>
 
   <!-- PHASE 3 · Production: polished dashboard, secured, CI/CD -->
   <g filter="url(#deep)">

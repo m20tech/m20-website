@@ -94,16 +94,13 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: image
-                label: Background image
+                label: Cover image
                 type: image
-                required: true
-                description: Decorative network art on the right of the hero.
+                required: false
+                description: "Art on the right of the hero (decorative). Pick the cover's .svg."
+                options:
+                  media: covers
               - name: title
                 label: Heading
                 type: string
@@ -138,87 +135,38 @@ content:
                     type: string
                     required: true
                     description: "A site path like /contact, or a full https:// URL."
-          - name: services
-            label: What we do
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
+              - name: meta
+                label: Meta line
                 type: string
                 required: true
-                description: Small uppercase label above the heading.
+                description: "Small muted line under the buttons, e.g. partner status."
+          - name: work
+            label: Featured case study
+            type: object
+            fields:
+              - name: illustration
+                label: Illustration
+                type: image
+                required: false
+                description: "1200×800 explanatory illustration."
+                options:
+                  media: illustrations
+              - name: illustrationAlt
+                label: Illustration alt text
+                type: string
+                required: false
+                description: Describe what the illustration shows.
               - name: title
                 label: Heading
                 type: string
                 required: true
-              - name: intro
-                label: Intro
+              - name: text
+                label: Summary
                 type: text
                 required: true
-              - name: cards
-                label: Service cards
-                type: object
-                list: true
-                fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
-                    options:
-                      media: spots
-                  - name: title
-                    label: Title
-                    type: string
-                    required: true
-                  - name: text
-                    label: Description
-                    type: text
-                    required: true
-          - name: howWeWork
-            label: How we work
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: title
-                label: Heading
-                type: string
-                required: true
-              - name: lead
-                label: Lead paragraph
-                type: text
-                required: true
-              - name: body
-                label: Body
-                type: text
-                required: true
-              - name: points
-                label: Checklist
-                type: string
-                list: true
-          - name: rovo
-            label: Rovo AI
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: title
-                label: Heading
-                type: string
-                required: true
-              - name: intro
-                label: Intro
-                type: text
-                required: true
-              - name: cta
-                label: Button
+                description: "Two or three sentences, taken from the case study."
+              - name: link
+                label: Link
                 type: object
                 fields:
                   - name: label
@@ -230,8 +178,94 @@ content:
                     type: string
                     required: true
                     description: "A site path like /contact, or a full https:// URL."
-              - name: cards
-                label: Cards
+          - name: services
+            label: What we do
+            type: object
+            fields:
+              - name: title
+                label: Heading
+                type: string
+                required: true
+              - name: intro
+                label: Intro
+                type: text
+                required: true
+              - name: items
+                label: Services
+                type: object
+                list: true
+                fields:
+                  - name: spot
+                    label: Spot
+                    type: image
+                    required: false
+                    description: "Shown at the start of the row (decorative). Pick the spot's .svg."
+                    options:
+                      media: spots
+                  - name: title
+                    label: Name
+                    type: string
+                    required: true
+                  - name: text
+                    label: Description
+                    type: text
+                    required: true
+              - name: link
+                label: Link
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+          - name: howWeWork
+            label: How we work
+            type: object
+            fields:
+              - name: title
+                label: Heading
+                type: string
+                required: true
+              - name: lead
+                label: Lead paragraph
+                type: text
+                required: true
+              - name: points
+                label: Checklist
+                type: string
+                list: true
+          - name: rovo
+            label: Rovo AI
+            type: object
+            fields:
+              - name: title
+                label: Heading
+                type: string
+                required: true
+              - name: intro
+                label: Intro
+                type: text
+                required: true
+              - name: link
+                label: Link
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+              - name: items
+                label: Find / Learn / Act
                 type: object
                 list: true
                 fields:
@@ -269,7 +303,7 @@ content:
                   - name: maxWidth
                     label: Max width (px)
                     type: number
-                    description: "Optional — only for unusually wide logos."
+                    description: Optional. Only for unusually wide logos.
           - name: cta
             label: Closing call to action
             type: object
@@ -339,11 +373,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -366,36 +395,57 @@ content:
                     required: true
                     description: "A site path like /contact, or a full https:// URL."
           - name: meet
-            label: Meet Rovo
+            label: "Find, learn, act"
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
                 required: true
-              - name: cards
-                label: Cards
+              - name: items
+                label: Ledger rows
                 type: object
                 list: true
                 fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
+                  - name: icon
+                    label: Icon
+                    type: select
+                    description: "Icons live in cms/icons/ — ask a developer to add a new one."
+                    required: true
                     options:
-                      media: spots
+                      values:
+                        - alert
+                        - bolt
+                        - calendar-check
+                        - chat
+                        - checklist
+                        - cloud-bolt
+                        - cycle
+                        - document-clock
+                        - gear
+                        - globe
+                        - globe-nodes
+                        - invoice
+                        - invoice-overdue
+                        - layers
+                        - org-chart
+                        - org-chart-small
+                        - price-tag
+                        - search
+                        - sparkles
+                        - sync
+                        - team-add
+                        - team-flag
+                        - team-partner
+                        - ticket
+                        - window
                   - name: label
                     label: Label
                     type: string
                     required: true
+                    description: "One word, e.g. Find."
                   - name: title
-                    label: Title
+                    label: Lead line
                     type: string
                     required: true
                   - name: text
@@ -419,27 +469,47 @@ content:
             label: Rovo agents
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
                 required: true
               - name: cards
-                label: Agent cards
+                label: Agents
                 type: object
                 list: true
                 fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
+                  - name: icon
+                    label: Icon
+                    type: select
+                    description: "Icons live in cms/icons/ — ask a developer to add a new one."
+                    required: true
                     options:
-                      media: spots
+                      values:
+                        - alert
+                        - bolt
+                        - calendar-check
+                        - chat
+                        - checklist
+                        - cloud-bolt
+                        - cycle
+                        - document-clock
+                        - gear
+                        - globe
+                        - globe-nodes
+                        - invoice
+                        - invoice-overdue
+                        - layers
+                        - org-chart
+                        - org-chart-small
+                        - price-tag
+                        - search
+                        - sparkles
+                        - sync
+                        - team-add
+                        - team-flag
+                        - team-partner
+                        - ticket
+                        - window
                   - name: title
                     label: Title
                     type: string
@@ -448,15 +518,11 @@ content:
                     label: Description
                     type: text
                     required: true
+                description: "Laid out three to a row on desktop; six fills two rows."
           - name: foundation
             label: Foundation
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -469,11 +535,6 @@ content:
             label: Extend
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -555,11 +616,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -569,88 +625,41 @@ content:
                 type: text
                 required: true
           - name: services
-            label: What we do
+            label: Services ledger
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
                 required: true
-              - name: cards
-                label: Service cards
+              - name: items
+                label: Services
                 type: object
                 list: true
                 fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
-                    options:
-                      media: spots
                   - name: title
-                    label: Title
+                    label: Service
                     type: string
                     required: true
                   - name: text
-                    label: Description
+                    label: Outcome
                     type: text
                     required: true
-          - name: solutions
-            label: Solutions
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: title
-                label: Heading
-                type: string
-                required: true
-              - name: cards
-                label: Solution cards
-                type: object
-                list: true
-                fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
-                    options:
-                      media: spots
-                  - name: title
-                    label: Title
+                    description: One line on what the client gets.
+                  - name: linkLabel
+                    label: Link text
                     type: string
-                    required: true
-                  - name: text
-                    label: Description
-                    type: text
-                    required: true
+                    required: false
+                    description: Optional link under the outcome. Say where it goes.
+                  - name: linkHref
+                    label: Link
+                    type: string
+                    required: false
+                    description: A site path like /ai. Leave empty for no link.
           - name: cycle
             label: Optimization cycle
             type: object
             fields:
-              - name: image
-                label: Image
-                type: image
-                required: true
-              - name: imageAlt
-                label: Image alt text
-                type: string
-                required: true
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -659,6 +668,21 @@ content:
                 label: Text
                 type: text
                 required: true
+              - name: listLabel
+                label: Cycle name (screen readers)
+                type: string
+                required: true
+                description: "Read out before the steps, e.g. \"The M20 optimization cycle\"."
+              - name: steps
+                label: Cycle steps
+                type: object
+                list: true
+                fields:
+                  - name: label
+                    label: Step
+                    type: string
+                    required: true
+                description: "Shown clockwise from top left; the cycle reads best with exactly four steps."
               - name: cta
                 label: Button
                 type: object
@@ -707,15 +731,15 @@ content:
             label: Partner banner
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: text
                 required: true
+              - name: meta
+                label: Partner line
+                type: string
+                required: true
+                description: "Small muted line under the heading, e.g. the partner tier."
               - name: cta
                 label: Button
                 type: object
@@ -773,11 +797,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -857,11 +876,6 @@ content:
                 label: Hide from search engines
                 type: boolean
                 description: Adds noindex and leaves the page out of sitemap.xml.
-          - name: eyebrow
-            label: Eyebrow
-            type: string
-            required: true
-            description: Small uppercase label above the heading.
           - name: title
             label: Heading
             type: string
@@ -876,10 +890,6 @@ content:
                 type: string
                 required: true
                 description: "Path of the case study page, e.g. /case-study-intranet."
-              - name: category
-                label: Category
-                type: string
-                required: true
               - name: title
                 label: Title
                 type: string
@@ -943,11 +953,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1032,11 +1037,6 @@ content:
                 label: Hide from search engines
                 type: boolean
                 description: Adds noindex and leaves the page out of sitemap.xml.
-          - name: eyebrow
-            label: Eyebrow
-            type: string
-            required: true
-            description: Small uppercase label above the heading.
           - name: title
             label: Heading
             type: string
@@ -1102,11 +1102,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Links back to the case studies index.
               - name: title
                 label: Heading
                 type: string
@@ -1126,37 +1121,10 @@ content:
                 description: "Background art on the right of the hero (decorative). Pick the cover's .svg."
                 options:
                   media: covers
-          - name: highlights
-            label: Project highlights
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: stats
-                label: Stats
-                type: object
-                list: true
-                fields:
-                  - name: value
-                    label: Value
-                    type: string
-                    required: true
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
           - name: overview
             label: Company overview
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1165,30 +1133,20 @@ content:
                 label: Text
                 type: text
                 required: true
-              - name: industryLabel
-                label: Industry label
-                type: string
-                required: true
-              - name: industry
-                label: Industry
-                type: string
-                required: true
-              - name: focusLabel
-                label: Focus label
-                type: string
-                required: true
-              - name: focus
-                label: Focus
-                type: string
-                required: true
-              - name: challengeLabel
-                label: Challenge label
-                type: string
-                required: true
-              - name: challenge
-                label: Core challenge
-                type: text
-                required: true
+              - name: facts
+                label: Project facts
+                type: object
+                list: true
+                fields:
+                  - name: term
+                    label: Label
+                    type: string
+                    required: true
+                  - name: value
+                    label: Value
+                    type: string
+                    required: true
+                description: "Label/value rows beside the overview (industry, focus, key facts). Keep values factual; no stat tiles."
           - name: quote
             label: Client quote paragraphs
             type: text
@@ -1198,11 +1156,6 @@ content:
             label: The challenge
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1223,11 +1176,6 @@ content:
             label: The solution
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1252,11 +1200,6 @@ content:
             label: Design & features
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1269,11 +1212,6 @@ content:
             label: Outcomes
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1282,8 +1220,25 @@ content:
                 label: Text
                 type: text
                 required: true
+          - name: closing
+            label: Closing buttons
+            type: object
+            fields:
               - name: cta
-                label: Button
+                label: Main button
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+              - name: indexLink
+                label: Back to case studies link
                 type: object
                 fields:
                   - name: label
@@ -1339,11 +1294,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Links back to the case studies index.
               - name: title
                 label: Heading
                 type: string
@@ -1363,37 +1313,10 @@ content:
                 description: "Background art on the right of the hero (decorative). Pick the cover's .svg."
                 options:
                   media: covers
-          - name: highlights
-            label: Project highlights
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: stats
-                label: Stats
-                type: object
-                list: true
-                fields:
-                  - name: value
-                    label: Value
-                    type: string
-                    required: true
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
           - name: overview
             label: Company overview
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1402,39 +1325,24 @@ content:
                 label: Text
                 type: text
                 required: true
-              - name: industryLabel
-                label: Industry label
-                type: string
-                required: true
-              - name: industry
-                label: Industry
-                type: string
-                required: true
-              - name: focusLabel
-                label: Focus label
-                type: string
-                required: true
-              - name: focus
-                label: Focus
-                type: string
-                required: true
-              - name: challengeLabel
-                label: Challenge label
-                type: string
-                required: true
-              - name: challenge
-                label: Core challenge
-                type: text
-                required: true
+              - name: facts
+                label: Project facts
+                type: object
+                list: true
+                fields:
+                  - name: term
+                    label: Label
+                    type: string
+                    required: true
+                  - name: value
+                    label: Value
+                    type: string
+                    required: true
+                description: "Label/value rows beside the overview (industry, focus, key facts). Keep values factual; no stat tiles."
           - name: challenge
             label: The challenge
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1443,15 +1351,11 @@ content:
                 label: Intro
                 type: text
                 required: true
-              - name: cards
-                label: Challenge cards
+              - name: items
+                label: Challenges
                 type: object
                 list: true
                 fields:
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
                   - name: title
                     label: Title
                     type: string
@@ -1468,11 +1372,6 @@ content:
             label: The solution
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1498,14 +1397,15 @@ content:
                 type: object
                 list: true
                 fields:
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
                   - name: title
                     label: Title
                     type: string
                     required: true
+                  - name: label
+                    label: Stage
+                    type: string
+                    required: true
+                    description: "Shown under the title, e.g. POC 1 · Prototype."
                   - name: specs
                     label: Specs
                     type: object
@@ -1519,19 +1419,14 @@ content:
                         label: Value
                         type: string
                         required: true
-                  - name: result
-                    label: Result
-                    type: string
-                    required: true
           - name: architecture
             label: Core architecture
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
+              - name: title
+                label: Heading
                 type: string
                 required: true
-                description: Small uppercase label above the heading.
               - name: parts
                 label: Parts
                 type: object
@@ -1550,63 +1445,20 @@ content:
             label: Key design principles
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
+              - name: title
+                label: Heading
                 type: string
                 required: true
-                description: Small uppercase label above the heading.
               - name: items
                 label: Principles
                 type: text
                 description: "Supports **bold**, *italic*, and [link text](https://…)."
                 required: true
                 list: true
-          - name: value
-            label: Our value
-            type: object
-            fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
-              - name: title
-                label: Heading
-                type: string
-                required: true
-              - name: intro
-                label: Intro
-                type: text
-                required: true
-              - name: cards
-                label: Cards
-                type: object
-                list: true
-                fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
-                    options:
-                      media: spots
-                  - name: title
-                    label: Title
-                    type: string
-                    required: true
-                  - name: text
-                    label: Text
-                    type: text
-                    required: true
           - name: outcomes
             label: Outcomes
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1619,8 +1471,50 @@ content:
                 label: Outcomes
                 type: string
                 list: true
+          - name: value
+            label: How M20 helped
+            type: object
+            fields:
+              - name: title
+                label: Heading
+                type: string
+                required: true
+              - name: intro
+                label: Intro
+                type: text
+                required: true
+              - name: items
+                label: Rows
+                type: object
+                list: true
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: text
+                    label: Text
+                    type: text
+                    required: true
+          - name: closing
+            label: Closing buttons
+            type: object
+            fields:
               - name: cta
-                label: Button
+                label: Main button
+                type: object
+                fields:
+                  - name: label
+                    label: Button text
+                    type: string
+                    required: true
+                  - name: href
+                    label: Link
+                    type: string
+                    required: true
+                    description: "A site path like /contact, or a full https:// URL."
+              - name: indexLink
+                label: Back to case studies link
                 type: object
                 fields:
                   - name: label
@@ -1676,11 +1570,6 @@ content:
             label: Hero
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1697,13 +1586,13 @@ content:
             label: "What's inside"
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
+              - name: label
+                label: Navigation name (screen readers)
                 type: string
                 required: true
-                description: Small uppercase label above the heading.
+                description: "Read out before the section links, e.g. \"What's inside\"."
               - name: cards
-                label: Section cards
+                label: Section links
                 type: object
                 list: true
                 fields:
@@ -1712,10 +1601,6 @@ content:
                     type: string
                     required: true
                     description: "Anchor of the section below, e.g. #forge-app."
-                  - name: number
-                    label: Number
-                    type: string
-                    required: true
                   - name: title
                     label: Title
                     type: string
@@ -1725,14 +1610,9 @@ content:
                     type: text
                     required: true
           - name: forge
-            label: "01 · Forge app"
+            label: Forge app
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1742,7 +1622,7 @@ content:
                 type: string
                 list: true
               - name: backgroundLabel
-                label: Background label
+                label: Background heading
                 type: string
                 required: true
               - name: background
@@ -1750,7 +1630,7 @@ content:
                 type: text
                 required: true
               - name: solutionLabel
-                label: Solution label
+                label: Solution heading
                 type: string
                 required: true
               - name: solution
@@ -1758,17 +1638,42 @@ content:
                 type: text
                 required: true
               - name: features
-                label: Feature cards
+                label: Features
                 type: object
                 list: true
                 fields:
-                  - name: spot
-                    label: Spot
-                    type: image
-                    required: false
-                    description: "Shown at the top of the card (decorative). Pick the spot's .svg."
+                  - name: icon
+                    label: Icon
+                    type: select
+                    description: "Icons live in cms/icons/ — ask a developer to add a new one."
+                    required: true
                     options:
-                      media: spots
+                      values:
+                        - alert
+                        - bolt
+                        - calendar-check
+                        - chat
+                        - checklist
+                        - cloud-bolt
+                        - cycle
+                        - document-clock
+                        - gear
+                        - globe
+                        - globe-nodes
+                        - invoice
+                        - invoice-overdue
+                        - layers
+                        - org-chart
+                        - org-chart-small
+                        - price-tag
+                        - search
+                        - sparkles
+                        - sync
+                        - team-add
+                        - team-flag
+                        - team-partner
+                        - ticket
+                        - window
                   - name: title
                     label: Title
                     type: string
@@ -1778,7 +1683,7 @@ content:
                     type: string
                     list: true
               - name: outcomesLabel
-                label: Outcomes label
+                label: Outcomes heading
                 type: string
                 required: true
               - name: outcomes
@@ -1786,14 +1691,9 @@ content:
                 type: string
                 list: true
           - name: workflows
-            label: "02 · Agentic workflows"
+            label: Agentic workflows
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1807,7 +1707,7 @@ content:
                 type: string
                 list: true
               - name: cards
-                label: Cards
+                label: Workflows
                 type: object
                 list: true
                 fields:
@@ -1820,14 +1720,9 @@ content:
                     type: text
                     required: true
           - name: knowledge
-            label: "03 · Knowledge management"
+            label: Knowledge management
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1841,13 +1736,9 @@ content:
                 type: string
                 list: true
               - name: featured
-                label: Featured example
+                label: Featured agent
                 type: object
                 fields:
-                  - name: label
-                    label: Label
-                    type: string
-                    required: true
                   - name: title
                     label: Title
                     type: string
@@ -1870,7 +1761,7 @@ content:
                         type: text
                         required: true
               - name: cards
-                label: Cards
+                label: More agents
                 type: object
                 list: true
                 fields:
@@ -1883,14 +1774,9 @@ content:
                     type: text
                     required: true
           - name: governance
-            label: "04 · AI governance"
+            label: AI governance
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string
@@ -1900,11 +1786,18 @@ content:
                 type: text
                 required: true
               - name: items
-                label: Items
-                type: text
-                description: "Supports **bold**, *italic*, and [link text](https://…)."
-                required: true
+                label: Guardrails
+                type: object
                 list: true
+                fields:
+                  - name: title
+                    label: Guardrail
+                    type: string
+                    required: true
+                  - name: text
+                    label: Detail
+                    type: text
+                    required: true
           - name: cta
             label: Closing call to action
             type: object
@@ -1970,11 +1863,6 @@ content:
             label: Intro
             type: object
             fields:
-              - name: eyebrow
-                label: Eyebrow
-                type: string
-                required: true
-                description: Small uppercase label above the heading.
               - name: title
                 label: Heading
                 type: string

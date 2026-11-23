@@ -135,10 +135,9 @@ const VISUALS = {
       block("Say this, not that", "",
         `<div class="pairs">${avoid.map(([a, b]) => `<div class="pair"><p class="no"><span>✕</span>${esc(plain(a))}</p><p class="yes"><span>✓</span>${esc(plain(b))}</p></div>`).join("")}
         <div class="pair"><p class="no"><span>✕</span>Streamline your workflows — we handle the complexity.</p><p class="yes"><span>✓</span>Streamline your workflows. We handle the complexity.</p></div></div>`),
-      block("Headline pattern", "Eyebrow, confident serif headline, calmer sans sentence.",
+      block("Headline pattern", "Confident serif headline, calmer sans sentence. No eyebrow label above it (deprecated in WEB-65).",
         specimen("Section opener", `<div>
-  ${eyebrow("How we work")}
-  <h2 style="font:600 clamp(30px,4vw,48px)/1.15 ${SERIF};letter-spacing:-0.01em;margin:18px 0 20px;color:#14171C;">Built with you, not just for you</h2>
+  <h2 style="font:600 clamp(30px,4vw,48px)/1.15 ${SERIF};letter-spacing:-0.01em;margin:0 0 20px;color:#14171C;">Built with you, not just for you</h2>
   <p style="font:400 19px/1.6 ${SANS};color:#5A6270;margin:0;max-width:560px;">We design around how your teams already work, then make Atlassian fit.</p>
 </div>`, { wide: true })),
     ].join("");
@@ -157,10 +156,10 @@ const VISUALS = {
     return [
       block("Palette", "Click a swatch to copy its hex. Ratios are WCAG contrast against paper <code>#FAF7F4</code> and ink <code>#14171C</code> (4.5:1 for body text, 3:1 for large text).",
         `<div class="swatches">${grid}</div>`),
-      block("How the colors work together", "Paper and ink for structure, red only for action, gold only as a kicker on dark.",
+      block("How the colors work together", "Paper and ink for structure, red only for action, gold only as an accent on dark.",
         `<div class="cards">
-          ${specimen("Light section", `<div style="background:#FAF7F4;padding:24px;border-radius:14px;">${eyebrow("What we do")}<h3 style="font:600 24px/1.2 ${SERIF};margin:14px 0 10px;color:#14171C;">Paper and ink</h3><p style="font:400 16px/1.6 ${SANS};color:#5A6270;margin:0 0 16px;">Muted copy on paper, red for the one action.</p><a style="${BTN}background:#C0392B;color:#fff;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Talk to us</a></div>`)}
-          ${specimen("Dark section", `<div style="background:#14171C;padding:24px;border-radius:14px;">${eyebrow("Rovo AI", "#E8A04C")}<h3 style="font:600 24px/1.2 ${SERIF};margin:14px 0 10px;color:#FAF7F4;">Ink with a gold kicker</h3><p style="font:400 16px/1.6 ${SANS};color:#C9CDD6;margin:0 0 16px;">Gold labels, never gold buttons. Links in <span style="color:#F5C98F;">gold tint</span>.</p><a style="${BTN}background:#C0392B;color:#fff;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">See the agents</a></div>`, { ground: "ink" })}
+          ${specimen("Light section", `<div style="background:#FAF7F4;padding:24px;border-radius:14px;"><h3 style="font:600 24px/1.2 ${SERIF};margin:0 0 10px;color:#14171C;">Paper and ink</h3><p style="font:400 16px/1.6 ${SANS};color:#5A6270;margin:0 0 16px;">Muted copy on paper, red for the one action.</p><a style="${BTN}background:#C0392B;color:#fff;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">Talk to us</a></div>`)}
+          ${specimen("Dark section", `<div style="background:#14171C;padding:24px;border-radius:14px;"><h3 style="font:600 24px/1.2 ${SERIF};margin:0 0 10px;color:#FAF7F4;">Ink with gold accents</h3><p style="font:400 16px/1.6 ${SANS};color:#C9CDD6;margin:0 0 16px;">Gold for accents, never for buttons or text on red. Links in <span style="color:#F5C98F;">gold tint</span>.</p><a style="${BTN}background:#C0392B;color:#fff;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">See the agents</a></div>`, { ground: "ink" })}
           ${specimen("Maroon band", `<div style="background:linear-gradient(135deg,#96271C,#7A1E15);padding:24px;border-radius:14px;"><h3 style="font:600 24px/1.2 ${SERIF};margin:0 0 10px;color:#fff;">Red gradient band</h3><p style="font:400 16px/1.6 ${SANS};color:#F3EEE8;margin:0;">One per page at most, for the brand statement.</p></div>`)}
         </div>`),
       `<p class="see">Status (red, amber, green) colors for artwork are on <a href="${href("imagery", "status")}">Imagery &amp; Illustrations</a>.</p>`,
@@ -237,8 +236,6 @@ const VISUALS = {
           ${specimen("Outline (light)", `<a style="${BTN}border:2px solid #14171C;color:#14171C;background:transparent;" style-hover="background:#14171C;color:#fff;">See case studies</a>`)}
           ${specimen("Secondary (dark hero)", `<a style="${BTN}border:2px solid rgba(255,255,255,.85);color:#fff;background:rgba(20,23,28,.4);" style-hover="background:rgba(255,255,255,.14);border-color:#fff;">Explore Rovo AI</a>`, { ground: "ink" })}
         </div>`),
-      block("Eyebrows", "Short rule plus uppercase label. Red on light, gold on dark.",
-        `<div class="cards two">${specimen("On light", eyebrow("What we do"))}${specimen("On dark", eyebrow("Get in touch", "#E8A04C"), { ground: "ink" })}</div>`),
       block("Cards", "",
         `<div class="cards">
           ${specimen("Service card", `<div style="background:#fff;border:1px solid #E4DCD3;border-radius:22px;padding:36px 32px 30px;transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;" style-hover="border-color:#C0392B;box-shadow:0 18px 40px rgba(20,23,28,.10);transform:translateY(-4px)">

@@ -14,7 +14,7 @@
 </helmet>
 <header style="position:sticky;top:0;z-index:50;background:rgba(250,247,244,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E4DCD3;">
   <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:flex;align-items:center;gap:28px;min-height:76px;">
-    <a href="/" aria-label="M20 Technology — home" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
+    <a href="/" aria-label="M20 Technology home" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;">
       <img src="[[ logo ]]" alt="[[ logoAlt ]]" style="width:42px;height:auto;display:block;">
       <span style="display:flex;flex-direction:column;line-height:1;">
         <span style="font:700 22px/1 'Source Sans 3', system-ui, sans-serif;letter-spacing:.01em;color:#14171C;">M20</span>
@@ -26,22 +26,23 @@
       <nav aria-label="Primary" style="margin-left:auto;">
         <ul style="display:flex;gap:30px;list-style:none;margin:0;padding:0;">
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="/" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.home ]]</a>
+            <a href="/" aria-current="{{ isHomeCurrent }}" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.home ]]</a>
             <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="/ai" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.ai ]]</a>
+            <a href="/ai" aria-current="{{ isAiCurrent }}" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.ai ]]</a>
             <sc-if value="{{ isAi }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="/atlassian-services" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.services ]]</a>
+            <a href="/atlassian-services" aria-current="{{ isServicesCurrent }}" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.services ]]</a>
             <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
           <li style="position:relative;" onMouseEnter="{{ hoverResources }}" onMouseLeave="{{ unhoverResources }}" onFocus="{{ hoverResources }}" onBlur="{{ blurResources }}">
-            <button type="button" aria-haspopup="true" aria-expanded="{{ resourcesOpen }}" style="display:inline-flex;align-items:center;gap:7px;font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:none;border:0;cursor:default;padding:8px 2px;">
+            <button type="button" aria-haspopup="true" aria-expanded="{{ resourcesOpen }}" onClick="{{ toggleResources }}" style="display:inline-flex;align-items:center;gap:7px;font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:none;border:0;cursor:pointer;padding:8px 2px;">
               [[ nav.resources ]]
-              <svg viewBox="0 0 10 6" width="10" height="6" style="{{ chevronStyle }}"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+              <svg viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" style="{{ chevronStyle }}"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
             </button>
+            <sc-if value="{{ isResources }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:19px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
             <sc-if value="{{ resourcesOpen }}" hint-placeholder-val="{{ false }}">
               <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:12px;z-index:60;">
                 <ul style="min-width:220px;margin:0;padding:8px;list-style:none;background:#FAF7F4;border:1px solid #E4DCD3;border-radius:12px;box-shadow:0 18px 44px rgba(20,23,28,.16);">
@@ -56,7 +57,7 @@
             </sc-if>
           </li>
           <li style="position:relative;display:inline-flex;flex-direction:column;align-items:center;">
-            <a href="/partners" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.partners ]]</a>
+            <a href="/partners" aria-current="{{ isPartnersCurrent }}" style="font:600 15px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;padding:8px 2px;">[[ nav.partners ]]</a>
             <sc-if value="{{ isPartners }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2px;right:2px;bottom:4px;height:2px;background:#C0392B;"></span></sc-if>
           </li>
         </ul>
@@ -66,16 +67,16 @@
     </sc-if>
 
     <sc-if value="{{ !isDesktop }}" hint-placeholder-val="{{ false }}">
-      <button onclick="{{ toggleMobile }}" aria-label="Menu" style="margin-left:auto;width:48px;height:48px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
-        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
-        <span style="width:26px;height:2px;background:#14171C;display:block;"></span>
+      <button type="button" onclick="{{ toggleMobile }}" aria-label="Menu" aria-expanded="{{ mobileOpen }}" aria-controls="mobile-nav" style="margin-left:auto;width:48px;height:48px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+        <span style="{{ bar1Style }}"></span>
+        <span style="{{ bar2Style }}"></span>
+        <span style="{{ bar3Style }}"></span>
       </button>
     </sc-if>
   </div>
 
   <sc-if value="{{ showMobileNav }}" hint-placeholder-val="{{ false }}">
-    <nav aria-label="Mobile" style="display:flex;flex-direction:column;gap:4px;padding:12px clamp(20px,4vw,48px) 24px;background:#FAF7F4;border-bottom:1px solid #E4DCD3;">
+    <nav id="mobile-nav" aria-label="Mobile" style="display:flex;flex-direction:column;gap:4px;padding:12px clamp(20px,4vw,48px) 24px;background:#FAF7F4;border-bottom:1px solid #E4DCD3;">
       <a href="/" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">[[ nav.home ]]</a>
       <a href="/ai" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">[[ nav.ai ]]</a>
       <a href="/atlassian-services" style="padding:12px 4px;font:600 17px 'Source Sans 3', system-ui, sans-serif;color:#14171C;text-decoration:none;">[[ nav.services ]]</a>
@@ -94,7 +95,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this._onResize = () => this.setState({ isDesktop: window.innerWidth > 760 });
     window.addEventListener("resize", this._onResize);
-    this._onKey = (e) => { if (e.key === "Escape") this.setState({ resHover: false }); };
+    this._onKey = (e) => { if (e.key === "Escape") this.setState({ resHover: false, mobileOpen: false }); };
     document.addEventListener("keydown", this._onKey);
   }
   componentWillUnmount() {
@@ -105,11 +106,22 @@ class Component extends DCLogic {
   renderVals() {
     const p = this.props.activePage || "home";
     const resOpen = this.state.resHover;
+    const bar = "width:26px;height:2px;background:#14171C;display:block;transition:transform .18s ease, opacity .18s ease;";
     return {
       isHome: p === "home",
       isAi: p === "ai",
       isServices: p === "services",
       isPartners: p === "partners",
+      isResources: p === "case-studies" || p === "value-prop",
+      isHomeCurrent: p === "home" ? "page" : undefined,
+      isAiCurrent: p === "ai" ? "page" : undefined,
+      isServicesCurrent: p === "services" ? "page" : undefined,
+      isPartnersCurrent: p === "partners" ? "page" : undefined,
+      mobileOpen: this.state.mobileOpen ? "true" : "false",
+      bar1Style: bar + (this.state.mobileOpen ? "transform:translateY(8px) rotate(45deg);" : ""),
+      bar2Style: bar + (this.state.mobileOpen ? "opacity:0;" : ""),
+      bar3Style: bar + (this.state.mobileOpen ? "transform:translateY(-8px) rotate(-45deg);" : ""),
+      toggleResources: () => { clearTimeout(this._resT); this.setState({ resHover: true }); },
       isDesktop: this.state.isDesktop,
       showMobileNav: this.state.mobileOpen && !this.state.isDesktop,
       resourcesOpen: resOpen,

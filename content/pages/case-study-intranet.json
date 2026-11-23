@@ -1,14 +1,13 @@
 {
   "seo": {
     "title": "Case Study: Confluence Intranet Redesign | M20 Technology",
-    "description": "How M20 turned a legacy intranet into a design-forward Confluence collaboration hub with Refined — with zero disruption to existing content.",
+    "description": "How M20 turned a legacy intranet into a design-forward Confluence collaboration hub with Refined, without disrupting existing content.",
     "image": "/assets/artwork/covers/intranet-transformation.png",
     "noindex": false
   },
   "hero": {
-    "eyebrow": "Case Study",
     "title": "Outdated Intranet to Cutting-Edge Collaboration Hub",
-    "intro": "How M20 Technology transformed a legacy intranet into a design-forward collaboration platform — with zero disruption to existing Confluence content.",
+    "intro": "How M20 Technology transformed a legacy intranet into a design-forward collaboration platform, with zero disruption to existing Confluence content.",
     "tags": [
       "Confluence",
       "Refined for Confluence",
@@ -17,47 +16,48 @@
     ],
     "cover": "/assets/artwork/covers/intranet-transformation.svg"
   },
-  "highlights": {
-    "eyebrow": "Project Highlights",
-    "stats": [
+  "overview": {
+    "title": "A Software Leader With a Design-First Culture",
+    "text": "Our client is a leading technology and design software company whose internal tools didn't match the caliber of the products they shipped. Their intranet, originally built by the CEO, had grown outdated, hindering the communication and collaboration their teams needed to move fast.",
+    "facts": [
       {
-        "value": "0",
-        "label": "Content disruption"
+        "term": "Industry",
+        "value": "Software"
       },
       {
-        "value": "100%",
-        "label": "Executive buy-in"
+        "term": "Focus",
+        "value": "Technology and design"
       },
       {
-        "value": "Pixel",
-        "label": "Perfect UI match"
+        "term": "Core challenge",
+        "value": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar."
       },
       {
-        "value": "1",
-        "label": "Long-term partner"
+        "term": "Content disruption",
+        "value": "None"
+      },
+      {
+        "term": "Executive buy-in",
+        "value": "100%"
+      },
+      {
+        "term": "UI match",
+        "value": "Pixel perfect"
+      },
+      {
+        "term": "Relationship",
+        "value": "Long-term partner"
       }
     ]
-  },
-  "overview": {
-    "eyebrow": "Company Overview",
-    "title": "A Software Leader With a Design-First Culture",
-    "text": "Our client is a leading technology and design software company whose internal tools didn't match the caliber of the products they shipped. Their intranet — originally built by the CEO — had grown outdated, hindering the communication and collaboration their teams needed to move fast.",
-    "industryLabel": "Industry",
-    "industry": "Software",
-    "focusLabel": "Focus",
-    "focus": "Technology and Design",
-    "challengeLabel": "Core Challenge",
-    "challenge": "Upgrade an aging intranet while preserving the Confluence knowledge base and matching a high design bar."
   },
   "quote": [
     "“Huge thanks to M20 for their incredible work on our Confluence/Refined intranet space. We came to them with a specific tool that wasn't exactly ‘intranet-ready,’ and they completely transformed it.",
     "They managed to bridge the gap between technical constraints and our brand identity perfectly. The space is now incredibly easy to navigate and has become an essential tool for our team. M20 understands both the ‘look and feel’ of a brand and the practical needs of workflow efficiency. Highly recommended for any team looking to push their existing tools to the next level.”"
   ],
   "challenge": {
-    "eyebrow": "The Challenge",
     "title": "Modernize Without Breaking What Works",
-    "text": "The existing intranet was outdated and fragmented. But the company had years of valuable knowledge stored in Confluence — content that couldn't be disrupted. The project needed to thread a needle: deliver a modern, branded experience while keeping all of that institutional knowledge intact.",
-    "listTitle": "Key requirements included:",
+    "text": "The existing intranet was outdated and fragmented. But the company had years of valuable knowledge stored in Confluence, and that content couldn't be disrupted. The project needed to thread a needle: deliver a modern, branded experience while keeping all of that institutional knowledge intact.",
+    "listTitle": "Key requirements",
     "requirements": [
       "A custom UI/UX reflecting the company's design ethos",
       "A bespoke calendar and events module",
@@ -66,24 +66,27 @@
     ]
   },
   "solution": {
-    "eyebrow": "The Solution",
     "title": "A Tailored Confluence Experience",
-    "text": "Rather than rebuilding from scratch, M20 built on Confluence's robust content management capabilities — layering on Refined for Confluence for theming, custom HTML components for functionality, and analytics for insight.",
+    "text": "Rather than rebuilding from scratch, M20 built on Confluence's robust content management capabilities, layering on Refined for Confluence for theming, custom HTML components for functionality, and analytics for insight.",
     "illustration": "/assets/artwork/illustrations/confluence-intranet-layers.svg",
     "illustrationAlt": "Three stacked layers: existing Confluence pages at the base, a brand theme in the middle, and custom intranet components on top, with a search-terms panel alongside."
   },
   "design": {
-    "eyebrow": "Design & Features",
     "title": "Built to Match the Brand",
-    "text": "M20 worked closely with Refined for Confluence to deliver a pixel-perfect intranet that resonated with the client's design identity — without touching existing Confluence content."
+    "text": "M20 worked closely with Refined for Confluence to deliver a pixel-perfect intranet that resonated with the client's design identity, without touching existing Confluence content."
   },
   "outcomes": {
-    "eyebrow": "Outcomes",
     "title": "A Platform That Earned C-Suite Attention",
-    "text": "The revamped intranet launched to immediate internal acclaim — including recognition from the executive team. It proved that internal tools can reflect the same design standards as customer-facing products.",
+    "text": "The revamped intranet launched to immediate internal acclaim, including recognition from the executive team. It proved that internal tools can reflect the same design standards as customer-facing products."
+  },
+  "closing": {
     "cta": {
       "href": "/contact",
-      "label": "Start a conversation →"
+      "label": "Contact us"
+    },
+    "indexLink": {
+      "href": "/case-studies",
+      "label": "All case studies"
     }
   }
 }

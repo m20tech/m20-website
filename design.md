@@ -23,14 +23,14 @@ M20 Technology is an Atlassian Gold Solution Partner. The site's tone is editori
 | Brand red hover | `#96271C` | Button/link hover state, also used as a dark maroon gradient stop |
 | Red gradient dark stop | `#7A1E15` | Deep maroon section background (paired with `#96271C`) |
 | Red tint (icon chip bg) | `#F9E9E4` | Icon badge backgrounds on light cards |
-| Gold/amber accent | `#E8A04C` | Eyebrow labels on dark sections, kicker rules, "Rovo AI" accents |
+| Gold/amber accent | `#E8A04C` | Accents on dark sections only: rules, meters, check marks, "Rovo AI" accents. Never text on the red gradient (3.7:1). |
 | Gold tint | `#F5C98F` | Links/emphasis on dark backgrounds (e.g. contact email link) |
-| Gold pale | `#F0C9A8` | 4th step in the "Optimization Cycle" ring chart |
+| Gold pale | `#F0C9A8` | Retired from page UI in WEB-65 (was the 4th step of the old ring chart). Don't use for new work. |
 | Success green | `#1E7A46` | Form success status text |
 | Error/invalid | `#96271C` | Form field invalid border/status text |
 | White | `#FFFFFF` | Cards on light sections, button text on red |
 
-Design logic: **paper/ink** for structure, **red** exclusively for calls to action and interactive emphasis, **gold** exclusively as an eyebrow/kicker accent on dark backgrounds (artwork has its own, slightly wider rules and a red/amber/green status set — see **Illustrations**). Never mix red-as-decoration and red-as-action — red always means "click here" or "this is active."
+Design logic: **paper/ink** for structure, **red** exclusively for calls to action, links, active states and focus (plus the line icons and spot art, which are a brand graphic), **gold** exclusively as an accent on dark backgrounds (artwork has its own, slightly wider rules and a red/amber/green status set — see **Illustrations**). Never mix red-as-decoration and red-as-action — red always means "click here" or "this is active."
 
 ## Typography
 
@@ -48,7 +48,7 @@ Type scale (fluid via `clamp()`):
 - Pull quote (blockquote): `clamp(19px,2.2vw,24px)` / 1.55, Source Serif 4 **400**
 - Body: `17px` base / 1.65 line-height, Source Sans 3 400
 - Lead paragraph: `18–22px`, Source Sans 3 400
-- Eyebrow/kicker label: `12–13px`, Source Sans 3 600, `letter-spacing: .14em–.2em`, uppercase, paired with a short 2px horizontal rule in the accent color
+- Eyebrow/kicker label: **deprecated on the website (WEB-65, 2026-11).** Don't add uppercase labels above headings; the heading carries the section. A fact an eyebrow used to hold (e.g. partner status) becomes a sentence-case meta line in muted text. Print running headers keep their label style (see PDF templates).
 - Nav/button label: `15px`, Source Sans 3 600, `letter-spacing: .02em`
 
 ## Layout & spacing
@@ -74,7 +74,8 @@ Keeping to the scale is what stops pages growing into needless scrolling.
 Supporting spacing:
 - Two-column section gap: `clamp(28px,4vw,48px)`, up to `clamp(32px,4.5vw,64px)` for a wide split
 - Section heading → grid/content below: `32px` (never more)
-- Eyebrow → heading: `18px`; heading → lead paragraph: `20px`
+- Heading → lead paragraph: `20px`
+- Prose measure: paragraphs `max-width:68ch`; headings `text-wrap:balance`, paragraphs `text-wrap:pretty`
 - Long-form prose (privacy policy): `1.4em` between blocks, `34px` above an `h2` (margins collapse, so the heading's top margin sets the section break)
 
 ## Responsive layout
@@ -91,17 +92,32 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 - Secondary (on dark hero): pill, transparent/translucent fill (`rgba(20,23,28,.4)`), 2px white border. Hover fills white-tinted.
 - Outline (on light bg): pill, 2px solid `#14171C` border, dark text. Hover → fills `#14171C` with white text.
 
+**Section shapes** (WEB-65): don't default to "heading + three equal icon cards". Pick the shape the content needs:
+- **Ledger:** hairline-ruled rows (`border-top:1px solid #E4DCD3`), a serif title column beside a sans description column, optional 64px spot or icon. Use it for services, offerings, partners and project facts.
+- **Split:** prose on one side, an illustration, list or form on the other (`align-items:center`).
+- **Statement:** one large serif line and one sentence, for a band between denser sections.
+- **Numbered process:** only when the order matters (a delivery cycle, phases).
+- **Cards:** only for parallel items that are links (case-study index). Never a card inside a card or a rounded panel.
+
 **Cards**
-- Light service card: white bg, `1px solid #E4DCD3` border, `22px` radius, `36px 32px 30px` padding. Hover: border → red, `box-shadow:0 18px 40px rgba(20,23,28,.10)`, `translateY(-4px)`.
+- Light service card: white bg, `1px solid #E4DCD3` border, `22px` radius, `36px 32px 30px` padding. Hover lift (border → red, `box-shadow:0 18px 40px rgba(20,23,28,.10)`, `translateY(-4px)`) **only when the whole card is a link**; a card that isn't clickable has no hover state.
 - Icon badge: `52–56px` square, `14px` radius, tint background `#F9E9E4` (light) — 26px stroke SVG icon in `#C0392B`, `stroke-width:1.9–2.2`, rounded caps/joins, no fill.
-- Dark surface card (on `#14171C` sections): `#23282F` bg, `1px solid rgba(255,255,255,.08)` border, sometimes `3px solid #E8A04C` top accent. Hover: border → red, lift + shadow.
+- Dark surface card (on `#14171C` sections): `#23282F` bg, `1px solid rgba(255,255,255,.08)` border. No one-sided accent stripe (a 3px top or side border on a rounded card reads as a template; retired in WEB-65). Hover lift only when the card is a link.
+- Stats: a stat is a real figure set in ink (`#14171C`, or paper on dark) with `font-variant-numeric:tabular-nums`, never red and never a glyph or word standing in for a number.
+- Icons are drawn SVGs from `cms/icons/`; never unicode characters (✓, ✕, →) as icons.
 
 **Navigation (Header)**
 - Sticky header, `rgba(250,247,244,.94)` with `backdrop-filter: blur(10px)`, bottom border `#E4DCD3`.
 - Logo: 42px mark + stacked wordmark ("M20" bold 22px / "TECHNOLOGY" 11px letterspaced uppercase muted). Both lines are set `line-height:1` with a `3px` gap between them, so the wordmark reads as one tight unit next to the mark — same treatment in the footer.
 - Desktop nav: `Home · AI · Services · Resources ▾ · Partners`, with a 2px red underline under the active page and a `Contact Us` pill at the right.
-- **Dropdowns are hover-only.** Resources (→ Case Studies, AI Value Proposition) opens on `mouseenter` and closes on `mouseleave` after a 220ms grace delay. Clicking a top-level nav label does nothing — there is no click-to-toggle and no latched-open state. Keyboard users get the same menu via `onFocus`/`onBlur` on the `<li>`, so the items stay reachable by Tab; `Escape` closes it.
-- Mobile (<760px): hamburger (3 bars) toggles a stacked full-width menu that lists every destination flat, including the ones behind the desktop dropdown.
+- **Dropdowns open on hover, focus or tap.** Resources (Case Studies, AI Value Proposition) opens on `mouseenter`, on focus, and on click or tap of its label (click only opens it, so touch screens wider than 760px can reach it). It closes on `mouseleave` after a 220ms grace delay, on blur and on `Escape`. While you are on Case Studies or AI Value Proposition, Resources carries the red active underline.
+- Active links carry `aria-current="page"`.
+- Mobile (<760px): hamburger (3 bars, turning into an X while open, with `aria-expanded` and `aria-controls="mobile-nav"`) toggles a stacked full-width menu that lists every destination flat, including the ones behind the desktop dropdown. `Escape` closes it.
+
+**States** (site-wide, in `cms/partials/head.html`, so every page gets them)
+- Focus: `:focus-visible` draws a 2px brick-red outline 3px off the element with a 6px paper halo, so it shows on paper, ink and the red gradient. Mouse focus shows nothing. Never remove it per element.
+- Selection: red tint `#F9E9E4` with ink text. Scrollbar: slate thumb on paper-alt.
+- `prefers-reduced-motion: reduce` turns transitions and animations off.
 
 **Footer**
 - Dark (`#14171C`) bar, `1px` top border `rgba(255,255,255,.08)`, logo + Atlassian Gold Partner badge + link nav (LinkedIn, email, Contact, Privacy) + copyright line, all in a single wrapping flex row.
@@ -117,18 +133,18 @@ count matters editorially — the Rovo agents grid on `ai.dc.html` is the one su
 
 **Confirmation modal** (Contact page, and the pattern to reuse for any future "thanks" / alert popup): a `position:fixed;inset:0` backdrop (`rgba(20,23,28,.6)`, `backdrop-filter:blur(2px)`, `z-index:100` — above the sticky header's `50` and its dropdown's `60`) centers a white `22px`-radius card (`box-shadow:0 40px 90px rgba(0,0,0,.4)`, same as the form card). Headline is Source Serif 4 700 (`26px/1.2`); body copy is Source Sans 3 in muted `#5A6270`; a single red pill button closes it. Dismiss via the button, a backdrop click (the card itself calls `stopPropagation` so clicks inside it don't bubble to the backdrop), or `Escape` — the same three dismissal paths already established by the nav's Resources/Partners dropdown.
 
-**Logo marquee** (home page "Trusted by" strip): auto-scrolling, pointer-draggable row of client logos, edge-masked with a fade gradient, pauses on `prefers-reduced-motion`. Every logo is listed twice — the second run is what makes the loop seamless, so add or remove a logo in **both** halves. Logos are sized `height:96px;width:auto`, which suits the square-ish marks most clients supply; a wide horizontal wordmark (CL Life, ~4.5:1) must also carry `max-width:200px` so it doesn't dwarf the rest of the row.
+**Client logo grid** (home page): a static, wrapping grid of client logos on paper-alt under a plain serif H2 (5 + 4 on desktop, 2 columns on phones). No marquee, no auto-scroll, no edge mask (retired in WEB-65: with few logos it read as filler and clipped the first logo). Logos sit at `height:96px;width:auto`; a wide wordmark (CL Life, ~4.5:1) carries `max-width:200px`.
 
 **Sticky footer** (short pages — `contact.dc.html`, `case-studies.dc.html`): when a page's content is shorter than the viewport, the footer would otherwise stop mid-screen and leave a bare white strip below it, since `body` has no background of its own. Those pages give the outer wrapper `min-height:100vh;display:flex;flex-direction:column;` and the main `<section>` `flex:1 0 auto;`, which pins the footer to the bottom and lets the section absorb the slack. Apply this to any new page that can render shorter than about 1000px.
 
-**Optimization Cycle diagram** (`atlassian-services/index.html`): a static image (`assets/optimization-cycle.jpg`, 720×753, ~55KB) rather than an inline SVG — a segmented ring in the red→gold family with an icon and label baked into each of the four segments (optimize, train, develop, support) and "Optimization Cycle" centered in a paper-colored hole. Its background is a near-exact match for the site's `#FAF7F4` paper color, so it drops onto the page with no card/border wrapper needed. Displayed at `max-width:300px`, so the source is intentionally oversized (~2.4× at display size) for retina screens — resize proportionally if it's ever swapped again, don't ship it at display resolution.
+**Optimization cycle** (`atlassian-services/index.html`): an ordered list of four CMS-editable steps (Optimize, Train, Develop, Support) laid out clockwise as a 2×2 ring with slate arrows and a red loop icon in the middle, beside the section copy. It replaced the raster ring chart (`assets/optimization-cycle.jpg`, kept for hotlinks) in WEB-65, because a donut with baked-in words broke the artwork rules.
 
 ## Imagery & iconography
 
 - Icons: custom inline SVGs from the icon library in `cms/icons/` (editors pick them per card in the CMS; add new ones there), 24×24 viewBox, `stroke` only (no fill except small accent dots), `stroke-width` ~1.9–2.2, rounded linecap/linejoin — consistent hand-drawn-technical feel, always in brand red on light backgrounds.
-- Photography: one dark, masked hero image (`hero-network.jpg`, an abstract red/dark network mesh) used behind the homepage hero with a left-to-right dark gradient overlay for text legibility.
+- Homepage hero: the cover `assets/artwork/covers/m20-delivery.svg` (a grey spreadsheet "before" window, a gold connector, and a paper Jira-style workspace with a rich table, a stacked RAG bar and a team × sprint status matrix), placed like the case-study covers. It replaced the network-mesh photo (`hero-network.jpg`, kept in `assets/` for hotlinks) in WEB-65; the PNG is the home share image.
 - Vector hero mesh: `assets/backgrounds/hero-network-mesh.svg` (with a PNG of the same name) is a vector take on that photo at the same 2752×1536 size: steel and copper strands, gradient-shaded nodes, a glowing red cluster right of center, and blurred top and bottom bands for depth of field. Its blur and glow are SVG filters, so use the PNG where filters don't render (email, some slide apps).
-- Client logos: full-color, on the paper-alt background, arranged in an infinite marquee (96px tall, capped at 240px wide so wordmarks don't dominate). Pulled from Brandfetch for the clients flagged **Can Advertise** in Jira Assets, each with a light-background logo and a `-reverse` version for dark backgrounds; refresh them with the `refresh-client-logos` skill (`.claude/skills/`).
+- Client logos: full-color, on the paper-alt background, in the static client logo grid (96px tall, capped at 240px wide so wordmarks don't dominate). Pulled from Brandfetch for the clients flagged **Can Advertise** in Jira Assets, each with a light-background logo and a `-reverse` version for dark backgrounds; refresh them with the `refresh-client-logos` skill (`.claude/skills/`).
 - Atlassian logos: We have permission to use Atlassian logos within our materials and they should be included where appropriate. We have the logos for products in our [Google Drive](https://drive.google.com/drive/u/0/folders/1tg5lWANCkSzNrXbQKVI72EC3TEz15eIY). Use logos with attribution where possible. Guidelines for Atlassian logo usage are [here](https://atlassian.design/components/logo/usage). **On dark backgrounds** use the `-inverse` file (`assets/products/<product>-inverse.svg`): the official lockup with the wordmark in white and the product mark untouched, set directly on ink at 34px tall with at least the mark's height of clear space around it. Atlassian's own logo component offers the same inverse appearance for dark and bold backgrounds. Never put a product logo over photos or busy art, recolor the mark, crop it, or rebuild the lockup; where a dark surface isn't available, use the full-color file on paper or white. (The ADS site's logo pages don't spell out containers or clear space, so these two are house rules; check the Atlassian brand kit before changing them.)
 - Sourcing third-party logos and brand assets: check what we already have first (`assets/clients/`, `assets/partners/`, `assets/products/`, and the Atlassian logos in Drive). For anything missing or low-resolution, use the **Brandfetch MCP** (`https://mcp.brandfetch.io/mcp`, configured for this project) to pull official, high-resolution logos, icons, and brand colors instead of cropping screenshots or recreating marks by hand. Prefer SVG or a large transparent PNG, and pick the full-color horizontal lockup unless the layout calls for an icon. Client logos still follow the usage note in **Asset library** (approved for the website only); check before using one in other materials.
 - Illustrations: covers, explanatory illustrations, and spots come from the shared artwork library — see **Illustrations** below.
@@ -331,17 +347,17 @@ Reference for any deliverable that needs the M20 logo in a header — web, email
 - Hover transitions: `border-color`, `box-shadow`, `transform` at `.18s ease`.
 - Cards lift `translateY(-4px)` (service/dashboard cards) or `-6px` (case-study cards) on hover with a soft shadow.
 - Buttons gain a colored glow shadow on hover (`0 8px 24px rgba(192,57,43,.28)`).
-- Logo marquee scrolls continuously (~32px/s), pauses under `prefers-reduced-motion: reduce`, and is draggable via pointer events.
+- Nothing auto-scrolls or animates on load. Motion is limited to hover and focus feedback.
 
 ## Page inventory
 
-- `index.html` (`/`) — Home: hero, 3 service pillars, "Built with you, not just for you" dark-red gradient band, Rovo AI teaser, client logo marquee, closing CTA.
-- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — Service pillars, "solutions shaped around your needs" icon list, Optimization Cycle chart, Atlassian product stack cards (Jira/Confluence/JSM; the inverse logo names the product, so there's no separate product label above the tagline), Gold Partner CTA band.
-- `ai/index.html` (`/ai`) — Rovo AI: Find/Learn/Act cards, 6 Rovo Agent categories (dark panel, pinned 3 + 3), Teamwork Graph blurb, connector logos, CTA band.
+- `index.html` (`/`) — Home: hero with the `m20-delivery` cover, a featured case study (split: illustration beside a summary and link), a services ledger, the "Built with you, not just for you" maroon band, a Rovo split, the client logo grid, a closing CTA.
+- `atlassian-services/index.html` (`/atlassian-services`, public nav label "Services") — A services ledger (six rows, title + one-line outcome, optional link), the optimization cycle step list beside its copy, the Atlassian product stack as a dark ledger (inverse logo, tagline, drawn-check list; the inverse logo names the product), and the Gold Partner CTA band.
+- `ai/index.html` (`/ai`) — Rovo AI: a Find/Learn/Act ledger, 6 Rovo Agent categories (unboxed, pinned 3 + 3 on paper-alt), a Teamwork Graph statement, an Extend split with the connector logos, CTA band.
 - `ai-value-proposition/index.html` (`/ai-value-proposition`) — how M20 runs its own operations on AI: Forge app, agentic workflows, knowledge management, governance. Reached from the Resources nav dropdown.
 - `case-studies/index.html` (`/case-studies`), `case-study-intranet/index.html` (`/case-study-intranet`), `case-study-dashboard/index.html` (`/case-study-dashboard`) — case study index (cards with spot art) + detail pages (cover art in the hero, illustration beside The Solution text).
 - `partners/index.html` (`/partners`), `privacy/index.html` (`/privacy`), `contact/index.html` (`/contact`) — partners, privacy policy, and contact form.
-- `404.html` (any path with no page) — Page not found: a standard error page on paper, nothing more than header, a centered eyebrow, heading, one sentence, a **Back to home** button, and footer. No hero art. Uses the sticky-footer layout. `noindex`, no canonical link, and left out of `sitemap.xml`.
+- `404.html` (any path with no page) — Page not found: a standard error page on paper, nothing more than header, a centered heading, one sentence (which names the 404 code), a **Back to home** button, and footer. No hero art. Uses the sticky-footer layout. `noindex`, no canonical link, and left out of `sitemap.xml`.
 - `Header.dc.html` / `Footer.dc.html` — shared, imported components (`<dc-import>`), live at the repo root regardless of how deep the importing page sits.
 
 ## URL structure
@@ -385,7 +401,7 @@ site actually lives today, not an internal navigation path.
 
 ## Voice
 
-Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Section eyebrows always follow the pattern: short colored rule + uppercase letter-spaced label (e.g. "What we do", "How we work", "Get in touch").
+Short, confident, benefit-first headlines (Source Serif 4) paired with a calmer explanatory sentence (Source Sans 3). Website sections don't use eyebrow labels (deprecated in WEB-65): the headline does the work. Link and button labels say where they go ("Read the dashboard case study", "Visit Tempo"), never a bare "Learn more".
 
 **No em dashes in copy.** Don't use `—` to splice clauses in headlines, body text, cards, or captions, on the site or in emails, PDFs, and decks. Overused em dashes read as generic AI-written copy. Use a period and a second sentence, a comma, or a colon instead, or cut the aside. (The `·` middot separator in eyebrows and footers is fine; it's a label divider, not punctuation in a sentence.)
 

@@ -5,9 +5,8 @@
     "noindex": false
   },
   "intro": {
-    "eyebrow": "Get in touch",
     "title": "Contact Us",
-    "text": "For a closer look at Rovo, the possibilities of AI with your team, or any of our services — drop us a line.",
+    "text": "For a closer look at Rovo, the possibilities of AI with your team, or any of our services, drop us a line.",
     "emailLink": {
       "href": "mailto:sales@m20tech.com",
       "label": "Prefer email? sales@m20tech.com"

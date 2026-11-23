@@ -1,28 +1,38 @@
 {
   "seo": {
     "title": "M20 Technology | Atlassian Gold Solution Partner",
-    "description": "M20 helps teams get more out of Atlassian — Jira, Confluence, JSM, and Rovo AI — with custom software, training, and support from a Gold Solution Partner.",
+    "description": "M20 helps teams get more out of Jira, Confluence, JSM and Rovo AI, with custom software, training and support from an Atlassian Gold Solution Partner.",
+    "image": "/assets/artwork/covers/m20-delivery.png",
     "noindex": false
   },
   "hero": {
-    "eyebrow": "Atlassian Gold Solution Partner · 10+ Years",
-    "image": "/assets/hero-network.jpg",
-    "title": "Empowering teams. Amplifying results.",
-    "intro": "M20 helps organizations get more out of their Atlassian tools — customized software, training, and support that build a genuinely collaborative culture.",
+    "image": "/assets/artwork/covers/m20-delivery.svg",
+    "title": "Get more out of Jira, Confluence and Rovo.",
+    "intro": "Custom software, training and support that help your teams build a collaborative culture.",
+    "meta": "Atlassian Gold Solution Partner · 10+ years",
     "primaryCta": {
       "href": "/contact",
-      "label": "Let's talk →"
+      "label": "Talk to an Atlassian expert"
     },
     "secondaryCta": {
-      "href": "/atlassian-services",
-      "label": "Explore services"
+      "href": "/case-studies",
+      "label": "See our case studies"
+    }
+  },
+  "work": {
+    "illustration": "/assets/artwork/illustrations/prototype-to-production.svg",
+    "illustrationAlt": "Three rising steps: a dashed prototype sketch, a Git-based pre-production build, and a secured production dashboard with a status table and RAG summary, all reading live from Jira.",
+    "title": "From prototype to a production-ready executive dashboard",
+    "text": "Leadership at a leading insurance comparison platform couldn't see project health, so teams built Google Sheets by hand to fill the gap. M20 took a Jira-connected executive dashboard from AI prototype to production. It passed IT and security review, stores no data, and was delivered within an existing support contract.",
+    "link": {
+      "href": "/case-study-dashboard",
+      "label": "Read the dashboard case study"
     }
   },
   "services": {
-    "eyebrow": "What we do",
     "title": "Services built around the way you work.",
     "intro": "We combine deep Atlassian expertise with years of industry experience to build platforms teams actually want to use.",
-    "cards": [
+    "items": [
       {
         "spot": "/assets/artwork/spots/org-structure.svg",
         "title": "Context Architecture",
@@ -31,51 +41,52 @@
       {
         "spot": "/assets/artwork/spots/transformation-loop.svg",
         "title": "Digital Transformation",
-        "text": "Build a company-wide strategy that inspires real shifts in digital culture — not just new tools, but new habits."
+        "text": "A company-wide strategy that shifts your digital culture. Not just new tools, but new habits."
       },
       {
         "spot": "/assets/artwork/spots/collaboration.svg",
         "title": "Collaboration & Knowledge",
-        "text": "Empower your team to share everything that matters, so knowledge compounds instead of getting lost."
+        "text": "Help your team share everything that matters, so knowledge compounds instead of getting lost."
       }
-    ]
+    ],
+    "link": {
+      "href": "/atlassian-services",
+      "label": "See all Atlassian services"
+    }
   },
   "howWeWork": {
-    "eyebrow": "How we work",
     "title": "Built with you, not just for you",
-    "lead": "M20 Technology helps companies collaborate more effectively through customized software development, training and support.",
-    "body": "We combine our expertise in quality software with years of industry experience to assist companies in creating technology platforms that foster a collaborative culture.",
+    "lead": "M20 helps companies collaborate more effectively through customized software development, training and support.",
     "points": [
       "Software customization",
       "Governance and best practices",
-      "Ongoing support & optimization"
+      "Ongoing support and optimization"
     ]
   },
   "rovo": {
-    "eyebrow": "Atlassian Rovo AI",
-    "title": "Better decisions. Made faster.",
-    "intro": "Unlock enterprise knowledge with generative AI that searches across every app, learns as your teams work, and acts with virtual agents.",
-    "cta": {
+    "title": "Better decisions, made faster with Rovo AI.",
+    "intro": "Rovo brings generative AI to your enterprise knowledge. It searches across every app, learns as your teams work, and acts through virtual agents.",
+    "link": {
       "href": "/ai",
-      "label": "Learn more →"
+      "label": "Explore Rovo AI with M20"
     },
-    "cards": [
+    "items": [
       {
-        "label": "FIND",
+        "label": "Find",
         "text": "Search once, find every answer."
       },
       {
-        "label": "LEARN",
+        "label": "Learn",
         "text": "Have an intelligent conversation."
       },
       {
-        "label": "ACT",
+        "label": "Act",
         "text": "Meet your new AI teammates."
       }
     ]
   },
   "clients": {
-    "heading": "Trusted by industry leading teams",
+    "heading": "Trusted by industry-leading teams",
     "logos": [
       {
         "image": "/assets/clients/admis.png",
@@ -84,7 +95,7 @@
       {
         "image": "/assets/clients/cllife.png",
         "alt": "CL Life",
-        "maxWidth": 240
+        "maxWidth": 200
       },
       {
         "image": "/assets/clients/cowan.png",
@@ -105,7 +116,7 @@
       {
         "image": "/assets/clients/vibrant.svg",
         "alt": "Vibrant",
-        "maxWidth": 240
+        "maxWidth": 200
       },
       {
         "image": "/assets/clients/wasteconnections.png",
@@ -118,11 +129,11 @@
     ]
   },
   "cta": {
-    "title": "Ready to amplify your team?",
+    "title": "Plan your next Atlassian project with us.",
     "text": "Tell us where you're headed and we'll help you get more out of your Atlassian tools.",
     "button": {
       "href": "/contact",
-      "label": "Contact us →"
+      "label": "Contact our team"
     }
   }
 }

@@ -138,6 +138,7 @@ export const LIBRARY = [
     items: {
       "intranet-transformation": { title: "Intranet transformation", tags: ["confluence", "intranet", "before and after", "refined", "case study", "hero"] },
       "jira-executive-dashboard": { title: "Jira executive dashboard", tags: ["jira", "dashboard", "kpi", "rag", "reporting", "case study", "hero"] },
+      "m20-delivery": { title: "M20 delivery: spreadsheet to Jira workspace", tags: ["jira", "before and after", "rag", "table", "delivery", "hero", "home"], note: "Homepage hero and its social share image." },
     },
   },
   {

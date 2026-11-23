@@ -23,14 +23,17 @@
   <dc-import name="Header" active-page="contact" hint-size="100%,76px"></dc-import>
 
   <section style="background:#14171C;color:#FAF7F4;padding-block:clamp(44px,5.5vw,72px);flex:1 0 auto;">
-    <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:start;">
+    <div style="max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4.5vw,64px);align-items:center;">
       <div>
-        <p style="font:600 13px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#E8A04C;display:flex;align-items:center;gap:12px;margin:0 0 18px;">
-          <span style="width:34px;height:2px;background:#E8A04C;"></span>[[ intro.eyebrow ]]
+        <h1 style="font:700 clamp(38px,5.4vw,60px)/1.15 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 20px;letter-spacing:-0.01em;text-wrap:balance;">
+          [[ intro.title ]]
+        </h1>
+        <p style="color:#C9CDD6;margin:0 0 1em;font-size:18px;max-width:46ch;text-wrap:pretty;">
+          [[ intro.text ]]
         </p>
-        <h2 style="font:600 clamp(34px,4.6vw,56px)/1.12 'Source Serif 4', Georgia, serif;color:#fff;margin:0 0 .5em;letter-spacing:-0.01em;">[[ intro.title ]]</h2>
-        <p style="color:#C9CDD6;margin:0 0 1em;">[[ intro.text ]]</p>
-        <p style="margin:0;"><a href="[[ intro.emailLink.href ]]" style="color:#F5C98F;">[[ intro.emailLink.label ]]</a></p>
+        <p style="margin:0;">
+          <a href="[[ intro.emailLink.href ]]" style="color:#F5C98F;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;" style-hover="color:#fff;">[[ intro.emailLink.label ]]</a>
+        </p>
       </div>
 
       <form style="background:#fff;color:#14171C;border-radius:22px;padding:clamp(28px,4vw,44px);box-shadow:0 40px 90px rgba(0,0,0,.4);" onsubmit="{{ handleSubmit }}" novalidate="">
@@ -55,8 +58,8 @@
           <input type="text" id="subject" name="subject" required="" value="{{ subject }}" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ subjectBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;">
         </div>
         <div>
-          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.messageLabel ]]</label>
-          <textarea id="message" name="message" rows="5" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
+          <label for="message" style="display:block;font:600 13.5px 'Source Sans 3', system-ui, sans-serif;margin-bottom:7px;color:#23282F;">[[ form.messageLabel ]] <span style="color:#C0392B;">*</span></label>
+          <textarea id="message" name="message" rows="5" required="" onchange="{{ onField }}" style="width:100%;font:400 16px 'Source Sans 3', system-ui, sans-serif;color:#14171C;background:#FAF7F4;border:1.5px solid {{ messageBorder }};border-radius:10px;padding:13px 15px;box-sizing:border-box;resize:vertical;min-height:120px;" value="{{ message }}"></textarea>
         </div>
         <div class="h-captcha" data-captcha="true"></div>
         <button type="submit" disabled="{{ submitting }}" style="margin-top:4px;width:100%;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 20px;font:600 15px 'Source Sans 3', system-ui, sans-serif;letter-spacing:.02em;border-radius:999px;border:0;background:#C0392B;color:#fff;cursor:pointer;" style-hover="background:#96271C;box-shadow:0 8px 24px rgba(192,57,43,.28);">{{ submitLabel }}</button>
@@ -109,7 +112,7 @@ class Component extends DCLogic {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const required = ["firstName", "lastName", "email", "subject"];
+    const required = ["firstName", "lastName", "email", "subject", "message"];
     const invalid = {};
     let valid = true;
     required.forEach(f => {

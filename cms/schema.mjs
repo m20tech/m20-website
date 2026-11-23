@@ -9,7 +9,7 @@
 
 import {
   string, text, markdown, image, object, list, strings,
-  blocks, block, link, eyebrow, boolean, number, seo, artwork,
+  blocks, block, link, eyebrow, boolean, number, seo, artwork, icon,
 } from "./fields.mjs";
 import { artworkMedia } from "./artwork.mjs";
 
@@ -87,36 +87,29 @@ const components = [
 // Sections shared by the case study pages.
 const caseStudyHero = () =>
   object("hero", "Hero", [
-    string("eyebrow", "Eyebrow", { description: "Links back to the case studies index." }),
     string("title", "Heading"),
     text("intro", "Intro"),
     strings("tags", "Tags"),
     artwork("covers", "cover", "Cover image", { description: "Background art on the right of the hero (decorative). Pick the cover's .svg." }),
   ]);
-const highlights = () =>
-  object("highlights", "Project highlights", [
-    eyebrow(),
-    list("stats", "Stats", [string("value", "Value"), string("label", "Label")]),
-  ]);
 const overview = () =>
   object("overview", "Company overview", [
-    eyebrow(),
     string("title", "Heading"),
     text("text", "Text"),
-    string("industryLabel", "Industry label"),
-    string("industry", "Industry"),
-    string("focusLabel", "Focus label"),
-    string("focus", "Focus"),
-    string("challengeLabel", "Challenge label"),
-    text("challenge", "Core challenge"),
+    list("facts", "Project facts", [string("term", "Label"), string("value", "Value")], {
+      description: "Label/value rows beside the overview (industry, focus, key facts). Keep values factual; no stat tiles.",
+    }),
   ]);
+// Closing buttons at the end of a case study.
+const closing = () =>
+  object("closing", "Closing buttons", [link("cta", "Main button"), link("indexLink", "Back to case studies link")]);
 // Explanatory illustration with its alt text, placed in the solution section.
 const illustration = () => [
   artwork("illustrations", "illustration", "Illustration"),
   string("illustrationAlt", "Illustration alt text", { required: false, description: "Describe what the illustration shows." }),
 ];
 const section = (name, label, extra = []) =>
-  object(name, label, [eyebrow(), string("title", "Heading"), text("text", "Text"), ...extra]);
+  object(name, label, [string("title", "Heading"), text("text", "Text"), ...extra]);
 
 const pages = [
   {
@@ -127,43 +120,46 @@ const pages = [
     fields: [
       seo(),
       object("hero", "Hero", [
-        eyebrow(),
-        image("image", "Background image", { description: "Decorative network art on the right of the hero." }),
+        artwork("covers", "image", "Cover image", { description: "Art on the right of the hero (decorative). Pick the cover's .svg." }),
         string("title", "Heading"),
         text("intro", "Intro"),
         link("primaryCta", "Primary button"),
         link("secondaryCta", "Secondary button"),
+        string("meta", "Meta line", { description: "Small muted line under the buttons, e.g. partner status." }),
+      ]),
+      object("work", "Featured case study", [
+        ...illustration(),
+        string("title", "Heading"),
+        text("text", "Summary", { description: "Two or three sentences, taken from the case study." }),
+        link("link", "Link"),
       ]),
       object("services", "What we do", [
-        eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
-        list("cards", "Service cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
-          string("title", "Title"),
+        list("items", "Services", [
+          artwork("spots", "spot", "Spot", { description: "Shown at the start of the row (decorative). Pick the spot's .svg." }),
+          string("title", "Name"),
           text("text", "Description"),
         ]),
+        link("link", "Link"),
       ]),
       object("howWeWork", "How we work", [
-        eyebrow(),
         string("title", "Heading"),
         text("lead", "Lead paragraph"),
-        text("body", "Body"),
         strings("points", "Checklist"),
       ]),
       object("rovo", "Rovo AI", [
-        eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
-        link("cta", "Button"),
-        list("cards", "Cards", [string("label", "Label"), string("text", "Text")]),
+        link("link", "Link"),
+        list("items", "Find / Learn / Act", [string("label", "Label"), string("text", "Text")]),
       ]),
       object("clients", "Client logos", [
         string("heading", "Heading"),
         list("logos", "Logos", [
           image("image", "Logo", { options: { path: "assets/clients" } }),
           string("alt", "Company name (alt text)"),
-          number("maxWidth", "Max width (px)", { description: "Optional — only for unusually wide logos." }),
+          number("maxWidth", "Max width (px)", { description: "Optional. Only for unusually wide logos." }),
         ]),
       ]),
       object("cta", "Closing call to action", [
@@ -180,30 +176,27 @@ const pages = [
     path: "content/pages/ai.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
-      object("meet", "Meet Rovo", [
-        eyebrow(),
+      object("hero", "Hero", [string("title", "Heading"), text("intro", "Intro"), link("cta", "Button")]),
+      object("meet", "Find, learn, act", [
         string("title", "Heading"),
-        list("cards", "Cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
-          string("label", "Label"),
-          string("title", "Title"),
+        list("items", "Ledger rows", [
+          icon(),
+          string("label", "Label", { description: "One word, e.g. Find." }),
+          string("title", "Lead line"),
           text("text", "Description"),
         ]),
         link("datasheet", "Datasheet button"),
       ]),
       object("agents", "Rovo agents", [
-        eyebrow(),
         string("title", "Heading"),
-        list("cards", "Agent cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+        list("cards", "Agents", [
+          icon(),
           string("title", "Title"),
           text("text", "Description"),
-        ]),
+        ], { description: "Laid out three to a row on desktop; six fills two rows." }),
       ]),
-      object("foundation", "Foundation", [eyebrow(), string("title", "Heading"), text("text", "Text")]),
+      object("foundation", "Foundation", [string("title", "Heading"), text("text", "Text")]),
       object("extend", "Extend", [
-        eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
         image("image", "Image"),
@@ -219,31 +212,23 @@ const pages = [
     path: "content/pages/atlassian-services.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
-      object("services", "What we do", [
-        eyebrow(),
+      object("hero", "Hero", [string("title", "Heading"), text("intro", "Intro")]),
+      object("services", "Services ledger", [
         string("title", "Heading"),
-        list("cards", "Service cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
-          string("title", "Title"),
-          text("text", "Description"),
-        ]),
-      ]),
-      object("solutions", "Solutions", [
-        eyebrow(),
-        string("title", "Heading"),
-        list("cards", "Solution cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
-          string("title", "Title"),
-          text("text", "Description"),
+        list("items", "Services", [
+          string("title", "Service"),
+          text("text", "Outcome", { description: "One line on what the client gets." }),
+          string("linkLabel", "Link text", { required: false, description: "Optional link under the outcome. Say where it goes." }),
+          string("linkHref", "Link", { required: false, description: "A site path like /ai. Leave empty for no link." }),
         ]),
       ]),
       object("cycle", "Optimization cycle", [
-        image("image", "Image"),
-        string("imageAlt", "Image alt text"),
-        eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
+        string("listLabel", "Cycle name (screen readers)", { description: "Read out before the steps, e.g. \"The M20 optimization cycle\"." }),
+        list("steps", "Cycle steps", [string("label", "Step")], {
+          description: "Shown clockwise from top left; the cycle reads best with exactly four steps.",
+        }),
         link("cta", "Button"),
       ]),
       object("stack", "Atlassian stack", [
@@ -255,7 +240,11 @@ const pages = [
           strings("items", "Checklist"),
         ]),
       ]),
-      object("partner", "Partner banner", [eyebrow(), text("title", "Heading"), link("cta", "Button")]),
+      object("partner", "Partner banner", [
+        text("title", "Heading"),
+        string("meta", "Partner line", { description: "Small muted line under the heading, e.g. the partner tier." }),
+        link("cta", "Button"),
+      ]),
     ],
   },
   {
@@ -265,7 +254,7 @@ const pages = [
     path: "content/pages/partners.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro")]),
+      object("hero", "Hero", [string("title", "Heading"), text("intro", "Intro")]),
       list("partners", "Partners", [
         image("logo", "Logo", { options: { path: "assets/partners" } }),
         string("logoAlt", "Logo alt text"),
@@ -283,11 +272,9 @@ const pages = [
     path: "content/pages/case-studies.json",
     fields: [
       seo(),
-      eyebrow(),
       string("title", "Heading"),
       list("studies", "Case study cards", [
         string("href", "Link", { description: "Path of the case study page, e.g. /case-study-intranet." }),
-        string("category", "Category"),
         string("title", "Title"),
         text("summary", "Summary"),
         string("linkLabel", "Link text"),
@@ -302,7 +289,7 @@ const pages = [
     path: "content/pages/privacy.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), string("updated", "Last updated line")]),
+      object("hero", "Hero", [string("title", "Heading"), string("updated", "Last updated line")]),
       blocks("body", "Policy text", [
         block("heading", "Heading", [string("text", "Heading")]),
         block("subheading", "Subheading", [string("text", "Subheading")]),
@@ -318,7 +305,6 @@ const pages = [
     path: "content/pages/404.json",
     fields: [
       seo(),
-      eyebrow(),
       string("title", "Heading"),
       text("text", "Text"),
       link("cta", "Button"),
@@ -332,7 +318,6 @@ const pages = [
     fields: [
       seo(),
       caseStudyHero(),
-      highlights(),
       overview(),
       text("quote", "Client quote paragraphs", { list: true }),
       section("challenge", "The challenge", [
@@ -341,7 +326,8 @@ const pages = [
       ]),
       section("solution", "The solution", illustration()),
       section("design", "Design & features"),
-      section("outcomes", "Outcomes", [link("cta", "Button")]),
+      section("outcomes", "Outcomes"),
+      closing(),
     ],
   },
   {
@@ -352,49 +338,35 @@ const pages = [
     fields: [
       seo(),
       caseStudyHero(),
-      highlights(),
       overview(),
       object("challenge", "The challenge", [
-        eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
-        list("cards", "Challenge cards", [string("label", "Label"), string("title", "Title"), text("text", "Text")]),
+        list("items", "Challenges", [string("title", "Title"), text("text", "Text")]),
         text("outro", "Closing paragraph"),
       ]),
       object("solution", "The solution", [
-        eyebrow(),
         string("title", "Heading"),
         text("intro", "Intro"),
         ...illustration(),
         list("phases", "Phases", [
-          string("label", "Label"),
           string("title", "Title"),
+          string("label", "Stage", { description: "Shown under the title, e.g. POC 1 · Prototype." }),
           list("specs", "Specs", [string("term", "Term"), string("value", "Value")]),
-          string("result", "Result"),
         ]),
       ]),
       object("architecture", "Core architecture", [
-        eyebrow(),
+        string("title", "Heading"),
         list("parts", "Parts", [string("title", "Title"), markdown("text", "Text")]),
       ]),
-      object("principles", "Key design principles", [eyebrow(), markdown("items", "Principles", { list: true })]),
-      object("value", "Our value", [
-        eyebrow(),
+      object("principles", "Key design principles", [string("title", "Heading"), markdown("items", "Principles", { list: true })]),
+      object("outcomes", "Outcomes", [string("title", "Heading"), text("intro", "Intro"), strings("items", "Outcomes")]),
+      object("value", "How M20 helped", [
         string("title", "Heading"),
         text("intro", "Intro"),
-        list("cards", "Cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
-          string("title", "Title"),
-          text("text", "Text"),
-        ]),
+        list("items", "Rows", [string("title", "Title"), text("text", "Text")]),
       ]),
-      object("outcomes", "Outcomes", [
-        eyebrow(),
-        string("title", "Heading"),
-        text("intro", "Intro"),
-        strings("items", "Outcomes"),
-        link("cta", "Button"),
-      ]),
+      closing(),
     ],
   },
   {
@@ -404,57 +376,51 @@ const pages = [
     path: "content/pages/ai-value-proposition.json",
     fields: [
       seo(),
-      object("hero", "Hero", [eyebrow(), string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
+      object("hero", "Hero", [string("title", "Heading"), text("intro", "Intro"), strings("tags", "Tags")]),
       object("inside", "What's inside", [
-        eyebrow(),
-        list("cards", "Section cards", [
+        string("label", "Navigation name (screen readers)", { description: "Read out before the section links, e.g. \"What's inside\"." }),
+        list("cards", "Section links", [
           string("href", "Link", { description: "Anchor of the section below, e.g. #forge-app." }),
-          string("number", "Number"),
           string("title", "Title"),
           text("text", "Text"),
         ]),
       ]),
-      object("forge", "01 · Forge app", [
-        eyebrow(),
+      object("forge", "Forge app", [
         string("title", "Heading"),
         strings("tags", "Tags"),
-        string("backgroundLabel", "Background label"),
+        string("backgroundLabel", "Background heading"),
         text("background", "Background"),
-        string("solutionLabel", "Solution label"),
+        string("solutionLabel", "Solution heading"),
         text("solution", "Solution"),
-        list("features", "Feature cards", [
-          artwork("spots", "spot", "Spot", { description: "Shown at the top of the card (decorative). Pick the spot's .svg." }),
+        list("features", "Features", [
+          icon(),
           string("title", "Title"),
           strings("items", "Items"),
         ]),
-        string("outcomesLabel", "Outcomes label"),
+        string("outcomesLabel", "Outcomes heading"),
         strings("outcomes", "Outcomes"),
       ]),
-      object("workflows", "02 · Agentic workflows", [
-        eyebrow(),
+      object("workflows", "Agentic workflows", [
         string("title", "Heading"),
         text("intro", "Intro"),
         strings("tags", "Tags"),
-        list("cards", "Cards", [string("title", "Title"), text("text", "Text")]),
+        list("cards", "Workflows", [string("title", "Title"), text("text", "Text")]),
       ]),
-      object("knowledge", "03 · Knowledge management", [
-        eyebrow(),
+      object("knowledge", "Knowledge management", [
         string("title", "Heading"),
         text("intro", "Intro"),
         strings("tags", "Tags"),
-        object("featured", "Featured example", [
-          string("label", "Label"),
+        object("featured", "Featured agent", [
           string("title", "Title"),
           text("intro", "Intro"),
           list("parts", "Sub-agents", [string("title", "Title"), text("text", "Text")]),
         ]),
-        list("cards", "Cards", [string("title", "Title"), text("text", "Text")]),
+        list("cards", "More agents", [string("title", "Title"), text("text", "Text")]),
       ]),
-      object("governance", "04 · AI governance", [
-        eyebrow(),
+      object("governance", "AI governance", [
         string("title", "Heading"),
         text("intro", "Intro"),
-        markdown("items", "Items", { list: true }),
+        list("items", "Guardrails", [string("title", "Guardrail"), text("text", "Detail")]),
       ]),
       object("cta", "Closing call to action", [text("title", "Heading"), link("button", "Button")]),
     ],
@@ -467,7 +433,6 @@ const pages = [
     fields: [
       seo(),
       object("intro", "Intro", [
-        eyebrow(),
         string("title", "Heading"),
         text("text", "Text"),
         link("emailLink", "Email link", { description: "Use a mailto: link, e.g. mailto:sales@m20tech.com." }),

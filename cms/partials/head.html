@@ -18,6 +18,22 @@
 <meta property="og:url" content="[[ build.url ]]">
 <meta property="og:image" content="[[ site.siteUrl ]][[#if seo.image]][[ seo.image ]][[else]][[ site.defaultImage ]][[/if]]">
 <meta name="twitter:card" content="summary_large_image">
+<style id="site-states">
+  /* Site-wide browser states, from the palette (design.md: Components → States). */
+  ::selection { background: #F9E9E4; color: #14171C; }
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 2px solid #C0392B;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(250, 247, 244, .92);
+    border-radius: 6px;
+  }
+  a[style*="999px"]:focus-visible, button[style*="999px"]:focus-visible { border-radius: 999px; }
+  html { scrollbar-color: #9AA1AD #F3EEE8; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
+</style>
 [[#if build.isHome]]
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":[[json site.siteName]],"url":[[json site.siteUrl]],"logo":"[[ site.siteUrl ]][[ site.logo ]]","sameAs":[[json site.sameAs]]}</script>
 [[/if]]

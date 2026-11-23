@@ -4,9 +4,8 @@
     "description": "The page you're looking for doesn't exist or has moved. Head back to the M20 Technology home page.",
     "noindex": true
   },
-  "eyebrow": "Error 404",
   "title": "Page not found",
-  "text": "The page you're looking for doesn't exist or has moved.",
+  "text": "The page you're looking for doesn't exist or has moved (error 404).",
   "cta": {
     "label": "Back to home",
     "href": "/"
